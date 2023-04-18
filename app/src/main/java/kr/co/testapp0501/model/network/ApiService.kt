@@ -8,6 +8,6 @@ import retrofit2.http.POST
 interface ApiService {
 
     @POST("/")
-    fun postMethodTest(@Body item: User?): Call<User?>?
+    fun addUser(@Body user: User): Call<User>
 
 }

@@ -8,18 +8,10 @@ import kotlinx.coroutines.launch
 import kr.co.testapp0501.User
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.model.network.UserRepository
 
-class UserViewModel : ViewModel() {
-
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
-
-    fun loadCoinCurrent(){
-
-        val apiService : ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
-
-
+class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
+    fun addUser(id : String, name : String): LiveData<User>{
+        return userRepository.addUser(id, name)
     }
-
 }

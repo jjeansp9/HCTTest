@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -23,10 +24,12 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityLoginBinding
+import kr.co.testapp0501.viewmodel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
 
     private val binding : ActivityLoginBinding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
+    private lateinit var userViewModel: UserViewModel
 
     private val clientId = "2RREVK5H8Ovzs4Z8LijQ" // 네이버 로그인 식별 아이디
     private val clientSecret = "x8vBpMJJO8" // 네이버 로그인 식별 패스워드
@@ -37,6 +40,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
         NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
@@ -93,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
                     // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 } else if (token != null) {
-                    Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                    Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공! ${token.accessToken}")
                 }
             }
         } else {
