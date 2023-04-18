@@ -48,7 +48,6 @@ class LoginActivity : AppCompatActivity() {
         binding.naverLogin.setOnClickListener{}
         binding.googleLogin.setOnClickListener{}
 
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
