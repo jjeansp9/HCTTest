@@ -13,6 +13,8 @@ class UserRepository {
 
     fun addUser(id : String, name : String) : LiveData<User>{
 
+        Log.i("mm", id+name)
+
         val userLiveData = MutableLiveData<User>()
         val user = User(id, name)
 
@@ -34,4 +36,37 @@ class UserRepository {
 
         return userLiveData
     }
+
+    fun getAccessToken(token : String){
+        Log.i("UserRepository Token", token)
+
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

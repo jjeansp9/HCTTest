@@ -49,6 +49,8 @@ class LoginActivity : AppCompatActivity() {
         normalLogin()
         clickedBackGround()
 
+        userViewModel.addUser("22", "aaaaa")
+
         binding.kakaoLogin.setOnClickListener{kakaoLogin()}
         binding.naverLogin.setOnClickListener{}
         binding.googleLogin.setOnClickListener{}
@@ -80,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.e(ContentValues.TAG, "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
                 Log.i(ContentValues.TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+                userViewModel.getAccessToken(token.accessToken)
             }
         }
 
@@ -99,6 +102,7 @@ class LoginActivity : AppCompatActivity() {
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 } else if (token != null) {
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공! ${token.accessToken}")
+                    userViewModel.getAccessToken(token.accessToken)
                 }
             }
         } else {
