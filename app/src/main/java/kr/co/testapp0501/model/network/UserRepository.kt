@@ -1,17 +1,19 @@
 package kr.co.testapp0501.model.network
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bumptech.glide.Glide
 import com.kakao.sdk.user.UserApiClient
 import kr.co.testapp0501.User
+import kr.co.testapp0501.view.activities.LoginActivity
+import kr.co.testapp0501.view.activities.MainActivity
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
+import java.io.File
 
 class UserRepository {
-    private val apiService : ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
 //    fun addUser(id : Long?, name : String) : LiveData<User>{
 //
@@ -39,7 +41,9 @@ class UserRepository {
 //        return userLiveData
 //    }
 
-    fun addUser(token : String, platform: String) : LiveData<User>{
+    val apiService : ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+    fun addUser(context: Context, token : String, platform: String) : LiveData<User>{
         Log.i("UserRepository Token", token)
 
         val userLiveData = MutableLiveData<User>()
@@ -57,10 +61,15 @@ class UserRepository {
 //                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
 //                    )
 
+                    registerUser(User(343, "Ss"))
+
                     val user = User(user.id, user.kakaoAccount!!.profile!!.nickname)
                     userLiveData.value = User(user.id, user.name)
 
                     Log.i("UserRepository addUser()", user.id.toString())
+
+                    context.startActivity(Intent(context, MainActivity::class.java))
+                    (context as LoginActivity).finish()
 
                     apiService.getUser("users").enqueue(object : retrofit2.Callback<User>{
                         override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -71,9 +80,11 @@ class UserRepository {
                                 return
 
                             }else{
-                                registerUser(item)
+                                // TODO 서버로 데이터보내기 테스트 해봐야 함
+                                registerUser(item) // 회원정보 서버로 보내기
 
-
+                                context.startActivity(Intent(context, MainActivity::class.java))
+                                (context as LoginActivity).finish()
                             }
                         }
 

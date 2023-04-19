@@ -50,11 +50,17 @@ class LoginActivity : AppCompatActivity() {
         normalLogin()
         clickedBackGround()
 
-        //userViewModel.addUser("22", "aaaaa")
-
         binding.kakaoLogin.setOnClickListener{login(kakao)}
         binding.naverLogin.setOnClickListener{login(naver)}
         binding.googleLogin.setOnClickListener{login(google)}
+    }
+
+    // 파라미터 값에 맞는 플랫폼으로 로그인 실행
+    private fun login(platform : String){
+        userViewModel.startLogin(this, platform)
+        userViewModel.addUser(this, platform).observe(this){ user ->
+            Log.i("MainActivity User", user.name+user.id)
+        }
     }
 
     // 키보드가 열린 상태일 때
@@ -70,13 +76,6 @@ class LoginActivity : AppCompatActivity() {
             )
             false
         })
-    }
-
-    private fun login(platform : String){
-        userViewModel.startLogin(this, platform)
-        userViewModel.addUser(platform).observe(this){ user ->
-            Log.i("MainActivity User", user.name+user.id)
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")

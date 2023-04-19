@@ -23,8 +23,8 @@ import kr.co.testapp0501.model.network.UserRepository
 class UserViewModel : ViewModel() {
 
     private val userRepository = UserRepository()
-    fun addUser(platform: String): LiveData<User>{
-        return userRepository.addUser("", platform)
+    fun addUser(context: Context, platform: String): LiveData<User>{
+        return userRepository.addUser(context, "", platform)
     }
 
     fun startLogin(context: Context, platform : String){
@@ -46,7 +46,7 @@ class UserViewModel : ViewModel() {
                 Log.e(ContentValues.TAG, "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
                 Log.i(ContentValues.TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                userRepository.addUser(token.accessToken, platform).toString()
+                userRepository.addUser(context, token.accessToken, platform).toString()
             }
         }
 
@@ -66,7 +66,7 @@ class UserViewModel : ViewModel() {
                     UserApiClient.instance.loginWithKakaoAccount(context = context, callback = callback)
                 } else if (token != null) {
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공! ${token.accessToken}")
-                    userRepository.addUser(token.accessToken, platform).toString()
+                    userRepository.addUser(context, token.accessToken, platform).toString()
                 }
             }
         } else {
@@ -85,7 +85,7 @@ class UserViewModel : ViewModel() {
                 Log.i("naverLogin", "네이버 토큰타입 : " + NaverIdLoginSDK.getTokenType())
                 Log.i("naverLogin", "네이버 상태 : " + NaverIdLoginSDK.getState())
 
-                userRepository.addUser(NaverIdLoginSDK.getAccessToken().toString(), "naver")
+                userRepository.addUser(context, NaverIdLoginSDK.getAccessToken().toString(), "naver")
             }
             override fun onFailure(httpStatus: Int, message: String) {
                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
