@@ -54,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
         binding.kakaoLogin.setOnClickListener{kakaoLogin()}
         binding.naverLogin.setOnClickListener{}
         binding.googleLogin.setOnClickListener{}
-
     }
 
     @SuppressLint("ClickableViewAccessibility")

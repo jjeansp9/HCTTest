@@ -15,28 +15,28 @@
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/login_naver_logo" />
+            android:src="@drawable/img_ex_logo" />
 
-        <TextView
-            android:id="@+id/tv_logo_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/img_logo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:text="@string/logo_name"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_logo_name"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@id/img_logo"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_marginTop="12dp"-->
+        <!--            android:text="@string/logo_name"-->
+        <!--            android:textSize="26sp"-->
+        <!--            android:textStyle="bold" />-->
 
         <RelativeLayout
             android:id="@+id/layout_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_logo_name"
-            android:layout_marginTop="44dp"
+            android:layout_below="@id/img_logo"
+            android:layout_marginTop="24dp"
             android:paddingLeft="50dp"
             android:paddingRight="50dp">
 
@@ -47,7 +47,7 @@
                 android:hint="이메일 입력"
                 android:inputType="text|textNoSuggestions"
                 android:padding="12dp"
-                android:textColorHint="#C6C6C6"
+                android:textColorHint="#CCCCCC"
                 android:textSize="16sp"
                 tools:ignore="TextFields" />
 
@@ -57,11 +57,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_email"
                 android:hint="비밀번호 입력"
-                android:padding="12dp"
-                android:textSize="16sp"
-                android:textColorHint="#C6C6C6"
                 android:inputType="textPassword|textNoSuggestions"
-                tools:ignore="TextFields"/>
+                android:padding="12dp"
+                android:textColorHint="#CCCCCC"
+                android:textSize="16sp"
+                tools:ignore="TextFields" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -78,10 +78,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_centerInParent="true"
                     android:text="로그인"
-                    android:textSize="20sp"/>
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -99,76 +99,76 @@
                 android:id="@+id/tv_find_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingLeft="6dp"
+                android:paddingTop="16dp"
                 android:paddingRight="6dp"
+                android:paddingBottom="16dp"
                 android:text="아이디 찾기"
-                android:textColor="#8C8C8C"/>
+                android:textColor="#999999" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="|"
-                android:textColor="#8C8C8C"/>
+                android:textColor="#999999" />
 
             <TextView
                 android:id="@+id/tv_find_pw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingLeft="6dp"
+                android:paddingTop="16dp"
                 android:paddingRight="6dp"
+                android:paddingBottom="16dp"
                 android:text="비밀번호 찾기"
-                android:textColor="#8C8C8C"/>
+                android:textColor="#999999" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="|"
-                android:textColor="#8C8C8C"/>
+                android:textColor="#999999" />
 
             <TextView
                 android:id="@+id/tv_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:paddingLeft="6dp"
+                android:paddingTop="16dp"
                 android:paddingRight="6dp"
+                android:paddingBottom="16dp"
                 android:text="회원가입"
-                android:textColor="#8C8C8C"/>
+                android:textColor="#999999" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_sns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@id/layout_sign_up"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
             android:gravity="center_vertical"
-            android:layout_marginTop="50dp">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="1dp"
-                android:background="#C5C5C5"/>
+                android:background="#C5C5C5" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:text="SNS 계정으로 로그인"
                 android:textColor="#8C8C8C"
-                android:textSize="16sp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"/>
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="1dp"
-                android:background="#C5C5C5"/>
+                android:background="#C5C5C5" />
         </LinearLayout>
 
         <LinearLayout
@@ -179,57 +179,28 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="4dp">
 
-<!--            <ImageView-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_height="80dp"-->
-<!--                android:src="@drawable/login_naver_logo"-->
-<!--                android:padding="10dp"-->
-<!--                android:layout_marginRight="6dp"/>-->
-
-<!--            <ImageView-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_height="80dp"-->
-<!--                android:src="@drawable/login_naver_logo"-->
-<!--                android:padding="10dp"-->
-<!--                android:layout_marginRight="6dp"/>-->
-
-<!--            <ImageView-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_height="80dp"-->
-<!--                android:src="@drawable/login_naver_logo"-->
-<!--                android:padding="10dp"/>-->
+            <ImageView
+                android:id="@+id/google_login"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="6dp"
+                android:padding="12dp"
+                android:src="@drawable/btn_sns_google" />
 
             <ImageView
                 android:id="@+id/kakao_login"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/kakao_logo"
+                android:layout_marginRight="6dp"
                 android:padding="12dp"
-                android:layout_margin="4dp"/>
+                android:src="@drawable/btn_sns_kakao" />
 
             <ImageView
                 android:id="@+id/naver_login"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/naver_logo"
-                android:padding="15dp"
-                android:layout_margin="4dp"/>
-
-            <RelativeLayout
-                android:id="@+id/google_login"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:padding="14dp"
-                android:layout_margin="4dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/google_logo"
-                    android:padding="9dp"
-                    android:background="@drawable/background"/>
-
-            </RelativeLayout>
+                android:padding="12dp"
+                android:src="@drawable/btn_sns_naver" />
 
         </LinearLayout>
 
