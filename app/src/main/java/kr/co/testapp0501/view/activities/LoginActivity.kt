@@ -38,6 +38,11 @@ class LoginActivity : AppCompatActivity() {
 
     var mGoogleSignInClient: GoogleSignInClient? = null
 
+    // 어떤것으로 로그인했는지 구분하기 위한 변수
+    val kakao = "kakao"
+    val naver = "naver"
+    val google = "google"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -52,53 +57,34 @@ class LoginActivity : AppCompatActivity() {
 
         //userViewModel.addUser("22", "aaaaa")
 
-        binding.kakaoLogin.setOnClickListener{kakaoLogin()}
-        binding.naverLogin.setOnClickListener{naverLogin()}
+        binding.kakaoLogin.setOnClickListener{login(kakao)}
+        binding.naverLogin.setOnClickListener{login(naver)}
         binding.googleLogin.setOnClickListener{test()}
     }
 
+    // 키보드가 열린 상태일 때
+    // 키보드 외의 바깥 영역을 클릭하면 키보드 내려가게하는 메소드
     @SuppressLint("ClickableViewAccessibility")
     private fun clickedBackGround(){
         binding.loginRoot.setOnTouchListener(OnTouchListener { v, event ->
-            hideKeyboard()
+            val inputManager: InputMethodManager =
+                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(
+                this.currentFocus!!.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
             false
         })
     }
 
-    //
-    fun hideKeyboard() {
-        val inputManager: InputMethodManager =
-            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(
-            this.currentFocus!!.windowToken,
-            InputMethodManager.HIDE_NOT_ALWAYS
-        )
-    }
 
-    val kakao = "kakao"
-    val naver = "naver"
-    val google = "google"
 
-    private fun kakaoLogin(){
-        userViewModel.startLogin(this, kakao)
-
-        userViewModel.addUser().observe(this){ user ->
-            Log.i("MainActivityKakao", user.name+user.id)
+    private fun login(platform : String){
+        userViewModel.startLogin(this, platform)
+        userViewModel.addUser(platform).observe(this){ user ->
+            Log.i("MainActivity User", user.name+user.id)
         }
     }
-
-    private fun naverLogin(){
-        userViewModel.startLogin(this, naver)
-        userViewModel.addUser().observe(this){ user ->
-            Log.i("MainActivityNaver", user.name+user.id)
-        }
-    }
-
-    private fun googleLogin(){
-        userViewModel.startLogin(this, google)
-    }
-
-
 
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun normalLogin(){

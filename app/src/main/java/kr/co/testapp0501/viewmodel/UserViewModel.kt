@@ -23,8 +23,8 @@ import kr.co.testapp0501.model.network.UserRepository
 class UserViewModel : ViewModel() {
 
     private val userRepository = UserRepository()
-    fun addUser(): LiveData<User>{
-        return userRepository.addUser("", "")
+    fun addUser(platform: String): LiveData<User>{
+        return userRepository.addUser("", platform)
     }
 
     fun startLogin(context: Context, platform : String){
@@ -38,7 +38,7 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    private fun kakaoLogin(context: Context, platform: String){
+    fun kakaoLogin(context: Context, platform: String){
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
