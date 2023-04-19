@@ -56,12 +56,15 @@ class UserRepository {
                     "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
                 )
 
-                apiService.getUser(user.kakaoAccount!!.profile!!.nickname).enqueue(object : retrofit2.Callback<User>{
+                //val user = User(user.id, user.kakaoAccount!!.profile!!.nickname)
+                //userLiveData.value = User(user.id, user.name)
+
+                apiService.getUser("users").enqueue(object : retrofit2.Callback<User>{
                     override fun onResponse(call: Call<User>, response: Response<User>) {
 
                         val item = response.body()
 
-                        if (item != null){
+                        if (item?.id != null){
                             return
 
                         }else{
