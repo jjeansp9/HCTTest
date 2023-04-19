@@ -68,25 +68,8 @@ class UserRepository {
                             return
 
                         }else{
+                            registerUser(item)
 
-                            val user = User(user.id, user.kakaoAccount!!.profile!!.nickname)
-                            userLiveData.value = User(user.id, user.name)
-
-                            apiService.addUser(user).enqueue(object : retrofit2.Callback<User> {
-
-                                override fun onResponse(call: Call<User>, response: Response<User>) {
-
-                                    if (response.isSuccessful){
-                                        userLiveData.value = response.body()
-                                    }else{
-                                        // Handle error
-                                    }
-                                }
-
-                                override fun onFailure(call: Call<User>, t: Throwable) {
-                                    Log.e("UserRepository Error", "${t.message}")
-                                }
-                            })
                         }
                     }
 
@@ -97,6 +80,28 @@ class UserRepository {
         }
 
         return userLiveData
+    }
+
+    private fun registerUser(user: User?){
+
+        val user = User(user?.id, user?.name)
+
+        apiService.addUser(user).enqueue(object : retrofit2.Callback<User> {
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+
+                if (response.isSuccessful){
+                    val item =response.body()
+                    Log.i("UserRepository registerUser", item?.id.toString())
+                }else{
+                    // Handle error
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("UserRepository Error", "${t.message}")
+            }
+        })
     }
 
 }

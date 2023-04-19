@@ -3,6 +3,7 @@ package kr.co.testapp0501.viewmodel
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,13 +12,15 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.OAuthLoginCallback
 import kotlinx.coroutines.launch
 import kr.co.testapp0501.User
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.network.UserRepository
 
-class UserViewModel : ViewModel() {
+class UserViewModel(context: Context) : ViewModel() {
 
     private val userRepository = UserRepository()
     fun addUser(): LiveData<User>{
@@ -28,13 +31,15 @@ class UserViewModel : ViewModel() {
 
         if (platform == 0){
             kakaoLogin(context)
+        }else if (platform == 1){
+            naverLogin(context)
         }
 
 
 
     }
 
-    fun kakaoLogin(context: Context){
+    private fun kakaoLogin(context: Context){
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -67,6 +72,30 @@ class UserViewModel : ViewModel() {
             }
         } else {
             UserApiClient.instance.loginWithKakaoAccount(context = context, callback = callback)
+        }
+    }
+
+    private fun naverLogin(context: Context){
+        NaverIdLoginSDK.authenticate(context, callback = oauthLoginCallback)
+    }
+
+    val oauthLoginCallback = object : OAuthLoginCallback {
+        override fun onSuccess() {
+            // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
+            Log.i("naverLogin", "네이버 토큰 : " + NaverIdLoginSDK.getAccessToken())
+            Log.i("naverLogin", "네이버 Refresh토큰 : " + NaverIdLoginSDK.getRefreshToken())
+            Log.i("naverLogin", "네이버 만료시간 : " + NaverIdLoginSDK.getExpiresAt())
+            Log.i("naverLogin", "네이버 토큰타입 : " + NaverIdLoginSDK.getTokenType())
+            Log.i("naverLogin", "네이버 상태 : " + NaverIdLoginSDK.getState())
+        }
+        override fun onFailure(httpStatus: Int, message: String) {
+            val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+            val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+            Toast.makeText(context,"errorCode:$errorCode, errorDesc:$errorDescription",
+                Toast.LENGTH_SHORT).show()
+        }
+        override fun onError(errorCode: Int, message: String) {
+            onFailure(errorCode, message)
         }
     }
 }

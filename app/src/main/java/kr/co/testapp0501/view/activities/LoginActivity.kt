@@ -53,22 +53,8 @@ class LoginActivity : AppCompatActivity() {
         //userViewModel.addUser("22", "aaaaa")
 
         binding.kakaoLogin.setOnClickListener{kakaoLogin()}
-        binding.naverLogin.setOnClickListener{}
+        binding.naverLogin.setOnClickListener{naverLogin()}
         binding.googleLogin.setOnClickListener{test()}
-    }
-
-    fun test(){
-        UserApiClient.instance.unlink { throwable: Throwable? ->
-            if (throwable != null) {
-                Log.e("kakaoUnlink", "카카오 회원탈퇴 실패", throwable)
-                Toast.makeText(this, "로그인을 한 상태에서 진행해주세요", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                Log.i("kakaoUnlink", "카카오 회원탈퇴 성공")
-                Toast.makeText(this, "회원탈퇴 성공", Toast.LENGTH_SHORT).show()
-            }
-            null
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -89,15 +75,29 @@ class LoginActivity : AppCompatActivity() {
     }
 
     val kakao = 0
+    val naver = 1
+    val google = 2
 
     private fun kakaoLogin(){
         userViewModel.startLogin(this, kakao)
 
         userViewModel.addUser().observe(this){ user ->
-            Log.i("MainActivity", user.name+user.id)
-
+            Log.i("MainActivityKakao", user.name+user.id)
         }
     }
+
+    private fun naverLogin(){
+        userViewModel.startLogin(this, naver)
+        userViewModel.addUser().observe(this){ user ->
+            Log.i("MainActivityNaver", user.name+user.id)
+        }
+    }
+
+    private fun googleLogin(){
+        userViewModel.startLogin(this, google)
+    }
+
+
 
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun normalLogin(){
@@ -130,6 +130,21 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+    }
+
+
+    fun test(){
+        UserApiClient.instance.unlink { throwable: Throwable? ->
+            if (throwable != null) {
+                Log.e("kakaoUnlink", "카카오 회원탈퇴 실패", throwable)
+                Toast.makeText(this, "로그인을 한 상태에서 진행해주세요", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                Log.i("kakaoUnlink", "카카오 회원탈퇴 성공")
+                Toast.makeText(this, "회원탈퇴 성공", Toast.LENGTH_SHORT).show()
+            }
+            null
         }
     }
 }
