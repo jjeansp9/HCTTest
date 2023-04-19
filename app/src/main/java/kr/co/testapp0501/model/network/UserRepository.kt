@@ -13,31 +13,31 @@ import javax.security.auth.callback.Callback
 class UserRepository {
     private val apiService : ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-    fun addUser(id : Long?, name : String) : LiveData<User>{
-
-        Log.i("mm", id.toString()+name)
-
-        val userLiveData = MutableLiveData<User>()
-        val user = User(id, name)
-
-        apiService.addUser(user).enqueue(object : retrofit2.Callback<User> {
-
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-
-                if (response.isSuccessful){
-                    userLiveData.value = response.body()
-                }else{
-                    // Handle error
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.e("UserRepository Error", "${t.message}")
-            }
-        })
-
-        return userLiveData
-    }
+//    fun addUser(id : Long?, name : String) : LiveData<User>{
+//
+//        Log.i("mm", id.toString()+name)
+//
+//        val userLiveData = MutableLiveData<User>()
+//        val user = User(id, name)
+//
+//        apiService.addUser(user).enqueue(object : retrofit2.Callback<User> {
+//
+//            override fun onResponse(call: Call<User>, response: Response<User>) {
+//
+//                if (response.isSuccessful){
+//                    userLiveData.value = response.body()
+//                }else{
+//                    // Handle error
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<User>, t: Throwable) {
+//                Log.e("UserRepository Error", "${t.message}")
+//            }
+//        })
+//
+//        return userLiveData
+//    }
 
     fun addUser(token : String, platform: String) : LiveData<User>{
         Log.i("UserRepository Token", token)

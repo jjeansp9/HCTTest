@@ -77,8 +77,6 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-
-
     private fun login(platform : String){
         userViewModel.startLogin(this, platform)
         userViewModel.addUser(platform).observe(this){ user ->
