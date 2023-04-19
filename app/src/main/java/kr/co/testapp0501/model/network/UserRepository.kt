@@ -47,20 +47,20 @@ class UserRepository {
         if (platform == "kakao"){
             UserApiClient.instance.me { user, throwable ->
                 if (user != null) {
-                    Log.i("kakaoLogin", "카카오 고유ID : " + user.id)
-                    Log.i("kakaoLogin", "카카오 닉네임 : " + user.kakaoAccount!!.profile!!.nickname)
-                    Log.i("kakaoLogin", "카카오 이메일 : " + user.kakaoAccount!!.email)
-                    Log.i("kakaoLogin", "카카오 성별 : " + user.kakaoAccount!!.gender)
-                    Log.i("kakaoLogin", "카카오 연령대 : " + user.kakaoAccount!!.ageRange)
-                    Log.i(
-                        "kakaoLogin",
-                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
-                    )
+//                    Log.i("kakaoLogin", "카카오 고유ID : " + user.id)
+//                    Log.i("kakaoLogin", "카카오 닉네임 : " + user.kakaoAccount!!.profile!!.nickname)
+//                    Log.i("kakaoLogin", "카카오 이메일 : " + user.kakaoAccount!!.email)
+//                    Log.i("kakaoLogin", "카카오 성별 : " + user.kakaoAccount!!.gender)
+//                    Log.i("kakaoLogin", "카카오 연령대 : " + user.kakaoAccount!!.ageRange)
+//                    Log.i(
+//                        "kakaoLogin",
+//                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
+//                    )
 
                     val user = User(user.id, user.kakaoAccount!!.profile!!.nickname)
                     userLiveData.value = User(user.id, user.name)
 
-                    Log.i("mmmmm", user.id.toString())
+                    Log.i("UserRepository addUser()", user.id.toString())
 
                     apiService.getUser("users").enqueue(object : retrofit2.Callback<User>{
                         override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -72,6 +72,7 @@ class UserRepository {
 
                             }else{
                                 registerUser(item)
+
 
                             }
                         }
@@ -97,7 +98,7 @@ class UserRepository {
 
                 if (response.isSuccessful){
                     val item =response.body()
-                    Log.i("UserRepository registerUser", item?.id.toString())
+                    Log.i("UserRepository registerUser()", item?.id.toString())
                 }else{
                     // Handle error
                 }

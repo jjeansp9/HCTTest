@@ -1,7 +1,6 @@
 package kr.co.testapp0501.view.activities
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -14,11 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.ClientError
-import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
@@ -32,8 +27,8 @@ class LoginActivity : AppCompatActivity() {
     private val binding : ActivityLoginBinding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private lateinit var userViewModel: UserViewModel
 
-    private val clientId = "2RREVK5H8Ovzs4Z8LijQ" // 네이버 로그인 식별 아이디
-    private val clientSecret = "x8vBpMJJO8" // 네이버 로그인 식별 패스워드
+    private val clientId = "3nhXN4DGA4kNKDzAwXzW" // 네이버 로그인 식별 아이디
+    private val clientSecret = "M8AMLuZlf_" // 네이버 로그인 식별 패스워드
     private val nidOAuthLogin = NidOAuthLogin()
 
     var mGoogleSignInClient: GoogleSignInClient? = null
@@ -59,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.kakaoLogin.setOnClickListener{login(kakao)}
         binding.naverLogin.setOnClickListener{login(naver)}
-        binding.googleLogin.setOnClickListener{test()}
+        binding.googleLogin.setOnClickListener{login(google)}
     }
 
     // 키보드가 열린 상태일 때

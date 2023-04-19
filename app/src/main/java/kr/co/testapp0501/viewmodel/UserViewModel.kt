@@ -34,11 +34,11 @@ class UserViewModel : ViewModel() {
         }else if (platform == "naver"){
             naverLogin(context)
         }else if (platform == "google"){
-
+            //googleLogin()
         }
     }
 
-    fun kakaoLogin(context: Context, platform: String){
+    private fun kakaoLogin(context: Context, platform: String){
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -98,6 +98,10 @@ class UserViewModel : ViewModel() {
             }
         }
         NaverIdLoginSDK.authenticate(context, callback = oauthLoginCallback)
+    }
+
+    private fun googleLogin(){
+
     }
 
 }

@@ -8,6 +8,6 @@ class GlobalApplication : Application(){
         super.onCreate()
 
         // 카카오 SDK 초기화
-        KakaoSdk.init(this, "61ff44cdc04cde9c9d23991b91d0c014")
+        KakaoSdk.init(this, "90ef9a5c7702c7ffbdfad2f666330477")
     }
 }
