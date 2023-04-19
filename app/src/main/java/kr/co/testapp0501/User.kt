@@ -1,6 +1,6 @@
 package kr.co.testapp0501
 
 data class User(
-    val id : Long?,
+    val id : String,
     val name : String?
     )

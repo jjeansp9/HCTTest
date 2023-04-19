@@ -2,12 +2,18 @@ package kr.co.testapp0501.viewmodel
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -100,8 +106,26 @@ class UserViewModel : ViewModel() {
         NaverIdLoginSDK.authenticate(context, callback = oauthLoginCallback)
     }
 
-    private fun googleLogin(){
-
+    private fun googleLogin(context: Context){
+//        val mGoogleSignInClient: GoogleSignInClient
+//
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestEmail()
+//            .build()
+//
+//        mGoogleSignInClient = GoogleSignIn.getClient(context, gso)
+//
+//        val signInIntent: Intent = mGoogleSignInClient!!.signInIntent
+//        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+//                val data: Intent? = result.data
+//                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+//                userRepository.handleSignInResult(task)
+//
+//            }
+//        }
+//
+//        resultLauncher.launch(signInIntent)
     }
 
 }

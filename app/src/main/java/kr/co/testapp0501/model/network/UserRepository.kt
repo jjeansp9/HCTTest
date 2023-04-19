@@ -4,9 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
@@ -44,7 +50,7 @@ class UserRepository {
 //        return userLiveData
 //    }
 
-    val apiService : ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
 
     fun addUser(context: Context, token : String, platform: String) : LiveData<User>{
         Log.i("UserRepository Token", token)
@@ -64,7 +70,7 @@ class UserRepository {
 //                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
 //                    )
 
-                    val user = User(user.id, user.kakaoAccount!!.profile!!.nickname)
+                    val user = User(user.id.toString(), user.kakaoAccount!!.profile!!.nickname)
                     userLiveData.value = User(user.id, user.name)
 
                     Log.i("UserRepository addUser()", "kakao: " + user.id.toString())
@@ -83,16 +89,16 @@ class UserRepository {
             nidOAuthLogin.callProfileApi(object : NidProfileCallback<NidProfileResponse> {
                 override fun onSuccess(nidProfileResponse: NidProfileResponse) {
                     Log.i("naverInfo", "네이버 ID : " + nidProfileResponse.profile!!.id)
-                    Log.i("naverInfo", "네이버 닉네임 : " + nidProfileResponse.profile!!.nickname)
-                    Log.i("naverInfo", "네이버 프로필이미지 : " + nidProfileResponse.profile!!.profileImage)
-                    Log.i("naverInfo", "네이버 이메일 : " + nidProfileResponse.profile!!.email)
-                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
-                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
+//                    Log.i("naverInfo", "네이버 닉네임 : " + nidProfileResponse.profile!!.nickname)
+//                    Log.i("naverInfo", "네이버 프로필이미지 : " + nidProfileResponse.profile!!.profileImage)
+//                    Log.i("naverInfo", "네이버 이메일 : " + nidProfileResponse.profile!!.email)
+//                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
+//                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
 
-                    val user = User(nidProfileResponse.profile!!.id!!.toLong(), nidProfileResponse.profile!!.nickname)
+                    val user = User(nidProfileResponse.profile!!.id!!, nidProfileResponse.profile!!.nickname)
                     userLiveData.value = User(user.id, user.name)
 
-                    Log.i("UserRepository addUser()", "kakao: " + user.id.toString())
+                    Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 
                     context.startActivity(Intent(context, MainActivity::class.java))
                     (context as LoginActivity).finish()
@@ -102,42 +108,69 @@ class UserRepository {
                     registerUser(context, user)
                 }
                 override fun onFailure(i: Int, s: String) {
-                    Toast.makeText(
-                        context,
-                        "로그인을 한 상태에서 확인이 가능합니다",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                    val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                    Log.i("UserRepository naver error", "errorCode: $errorCode, errorDesc: $errorDescription")
                 }
                 override fun onError(i: Int, s: String) {
                     Toast.makeText(context, "onError", Toast.LENGTH_SHORT).show()
                 }
             })
+        }else if(platform == "google"){
+
         }
 
         return userLiveData
     }
 
-    private fun registerUser(context: Context,user: User?){
+    // 구글로그인 회원정보
+//    fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+//        try {
+//            val account = completedTask.getResult(ApiException::class.java)
+//            Log.i("googleID", (account.id)!!)
+//            Log.i("googleAccount", account.account.toString())
+//            Log.i("googleEmail", (account.email)!!)
+//            Log.i("googleDisplayName", (account.displayName)!!)
+//            Log.i("googleGivenName", (account.givenName)!!)
+//            Log.i("googleFamilyName", (account.familyName)!!)
+//            Log.i("googlePhotoUrl", account.photoUrl.toString())
+//            Log.i("googleAccessToken", account?.idToken.toString())
+//            Log.i("googleAccessToken", account.isExpired.toString())
+//
+//
+//            Glide.with(this).load(account.photoUrl).into(binding.googleImage)
+//            binding.googleName.text = account.displayName
+//            Toast.makeText(this@MainActivity, "구글 로그인 완료", Toast.LENGTH_SHORT).show()
+//
+//            //updateUI(account);
+//        } catch (e: ApiException) {
+//            Log.w(ContentValues.TAG, "signInResult:failed code=" + e.statusCode)
+//            //updateUI(null);
+//        }
+//    }
 
-        apiService.getUser("users").enqueue(object : retrofit2.Callback<User>{
+    private fun registerUser(context: Context,user: User?) {
+
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+        apiService.getUser("users").enqueue(object : retrofit2.Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
 
                 val item = response.body()
 
-                if (item?.id != null){
+                if (item?.id != null) {
                     return
-                }else{
+                } else {
                     apiService.addUser(user!!).enqueue(object : retrofit2.Callback<User> {
                         override fun onResponse(call: Call<User>, response: Response<User>) {
 
-                            if (response.isSuccessful){
-                                val item =response.body()
+                            if (response.isSuccessful) {
+                                val item = response.body()
                                 Log.i("UserRepository registerUser()", item?.id.toString())
-                            }else{
+                            } else {
                                 // Handle error
                             }
                         }
-
                         override fun onFailure(call: Call<User>, t: Throwable) {
                             Log.e("UserRepository Error", "${t.message}")
                         }
@@ -147,17 +180,12 @@ class UserRepository {
                     (context as LoginActivity).finish()
                 }
             }
-
             override fun onFailure(call: Call<User>, t: Throwable) {
             }
         })
 
-
-
     }
-
 }
-
 
 
 

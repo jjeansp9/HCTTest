@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
@@ -50,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
         normalLogin()
         clickedBackGround()
 
+        binding.layoutSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
         binding.kakaoLogin.setOnClickListener{login(kakao)}
         binding.naverLogin.setOnClickListener{login(naver)}
         binding.googleLogin.setOnClickListener{login(google)}
@@ -68,15 +70,22 @@ class LoginActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun clickedBackGround(){
         binding.loginRoot.setOnTouchListener(OnTouchListener { v, event ->
-            val inputManager: InputMethodManager =
-                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputManager.hideSoftInputFromWindow(
-                this.currentFocus!!.windowToken,
-                InputMethodManager.HIDE_NOT_ALWAYS
-            )
-            false
+
+            if(v.hasFocus()){
+                val inputManager: InputMethodManager =
+                    this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(
+                    this.currentFocus!!.windowToken,
+                    InputMethodManager.HIDE_NOT_ALWAYS
+                )
+                false
+
+            }else{ true }
         })
     }
+
+    private var backPressedTime: Long = 0
+    private val delayTime: Long = 2500 // 2.5초
 
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun normalLogin(){
@@ -84,18 +93,20 @@ class LoginActivity : AppCompatActivity() {
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
                     view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
+
                     true
                 }
                 MotionEvent.ACTION_UP -> {
+
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
-                    var email = binding.etInputEmail.text.toString()
-                    var password = binding.etInputPassword.text.toString()
+                    var email = binding.etInputEmail.text.toString().trim()
+                    var password = binding.etInputPassword.text.toString().trim()
 
-                    if (email.replace(" ","") == ""){
+                    if (TextUtils.isEmpty(email)){
                         Toast.makeText(this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show()
 
-                    }else if(password.replace(" ","") == ""){
+                    }else if(TextUtils.isEmpty(password)){
                         Toast.makeText(this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show()
 
                     }else{
@@ -104,8 +115,8 @@ class LoginActivity : AppCompatActivity() {
                         binding.etInputPassword.text = Editable.Factory.getInstance().newEditable("")
                         Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
                     }
-                    true
 
+                    true
                 }
                 else -> false
             }
