@@ -74,9 +74,9 @@ class LoginActivity : AppCompatActivity() {
         )
     }
 
-    val kakao = 0
-    val naver = 1
-    val google = 2
+    val kakao = "kakao"
+    val naver = "naver"
+    val google = "google"
 
     private fun kakaoLogin(){
         userViewModel.startLogin(this, kakao)

@@ -39,45 +39,48 @@ class UserRepository {
         return userLiveData
     }
 
-    fun addUser(token : String) : LiveData<User>{
+    fun addUser(token : String, platform: String) : LiveData<User>{
         Log.i("UserRepository Token", token)
 
         val userLiveData = MutableLiveData<User>()
 
-        UserApiClient.instance.me { user, throwable ->
-            if (user != null) {
-                Log.i("kakaoLogin", "카카오 고유ID : " + user.id)
-                Log.i("kakaoLogin", "카카오 닉네임 : " + user.kakaoAccount!!.profile!!.nickname)
-                Log.i("kakaoLogin", "카카오 이메일 : " + user.kakaoAccount!!.email)
-                Log.i("kakaoLogin", "카카오 성별 : " + user.kakaoAccount!!.gender)
-                Log.i("kakaoLogin", "카카오 연령대 : " + user.kakaoAccount!!.ageRange)
-                Log.i(
-                    "kakaoLogin",
-                    "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
-                )
+        if (platform == "kakao"){
+            UserApiClient.instance.me { user, throwable ->
+                if (user != null) {
+                    Log.i("kakaoLogin", "카카오 고유ID : " + user.id)
+                    Log.i("kakaoLogin", "카카오 닉네임 : " + user.kakaoAccount!!.profile!!.nickname)
+                    Log.i("kakaoLogin", "카카오 이메일 : " + user.kakaoAccount!!.email)
+                    Log.i("kakaoLogin", "카카오 성별 : " + user.kakaoAccount!!.gender)
+                    Log.i("kakaoLogin", "카카오 연령대 : " + user.kakaoAccount!!.ageRange)
+                    Log.i(
+                        "kakaoLogin",
+                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
+                    )
 
-                //val user = User(user.id, user.kakaoAccount!!.profile!!.nickname)
-                //userLiveData.value = User(user.id, user.name)
+                    //val user = User(user.id, user.kakaoAccount!!.profile!!.nickname)
+                    //userLiveData.value = User(user.id, user.name)
 
-                apiService.getUser("users").enqueue(object : retrofit2.Callback<User>{
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
+                    apiService.getUser("users").enqueue(object : retrofit2.Callback<User>{
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
 
-                        val item = response.body()
+                            val item = response.body()
 
-                        if (item?.id != null){
-                            return
+                            if (item?.id != null){
+                                return
 
-                        }else{
-                            registerUser(item)
+                            }else{
+                                registerUser(item)
 
+                            }
                         }
-                    }
 
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                    }
-                })
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                        }
+                    })
+                }
             }
         }
+
 
         return userLiveData
     }

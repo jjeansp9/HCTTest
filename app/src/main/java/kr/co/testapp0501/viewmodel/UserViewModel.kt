@@ -20,26 +20,25 @@ import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.network.UserRepository
 
-class UserViewModel(context: Context) : ViewModel() {
+class UserViewModel : ViewModel() {
 
     private val userRepository = UserRepository()
     fun addUser(): LiveData<User>{
-        return userRepository.addUser("")
+        return userRepository.addUser("", "")
     }
 
-    fun startLogin(context: Context, platform : Int){
+    fun startLogin(context: Context, platform : String){
 
-        if (platform == 0){
-            kakaoLogin(context)
-        }else if (platform == 1){
+        if (platform == "kakao"){
+            kakaoLogin(context, platform)
+        }else if (platform == "naver"){
             naverLogin(context)
+        }else if (platform == "google"){
+
         }
-
-
-
     }
 
-    private fun kakaoLogin(context: Context){
+    private fun kakaoLogin(context: Context, platform: String){
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -47,7 +46,7 @@ class UserViewModel(context: Context) : ViewModel() {
                 Log.e(ContentValues.TAG, "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
                 Log.i(ContentValues.TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                userRepository.addUser(token.accessToken).toString()
+                userRepository.addUser(token.accessToken, platform).toString()
             }
         }
 
@@ -67,7 +66,7 @@ class UserViewModel(context: Context) : ViewModel() {
                     UserApiClient.instance.loginWithKakaoAccount(context = context, callback = callback)
                 } else if (token != null) {
                     Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공! ${token.accessToken}")
-                    userRepository.addUser(token.accessToken).toString()
+                    userRepository.addUser(token.accessToken, platform).toString()
                 }
             }
         } else {
@@ -76,26 +75,29 @@ class UserViewModel(context: Context) : ViewModel() {
     }
 
     private fun naverLogin(context: Context){
+
+        val oauthLoginCallback = object : OAuthLoginCallback {
+            override fun onSuccess() {
+                // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
+                Log.i("naverLogin", "네이버 토큰 : " + NaverIdLoginSDK.getAccessToken())
+                Log.i("naverLogin", "네이버 Refresh토큰 : " + NaverIdLoginSDK.getRefreshToken())
+                Log.i("naverLogin", "네이버 만료시간 : " + NaverIdLoginSDK.getExpiresAt())
+                Log.i("naverLogin", "네이버 토큰타입 : " + NaverIdLoginSDK.getTokenType())
+                Log.i("naverLogin", "네이버 상태 : " + NaverIdLoginSDK.getState())
+
+                userRepository.addUser(NaverIdLoginSDK.getAccessToken().toString(), "naver")
+            }
+            override fun onFailure(httpStatus: Int, message: String) {
+                val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                Toast.makeText(context,"errorCode:$errorCode, errorDesc:$errorDescription",
+                    Toast.LENGTH_SHORT).show()
+            }
+            override fun onError(errorCode: Int, message: String) {
+                onFailure(errorCode, message)
+            }
+        }
         NaverIdLoginSDK.authenticate(context, callback = oauthLoginCallback)
     }
 
-    val oauthLoginCallback = object : OAuthLoginCallback {
-        override fun onSuccess() {
-            // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
-            Log.i("naverLogin", "네이버 토큰 : " + NaverIdLoginSDK.getAccessToken())
-            Log.i("naverLogin", "네이버 Refresh토큰 : " + NaverIdLoginSDK.getRefreshToken())
-            Log.i("naverLogin", "네이버 만료시간 : " + NaverIdLoginSDK.getExpiresAt())
-            Log.i("naverLogin", "네이버 토큰타입 : " + NaverIdLoginSDK.getTokenType())
-            Log.i("naverLogin", "네이버 상태 : " + NaverIdLoginSDK.getState())
-        }
-        override fun onFailure(httpStatus: Int, message: String) {
-            val errorCode = NaverIdLoginSDK.getLastErrorCode().code
-            val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
-            Toast.makeText(context,"errorCode:$errorCode, errorDesc:$errorDescription",
-                Toast.LENGTH_SHORT).show()
-        }
-        override fun onError(errorCode: Int, message: String) {
-            onFailure(errorCode, message)
-        }
-    }
 }
