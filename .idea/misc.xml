@@ -9,6 +9,9 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_edit.xml" value="0.204" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender.xml" value="0.204" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender_girl.xml" value="0.204" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender_girl_white.xml" value="0.179" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender_man.xml" value="0.179" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender_man_white.xml" value="0.179" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_intro.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_main.xml" value="0.33" />
