@@ -6,10 +6,7 @@ import android.content.Intent
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextUtils
+import android.text.*
 import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.KeyEvent
@@ -44,8 +41,47 @@ class SignUpActivity : AppCompatActivity() {
 
         clickedNext()
         //clickedBackGround()
+        selectInput()
+
     }
 
+    // editText 클릭시 배경색 변경
+    private fun selectInput(){
+        var selectedEditText: EditText? = null
+        // list에 editText 저장
+        val editTextList = listOf(
+            binding.etId,
+            binding.etPassword,
+            binding.etPasswordConfirm,
+            binding.etName,
+            binding.etPhoneNum,
+            binding.etResponseNum
+        )
+
+        // EditText 클릭 시, 배경색 변경
+        editTextList.forEach {
+            it.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    selectedEditText = it
+                    it.setBackgroundResource(R.drawable.bg_edit_input)
+                } else {
+                    it.setBackgroundResource(R.drawable.bg_edit)
+                }
+            }
+        }
+
+        // 다른 곳 클릭 시, 입력 모드 해제
+        binding.root.setOnClickListener {
+            selectedEditText?.apply {
+                clearFocus()
+                selectedEditText = null
+            }
+        }
+    }
+
+
+
+    // 뒤로가기 버튼
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -112,7 +148,12 @@ class SignUpActivity : AppCompatActivity() {
 
                     val user = NormalUser(id, pw, name, gender)
 
-                    userViewModel.addNormalUser(this, user)
+                    userViewModel.normalLogin(this, user)
+
+
+                    userViewModel.addNormalUser(this, user).observe(this){ user ->
+                        Log.i("SignUpActivity normalUser", "id: ${user.id} , pw: ${user.pw} , name: ${user.name} , gender: ${user.gender}")
+                    }
 
                     true
                 }
@@ -120,6 +161,8 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     // 키보드가 열린 상태일 때 키보드 닫으면서 et에 입력한 문자열 받아오기, 닫힌 상태라면 Background를 클릭해도 문자열 안받아옴
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

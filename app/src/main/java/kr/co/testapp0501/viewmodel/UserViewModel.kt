@@ -129,14 +129,20 @@ class UserViewModel : ViewModel() {
     val normalUser: LiveData<NormalUser>
         get() = _normalUser
 
+    fun addNormalUser(context: Context, normalUser: NormalUser): LiveData<NormalUser>{
+        return userRepository.addNormalUser(context, normalUser)
+    }
+
     fun updateText(newText: String) {
 
         _text.value = newText
         Log.i("test!", _text.value.toString())
     }
 
-    fun addNormalUser(context: Context, normalUser: NormalUser): LiveData<NormalUser>{
-        return userRepository.addNormalUser(context, normalUser)
+    fun normalLogin(context: Context, normalUser: NormalUser){
+        addNormalUser(context, normalUser)
     }
+
+
 
 }

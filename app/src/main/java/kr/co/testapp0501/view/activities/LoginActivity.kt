@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
     private fun login(platform : String){
         userViewModel.startLogin(this, platform)
         userViewModel.addUser(this, platform).observe(this){ user ->
-            Log.i("MainActivity User", user.name+user.id)
+            Log.i("MainActivity User", user.id+user.name)
         }
     }
 

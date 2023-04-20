@@ -49,6 +49,41 @@ class UserRepository {
     fun addNormalUser(context: Context, normalUser: NormalUser) : LiveData<NormalUser>{
         val userLiveData = MutableLiveData<NormalUser>()
         Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.gender}")
+
+        userLiveData.value = normalUser
+
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+        apiService.getNormalUser("normaluser").enqueue(object : retrofit2.Callback<NormalUser> {
+            override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
+
+                val item = response.body()
+
+                if (item?.id != null) {
+                    return
+                } else {
+                    apiService.addNormalUser(normalUser).enqueue(object : retrofit2.Callback<NormalUser> {
+                        override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
+
+                            if (response.isSuccessful) {
+                                val item = response.body()
+                                Log.i("UserRepository registerUser()", item?.id.toString())
+                            } else {
+                                // Handle error
+                            }
+                        }
+                        override fun onFailure(call: Call<NormalUser>, t: Throwable) {
+                            Log.e("UserRepository Error", "${t.message}")
+                        }
+                    })
+
+                    context.startActivity(Intent(context, MainActivity::class.java))
+                    (context as LoginActivity).finish()
+                }
+            }
+            override fun onFailure(call: Call<NormalUser>, t: Throwable) {
+            }
+        })
         return userLiveData
     }
 
@@ -100,7 +135,7 @@ class UserRepository {
                     val user = SocialUser(nidProfileResponse.profile!!.id!!, nidProfileResponse.profile!!.nickname)
                     userLiveData.value = SocialUser(user.id, user.name)
 
-                    Log.i("UserRepository addUser()", "naver: " + user.id.toString())
+                    //Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 
                     context.startActivity(Intent(context, MainActivity::class.java))
                     (context as LoginActivity).finish()
