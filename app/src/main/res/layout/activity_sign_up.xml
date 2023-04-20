@@ -32,19 +32,19 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/btn_next"
         android:layout_below="@id/appbar_layout"
-        android:scrollbars="none"
-        android:layout_above="@id/btn_next">
+        android:scrollbars="none">
 
         <LinearLayout
+            android:id="@+id/sign_up_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:paddingRight="30dp"
             android:paddingLeft="30dp"
-            android:id="@+id/sign_up_root">
+            android:paddingTop="16dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,6 +55,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -63,7 +64,7 @@
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,6 +85,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -92,7 +94,7 @@
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,6 +115,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_password_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -121,7 +124,7 @@
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -143,6 +146,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -151,7 +155,7 @@
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -291,30 +295,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
                     android:layout_weight="6"
                     android:background="@drawable/bg_edit"
                     android:inputType="number"
                     android:paddingLeft="16dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
-                    android:textSize="16sp"
-                    android:layout_marginRight="8dp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/btn_request_num"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="인증요청"
-                    android:textColor="@color/white"
                     android:background="@drawable/bg_btn_click"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="인증요청"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -323,12 +327,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_edit"
+                android:hint="인증번호 입력"
                 android:inputType="number"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp"
-                android:hint="인증번호 입력"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"

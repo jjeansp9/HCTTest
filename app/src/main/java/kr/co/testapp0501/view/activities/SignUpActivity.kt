@@ -3,6 +3,7 @@ package kr.co.testapp0501.view.activities
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -10,29 +11,39 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.RelativeSizeSpan
+import android.util.Log
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import kr.co.testapp0501.NormalUser
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivitySignUpBinding
+import kr.co.testapp0501.viewmodel.UserViewModel
 
 class SignUpActivity : AppCompatActivity() {
 
     val binding : ActivitySignUpBinding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        Log.i("gender", gender)
+
         clickedNext()
-        clickedBackGround()
+        //clickedBackGround()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,6 +56,8 @@ class SignUpActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private var gender = "man"
+
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor", "ResourceType")
     private fun clickedNext(){
 
@@ -54,6 +67,7 @@ class SignUpActivity : AppCompatActivity() {
             binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.white))
             binding.btnGirl.setBackgroundResource(R.drawable.bg_gender_girl_white)
             binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.black))
+            gender = "man"
         }
         // 성별 버튼 클릭 [여자]
         binding.btnGirl.setOnClickListener{
@@ -61,6 +75,7 @@ class SignUpActivity : AppCompatActivity() {
             binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.white))
             binding.btnMan.setBackgroundResource(R.drawable.bg_gender_man_white)
             binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.black))
+            gender = "girl"
         }
 
         // 휴대폰번호 인증요청 버튼 클릭
@@ -91,6 +106,13 @@ class SignUpActivity : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
+                    val id = binding.etId.text.toString().trim()
+                    val pw = binding.etPassword.text.toString().trim()
+                    val name = binding.etName.text.toString().trim()
+
+                    val user = NormalUser(id, pw, name, gender)
+
+                    userViewModel.addNormalUser(this, user)
 
                     true
                 }
@@ -99,25 +121,62 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    // 키보드가 열린 상태일 때 키보드 닫으면서 et에 입력한 문자열 받아오기, 닫힌 상태라면 Background를 클릭해도 문자열 안받아옴
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (ev?.action == MotionEvent.ACTION_DOWN) {
+            val view = currentFocus
+            if (view is EditText) {
+                val rect = Rect()
+                view.getGlobalVisibleRect(rect)
+                if (!rect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
+                    view.clearFocus()
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+
+                    val id = binding.etId.text.toString().trim()
+                    val pw = binding.etPassword.text.toString().trim()
+                    val pwConfirm = binding.etPasswordConfirm.text.toString().trim()
+                    val name = binding.etName.text.toString().trim()
+
+                    userViewModel.updateText(id)
+
+                    Log.i("tests", "id: $id, pw: $pw, pwConfirm: $pwConfirm, name: $name")
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+
 
 
     // 키보드가 열린 상태일 때
     // 키보드 외의 바깥 영역을 클릭하면 키보드 내려가게하는 메소드
-    @SuppressLint("ClickableViewAccessibility")
-    private fun clickedBackGround(){
-        binding.signUpRoot.setOnTouchListener(View.OnTouchListener { v, event ->
-            if (v.hasFocus()) {
-                val inputManager: InputMethodManager =
-                    this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                inputManager.hideSoftInputFromWindow(
-                    this.currentFocus!!.windowToken,
-                    InputMethodManager.HIDE_NOT_ALWAYS
-                )
-                false
+//    @SuppressLint("ClickableViewAccessibility")
+//    private fun clickedBackGround(){
+//        binding.signUpRoot.setOnTouchListener(View.OnTouchListener { v, event ->
+//            if (v.hasFocus()) {
+//                if (isKeyboardOpen()){
+//                    val inputManager: InputMethodManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//                    inputManager.hideSoftInputFromWindow(this.currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+//
+//
+//                }
+//
+//                false
+//
+//            } else {
+//
+//                true
+//            }
+//        })
+//
+//    }
 
-            } else {
-                true
-            }
-        })
-    }
+
+
+//    private fun isKeyboardOpen(): Boolean {
+//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        return imm.isAcceptingText
+//    }
 }

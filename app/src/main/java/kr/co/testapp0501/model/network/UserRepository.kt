@@ -4,19 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
-import kr.co.testapp0501.User
+import kr.co.testapp0501.NormalUser
+import kr.co.testapp0501.SocialUser
 import kr.co.testapp0501.view.activities.LoginActivity
 import kr.co.testapp0501.view.activities.MainActivity
 import retrofit2.Call
@@ -50,12 +46,18 @@ class UserRepository {
 //        return userLiveData
 //    }
 
+    fun addNormalUser(context: Context, normalUser: NormalUser) : LiveData<NormalUser>{
+        val userLiveData = MutableLiveData<NormalUser>()
+        Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.gender}")
+        return userLiveData
+    }
 
 
-    fun addUser(context: Context, token : String, platform: String) : LiveData<User>{
+
+    fun addUser(context: Context, token : String, platform: String) : LiveData<SocialUser>{
         Log.i("UserRepository Token", token)
 
-        val userLiveData = MutableLiveData<User>()
+        val userLiveData = MutableLiveData<SocialUser>()
 
         if (platform == "kakao"){
             UserApiClient.instance.me { user, throwable ->
@@ -70,8 +72,8 @@ class UserRepository {
 //                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
 //                    )
 
-                    val user = User(user.id.toString(), user.kakaoAccount!!.profile!!.nickname)
-                    userLiveData.value = User(user.id, user.name)
+                    val user = SocialUser(user.id.toString(), user.kakaoAccount!!.profile!!.nickname)
+                    userLiveData.value = SocialUser(user.id, user.name)
 
                     Log.i("UserRepository addUser()", "kakao: " + user.id.toString())
 
@@ -95,8 +97,8 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
 
-                    val user = User(nidProfileResponse.profile!!.id!!, nidProfileResponse.profile!!.nickname)
-                    userLiveData.value = User(user.id, user.name)
+                    val user = SocialUser(nidProfileResponse.profile!!.id!!, nidProfileResponse.profile!!.nickname)
+                    userLiveData.value = SocialUser(user.id, user.name)
 
                     Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 
@@ -149,20 +151,21 @@ class UserRepository {
 //        }
 //    }
 
-    private fun registerUser(context: Context,user: User?) {
+    // retrofit2 를 사용하여 http 통신
+    private fun registerUser(context: Context,user: SocialUser?) {
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.getUser("users").enqueue(object : retrofit2.Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        apiService.getUser("user").enqueue(object : retrofit2.Callback<SocialUser> {
+            override fun onResponse(call: Call<SocialUser>, response: Response<SocialUser>) {
 
                 val item = response.body()
 
                 if (item?.id != null) {
                     return
                 } else {
-                    apiService.addUser(user!!).enqueue(object : retrofit2.Callback<User> {
-                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                    apiService.addUser(user!!).enqueue(object : retrofit2.Callback<SocialUser> {
+                        override fun onResponse(call: Call<SocialUser>, response: Response<SocialUser>) {
 
                             if (response.isSuccessful) {
                                 val item = response.body()
@@ -171,7 +174,7 @@ class UserRepository {
                                 // Handle error
                             }
                         }
-                        override fun onFailure(call: Call<User>, t: Throwable) {
+                        override fun onFailure(call: Call<SocialUser>, t: Throwable) {
                             Log.e("UserRepository Error", "${t.message}")
                         }
                     })
@@ -180,7 +183,7 @@ class UserRepository {
                     (context as LoginActivity).finish()
                 }
             }
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<SocialUser>, t: Throwable) {
             }
         })
 

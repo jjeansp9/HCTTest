@@ -2,34 +2,25 @@ package kr.co.testapp0501.viewmodel
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
-import kotlinx.coroutines.launch
-import kr.co.testapp0501.User
-import kr.co.testapp0501.model.network.ApiService
-import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.NormalUser
+import kr.co.testapp0501.SocialUser
 import kr.co.testapp0501.model.network.UserRepository
 
 class UserViewModel : ViewModel() {
 
     private val userRepository = UserRepository()
-    fun addUser(context: Context, platform: String): LiveData<User>{
+    fun addUser(context: Context, platform: String): LiveData<SocialUser>{
         return userRepository.addUser(context, "", platform)
     }
 
@@ -126,6 +117,26 @@ class UserViewModel : ViewModel() {
 //        }
 //
 //        resultLauncher.launch(signInIntent)
+    }
+
+    private val _text = MutableLiveData<String>()
+
+    val text: LiveData<String>
+        get() = _text
+
+    private val _normalUser = MutableLiveData<NormalUser>()
+
+    val normalUser: LiveData<NormalUser>
+        get() = _normalUser
+
+    fun updateText(newText: String) {
+
+        _text.value = newText
+        Log.i("test!", _text.value.toString())
+    }
+
+    fun addNormalUser(context: Context, normalUser: NormalUser): LiveData<NormalUser>{
+        return userRepository.addNormalUser(context, normalUser)
     }
 
 }
