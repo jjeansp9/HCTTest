@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
 
     var mGoogleSignInClient: GoogleSignInClient? = null
 
-    // 어떤것으로 로그인했는지 구분하기 위한 변수
+    // 어떤버튼을 클릭해서 로그인했는지 구분하기 위한 변수
     val kakao = "kakao"
     val naver = "naver"
     val google = "google"
@@ -84,9 +84,6 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private var backPressedTime: Long = 0
-    private val delayTime: Long = 2500 // 2.5초
-
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun normalLogin(){
         binding.imgLogin.setOnTouchListener{ view, event ->
@@ -97,7 +94,6 @@ class LoginActivity : AppCompatActivity() {
                     true
                 }
                 MotionEvent.ACTION_UP -> {
-
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
                     var email = binding.etInputEmail.text.toString().trim()
