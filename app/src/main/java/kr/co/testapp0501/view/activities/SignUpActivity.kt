@@ -2,21 +2,16 @@ package kr.co.testapp0501.view.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.*
-import android.text.style.RelativeSizeSpan
 import android.util.Log
-import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.NormalUser
@@ -43,6 +38,7 @@ class SignUpActivity : AppCompatActivity() {
         //clickedBackGround()
         selectInput()
 
+        binding.txtCal.setOnClickListener{}
     }
 
     // editText 클릭시 배경색 변경
@@ -99,18 +95,18 @@ class SignUpActivity : AppCompatActivity() {
 
         // 성별 버튼 클릭 [남자]
         binding.btnMan.setOnClickListener{
-            it.setBackgroundResource(R.drawable.bg_gender_man)
-            binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.white))
+            it.setBackgroundResource(R.drawable.bg_textbox_gender_man)
+            binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.gender_select))
             binding.btnGirl.setBackgroundResource(R.drawable.bg_gender_girl_white)
-            binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.black))
+            binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.gender_un_select))
             gender = "man"
         }
         // 성별 버튼 클릭 [여자]
         binding.btnGirl.setOnClickListener{
-            it.setBackgroundResource(R.drawable.bg_gender_girl)
-            binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.white))
+            it.setBackgroundResource(R.drawable.bg_textbox_gender_girl)
+            binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.gender_select))
             binding.btnMan.setBackgroundResource(R.drawable.bg_gender_man_white)
-            binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.black))
+            binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.gender_un_select))
             gender = "girl"
         }
 

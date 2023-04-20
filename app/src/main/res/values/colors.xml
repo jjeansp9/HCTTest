@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gender_select">#eeeeee</color>
+    <color name="gender_un_select">#333333</color>
     <color name="red">#ff3e3e</color>
     <color name="btn_click">#339D58</color>
     <color name="brand_color">#339D58</color>
