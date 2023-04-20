@@ -114,6 +114,10 @@ class LoginActivity : AppCompatActivity() {
 
                     true
                 }
+//                MotionEvent.ACTION -> {
+//                    view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
+//                    true
+//                }
                 else -> false
             }
         }

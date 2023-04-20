@@ -127,7 +127,14 @@ class SignUpActivity : AppCompatActivity() {
 
                     true
                 }
-                else -> false
+                MotionEvent.ACTION_CANCEL ->{
+                    view.setBackgroundResource(R.drawable.bg_btn_click)
+                    true
+                }
+                else -> {
+
+                    false
+                }
             }
         }
 
