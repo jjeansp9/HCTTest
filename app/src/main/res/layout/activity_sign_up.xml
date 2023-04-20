@@ -354,13 +354,15 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_response_num_sucess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="2dp"
                 android:text="인증이 완료되었습니다."
                 android:textColor="@color/brand_color"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

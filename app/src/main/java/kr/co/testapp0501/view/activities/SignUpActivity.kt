@@ -183,7 +183,14 @@ class SignUpActivity : AppCompatActivity() {
                     val pw = binding.etPassword.text.toString().trim()
                     val pwConfirm = binding.etPasswordConfirm.text.toString().trim()
                     val name = binding.etName.text.toString().trim()
+                    val responseNum = binding.etResponseNum.text.toString().trim()
 
+                    // 휴대폰인증번호 일치한지 화인
+                    if (responseNum == "123123"){
+                        binding.tvResponseNumSucess.visibility = View.VISIBLE
+                    }else binding.tvResponseNumSucess.visibility = View.INVISIBLE
+
+                    // 아이디, 비밀번호 로직
                     if (id == "123"){
                         binding.etId.setBackgroundResource(R.drawable.bg_edit_dupl)
                         binding.tvIdDuplicate.text = "중복된 아이디입니다."
