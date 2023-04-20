@@ -181,6 +181,41 @@ class SignUpActivity : AppCompatActivity() {
                     val pwConfirm = binding.etPasswordConfirm.text.toString().trim()
                     val name = binding.etName.text.toString().trim()
 
+                    if (id == "123"){
+                        binding.etId.setBackgroundResource(R.drawable.bg_edit_dupl)
+                        binding.tvIdDuplicate.text = "중복된 아이디입니다."
+                        binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
+                        binding.tvIdDuplicate.visibility = View.VISIBLE
+                    }else if(TextUtils.isEmpty(id)){
+                        binding.tvIdDuplicate.visibility = View.INVISIBLE
+                    }
+                    else{
+                        binding.tvIdDuplicate.text = "사용이 가능한 아이디입니다."
+                        binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
+                        binding.tvIdDuplicate.visibility = View.VISIBLE
+                    }
+
+                    if (pw == pwConfirm && !TextUtils.isEmpty(pw)){
+                        binding.tvPwDuplicate.text = "사용이 가능한 비밀번호입니다."
+                        binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
+                        binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit)
+                        binding.tvPwDuplicate.visibility = View.VISIBLE
+                        binding.tvNotSame.visibility = View.INVISIBLE
+
+                    }else if(TextUtils.isEmpty(pw)){
+                        binding.tvPwDuplicate.visibility = View.INVISIBLE
+
+                    }else if(TextUtils.isEmpty(pwConfirm)){
+                        binding.tvNotSame.visibility = View.INVISIBLE
+
+                    }else{
+                        binding.tvNotSame.text = "입력하신 비밀번호와 일치하지 않습니다."
+                        binding.tvNotSame.setTextColor(ContextCompat.getColor(this, R.color.red))
+                        binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit_dupl)
+                        binding.tvPwDuplicate.visibility = View.INVISIBLE
+                        binding.tvNotSame.visibility = View.VISIBLE
+                    }
+
                     userViewModel.updateText(id)
 
                     Log.i("tests", "id: $id, pw: $pw, pwConfirm: $pwConfirm, name: $name")
