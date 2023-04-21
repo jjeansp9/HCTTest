@@ -65,20 +65,7 @@ class UserRepository {
                 if (item?.id != null) {
                     return
                 } else {
-                    apiService.addNormalUser(normalUser).enqueue(object : retrofit2.Callback<NormalUser> {
-                        override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
 
-                            if (response.isSuccessful) {
-                                val item = response.body()
-                                Log.i("UserRepository registerUser()", item?.id.toString())
-                            } else {
-                                // Handle error
-                            }
-                        }
-                        override fun onFailure(call: Call<NormalUser>, t: Throwable) {
-                            Log.e("UserRepository Error", "${t.message}")
-                        }
-                    })
 
                     context.startActivity(Intent(context, GroupActivity::class.java))
                     (context as LoginActivity).finish()
@@ -87,6 +74,22 @@ class UserRepository {
             override fun onFailure(call: Call<NormalUser>, t: Throwable) {
             }
         })
+
+        apiService.addNormalUser(normalUser).enqueue(object : retrofit2.Callback<NormalUser> {
+            override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
+
+                if (response.isSuccessful) {
+                    val item = response.body()
+                    Log.i("UserRepository registerUser()", item?.id.toString())
+                } else {
+                    // Handle error
+                }
+            }
+            override fun onFailure(call: Call<NormalUser>, t: Throwable) {
+                Log.e("UserRepository Error", "${t.message}")
+            }
+        })
+
         return userLiveData
     }
 

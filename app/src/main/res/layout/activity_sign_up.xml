@@ -178,15 +178,27 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_cal"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/btn_textbox_basic_selector"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingTop="12dp"-->
+<!--                    android:paddingBottom="12dp"-->
+<!--                    android:textColor="#333333"-->
+<!--                    android:textSize="16sp" />-->
+
+                <EditText
                     android:id="@+id/txt_cal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/btn_textbox_basic_selector"
-                    android:paddingStart="16dp"
+                    android:inputType="text"
+                    android:paddingLeft="16dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
-                    android:textColor="#333333"
                     android:textSize="16sp" />
 
                 <RelativeLayout

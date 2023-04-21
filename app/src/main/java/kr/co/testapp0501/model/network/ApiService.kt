@@ -3,18 +3,18 @@ package kr.co.testapp0501.model.network
 import kr.co.testapp0501.NormalUser
 import kr.co.testapp0501.SocialUser
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
     // 일반로그인 http 통신
-    @POST("/")
+    @Headers("Content-Type: application/json")
+    @POST(NORMAL_SIGN_UP)
     fun addNormalUser(@Body user: NormalUser): Call<NormalUser>
+
     @GET("/")
     fun getNormalUser(@Query("user") user: String): Call<NormalUser>
+
 
     // 소셜로그인 http 통신
     @POST("/")

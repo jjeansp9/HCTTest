@@ -143,12 +143,14 @@ class SignUpActivity : AppCompatActivity() {
                     val id = binding.etId.text.toString().trim()
                     val pw = binding.etPassword.text.toString().trim()
                     val name = binding.etName.text.toString().trim()
+                    val phoneNumber = binding.etPhoneNum.text.toString().trim()
+                    val birth = binding.txtCal.text.toString().trim()
 
-                    val user = NormalUser(id, pw, name, gender)
+                    val user = NormalUser(id, pw, name, phoneNumber, birth, gender)
                     userViewModel.normalLogin(this, user)
 
                     userViewModel.addNormalUser(this, user).observe(this){ user ->
-                        Log.i("SignUpActivity normalUser", "id: ${user.id} , pw: ${user.pw} , name: ${user.name} , gender: ${user.gender}")
+                        Log.i("SignUpActivity normalUser", "id: ${user.id} , pw: ${user.pw} , name: ${user.name}, phoneNumber: ${user.phoneNumber}, birth: ${user.birth} , gender: ${user.gender}")
                     }
 
                     true
