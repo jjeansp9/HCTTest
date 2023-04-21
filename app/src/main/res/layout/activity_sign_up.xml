@@ -40,6 +40,7 @@
             android:id="@+id/sign_up_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical"
             android:paddingLeft="30dp"
             android:paddingTop="16dp"
@@ -75,7 +76,7 @@
                 android:text="중복된 아이디"
                 android:textColor="#ff3e3e"
                 android:textSize="11sp"
-                android:visibility="invisible"/>
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -106,7 +107,7 @@
                 android:layout_marginTop="2dp"
                 android:textColor="#ff3e3e"
                 android:textSize="11sp"
-                android:visibility="invisible"/>
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -138,7 +139,7 @@
                 android:text="입력하신 비밀번호와 맞지않습니다"
                 android:textColor="#DF4B4B"
                 android:textSize="11sp"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -347,14 +348,14 @@
                 android:background="@drawable/btn_textbox_basic_selector"
                 android:hint="인증번호 입력"
                 android:inputType="number"
-                android:textColorHint="#999999"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
+                android:textColorHint="#999999"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tv_response_num_sucess"
+                android:id="@+id/tv_response_num_success"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -362,7 +363,7 @@
                 android:text="인증이 완료되었습니다."
                 android:textColor="@color/brand_color"
                 android:textSize="11sp"
-                android:visibility="invisible"/>
+                android:visibility="gone" />
 
         </LinearLayout>
 

@@ -106,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show()
 
                     }else{
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, GroupActivity::class.java))
                         binding.etInputEmail.text = Editable.Factory.getInstance().newEditable("")
                         binding.etInputPassword.text = Editable.Factory.getInstance().newEditable("")
                         Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()

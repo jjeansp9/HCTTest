@@ -75,8 +75,6 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-
-
     // 뒤로가기 버튼
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -115,12 +113,10 @@ class SignUpActivity : AppCompatActivity() {
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
                     view.setBackgroundResource(R.drawable.bg_btn_un_click)
-
                     true
                 }
                 MotionEvent.ACTION_UP -> {
                     view.setBackgroundResource(R.drawable.bg_btn_click)
-
                     true
                 }
                 MotionEvent.ACTION_CANCEL ->{
@@ -134,12 +130,11 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        // 다음 버튼 클릭
+        // 다음 버튼 클릭 [ 클릭하면 회원가입하기 위해 입력한 정보들을 서버로 데이터를 보냄 ]
         binding.btnNext.setOnTouchListener{ view, event ->
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
                     view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
-
                     true
                 }
                 MotionEvent.ACTION_UP -> {
@@ -150,9 +145,7 @@ class SignUpActivity : AppCompatActivity() {
                     val name = binding.etName.text.toString().trim()
 
                     val user = NormalUser(id, pw, name, gender)
-
                     userViewModel.normalLogin(this, user)
-
 
                     userViewModel.addNormalUser(this, user).observe(this){ user ->
                         Log.i("SignUpActivity normalUser", "id: ${user.id} , pw: ${user.pw} , name: ${user.name} , gender: ${user.gender}")
@@ -166,8 +159,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
-
-    // 키보드가 열린 상태일 때 키보드 닫으면서 et에 입력한 문자열 받아오기, 닫힌 상태라면 Background를 클릭해도 문자열 안받아옴
+    // 키보드가 열린 상태일 때 키보드 닫으면서 et에 입력한 문자열 받아오기
+    // 닫힌 상태라면 Background를 클릭해도 문자열 안받아옴
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (ev?.action == MotionEvent.ACTION_DOWN) {
             val view = currentFocus
@@ -187,17 +180,18 @@ class SignUpActivity : AppCompatActivity() {
 
                     // 휴대폰인증번호 일치한지 화인
                     if (responseNum == "123123"){
-                        binding.tvResponseNumSucess.visibility = View.VISIBLE
-                    }else binding.tvResponseNumSucess.visibility = View.INVISIBLE
+                        binding.tvResponseNumSuccess.visibility = View.VISIBLE
+                    }else binding.tvResponseNumSuccess.visibility = View.GONE
 
-                    // 아이디, 비밀번호 로직
+                    // 중복된 아이디가 있는지 확인
                     if (id == "123"){
                         binding.etId.setBackgroundResource(R.drawable.bg_edit_dupl)
                         binding.tvIdDuplicate.text = "중복된 아이디입니다."
                         binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
                         binding.tvIdDuplicate.visibility = View.VISIBLE
-                    }else if(TextUtils.isEmpty(id)){
-                        binding.tvIdDuplicate.visibility = View.INVISIBLE
+
+                    }else if(TextUtils.isEmpty(id)){ // 아이디 입력란이 공백인지 확인
+                        binding.tvIdDuplicate.visibility = View.GONE
                     }
                     else{
                         binding.tvIdDuplicate.text = "사용이 가능한 아이디입니다."
@@ -210,19 +204,19 @@ class SignUpActivity : AppCompatActivity() {
                         binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
                         binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit)
                         binding.tvPwDuplicate.visibility = View.VISIBLE
-                        binding.tvNotSame.visibility = View.INVISIBLE
+                        binding.tvNotSame.visibility = View.GONE
 
-                    }else if(TextUtils.isEmpty(pw)){
-                        binding.tvPwDuplicate.visibility = View.INVISIBLE
+                    }else if(TextUtils.isEmpty(pw)){ // 비밀번호 입력란이 공백인지 확인
+                        binding.tvPwDuplicate.visibility = View.GONE
 
-                    }else if(TextUtils.isEmpty(pwConfirm)){
-                        binding.tvNotSame.visibility = View.INVISIBLE
+                    }else if(TextUtils.isEmpty(pwConfirm)){ // 비밀번호확인 입력란이 공백인지 확인
+                        binding.tvNotSame.visibility = View.GONE
 
-                    }else{
+                    }else{ // 비밀번호와 비밀번호확인 입력란이 동일한지 확인
                         binding.tvNotSame.text = "입력하신 비밀번호와 일치하지 않습니다."
                         binding.tvNotSame.setTextColor(ContextCompat.getColor(this, R.color.red))
                         binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit_dupl)
-                        binding.tvPwDuplicate.visibility = View.INVISIBLE
+                        binding.tvPwDuplicate.visibility = View.GONE
                         binding.tvNotSame.visibility = View.VISIBLE
                     }
 
