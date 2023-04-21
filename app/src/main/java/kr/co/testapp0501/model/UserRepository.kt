@@ -11,13 +11,13 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
-import kr.co.testapp0501.NormalUser
-import kr.co.testapp0501.SocialUser
 import kr.co.testapp0501.model.network.ApiService
+import kr.co.testapp0501.model.network.NORMAL_SIGN_UP
 import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.model.users.NormalUser
+import kr.co.testapp0501.model.users.SocialUser
+import kr.co.testapp0501.model.users.UserResponse
 import kr.co.testapp0501.view.activities.GroupActivity
-import kr.co.testapp0501.view.activities.LoginActivity
-import kr.co.testapp0501.view.activities.MainActivity
 import retrofit2.Call
 import retrofit2.Response
 
@@ -51,43 +51,45 @@ class UserRepository {
 
     fun addNormalUser(context: Context, normalUser: NormalUser) : LiveData<NormalUser>{
         val userLiveData = MutableLiveData<NormalUser>()
-        Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.gender}")
+        Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.sex}")
 
         userLiveData.value = normalUser
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.getNormalUser("normaluser").enqueue(object : retrofit2.Callback<NormalUser> {
-            override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
+//        apiService.getNormalUser("normaluser").enqueue(object : retrofit2.Callback<NormalUser> {
+//            override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
+//
+//                val item = response.body()
+//
+//                if (item?.id != null) {
+//                    return
+//                } else {
+//
+//
+////                    context.startActivity(Intent(context, GroupActivity::class.java))
+////                    (context as LoginActivity).finish()
+//                }
+//            }
+//            override fun onFailure(call: Call<NormalUser>, t: Throwable) {
+//            }
+//        })
 
-                val item = response.body()
-
-                if (item?.id != null) {
-                    return
-                } else {
-
-
-                    context.startActivity(Intent(context, GroupActivity::class.java))
-                    (context as LoginActivity).finish()
-                }
-            }
-            override fun onFailure(call: Call<NormalUser>, t: Throwable) {
-            }
-        })
-
-        apiService.addNormalUser(normalUser).enqueue(object : retrofit2.Callback<NormalUser> {
-            override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
+        apiService.addNormalUser(normalUser).enqueue(object : retrofit2.Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                Log.i("UserRepository registerUser()", ">>>>>>"+response.code() +", ")
 
                 if (response.isSuccessful) {
                     val item = response.body()
-                    Log.i("UserRepository registerUser()", item?.id.toString())
+                    Log.i("UserRepository registerUser()", item?.msg.toString())
                 } else {
                     // Handle error
                 }
             }
-            override fun onFailure(call: Call<NormalUser>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.e("UserRepository Error", "${t.message}")
             }
+
         })
 
         return userLiveData

@@ -3,26 +3,32 @@ package kr.co.testapp0501.view.activities
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.*
+import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import kr.co.testapp0501.NormalUser
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivitySignUpBinding
+import kr.co.testapp0501.model.users.NormalUser
+import kr.co.testapp0501.view.DatePickerFragment
 import kr.co.testapp0501.viewmodel.UserViewModel
+
 
 class SignUpActivity : AppCompatActivity() {
 
     val binding : ActivitySignUpBinding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
     private lateinit var userViewModel: UserViewModel
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +44,34 @@ class SignUpActivity : AppCompatActivity() {
         //clickedBackGround()
         selectInput()
 
-        binding.txtCal.setOnClickListener{}
+        binding.txtCal.setOnClickListener{
+            showDatePicker(it)
+        }
+    }
+
+    // Date Picker
+    fun showDatePicker(view: View?) {
+        val newFragment: DialogFragment = DatePickerFragment()
+        newFragment.show(supportFragmentManager, "datePicker")
+    }
+
+    fun processDatePickerResult(year: Int, month: Int, day: Int) {
+        val year_string = Integer.toString(year)
+        var month_string = Integer.toString(month + 1)
+        var day_string = Integer.toString(day)
+
+        if (month_string.toInt() < 10){
+            month_string = "0$month_string"
+        }
+
+        if (day_string.toInt() < 10){
+            day_string = "0$day_string"
+        }
+
+        val dateMessage = "$year_string-$month_string-$day_string"
+
+        binding.txtCal.text = "$dateMessage"
+        Toast.makeText(this, "Date: $dateMessage", Toast.LENGTH_SHORT).show()
     }
 
     // editText 클릭시 배경색 변경
@@ -86,7 +119,7 @@ class SignUpActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private var gender = "man"
+    private var gender = "M"
 
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor", "ResourceType")
     private fun clickedNext(){
@@ -97,7 +130,8 @@ class SignUpActivity : AppCompatActivity() {
             binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.gender_select))
             binding.btnGirl.setBackgroundResource(R.drawable.bg_gender_girl_white)
             binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.gender_un_select))
-            gender = "man"
+            gender = "M"
+
         }
         // 성별 버튼 클릭 [여자]
         binding.btnGirl.setOnClickListener{
@@ -105,7 +139,7 @@ class SignUpActivity : AppCompatActivity() {
             binding.btnGirl.setTextColor(ContextCompat.getColor(this, R.color.gender_select))
             binding.btnMan.setBackgroundResource(R.drawable.bg_gender_man_white)
             binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.gender_un_select))
-            gender = "girl"
+            gender = "F"
         }
 
         // 휴대폰번호 인증요청 버튼 클릭
@@ -147,10 +181,9 @@ class SignUpActivity : AppCompatActivity() {
                     val birth = binding.txtCal.text.toString().trim()
 
                     val user = NormalUser(id, pw, name, phoneNumber, birth, gender)
-                    userViewModel.normalLogin(this, user)
 
                     userViewModel.addNormalUser(this, user).observe(this){ user ->
-                        Log.i("SignUpActivity normalUser", "id: ${user.id} , pw: ${user.pw} , name: ${user.name}, phoneNumber: ${user.phoneNumber}, birth: ${user.birth} , gender: ${user.gender}")
+                        Log.i("SignUpActivity normalUser", "id: ${user.id} , pw: ${user.pw} , name: ${user.name}, phoneNumber: ${user.phoneNumber}, birth: ${user.birth} , gender: ${user.sex}")
                     }
 
                     true

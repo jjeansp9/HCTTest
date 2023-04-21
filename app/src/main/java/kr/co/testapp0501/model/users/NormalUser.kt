@@ -1,4 +1,6 @@
-package kr.co.testapp0501
+package kr.co.testapp0501.model.users
+
+import com.google.gson.annotations.Expose
 
 data class NormalUser(
     val id: String,
@@ -6,6 +8,5 @@ data class NormalUser(
     val name: String,
     val phoneNumber: String,
     val birth: String,
-    val gender: String
-
+    val sex: String
 )

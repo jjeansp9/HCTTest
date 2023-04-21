@@ -1,16 +1,16 @@
 package kr.co.testapp0501.model.network
 
-import kr.co.testapp0501.NormalUser
-import kr.co.testapp0501.SocialUser
+import kr.co.testapp0501.model.users.NormalUser
+import kr.co.testapp0501.model.users.SocialUser
+import kr.co.testapp0501.model.users.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-
     // 일반로그인 http 통신
     @Headers("Content-Type: application/json")
-    @POST(NORMAL_SIGN_UP)
-    fun addNormalUser(@Body user: NormalUser): Call<NormalUser>
+    @POST("com/avad/api/member/join")
+    fun addNormalUser(@Body normaluser: NormalUser): Call<UserResponse>
 
     @GET("/")
     fun getNormalUser(@Query("user") user: String): Call<NormalUser>
