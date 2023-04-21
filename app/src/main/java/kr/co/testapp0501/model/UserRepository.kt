@@ -1,4 +1,4 @@
-package kr.co.testapp0501.model.network
+package kr.co.testapp0501.model
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,9 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import kr.co.testapp0501.NormalUser
 import kr.co.testapp0501.SocialUser
+import kr.co.testapp0501.model.network.ApiService
+import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.view.activities.GroupActivity
 import kr.co.testapp0501.view.activities.LoginActivity
 import kr.co.testapp0501.view.activities.MainActivity
 import retrofit2.Call
@@ -77,7 +80,7 @@ class UserRepository {
                         }
                     })
 
-                    context.startActivity(Intent(context, MainActivity::class.java))
+                    context.startActivity(Intent(context, GroupActivity::class.java))
                     (context as LoginActivity).finish()
                 }
             }
@@ -112,8 +115,8 @@ class UserRepository {
 
                     Log.i("UserRepository addUser()", "kakao: " + user.id.toString())
 
-                    context.startActivity(Intent(context, MainActivity::class.java))
-                    (context as LoginActivity).finish()
+                    context.startActivity(Intent(context, GroupActivity::class.java))
+                    //(context as LoginActivity).finish()
 
                     // TODO 서버로 데이터보내기 테스트 해봐야 함
                     // 회원정보 서버로 보내기
@@ -137,8 +140,8 @@ class UserRepository {
 
                     //Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 
-                    context.startActivity(Intent(context, MainActivity::class.java))
-                    (context as LoginActivity).finish()
+                    context.startActivity(Intent(context, GroupActivity::class.java))
+                    //(context as LoginActivity).finish()
 
                     // TODO 서버로 데이터보내기 테스트 해봐야 함
                     // 회원정보 서버로 보내기
@@ -214,8 +217,8 @@ class UserRepository {
                         }
                     })
 
-                    context.startActivity(Intent(context, MainActivity::class.java))
-                    (context as LoginActivity).finish()
+//                    context.startActivity(Intent(context, GroupActivity::class.java))
+//                    (context as LoginActivity).finish()
                 }
             }
             override fun onFailure(call: Call<SocialUser>, t: Throwable) {
