@@ -110,8 +110,8 @@ class UserRepository {
     }
 
     // 일반 로그인
-    fun normalLogin(context: Context, login: NormalLogin) : LiveData<Int>{
-        val userLiveData = MutableLiveData<Int>()
+    fun normalLogin(context: Context, login: NormalLogin) : LiveData<String>{
+        val userLiveData = MutableLiveData<String>()
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
@@ -119,22 +119,19 @@ class UserRepository {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository normalLogin()", ">>>>>>"+response.code())
 
-                userLiveData.value = response.code()
 
-                if (response.isSuccessful) {
-                    val item = response.body()
-                    Log.i("UserRepository normalLogin()", item?.msg.toString())
-                } else {
-                    // Handle error
+                if (response.isSuccessful) { // 일반로그인에 성공한 경우
+                    userLiveData.value = response.body()?.msg
+                    Log.i("UserRepository normalLogin()", response.body()?.msg.toString())
+
+                } else { // 일반로그인에 실패한 경우
+                    userLiveData.value = null
                 }
             }
-
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
 
             }
-
         })
-
         return userLiveData
     }
 

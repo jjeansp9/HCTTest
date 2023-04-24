@@ -17,7 +17,7 @@ interface ApiService {
     // 일반 로그인
     @Headers("Content-Type: application/json")
     @POST("com/avad/api/member/login")
-    fun normalLogin(@Query("user") user: NormalLogin): Call<UserResponse>
+    fun normalLogin(@Body user: NormalLogin): Call<UserResponse>
 
 
     // 소셜로그인 http 통신

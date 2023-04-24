@@ -107,16 +107,21 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show()
 
                     }else{
-                        startActivity(Intent(this, GroupActivity::class.java))
                         val id = binding.etInputId.text.toString().trim()
                         val pw = binding.etInputPw.text.toString().trim()
-                        binding.etInputId.text = Editable.Factory.getInstance().newEditable("")
-                        binding.etInputPw.text = Editable.Factory.getInstance().newEditable("")
-                        Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
-
                         val login = NormalLogin(id, pw)
-                        userViewModel.normalLogin(this, login).observe(this){ code ->
-                            Log.i("LoginActivity Login", code.toString())
+
+                        userViewModel.normalLogin(this, login).observe(this){ token ->
+                            Log.i("LoginActivity Login", token+"")
+                            if (token != null){
+                                startActivity(Intent(this, GroupActivity::class.java))
+
+                                binding.etInputId.text = Editable.Factory.getInstance().newEditable("")
+                                binding.etInputPw.text = Editable.Factory.getInstance().newEditable("")
+                                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(this, "입력하신 정보가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
 
