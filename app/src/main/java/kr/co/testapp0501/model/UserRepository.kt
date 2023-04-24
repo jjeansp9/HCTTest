@@ -91,11 +91,8 @@ class UserRepository {
             }
 
         })
-
         return userLiveData
     }
-
-
 
     fun addUser(context: Context, token : String, platform: String) : LiveData<SocialUser>{
         Log.i("UserRepository Token", token)

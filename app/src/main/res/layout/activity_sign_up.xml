@@ -61,6 +61,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_textbox_basic_selector"
                 android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="20"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:layout_marginTop="8dp"
@@ -74,8 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="2dp"
-                android:text="중복된 아이디"
-                android:textColor="#ff3e3e"
+                android:text="중복된 아이디입니다"
+                android:textColor="@color/red"
                 android:textSize="11sp"
                 android:visibility="gone" />
 
@@ -98,6 +100,8 @@
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
+                android:maxLength="20"
+                android:maxLines="1"
                 android:textSize="16sp" />
 
             <TextView
@@ -106,9 +110,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="2dp"
-                android:textColor="#ff3e3e"
+                android:textColor="@color/red"
                 android:textSize="11sp"
-                android:visibility="gone" />
+                android:visibility="visible"
+                android:text="* 8~20자리 영문 대,소문자,특수문자 모두 포함하여 입력해 주세요"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,6 +131,8 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/btn_textbox_basic_selector"
                 android:inputType="textPassword"
+                android:maxLength="20"
+                android:maxLines="1"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
@@ -138,7 +145,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="2dp"
                 android:text="입력하신 비밀번호와 맞지않습니다"
-                android:textColor="#DF4B4B"
+                android:textColor="@color/red"
                 android:textSize="11sp"
                 android:visibility="gone" />
 
@@ -158,6 +165,8 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/btn_textbox_basic_selector"
                 android:inputType="text"
+                android:maxLength="10"
+                android:maxLines="1"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
@@ -336,6 +345,8 @@
                     android:layout_weight="6"
                     android:background="@drawable/btn_textbox_basic_selector"
                     android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
                     android:paddingLeft="16dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
@@ -361,6 +372,8 @@
                 android:background="@drawable/btn_textbox_basic_selector"
                 android:hint="인증번호 입력"
                 android:inputType="number"
+                android:maxLength="10"
+                android:maxLines="1"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"

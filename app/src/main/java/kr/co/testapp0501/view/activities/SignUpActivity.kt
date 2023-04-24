@@ -26,24 +26,27 @@ import kr.co.testapp0501.viewmodel.UserViewModel
 class SignUpActivity : AppCompatActivity() {
 
     val binding : ActivitySignUpBinding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
-    private lateinit var userViewModel: UserViewModel
+    private lateinit var userViewModel: UserViewModel // ViewModel 초기화
 
-
+    private var gender = "M" // 성별 기본 M으로 설정
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // ViewModel 생성
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+
+        // 툴바 설정
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        Log.i("gender", gender)
+        Log.i("gender", gender) // 회원가입 화면이 처음 열리면 기본성별 M
 
-        clickedNext()
-        //clickedBackGround()
-        selectInput()
+        clicked() // 버튼 [ 성별 선택, 휴대폰 인증요청, 다음 버튼 ]
+        selectInput() // EditText 클릭 시 background 테두리 변경
 
+        // 생년월일 입력란을 클릭하면 캘린더 오픈
         binding.txtCal.setOnClickListener{
             showDatePicker(it)
         }
@@ -69,9 +72,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         val dateMessage = "$year_string-$month_string-$day_string"
-
-        binding.txtCal.text = "$dateMessage"
-        Toast.makeText(this, "Date: $dateMessage", Toast.LENGTH_SHORT).show()
+        binding.txtCal.text = "$dateMessage" // 선택한 날짜를 화면에 보여주기
     }
 
     // editText 클릭시 배경색 변경
@@ -119,10 +120,9 @@ class SignUpActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private var gender = "M"
-
+    // 버튼 [ 성별 선택, 휴대폰 인증요청, 다음 버튼 ]
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor", "ResourceType")
-    private fun clickedNext(){
+    private fun clicked(){
 
         // 성별 버튼 클릭 [남자]
         binding.btnMan.setOnClickListener{
@@ -196,12 +196,15 @@ class SignUpActivity : AppCompatActivity() {
 
     // 키보드가 열린 상태일 때 키보드 닫으면서 et에 입력한 문자열 받아오기
     // 닫힌 상태라면 Background를 클릭해도 문자열 안받아옴
+    @SuppressLint("SetTextI18n")
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (ev?.action == MotionEvent.ACTION_DOWN) {
             val view = currentFocus
+
             if (view is EditText) {
                 val rect = Rect()
                 view.getGlobalVisibleRect(rect)
+
                 if (!rect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
                     view.clearFocus()
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -234,6 +237,7 @@ class SignUpActivity : AppCompatActivity() {
                         binding.tvIdDuplicate.visibility = View.VISIBLE
                     }
 
+                    // 비밀번호 형식에 맞게 입력했는지 확인
                     if (pw == pwConfirm && !TextUtils.isEmpty(pw)){
                         binding.tvPwDuplicate.text = "사용이 가능한 비밀번호입니다."
                         binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
@@ -242,7 +246,9 @@ class SignUpActivity : AppCompatActivity() {
                         binding.tvNotSame.visibility = View.GONE
 
                     }else if(TextUtils.isEmpty(pw)){ // 비밀번호 입력란이 공백인지 확인
-                        binding.tvPwDuplicate.visibility = View.GONE
+                        binding.tvPwDuplicate.text = "* 8~20자리 영문 대,소문자,특수문자 모두 포함하여 입력해 주세요"
+                        binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
+                        binding.tvPwDuplicate.visibility = View.VISIBLE
 
                     }else if(TextUtils.isEmpty(pwConfirm)){ // 비밀번호확인 입력란이 공백인지 확인
                         binding.tvNotSame.visibility = View.GONE
@@ -263,37 +269,4 @@ class SignUpActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
-
-
-
-
-    // 키보드가 열린 상태일 때
-    // 키보드 외의 바깥 영역을 클릭하면 키보드 내려가게하는 메소드
-//    @SuppressLint("ClickableViewAccessibility")
-//    private fun clickedBackGround(){
-//        binding.signUpRoot.setOnTouchListener(View.OnTouchListener { v, event ->
-//            if (v.hasFocus()) {
-//                if (isKeyboardOpen()){
-//                    val inputManager: InputMethodManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//                    inputManager.hideSoftInputFromWindow(this.currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-//
-//
-//                }
-//
-//                false
-//
-//            } else {
-//
-//                true
-//            }
-//        })
-//
-//    }
-
-
-
-//    private fun isKeyboardOpen(): Boolean {
-//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        return imm.isAcceptingText
-//    }
 }
