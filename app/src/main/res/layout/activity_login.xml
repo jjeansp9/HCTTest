@@ -41,24 +41,24 @@
             android:paddingRight="50dp">
 
             <EditText
-                android:id="@+id/et_input_email"
+                android:id="@+id/et_input_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_edit"
                 android:hint="이메일 입력"
                 android:inputType="text|textNoSuggestions"
+                android:maxLength="30"
+                android:maxLines="1"
                 android:padding="12dp"
                 android:textColorHint="#CCCCCC"
                 android:textSize="16sp"
-                android:maxLines="1"
-                android:maxLength="30"
-                tools:ignore="TextFields"/>
+                tools:ignore="TextFields" />
 
             <EditText
-                android:id="@+id/et_input_password"
+                android:id="@+id/et_input_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/et_input_email"
+                android:layout_below="@id/et_input_id"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/bg_edit"
                 android:hint="비밀번호 입력"
@@ -73,7 +73,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/et_input_password"
+                android:layout_below="@id/et_input_pw"
                 android:layout_marginTop="16dp">
 
                 <ImageView

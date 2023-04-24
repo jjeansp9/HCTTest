@@ -21,6 +21,7 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityLoginBinding
+import kr.co.testapp0501.model.users.NormalLogin
 import kr.co.testapp0501.viewmodel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -60,8 +61,8 @@ class LoginActivity : AppCompatActivity() {
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
     private fun login(platform : String){
         userViewModel.startLogin(this, platform)
-        userViewModel.addUser(this, platform).observe(this){ user ->
-            Log.i("MainActivity User", user.id+user.name)
+        userViewModel.addSnsUser(this, platform).observe(this){ user ->
+            Log.i("MainActivity User", user.snsId+user.name)
         }
     }
 
@@ -96,8 +97,8 @@ class LoginActivity : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
-                    var email = binding.etInputEmail.text.toString().trim()
-                    var password = binding.etInputPassword.text.toString().trim()
+                    var email = binding.etInputId.text.toString().trim()
+                    var password = binding.etInputPw.text.toString().trim()
 
                     if (TextUtils.isEmpty(email)){
                         Toast.makeText(this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show()
@@ -107,9 +108,16 @@ class LoginActivity : AppCompatActivity() {
 
                     }else{
                         startActivity(Intent(this, GroupActivity::class.java))
-                        binding.etInputEmail.text = Editable.Factory.getInstance().newEditable("")
-                        binding.etInputPassword.text = Editable.Factory.getInstance().newEditable("")
+                        val id = binding.etInputId.text.toString().trim()
+                        val pw = binding.etInputPw.text.toString().trim()
+                        binding.etInputId.text = Editable.Factory.getInstance().newEditable("")
+                        binding.etInputPw.text = Editable.Factory.getInstance().newEditable("")
                         Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+
+                        val login = NormalLogin(id, pw)
+                        userViewModel.normalLogin(this, login).observe(this){ code ->
+                            Log.i("LoginActivity Login", code.toString())
+                        }
                     }
 
                     true

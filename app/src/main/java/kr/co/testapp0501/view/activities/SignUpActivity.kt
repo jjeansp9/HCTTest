@@ -19,6 +19,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivitySignUpBinding
+import kr.co.testapp0501.model.users.CheckId
 import kr.co.testapp0501.model.users.NormalUser
 import kr.co.testapp0501.view.DatePickerFragment
 import kr.co.testapp0501.viewmodel.UserViewModel
@@ -165,7 +166,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        // 다음 버튼 클릭 [ 클릭하면 회원가입하기 위해 입력한 정보들을 서버로 데이터를 보냄 ]
+        // 다음 버튼 클릭 [ 클릭하면 회원가입하기 위해 모두 입력했으면 정보들을 서버로 데이터를 보냄 ]
         binding.btnNext.setOnTouchListener{ view, event ->
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
@@ -233,6 +234,13 @@ class SignUpActivity : AppCompatActivity() {
                     if (responseNum == "123123"){
                         binding.tvResponseNumSuccess.visibility = View.VISIBLE
                     }else binding.tvResponseNumSuccess.visibility = View.GONE
+
+                    val checkId = CheckId(id)
+
+                    userViewModel.checkId(checkId).observe(this){ code ->
+                        Log.i("SignUpActivity checkId", "code: $code")
+
+                    }
 
                     // 중복된 아이디가 있는지 확인
                     if (id == "123"){

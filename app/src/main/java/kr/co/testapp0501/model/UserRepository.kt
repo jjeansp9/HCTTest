@@ -14,11 +14,10 @@ import com.navercorp.nid.profile.data.NidProfileResponse
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.NORMAL_SIGN_UP
 import kr.co.testapp0501.model.network.RetrofitBuilder
-import kr.co.testapp0501.model.users.NormalUser
-import kr.co.testapp0501.model.users.SocialUser
-import kr.co.testapp0501.model.users.UserResponse
+import kr.co.testapp0501.model.users.*
 import kr.co.testapp0501.view.activities.GroupActivity
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class UserRepository {
@@ -49,6 +48,33 @@ class UserRepository {
 //        return userLiveData
 //    }
 
+    // 회원가입 할 때 아이디 중복체크
+    fun checkId(checkId: CheckId) : LiveData<String>{
+        val userLiveData = MutableLiveData<String>()
+
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+        apiService.checkId(checkId).enqueue(object : Callback<UserResponse>{
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                Log.i("UserRepository checkId()", response.code().toString())
+                userLiveData.value = response.code().toString()
+
+                if (response.isSuccessful) {
+                    val item = response.body()
+                    Log.i("UserRepository checkId()", item?.msg.toString())
+                } else {
+                    // Handle error
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+
+            }
+        })
+        return userLiveData
+    }
+
+    // 일반 회원가입
     fun addNormalUser(context: Context, normalUser: NormalUser) : LiveData<Int>{
         //val userLiveData = MutableLiveData<NormalUser>()
         val userLiveData = MutableLiveData<Int>()
@@ -58,9 +84,9 @@ class UserRepository {
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.addNormalUser(normalUser).enqueue(object : retrofit2.Callback<UserResponse> {
+        apiService.addNormalUser(normalUser).enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Log.i("UserRepository registerUser()", ">>>>>>"+response.code())
+                Log.i("UserRepository addNormalUser()", ">>>>>>"+response.code())
 
                 // Http status 409 : 아이디 중복
                 // Http status 400 : 비밀번호 형식 등 확인
@@ -70,7 +96,7 @@ class UserRepository {
 
                 if (response.isSuccessful) {
                     val item = response.body()
-                    Log.i("UserRepository registerUser()", item?.msg.toString())
+                    Log.i("UserRepository addNormalUser()", item?.msg.toString())
                 } else {
                     // Handle error
                 }
@@ -83,7 +109,37 @@ class UserRepository {
         return userLiveData
     }
 
-    fun addUser(context: Context, token : String, platform: String) : LiveData<SocialUser>{
+    // 일반 로그인
+    fun normalLogin(context: Context, login: NormalLogin) : LiveData<Int>{
+        val userLiveData = MutableLiveData<Int>()
+
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+        apiService.normalLogin(login).enqueue(object : Callback<UserResponse>{
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                Log.i("UserRepository normalLogin()", ">>>>>>"+response.code())
+
+                userLiveData.value = response.code()
+
+                if (response.isSuccessful) {
+                    val item = response.body()
+                    Log.i("UserRepository normalLogin()", item?.msg.toString())
+                } else {
+                    // Handle error
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+
+            }
+
+        })
+
+        return userLiveData
+    }
+
+    // 소셜로그인 [ 카카오, 네이버, 구글 ]
+    fun addSnsUser(context: Context, token : String, platform: String) : LiveData<SocialUser>{
         Log.i("UserRepository Token", token)
 
         val userLiveData = MutableLiveData<SocialUser>()
@@ -101,17 +157,17 @@ class UserRepository {
 //                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
 //                    )
 
-                    val user = SocialUser(user.id.toString(), user.kakaoAccount!!.profile!!.nickname)
-                    userLiveData.value = SocialUser(user.id, user.name)
-
-                    Log.i("UserRepository addUser()", "kakao: " + user.id.toString())
+//                    val user = SocialUser(platform, user.id.toString(), user.kakaoAccount!!.profile!!.nickname)
+//                    userLiveData.value = SocialUser(platform, user.snsId, user.name)
+//
+//                    Log.i("UserRepository addUser()", "kakao: " + user.snsId.toString())
 
                     context.startActivity(Intent(context, GroupActivity::class.java))
                     //(context as LoginActivity).finish()
 
                     // TODO 서버로 데이터보내기 테스트 해봐야 함
                     // 회원정보 서버로 보내기
-                    registerUser(context, user)
+                    //registerUser(context, user)
 
                 }
             }
@@ -126,8 +182,8 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
 
-                    val user = SocialUser(nidProfileResponse.profile!!.id!!, nidProfileResponse.profile!!.nickname)
-                    userLiveData.value = SocialUser(user.id, user.name)
+//                    val user = SocialUser(platform, nidProfileResponse.profile!!.id!!, nidProfileResponse.profile!!.nickname,)
+//                    userLiveData.value = SocialUser(platform, user.snsId, user.name)
 
                     //Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 
@@ -136,7 +192,7 @@ class UserRepository {
 
                     // TODO 서버로 데이터보내기 테스트 해봐야 함
                     // 회원정보 서버로 보내기
-                    registerUser(context, user)
+                    //registerUser(context, user)
                 }
                 override fun onFailure(i: Int, s: String) {
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
@@ -190,7 +246,7 @@ class UserRepository {
 
                 val item = response.body()
 
-                if (item?.id != null) {
+                if (item?.snsId != null) {
                     return
                 } else {
                     apiService.addUser(user!!).enqueue(object : retrofit2.Callback<SocialUser> {
@@ -198,7 +254,7 @@ class UserRepository {
 
                             if (response.isSuccessful) {
                                 val item = response.body()
-                                Log.i("UserRepository registerUser()", item?.id.toString())
+                                Log.i("UserRepository registerUser()", item?.snsId.toString())
                             } else {
                                 // Handle error
                             }

@@ -2,6 +2,8 @@ package kr.co.testapp0501.view.activities
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.WindowManager
@@ -50,6 +52,7 @@ class GroupActivity : AppCompatActivity() {
         val params = dialog.window!!.attributes
         params.width = WindowManager.LayoutParams.MATCH_PARENT
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         // 다이얼로그 텍스트,이미지 설정
         dialog.show()
