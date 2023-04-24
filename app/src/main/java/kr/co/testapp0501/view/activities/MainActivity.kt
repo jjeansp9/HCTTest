@@ -14,7 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 툴바 설정
         setToolbar()
+
 
     }
 
