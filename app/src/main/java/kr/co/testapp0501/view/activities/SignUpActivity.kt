@@ -40,8 +40,7 @@ class SignUpActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         // 툴바 설정
-        setSupportActionBar(binding.toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        setToolbar()
 
         Log.i("gender", gender) // 회원가입 화면이 처음 열리면 기본성별 M
 
@@ -54,8 +53,14 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    // 툴바 설정
+    private fun setToolbar(){
+        setSupportActionBar(binding.toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
     // Date Picker
-    fun showDatePicker(view: View?) {
+    private fun showDatePicker(view: View?) {
         val newFragment: DialogFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
     }

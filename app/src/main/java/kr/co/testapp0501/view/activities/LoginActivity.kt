@@ -111,6 +111,7 @@ class LoginActivity : AppCompatActivity() {
                         val pw = binding.etInputPw.text.toString().trim()
                         val login = NormalLogin(id, pw)
 
+                        // 입력한 id, pw 값을 서버로 보내기
                         userViewModel.normalLogin(this, login).observe(this){ token ->
                             Log.i("LoginActivity Login", token+"")
                             if (token != null){
@@ -123,6 +124,8 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.makeText(this, "입력하신 정보가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
                             }
                         }
+
+                        startActivity(Intent(this, GroupActivity::class.java)) // 임시
                     }
 
                     true

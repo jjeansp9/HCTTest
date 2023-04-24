@@ -60,6 +60,7 @@ class GroupActivity : AppCompatActivity() {
         val tv : TextView = dialog.findViewById(R.id.tv_code_confirm)
         tv.setOnClickListener{
             Toast.makeText(this, "확인버튼 클릭", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java)) // 임시
         }
     }
 

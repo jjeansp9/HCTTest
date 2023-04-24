@@ -104,7 +104,6 @@ class UserRepository {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.e("UserRepository Error", "${t.message}")
             }
-
         })
         return userLiveData
     }
@@ -118,7 +117,6 @@ class UserRepository {
         apiService.normalLogin(login).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository normalLogin()", ">>>>>>"+response.code())
-
 
                 if (response.isSuccessful) { // 일반로그인에 성공한 경우
                     userLiveData.value = response.body()?.msg
