@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name"></string>
     <string name="logo_name"><font color="#E87743">휴먼케어 </font><font color="#000000">트리</font></string>
+
+    <string-array name="group_select">
+        <item>일반 모임</item>
+        <item>동창 모임</item>
+        <item>가족 모임</item>
+    </string-array>
+
 </resources>

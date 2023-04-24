@@ -4,7 +4,7 @@
     package="kr.co.testapp0501"
     >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".GlobalApplication"
@@ -16,9 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestApp0501"
-        tools:targetApi="31"
         android:usesCleartextTraffic="true"
+        tools:targetApi="31"
         >
+        <activity
+            android:name=".GroupAccessActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".view.activities.GroupCreateActivity"
             android:exported="false"

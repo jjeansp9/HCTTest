@@ -44,19 +44,26 @@
                 android:id="@+id/et_input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit"
                 android:hint="이메일 입력"
                 android:inputType="text|textNoSuggestions"
                 android:padding="12dp"
                 android:textColorHint="#CCCCCC"
                 android:textSize="16sp"
-                tools:ignore="TextFields" />
+                android:maxLines="1"
+                android:maxLength="30"
+                tools:ignore="TextFields"/>
 
             <EditText
                 android:id="@+id/et_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_email"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_edit"
                 android:hint="비밀번호 입력"
+                android:maxLines="1"
+                android:maxLength="20"
                 android:inputType="textPassword|textNoSuggestions"
                 android:padding="12dp"
                 android:textColorHint="#CCCCCC"

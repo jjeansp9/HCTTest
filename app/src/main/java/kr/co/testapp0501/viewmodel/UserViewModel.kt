@@ -129,7 +129,7 @@ class UserViewModel : ViewModel() {
     val normalUser: LiveData<NormalUser>
         get() = _normalUser
 
-    fun addNormalUser(context: Context, normalUser: NormalUser): LiveData<NormalUser>{
+    fun addNormalUser(context: Context, normalUser: NormalUser): LiveData<Int>{
         return userRepository.addNormalUser(context, normalUser)
     }
 

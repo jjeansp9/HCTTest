@@ -62,7 +62,7 @@
                 android:background="@drawable/btn_textbox_basic_selector"
                 android:inputType="text"
                 android:maxLines="1"
-                android:maxLength="20"
+                android:maxLength="30"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
                 android:layout_marginTop="8dp"

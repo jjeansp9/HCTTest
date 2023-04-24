@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
@@ -180,10 +181,20 @@ class SignUpActivity : AppCompatActivity() {
                     val phoneNumber = binding.etPhoneNum.text.toString().trim()
                     val birth = binding.txtCal.text.toString().trim()
 
+                    // EditText에 입력한 값들을 user에 대입
                     val user = NormalUser(id, pw, name, phoneNumber, birth, gender)
 
-                    userViewModel.addNormalUser(this, user).observe(this){ user ->
-                        Log.i("SignUpActivity normalUser", "id: ${user.id} , pw: ${user.pw} , name: ${user.name}, phoneNumber: ${user.phoneNumber}, birth: ${user.birth} , gender: ${user.sex}")
+                    // user 에 저장된 값들을 서버로 보내고 곧바로 데이터 확인
+                    userViewModel.addNormalUser(this, user).observe(this){ code ->
+                        Log.i("SignUpActivity normalUser", "code: $code")
+                        // code 400 : 비밀번호 형식 등 확인
+                        // code 201 : Success
+                        // code 500 : 서버 내부오류
+
+                        // code 409 : 아이디 중복
+                        if (code == 409){
+                            Toast.makeText(this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     true
@@ -216,6 +227,8 @@ class SignUpActivity : AppCompatActivity() {
                     val name = binding.etName.text.toString().trim()
                     val responseNum = binding.etResponseNum.text.toString().trim()
 
+
+
                     // 휴대폰인증번호 일치한지 화인
                     if (responseNum == "123123"){
                         binding.tvResponseNumSuccess.visibility = View.VISIBLE
@@ -237,28 +250,28 @@ class SignUpActivity : AppCompatActivity() {
                         binding.tvIdDuplicate.visibility = View.VISIBLE
                     }
 
-                    // 비밀번호 형식에 맞게 입력했는지 확인
-                    if (pw == pwConfirm && !TextUtils.isEmpty(pw)){
-                        binding.tvPwDuplicate.text = "사용이 가능한 비밀번호입니다."
-                        binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
-                        binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit)
-                        binding.tvPwDuplicate.visibility = View.VISIBLE
-                        binding.tvNotSame.visibility = View.GONE
-
-                    }else if(TextUtils.isEmpty(pw)){ // 비밀번호 입력란이 공백인지 확인
-                        binding.tvPwDuplicate.text = "* 8~20자리 영문 대,소문자,특수문자 모두 포함하여 입력해 주세요"
-                        binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
-                        binding.tvPwDuplicate.visibility = View.VISIBLE
-
-                    }else if(TextUtils.isEmpty(pwConfirm)){ // 비밀번호확인 입력란이 공백인지 확인
-                        binding.tvNotSame.visibility = View.GONE
-
-                    }else{ // 비밀번호와 비밀번호확인 입력란이 동일한지 확인
+                    // 비밀번호와 비밀번호확인 입력란이 동일한지 확인
+                    if (pw != pwConfirm && TextUtils.isEmpty(pw)){
                         binding.tvNotSame.text = "입력하신 비밀번호와 일치하지 않습니다."
                         binding.tvNotSame.setTextColor(ContextCompat.getColor(this, R.color.red))
                         binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit_dupl)
                         binding.tvPwDuplicate.visibility = View.GONE
                         binding.tvNotSame.visibility = View.VISIBLE
+
+                    }else if(TextUtils.isEmpty(pw)){ // 비밀번호 입력란이 공백일 때
+                        binding.tvPwDuplicate.text = "* 8~20자리 영문 대,소문자,특수문자 모두 포함하여 입력해 주세요"
+                        binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
+                        binding.tvPwDuplicate.visibility = View.VISIBLE
+
+                    }else if(TextUtils.isEmpty(pwConfirm)){ // 비밀번호확인 입력란이 공백일 때
+                        binding.tvNotSame.visibility = View.GONE
+
+                    }else{ // 위 조건을 만족할 때
+                        binding.tvPwDuplicate.text = "사용이 가능한 비밀번호입니다."
+                        binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
+                        binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit)
+                        binding.tvPwDuplicate.visibility = View.VISIBLE
+                        binding.tvNotSame.visibility = View.GONE
                     }
 
                     userViewModel.updateText(id)

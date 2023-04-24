@@ -49,35 +49,24 @@ class UserRepository {
 //        return userLiveData
 //    }
 
-    fun addNormalUser(context: Context, normalUser: NormalUser) : LiveData<NormalUser>{
-        val userLiveData = MutableLiveData<NormalUser>()
+    fun addNormalUser(context: Context, normalUser: NormalUser) : LiveData<Int>{
+        //val userLiveData = MutableLiveData<NormalUser>()
+        val userLiveData = MutableLiveData<Int>()
         Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.sex}")
 
-        userLiveData.value = normalUser
+
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-//        apiService.getNormalUser("normaluser").enqueue(object : retrofit2.Callback<NormalUser> {
-//            override fun onResponse(call: Call<NormalUser>, response: Response<NormalUser>) {
-//
-//                val item = response.body()
-//
-//                if (item?.id != null) {
-//                    return
-//                } else {
-//
-//
-////                    context.startActivity(Intent(context, GroupActivity::class.java))
-////                    (context as LoginActivity).finish()
-//                }
-//            }
-//            override fun onFailure(call: Call<NormalUser>, t: Throwable) {
-//            }
-//        })
-
         apiService.addNormalUser(normalUser).enqueue(object : retrofit2.Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Log.i("UserRepository registerUser()", ">>>>>>"+response.code() +", ")
+                Log.i("UserRepository registerUser()", ">>>>>>"+response.code())
+
+                // Http status 409 : 아이디 중복
+                // Http status 400 : 비밀번호 형식 등 확인
+                // Http status 201 : Success
+                // Http status 500 : 서버 내부오류
+                userLiveData.value = response.code()
 
                 if (response.isSuccessful) {
                     val item = response.body()
