@@ -1,9 +1,12 @@
 package kr.co.testapp0501.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 
@@ -16,6 +19,26 @@ class GroupCreateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setToolbar() // 툴바 생성
+
+        binding.imgAdd.setOnClickListener{imageAdd()}
+    }
+
+    private fun imageAdd(){
+        checkPermission() // 외부저장소 권한요청
+
+    }
+
+    // 외부저장소 권한요청
+    fun checkPermission() {
+        val permissions = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        if (checkSelfPermission(permissions[0]) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(permissions, 100)
+            Toast.makeText(this, "허용하지 않음", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this, "허용", Toast.LENGTH_SHORT).show()
+        }
     }
 
     // 툴바 설정 [ 메인화면 ]
