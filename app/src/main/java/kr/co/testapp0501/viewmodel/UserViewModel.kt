@@ -26,8 +26,8 @@ class UserViewModel : ViewModel() {
         return userRepository.addSnsUser(context, "", platform)
     }
 
+    // 액티비티에서 전달받은 platform 문자열에 에 해당하는 메소드 동작
     fun startLogin(context: Context, platform : String){
-
         if (platform == "kakao"){
             kakaoLogin(context, platform)
         }else if (platform == "naver"){
@@ -37,6 +37,7 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    // 카카오 로그인 메소드
     private fun kakaoLogin(context: Context, platform: String){
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
@@ -73,6 +74,7 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    // 네이버 로그인 메소드
     private fun naverLogin(context: Context){
 
         val oauthLoginCallback = object : OAuthLoginCallback {
@@ -99,6 +101,7 @@ class UserViewModel : ViewModel() {
         NaverIdLoginSDK.authenticate(context, callback = oauthLoginCallback)
     }
 
+    // 구글 로그인 메소드
     private fun googleLogin(context: Context){
 //        val mGoogleSignInClient: GoogleSignInClient
 //

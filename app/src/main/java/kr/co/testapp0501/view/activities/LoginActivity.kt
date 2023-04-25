@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    // 일반회원 로그인
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun normalLogin(){
         binding.imgLogin.setOnTouchListener{ view, event ->
@@ -130,10 +131,6 @@ class LoginActivity : AppCompatActivity() {
 
                     true
                 }
-//                MotionEvent.ACTION -> {
-//                    view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
-//                    true
-//                }
                 else -> false
             }
         }
