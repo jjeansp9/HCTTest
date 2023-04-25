@@ -33,12 +33,12 @@ class LoginActivity : AppCompatActivity() {
     private val clientSecret = "M8AMLuZlf_" // 네이버 로그인 식별 패스워드
     private val nidOAuthLogin = NidOAuthLogin()
 
-    var mGoogleSignInClient: GoogleSignInClient? = null
+    private var mGoogleSignInClient: GoogleSignInClient? = null
 
     // 어떤버튼을 클릭해서 로그인했는지 구분하기 위한 변수
-    val kakao = "kakao"
-    val naver = "naver"
-    val google = "google"
+    private val kakao = "kakao"
+    private val naver = "naver"
+    private val google = "google"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +61,9 @@ class LoginActivity : AppCompatActivity() {
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
     private fun login(platform : String){
         userViewModel.startLogin(this, platform)
-        userViewModel.addSnsUser(this, platform).observe(this){ user ->
-            Log.i("MainActivity User", user.snsId+user.name)
-        }
+//        userViewModel.addSnsUser(this, platform).observe(this){ user ->
+//            Log.i("MainActivity User", platform + ", " + user.snsId)
+//        }
     }
 
     // 키보드가 열린 상태일 때

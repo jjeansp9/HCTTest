@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.user.UserApiClient
@@ -16,6 +17,7 @@ import kr.co.testapp0501.model.network.NORMAL_SIGN_UP
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.users.*
 import kr.co.testapp0501.view.activities.GroupActivity
+import kr.co.testapp0501.view.activities.SignUpSnsActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -141,7 +143,7 @@ class UserRepository {
 
         if (platform == "kakao"){
             UserApiClient.instance.me { user, throwable ->
-                if (user != null) {
+                if (token != null || token != "") {
 //                    Log.i("kakaoLogin", "카카오 고유ID : " + user.id)
 //                    Log.i("kakaoLogin", "카카오 닉네임 : " + user.kakaoAccount!!.profile!!.nickname)
 //                    Log.i("kakaoLogin", "카카오 이메일 : " + user.kakaoAccount!!.email)
@@ -152,17 +154,25 @@ class UserRepository {
 //                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
 //                    )
 
-//                    val user = SocialUser(platform, user.id.toString(), user.kakaoAccount!!.profile!!.nickname)
-//                    userLiveData.value = SocialUser(platform, user.snsId, user.name)
+                    val userInfo = SocialUser(platform, user?.id.toString())
+                    userLiveData.value = SocialUser(platform, userInfo.snsId)
+
+                    // Intent 객체 생성 후 데이터 전달
+                    val intent = Intent(context, SignUpSnsActivity::class.java)
+                    intent.putExtra("user", userInfo)
+
+                    context.startActivity(intent)
 //
 //                    Log.i("UserRepository addUser()", "kakao: " + user.snsId.toString())
 
-                    context.startActivity(Intent(context, GroupActivity::class.java))
+                    //context.startActivity(Intent(context, GroupActivity::class.java))
                     //(context as LoginActivity).finish()
 
                     // TODO 서버로 데이터보내기 테스트 해봐야 함
                     // 회원정보 서버로 보내기
                     //registerUser(context, user)
+
+
 
                 }
             }
@@ -177,8 +187,8 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
 
-//                    val user = SocialUser(platform, nidProfileResponse.profile!!.id!!, nidProfileResponse.profile!!.nickname,)
-//                    userLiveData.value = SocialUser(platform, user.snsId, user.name)
+                    val user = SocialUser(platform, nidProfileResponse.profile!!.id!!)
+                    userLiveData.value = SocialUser(platform, user.snsId)
 
                     //Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 

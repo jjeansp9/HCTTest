@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activities.SignUpActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="회원가입"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="19sp"
-                android:layout_gravity="center"/>
-
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+    <include layout="@layout/toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -42,9 +22,9 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingLeft="30dp"
+            android:paddingStart="30dp"
             android:paddingTop="16dp"
-            android:paddingRight="30dp"
+            android:paddingEnd="30dp"
             android:paddingBottom="16dp">
 
             <TextView
@@ -63,7 +43,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:maxLength="30"
-                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="12dp"
                 android:layout_marginTop="8dp"
                 android:paddingBottom="12dp"
@@ -74,7 +54,7 @@
                 android:id="@+id/tv_id_duplicate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:text="중복된 아이디입니다"
                 android:textColor="@color/red"
@@ -97,7 +77,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/btn_textbox_basic_selector"
                 android:inputType="textPassword"
-                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:maxLength="20"
@@ -108,7 +88,7 @@
                 android:id="@+id/tv_pw_duplicate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/red"
                 android:textSize="11sp"
@@ -133,7 +113,7 @@
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:textSize="16sp" />
@@ -142,7 +122,7 @@
                 android:id="@+id/tv_not_same"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:text="입력하신 비밀번호와 맞지않습니다"
                 android:textColor="@color/red"
@@ -167,7 +147,7 @@
                 android:inputType="text"
                 android:maxLength="10"
                 android:maxLines="1"
-                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:textSize="16sp" />
@@ -198,88 +178,6 @@
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
-<!--                <EditText-->
-<!--                    android:id="@+id/txt_cal"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:background="@drawable/btn_textbox_basic_selector"-->
-<!--                    android:inputType="text"-->
-<!--                    android:paddingLeft="16dp"-->
-<!--                    android:paddingTop="12dp"-->
-<!--                    android:paddingBottom="12dp"-->
-<!--                    android:textSize="16sp" />-->
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="6"
-                    android:background="@drawable/bg_edit"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="4dp"
-                        android:text="1992 년" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_down" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="4"
-                    android:background="@drawable/bg_edit"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="4dp"
-                        android:text="11 월" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_down" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:background="@drawable/bg_edit"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="4dp"
-                        android:text="12 일" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_down" />
-                </RelativeLayout>
             </LinearLayout>
 
 
@@ -341,13 +239,13 @@
                     android:id="@+id/et_phone_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="6"
                     android:background="@drawable/btn_textbox_basic_selector"
                     android:inputType="number"
                     android:maxLength="11"
                     android:maxLines="1"
-                    android:paddingLeft="16dp"
+                    android:paddingStart="16dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:textSize="16sp" />
@@ -374,7 +272,7 @@
                 android:inputType="number"
                 android:maxLength="10"
                 android:maxLines="1"
-                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:textColorHint="#999999"
@@ -384,7 +282,7 @@
                 android:id="@+id/tv_response_num_success"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:text="인증이 완료되었습니다."
                 android:textColor="@color/brand_color"
@@ -405,6 +303,7 @@
         android:padding="16dp"
         android:text="다음"
         android:textColor="@color/white" />
+
 
 </RelativeLayout>
 

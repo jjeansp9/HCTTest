@@ -23,8 +23,5 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
         val activity = activity as SignUpActivity?
         activity?.processDatePickerResult(year,month,day);
-
-        val selectedDate = "$year/${month + 1}/$day"
-        Toast.makeText(requireContext(), "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
     }
 }

@@ -19,9 +19,9 @@ import kr.co.testapp0501.view.adapters.RecyclerGroupActivityAdapter
 
 class GroupActivity : AppCompatActivity() {
 
-    val binding : ActivityGroupBinding by lazy { ActivityGroupBinding.inflate(layoutInflater) }
-    val groupItems = mutableListOf<RecyclerGroupData>()
-    val adapter = RecyclerGroupActivityAdapter(this, groupItems)
+    private val binding : ActivityGroupBinding by lazy { ActivityGroupBinding.inflate(layoutInflater) }
+    private val groupItems = mutableListOf<RecyclerGroupData>()
+    private val adapter = RecyclerGroupActivityAdapter(this, groupItems)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

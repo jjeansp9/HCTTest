@@ -12,13 +12,17 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivitySignUpBinding
+import kr.co.testapp0501.databinding.ToolbarBinding
 import kr.co.testapp0501.model.users.CheckId
 import kr.co.testapp0501.model.users.NormalUser
 import kr.co.testapp0501.view.DatePickerFragment
@@ -27,10 +31,11 @@ import kr.co.testapp0501.viewmodel.UserViewModel
 
 class SignUpActivity : AppCompatActivity() {
 
-    val binding : ActivitySignUpBinding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
     private lateinit var userViewModel: UserViewModel // ViewModel 초기화
 
     private var gender = "M" // 성별 기본 M으로 설정
+
+    private val binding : ActivitySignUpBinding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,10 @@ class SignUpActivity : AppCompatActivity() {
 
     // 툴바 설정
     private fun setToolbar(){
-        setSupportActionBar(binding.toolbar)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.text = "회원가입"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 

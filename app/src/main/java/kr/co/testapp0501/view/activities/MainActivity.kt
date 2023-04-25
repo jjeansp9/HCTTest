@@ -3,26 +3,28 @@ package kr.co.testapp0501.view.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    val binding : ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding : ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 툴바 설정
+        // 툴바 설정 [ 메인화면 ]
         setToolbar()
-
-
     }
 
-    // 툴바 설정
+    // 툴바 설정 [ 메인화면 ]
     private fun setToolbar(){
-        setSupportActionBar(binding.toolbar)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.setText(R.string.logo_name)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
