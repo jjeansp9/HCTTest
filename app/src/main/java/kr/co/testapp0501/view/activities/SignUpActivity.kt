@@ -340,8 +340,6 @@ class SignUpActivity : AppCompatActivity() {
 
                     }
 
-                    userViewModel.updateText(id)
-
                     Log.i("tests", "id: $id, pw: $pw, pwConfirm: $pwConfirm, name: $name")
                 }
             }

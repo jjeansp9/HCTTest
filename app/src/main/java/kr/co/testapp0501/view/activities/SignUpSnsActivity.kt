@@ -102,6 +102,14 @@ class SignUpSnsActivity : AppCompatActivity() {
                     val user = SocialUser(snsType, snsId, name, phoneNumber, birth, gender)
 
                     userRepository.registerUser(this, user)
+                    Log.i("SignUpSnsActivity",
+                        "snsType: ${user.snsType}," +
+                            " snsId: ${user.snsId}, " +
+                            "snsName: ${user.name}, " +
+                                "snsPhoneNum: ${user.phoneNumber}, " +
+                                "snsBirth: ${user.birth}, " +
+                                "snsGender: ${user.sex}"
+                    )
                     true
                 }
                 else -> false

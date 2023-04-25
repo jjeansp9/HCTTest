@@ -145,12 +145,6 @@ class UserViewModel : ViewModel() {
         return userRepository.addNormalUser(context, normalUser)
     }
 
-    fun updateText(newText: String) {
-
-        _text.value = newText
-        Log.i("test!", _text.value.toString())
-    }
-
     // 액티비티에서 로그인 et에 입력한 값을 얻어와 userRepository 로 넘기기
     fun normalLogin(context: Context, login: NormalLogin): LiveData<String>{
         return userRepository.normalLogin(context, login)
