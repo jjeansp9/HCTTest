@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activities.MemberActivity"
+    android:background="@color/background">
+
+    <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/layout_matching_wait"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/appbar_layout"
+        android:background="@color/white">
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ACACAC"
+        android:layout_below="@id/layout_matching_wait"
+        android:layout_margin="16dp"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_admin"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/line1"
+        android:background="@color/white">
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ACACAC"
+        android:layout_below="@id/layout_admin"
+        android:layout_margin="16dp"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_matching_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line2"
+        android:background="@color/white">
+
+    </RelativeLayout>
+
+</RelativeLayout>

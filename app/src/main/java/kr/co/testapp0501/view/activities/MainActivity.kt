@@ -1,5 +1,6 @@
 package kr.co.testapp0501.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,11 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 툴바 설정 [ 메인화면 ]
+        // 툴바 설정 [ 메인 화면 ]
         setToolbar()
+
+        binding.btnMember.setOnClickListener{startActivity(Intent(this, MemberActivity::class.java))}
     }
 
-    // 툴바 설정 [ 메인화면 ]
+    // 툴바 설정 [ 메인 화면 ]
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

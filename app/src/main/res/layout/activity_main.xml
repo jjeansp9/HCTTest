@@ -7,7 +7,7 @@
     tools:context=".view.activities.MainActivity"
     android:background="@color/background">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_layout_main"
                 android:orientation="vertical"
-                android:padding="30dp">
+                android:padding="20dp">
 
                 <LinearLayout
                     android:id="@+id/layout_row_1"
