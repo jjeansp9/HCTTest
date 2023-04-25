@@ -21,10 +21,10 @@ interface ApiService {
 
     // 소셜로 회원가입
     @POST("com/avad/api/member/sns")
-    fun addUser(@Body user: SocialUser): Call<SocialUser>
+    fun addUser(@Body user: SocialUser): Call<UserResponse>
 
     // 소셜로 로그인
     @POST("com/avad/api/member/sns/login")
-    fun getUser(@Query("user") user: String?): Call<SocialUser>
+    fun getUser(@Query("user") user: String?): Call<UserResponse>
 
 }

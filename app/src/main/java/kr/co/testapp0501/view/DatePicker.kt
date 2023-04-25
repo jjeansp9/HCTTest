@@ -7,6 +7,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import kr.co.testapp0501.view.activities.SignUpActivity
+import kr.co.testapp0501.view.activities.SignUpSnsActivity
 import java.util.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -21,7 +22,14 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
-        val activity = activity as SignUpActivity?
-        activity?.processDatePickerResult(year,month,day);
+
+        if (activity is SignUpActivity){
+            val activitys = activity as SignUpActivity?
+            activitys?.processDatePickerResult(year,month,day)
+
+        }else if (activity is SignUpSnsActivity){
+            val activitys = activity as SignUpSnsActivity?
+            activitys?.processDatePickerResult(year,month,day)
+        }
     }
 }

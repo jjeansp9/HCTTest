@@ -154,12 +154,15 @@ class UserRepository {
 //                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
 //                    )
 
-                    val userInfo = SocialUser(platform, user?.id.toString())
-                    userLiveData.value = SocialUser(platform, userInfo.snsId)
+
+                    val snsType = platform
+                    val snsId = user?.id.toString()
+                    //userLiveData.value = SocialUser(platform, userInfo.snsId)
 
                     // Intent 객체 생성 후 데이터 전달
                     val intent = Intent(context, SignUpSnsActivity::class.java)
-                    intent.putExtra("user", userInfo)
+                    intent.putExtra("snsType", snsType)
+                    intent.putExtra("snsId", snsId)
 
                     context.startActivity(intent)
 //
@@ -187,8 +190,8 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
 
-                    val user = SocialUser(platform, nidProfileResponse.profile!!.id!!)
-                    userLiveData.value = SocialUser(platform, user.snsId)
+//                    val user = SocialUser(platform, nidProfileResponse.profile!!.id!!)
+//                    userLiveData.value = SocialUser(platform, user.snsId)
 
                     //Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 
@@ -242,39 +245,24 @@ class UserRepository {
 //    }
 
     // retrofit2 를 사용하여 http 통신
-    private fun registerUser(context: Context,user: SocialUser?) {
+    fun registerUser(context: Context,user: SocialUser?) {
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.getUser("user").enqueue(object : retrofit2.Callback<SocialUser> {
-            override fun onResponse(call: Call<SocialUser>, response: Response<SocialUser>) {
-
-                val item = response.body()
-
-                if (item?.snsId != null) {
-                    return
+        apiService.addUser(user!!).enqueue(object : retrofit2.Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                Log.i("UserRepository snsLogin()", ">>>>>>"+response.code())
+                if (response.isSuccessful) {
+                    Log.i("UserRepository snsLogin()", response.body()?.msg.toString())
                 } else {
-                    apiService.addUser(user!!).enqueue(object : retrofit2.Callback<SocialUser> {
-                        override fun onResponse(call: Call<SocialUser>, response: Response<SocialUser>) {
-
-                            if (response.isSuccessful) {
-                                val item = response.body()
-                                Log.i("UserRepository registerUser()", item?.snsId.toString())
-                            } else {
-                                // Handle error
-                            }
-                        }
-                        override fun onFailure(call: Call<SocialUser>, t: Throwable) {
-                            Log.e("UserRepository Error", "${t.message}")
-                        }
-                    })
-
-//                    context.startActivity(Intent(context, GroupActivity::class.java))
-//                    (context as LoginActivity).finish()
+                    // Handle error
                 }
             }
-            override fun onFailure(call: Call<SocialUser>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.e("UserRepository Error", "${t.message}")
             }
+
+
         })
 
     }

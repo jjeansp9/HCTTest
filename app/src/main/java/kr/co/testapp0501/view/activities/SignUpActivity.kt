@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.MenuItem
@@ -55,6 +57,38 @@ class SignUpActivity : AppCompatActivity() {
         // 생년월일 입력란을 클릭하면 캘린더 오픈
         binding.txtCal.setOnClickListener{
             showDatePicker(it)
+        }
+
+        setEtSpace()
+
+    }
+
+    // EditText에 스페이스바 입력 안되게 설정
+    private fun setEtSpace(){
+        val editTextList = arrayOf(
+            binding.etId,
+            binding.etPassword,
+            binding.etPasswordConfirm,
+            binding.etName,
+            binding.etPhoneNum,
+            binding.etResponseNum
+        )
+
+        for (editText in editTextList) {
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val string = s.toString()
+                    if (string.contains(" ")) {
+                        val newString = string.replace(" ", "")
+                        editText.setText(newString)
+                        editText.setSelection(newString.length)
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
         }
     }
 
@@ -271,8 +305,10 @@ class SignUpActivity : AppCompatActivity() {
                         binding.tvIdDuplicate.visibility = View.VISIBLE
                     }
 
+                    val regex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).{8,20}$")
+
                     // 비밀번호와 비밀번호확인 입력란이 동일한지 확인
-                    if (pw != pwConfirm && TextUtils.isEmpty(pw)){
+                    if (pw != pwConfirm && !TextUtils.isEmpty(pw) && !TextUtils.isEmpty(pwConfirm)){
                         binding.tvNotSame.text = "입력하신 비밀번호와 일치하지 않습니다."
                         binding.tvNotSame.setTextColor(ContextCompat.getColor(this, R.color.red))
                         binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit_dupl)
@@ -287,12 +323,21 @@ class SignUpActivity : AppCompatActivity() {
                     }else if(TextUtils.isEmpty(pwConfirm)){ // 비밀번호확인 입력란이 공백일 때
                         binding.tvNotSame.visibility = View.GONE
 
-                    }else{ // 위 조건을 만족할 때
+                    }else if (!regex.matches(pw)){
+                        binding.tvPwDuplicate.text = "* 8~20자리 영문 대,소문자,특수문자 모두 포함하여 입력해 주세요"
+                        binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
+                        binding.etPassword.setBackgroundResource(R.drawable.bg_edit_dupl)
+                        binding.tvPwDuplicate.visibility = View.VISIBLE
+                        binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit)
+                        binding.tvNotSame.visibility = View.GONE
+
+                    }else if (regex.matches(pw) && pw == pwConfirm){ // 위 조건을 만족할 때
                         binding.tvPwDuplicate.text = "사용이 가능한 비밀번호입니다."
                         binding.tvPwDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
                         binding.etPasswordConfirm.setBackgroundResource(R.drawable.bg_edit)
                         binding.tvPwDuplicate.visibility = View.VISIBLE
                         binding.tvNotSame.visibility = View.GONE
+
                     }
 
                     userViewModel.updateText(id)
