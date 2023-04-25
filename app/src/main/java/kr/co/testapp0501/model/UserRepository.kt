@@ -154,29 +154,21 @@ class UserRepository {
 //                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
 //                    )
 
+                    //userLiveData.value = SocialUser(platform, userInfo.snsId)
 
                     val snsType = platform
                     val snsId = user?.id.toString()
-                    //userLiveData.value = SocialUser(platform, userInfo.snsId)
 
-                    // Intent 객체 생성 후 데이터 전달
+                    // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
                     val intent = Intent(context, SignUpSnsActivity::class.java)
-                    intent.putExtra("snsType", snsType)
-                    intent.putExtra("snsId", snsId)
-
+                    intent.putExtra("snsType", snsType) // snsType [ kakao ]
+                    intent.putExtra("snsId", snsId) // sns Id
                     context.startActivity(intent)
 //
 //                    Log.i("UserRepository addUser()", "kakao: " + user.snsId.toString())
 
                     //context.startActivity(Intent(context, GroupActivity::class.java))
                     //(context as LoginActivity).finish()
-
-                    // TODO 서버로 데이터보내기 테스트 해봐야 함
-                    // 회원정보 서버로 보내기
-                    //registerUser(context, user)
-
-
-
                 }
             }
         }else if(platform == "naver"){
@@ -195,12 +187,17 @@ class UserRepository {
 
                     //Log.i("UserRepository addUser()", "naver: " + user.id.toString())
 
-                    context.startActivity(Intent(context, GroupActivity::class.java))
+                    //context.startActivity(Intent(context, GroupActivity::class.java))
                     //(context as LoginActivity).finish()
 
-                    // TODO 서버로 데이터보내기 테스트 해봐야 함
-                    // 회원정보 서버로 보내기
-                    //registerUser(context, user)
+                    val snsType = platform
+                    val snsId = nidProfileResponse.profile!!.id.toString()
+
+                    // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
+                    val intent = Intent(context, SignUpSnsActivity::class.java)
+                    intent.putExtra("snsType", snsType) // snsType [ naver ]
+                    intent.putExtra("snsId", snsId) // sns Id
+                    context.startActivity(intent)
                 }
                 override fun onFailure(i: Int, s: String) {
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
