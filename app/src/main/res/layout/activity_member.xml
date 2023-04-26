@@ -10,61 +10,81 @@
     <include layout="@layout/toolbar" />
 
     <RelativeLayout
-        android:id="@+id/layout_matching_wait"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appbar_layout"
-        android:background="@color/white">
+        android:layout_below="@+id/appbar_layout">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_matching_wait"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"/>
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/layout_matching_wait"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_matching_wait"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ACACAC"
+                    android:layout_below="@id/layout_matching_wait"
+                    android:layout_margin="16dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/layout_admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/line1"
+                    android:background="@color/white">
+
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ACACAC"
+                    android:layout_below="@id/layout_admin"
+                    android:layout_margin="16dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/layout_matching_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/line2"
+                    android:background="@color/white">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ACACAC"
-        android:layout_below="@id/layout_matching_wait"
-        android:layout_margin="16dp"/>
-
-    <RelativeLayout
-        android:id="@+id/layout_admin"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/line1"
-        android:background="@color/white">
-
-
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ACACAC"
-        android:layout_below="@id/layout_admin"
-        android:layout_margin="16dp"/>
-
-    <RelativeLayout
-        android:id="@+id/layout_matching_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/line2"
-        android:background="@color/white">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_member"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>

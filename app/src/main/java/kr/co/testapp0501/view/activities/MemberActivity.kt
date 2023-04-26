@@ -25,7 +25,7 @@ class MemberActivity : AppCompatActivity() {
         setToolbar()
 
         // 더미데이터 추가해서 테스트
-        for (i in 0 .. 5) {
+        for (i in 0 .. 10) {
             memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동"))
             memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨"))
             memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨"))
