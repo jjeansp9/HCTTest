@@ -36,20 +36,27 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-        holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
-
         Glide.with(context).load(R.drawable.bg_edit_input).into(holder.binding.imgMember) // 멤버 프로필사진
         Glide.with(context).load(R.drawable.btn_next_selector).into(holder.binding.btnMemberNext) // 멤버 [>] 버튼
 
         holder.binding.tvName.text = items[position].tvName // 멤버 이름
-        holder.binding.tvType.text = items[position].btnMatching // 타입
+        holder.binding.tvMatching.text = items[position].btnMatching // 타입
 
         when (items[position].type) {
-            "matching" -> {
-                holder.binding.tvType.visibility = View.VISIBLE
+            "매칭대기" -> {
+                holder.binding.tvMatching.visibility = View.VISIBLE // 매칭하기 버튼
+                holder.binding.tvMatching.setOnClickListener{itemClickListener.itemClick(holder.binding.tvMatching, position)} // 매칭하기를 클릭했을 때
+            }
+            "admin" -> {
+                holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼
+                holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
+                holder.binding.tvAdmin.visibility = View.VISIBLE // 관리자 칭호
+                holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
             }
             "A" -> {
-                holder.binding.btnMemberNext.visibility = View.VISIBLE
+                holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼
+                holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
+                holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
             }
         }
     }

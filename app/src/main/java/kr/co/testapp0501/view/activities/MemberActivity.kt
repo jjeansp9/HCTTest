@@ -17,9 +17,11 @@ class MemberActivity : AppCompatActivity() {
     private val binding : ActivityMemberBinding by lazy { ActivityMemberBinding.inflate(layoutInflater) }
 
     private val matchingItems = mutableListOf<RecyclerMemberData>()
+    private val adminItems = mutableListOf<RecyclerMemberData>()
     private val memberItems = mutableListOf<RecyclerMemberData>()
 
     private val matchingAdapter = RecyclerMemberActivityAdapter(this, matchingItems)
+    private val adminAdapter = RecyclerMemberActivityAdapter(this, adminItems)
     private val memberAdapter = RecyclerMemberActivityAdapter(this, memberItems)
 
 
@@ -27,6 +29,7 @@ class MemberActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.recyclerMatchingWait.adapter = matchingAdapter
+        binding.recyclerAdmin.adapter = adminAdapter
         binding.recyclerMember.adapter = memberAdapter
 
         // 툴바 설정 [ 구성원 화면 ]
@@ -34,9 +37,15 @@ class MemberActivity : AppCompatActivity() {
 
         // 더미데이터 추가해서 테스트 [ 매칭 ]
         for (i in 0 .. 2) {
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동1", "matching",  "매칭하기"))
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨1", "matching",  "매칭하기"))
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨1", "matching",  "매칭하기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "길동이", "매칭하기",  "매칭대기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "춘삼이", "매칭하기",  "매칭대기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "돌석이", "매칭하기",  "매칭대기"))
+        }
+
+        // 더미데이터 추가해서 테스트 [ 관리자 ]
+        for (i in 0 .. 2) {
+            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "말동이", "admin",  "admin"))
+            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "강순이", "admin",  "admin"))
         }
 
         // 더미데이터 추가해서 테스트 [ 멤버목록 ]
@@ -47,6 +56,7 @@ class MemberActivity : AppCompatActivity() {
         }
 
         clickedMatching() // 매칭대기 클릭
+        clickedAdmin() // 관리자 클릭
         clickedMember() // 멤버 클릭
     }
 
@@ -55,6 +65,16 @@ class MemberActivity : AppCompatActivity() {
         matchingAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
             override fun itemClick(v: View, position: Int) {
                 Toast.makeText(this@MemberActivity, matchingItems[position].tvName, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    // 관리자 클릭
+    private fun clickedAdmin(){
+        adminAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
+            override fun itemClick(v: View, position: Int) {
+                Toast.makeText(this@MemberActivity, adminItems[position].tvName, Toast.LENGTH_SHORT).show()
             }
 
         })

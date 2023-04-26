@@ -130,13 +130,14 @@ class UserRepository {
 
                 if (response.isSuccessful) { // 일반로그인에 성공한 경우
                     userLiveData.value = response.body()?.msg
-                    Log.i("UserRepository normalLogin()", response.body()?.msg.toString())
+                    Log.i("UserRepository normalLogin()", response.body()?.msg.toString() +"\n" + response.body()?.data.toString())
 
                 } else { // 일반로그인에 실패한 경우
                     userLiveData.value = null
                 }
             }
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.i("UserRepository normalLogin()", ">>>>>>"+Log.getStackTraceString(t))
 
             }
         })
