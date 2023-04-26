@@ -18,7 +18,7 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
 
     // (1) 리스너 인터페이스
     interface OnItemClickListener {
-        fun memberClick(v: View, position: Int)
+        fun itemClick(v: View, position: Int)
     }
     // (2) 외부에서 클릭 시 이벤트 설정
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -35,7 +35,7 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-        holder.binding.itemRoot.setOnClickListener{itemClickListener.memberClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
+        holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
 
         Glide.with(context).load(R.drawable.bg_edit_input).into(holder.binding.imgMember) // 멤버 프로필사진
         holder.binding.tvName.text = items[position].tvName // 멤버 이름

@@ -49,13 +49,17 @@ class LoginActivity : AppCompatActivity() {
         Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
         NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
 
-        normalLogin()
+
         clickedBackGround()
 
+        // 일반 회원가입
         binding.layoutSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
-        binding.kakaoLogin.setOnClickListener{login(kakao)}
-        binding.naverLogin.setOnClickListener{login(naver)}
-        binding.googleLogin.setOnClickListener{login(google)}
+
+        normalLogin() // 일반 로그인
+        binding.kakaoLogin.setOnClickListener{login(kakao)} // 카카오 로그인
+        binding.naverLogin.setOnClickListener{login(naver)} // 네이버 로그인
+        binding.googleLogin.setOnClickListener{login(google)} // 구글 로그인
+
     }
 
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
