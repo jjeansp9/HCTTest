@@ -14,6 +14,9 @@ import com.navercorp.nid.profile.data.NidProfileResponse
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.users.*
+import kr.co.testapp0501.view.activities.GroupActivity
+import kr.co.testapp0501.view.activities.LoginActivity
+import kr.co.testapp0501.view.activities.SignUpActivity
 import kr.co.testapp0501.view.activities.SignUpSnsActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,7 +82,7 @@ class UserRepository {
         val userLiveData = MutableLiveData<Int>()
         Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.sex}")
 
-
+        var users = UserModel(context)
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
@@ -96,6 +99,14 @@ class UserRepository {
                 if (response.isSuccessful) {
                     val item = response.body()
                     Log.i("UserRepository addNormalUser()", item?.msg.toString())
+
+                    // 자동으로 로그인하기 위해 디바이스에 [id, pw] 저장
+                    users.saveNormalData(normalUser.id, normalUser.pw)
+
+                    context.startActivity(Intent(context, GroupActivity::class.java))
+                    (context as SignUpActivity).finish()
+
+                    Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 } else {
                     // Handle error
                 }
@@ -238,8 +249,10 @@ class UserRepository {
 //        }
 //    }
 
-    // retrofit2 를 사용하여 http 통신
-    fun registerUser(context: Context,user: SocialUser?) {
+    // sns 회원가입 통신
+    fun snsRegisterUser(context: Context, user: SocialUser?) {
+
+        var users = UserModel(context)
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
@@ -248,6 +261,14 @@ class UserRepository {
                 Log.i("UserRepository snsLogin()", ">>>>>>"+response.code())
                 if (response.isSuccessful) {
                     Log.i("UserRepository snsLogin()", response.body()?.msg.toString())
+
+                    // 자동으로 로그인하기 위해 디바이스에 [type, id] 저장
+                    users.saveSnsData(user.snsType, user.snsId)
+
+                    context.startActivity(Intent(context, GroupActivity::class.java))
+                    (context as SignUpSnsActivity).finish()
+
+                    Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 } else {
                     // Handle error
                 }

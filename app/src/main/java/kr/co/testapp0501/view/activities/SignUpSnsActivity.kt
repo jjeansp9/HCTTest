@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivitySignUpSnsBinding
 import kr.co.testapp0501.model.UserRepository
-import kr.co.testapp0501.model.users.NormalUser
 import kr.co.testapp0501.model.users.SocialUser
 import kr.co.testapp0501.view.DatePickerFragment
 
@@ -94,14 +92,13 @@ class SignUpSnsActivity : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
-
                     val name = binding.etName.text.toString().trim()
                     val phoneNumber = binding.etPhoneNum.text.toString().trim()
                     val birth = binding.txtCal.text.toString().trim()
 
                     val user = SocialUser(snsType, snsId, name, phoneNumber, birth, gender)
 
-                    userRepository.registerUser(this, user)
+                    userRepository.snsRegisterUser(this, user)
                     Log.i("SignUpSnsActivity",
                         "snsType: ${user.snsType}," +
                             " snsId: ${user.snsId}, " +

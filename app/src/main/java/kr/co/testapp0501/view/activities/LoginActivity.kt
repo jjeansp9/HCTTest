@@ -22,6 +22,9 @@ import com.navercorp.nid.oauth.NidOAuthLogin
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityLoginBinding
 import kr.co.testapp0501.model.users.NormalLogin
+import kr.co.testapp0501.model.users.NormalUser
+import kr.co.testapp0501.model.users.SocialLogin
+import kr.co.testapp0501.model.users.UserModel
 import kr.co.testapp0501.viewmodel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -40,8 +43,27 @@ class LoginActivity : AppCompatActivity() {
     private val naver = "naver"
     private val google = "google"
 
+    var users = UserModel(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 디바이스에 저장된 값 불러오기
+        val loadUserInfo: NormalLogin= users.loadNormalData()
+        val loadSnsUserInfo: SocialLogin= users.loadSnsData()
+
+        // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
+        when {
+            loadUserInfo.id != "" && loadUserInfo.pw != "" -> { // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+                startActivity(Intent(this@LoginActivity, GroupActivity::class.java))
+                finish()
+            }
+            loadSnsUserInfo.snsType != "" && loadSnsUserInfo.snsId != "" -> { // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+                startActivity(Intent(this@LoginActivity, GroupActivity::class.java))
+                finish()
+            }
+        }
+
         setContentView(binding.root)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]

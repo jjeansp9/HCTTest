@@ -10,4 +10,3 @@ data class SocialUser(
     val birth : String,
     val sex : String
     ) : Serializable
-

@@ -13,7 +13,6 @@ class IntroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_intro)
 
         Handler().postDelayed({
-            Toast.makeText(this@IntroActivity, "메인화면으로 이동", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@IntroActivity, LoginActivity::class.java)
             startActivity(intent)
             finish()

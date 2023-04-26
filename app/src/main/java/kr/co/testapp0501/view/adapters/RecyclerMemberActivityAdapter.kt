@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
@@ -38,7 +39,19 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
         holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
 
         Glide.with(context).load(R.drawable.bg_edit_input).into(holder.binding.imgMember) // 멤버 프로필사진
+        Glide.with(context).load(R.drawable.btn_next_selector).into(holder.binding.btnMemberNext) // 멤버 [>] 버튼
+
         holder.binding.tvName.text = items[position].tvName // 멤버 이름
+        holder.binding.tvType.text = items[position].btnMatching // 타입
+
+        when (items[position].type) {
+            "matching" -> {
+                holder.binding.tvType.visibility = View.VISIBLE
+            }
+            "A" -> {
+                holder.binding.btnMemberNext.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun getItemCount(): Int = items.size

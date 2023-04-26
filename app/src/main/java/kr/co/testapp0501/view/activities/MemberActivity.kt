@@ -34,16 +34,16 @@ class MemberActivity : AppCompatActivity() {
 
         // 더미데이터 추가해서 테스트 [ 매칭 ]
         for (i in 0 .. 2) {
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동"))
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨"))
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동1", "matching",  "매칭하기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨1", "matching",  "매칭하기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨1", "matching",  "매칭하기"))
         }
 
         // 더미데이터 추가해서 테스트 [ 멤버목록 ]
         for (i in 0 .. 10) {
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동"))
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨"))
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동", "A",  "A"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨", "A",  "A"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨", "A",  "A"))
         }
 
         clickedMatching() // 매칭대기 클릭
