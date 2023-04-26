@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:id="@+id/item_root">
+
+    <ImageView
+        android:id="@+id/img_member"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/bg_edit"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"/>
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="홍길동"
+        android:layout_toEndOf="@id/img_member"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="12dp"/>
+
+    <ImageView
+        android:id="@+id/btn_member_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/btn_next_selector"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"/>
+
+
+</RelativeLayout>

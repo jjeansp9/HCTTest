@@ -6,6 +6,7 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    // 일반 회원가입 ID 중복체크
     @GET("com/avad/api/member/check/{memberId}")
     fun checkId(@Path("memberId") memberId : CheckId): Call<UserResponse>
 
@@ -21,10 +22,11 @@ interface ApiService {
 
     // 소셜로 회원가입
     @POST("com/avad/api/member/sns")
-    fun addUser(@Body user: SocialUser): Call<UserResponse>
+    fun addSnsUser(@Body user: SocialUser): Call<UserResponse>
 
     // 소셜로 로그인
     @POST("com/avad/api/member/sns/login")
-    fun getUser(@Query("user") user: String?): Call<UserResponse>
+    fun snsLogin(@Query("user") user: String?): Call<UserResponse>
+
 
 }

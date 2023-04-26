@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_img_add"
-        android:padding="30dp"
+        android:scaleType="center"
         android:layout_marginTop="30dp"/>
 
     <TextView
@@ -92,7 +92,7 @@
         />
 
     <TextView
-    android:id="@+id/btn_next"
+    android:id="@+id/btn_complete"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintBottom_toBottomOf="parent"

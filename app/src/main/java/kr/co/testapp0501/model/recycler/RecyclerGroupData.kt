@@ -1,4 +1,4 @@
-package kr.co.testapp0501.model
+package kr.co.testapp0501.model.recycler
 
 data class RecyclerGroupData(
     val imgGroup : Int,

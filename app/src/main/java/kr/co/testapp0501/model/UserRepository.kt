@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.user.UserApiClient
@@ -13,10 +12,8 @@ import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import kr.co.testapp0501.model.network.ApiService
-import kr.co.testapp0501.model.network.NORMAL_SIGN_UP
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.users.*
-import kr.co.testapp0501.view.activities.GroupActivity
 import kr.co.testapp0501.view.activities.SignUpSnsActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -246,7 +243,7 @@ class UserRepository {
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.addUser(user!!).enqueue(object : retrofit2.Callback<UserResponse> {
+        apiService.addSnsUser(user!!).enqueue(object : retrofit2.Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository snsLogin()", ">>>>>>"+response.code())
                 if (response.isSuccessful) {

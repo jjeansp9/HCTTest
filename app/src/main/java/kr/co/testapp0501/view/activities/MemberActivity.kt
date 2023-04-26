@@ -6,17 +6,30 @@ import android.view.MenuItem
 import android.widget.TextView
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityMemberBinding
+import kr.co.testapp0501.model.recycler.RecyclerGroupData
+import kr.co.testapp0501.model.recycler.RecyclerMemberData
+import kr.co.testapp0501.view.adapters.RecyclerMemberActivityAdapter
 
 class MemberActivity : AppCompatActivity() {
     
-    val binding : ActivityMemberBinding by lazy { ActivityMemberBinding.inflate(layoutInflater) }
-    
+    private val binding : ActivityMemberBinding by lazy { ActivityMemberBinding.inflate(layoutInflater) }
+    private val memberItems = mutableListOf<RecyclerMemberData>()
+    private val memberAdapter = RecyclerMemberActivityAdapter(this, memberItems)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        binding.recyclerMember.adapter = memberAdapter
 
         // 툴바 설정 [ 구성원 화면 ]
         setToolbar()
+
+        // 더미데이터 추가해서 테스트
+        for (i in 0 .. 5) {
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨"))
+        }
     }
 
     // 툴바 설정 [ 구성원 화면 ]

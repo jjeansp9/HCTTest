@@ -13,10 +13,7 @@ import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toolbar
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -97,8 +94,11 @@ class SignUpActivity : AppCompatActivity() {
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        //val btnBack = findViewById<ImageView>(R.id.btn_back)
+        //btnBack.setOnClickListener{btnBack.isSelected = !btnBack.isSelected}
         tv.text = "회원가입"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
     }
 
     // Date Picker

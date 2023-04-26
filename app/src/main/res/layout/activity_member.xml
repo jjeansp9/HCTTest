@@ -12,9 +12,16 @@
     <RelativeLayout
         android:id="@+id/layout_matching_wait"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/appbar_layout"
         android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_matching_wait"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
 
     </RelativeLayout>
 
@@ -33,6 +40,7 @@
         android:layout_below="@+id/line1"
         android:background="@color/white">
 
+
     </RelativeLayout>
 
     <ImageView
@@ -49,6 +57,13 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/line2"
         android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
 
     </RelativeLayout>
 

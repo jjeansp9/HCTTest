@@ -21,7 +21,9 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_layout_main.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_textbox_gender_girl.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_textbox_gender_man.xml" value="0.1795" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_back_selector.xml" value="0.1975" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_dialog_group_code.xml" value="0.1795" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_next_selector.xml" value="0.1975" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_textbox_basic.xml" value="0.179" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_textbox_basic_selector.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_bg_group_code_input.xml" value="0.1795" />
@@ -41,6 +43,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/dialog_group_code_input.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_blank.xml" value="0.3578125" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_group_item.xml" value="0.33" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_member_item.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/toolbar.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
