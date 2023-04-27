@@ -8,18 +8,32 @@
     android:layout_marginTop="8dp"
     android:id="@+id/group_root">
 
-    <ImageView
-        android:id="@+id/img_group"
-        android:layout_width="168dp"
-        android:layout_height="168dp"
-        android:src="@drawable/bg_edit"/>
+    <RelativeLayout
+        android:id="@+id/layout_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_group"
+            android:layout_width="168dp"
+            android:layout_height="168dp"
+            android:background="@drawable/group_create_bg_selector"/>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_group_create"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_group_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="이씨네"
-        android:layout_below="@id/img_group"
+        android:layout_below="@id/layout_img"
         android:layout_marginTop="2dp"
         android:layout_marginStart="4dp"
         android:textSize="16dp"
@@ -30,16 +44,16 @@
         android:id="@+id/tv_group_admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_group_name"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
         android:background="#308C32"
+        android:paddingStart="4dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="2dp"
         android:text="관리자"
         android:textColor="@color/white"
-        android:textSize="12sp"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginStart="4dp"
-        android:layout_below="@id/tv_group_name"/>
+        android:textSize="12sp" />
 
 </RelativeLayout>

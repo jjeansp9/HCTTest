@@ -10,7 +10,7 @@ class RetrofitBuilder {
 
         fun getRetrofitInstance(): Retrofit? {
             val builder = Retrofit.Builder()
-            builder.baseUrl(BASE_URL)
+            builder.baseUrl(ApiService.BASE_URL)
             builder.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             return builder.build()
         }

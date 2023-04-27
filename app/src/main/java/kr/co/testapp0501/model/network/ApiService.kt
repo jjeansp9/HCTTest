@@ -6,27 +6,36 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    companion object{
+        const val BASE_URL = "http://192.168.2.55:9999"
+        const val PREFIX_URL = "/com/avad/api/"
+
+        const val NORMAL_SIGN_UP = "$PREFIX_URL/member/self"
+        const val NORMAL_SIGN_IN = "$PREFIX_URL/member/self/login"
+
+        const val SNS_SIGN_UP = "$PREFIX_URL/member/sns"
+        const val SNS_SIGN_IN = "$PREFIX_URL/member/sns/login"
+    }
+
     // 일반 회원가입 ID 중복체크
-    @GET("com/avad/api/member/check/{memberId}")
+    @GET("$PREFIX_URL/member/check/{memberId}")
     fun checkId(@Path("memberId") memberId : CheckId): Call<UserResponse>
 
     // 일반 회원가입
     @Headers("Content-Type: application/json")
-    @POST("com/avad/api/member/self")
+    @POST(NORMAL_SIGN_UP)
     fun addNormalUser(@Body normaluser: NormalUser): Call<UserResponse>
 
     // 일반 로그인
     @Headers("Content-Type: application/json")
-    @POST("com/avad/api/member/self/login")
+    @POST(NORMAL_SIGN_IN)
     fun normalLogin(@Body user: NormalLogin): Call<UserResponse>
 
     // 소셜로 회원가입
-    @POST("com/avad/api/member/sns")
+    @POST(SNS_SIGN_UP)
     fun addSnsUser(@Body user: SocialUser): Call<UserResponse>
 
     // 소셜로 로그인
-    @POST("com/avad/api/member/sns/login")
+    @POST(SNS_SIGN_IN)
     fun snsLogin(@Query("user") user: String?): Call<UserResponse>
-
-
 }

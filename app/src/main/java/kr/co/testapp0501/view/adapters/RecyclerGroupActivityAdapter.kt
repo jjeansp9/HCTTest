@@ -40,9 +40,14 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) }
 
         //Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup)
-        Glide.with(context).load(R.drawable.bg_edit_input).into(holder.binding.imgGroup)
+        Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup)
         holder.binding.tvGroupName.text = items[position].tvGroupName
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
+
+        if(items[position].imgGroup == ""){
+            holder.binding.tvGroupAdmin.text = ""
+            holder.binding.tvGroupAdmin.background = null
+        }
     }
 
     override fun getItemCount(): Int = items.size

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -32,48 +32,70 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end">
 
-                <ImageView
-                    android:id="@+id/group_access"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_group_access"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="4dp"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/group_access"-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:padding="6dp"-->
+<!--                    android:src="@drawable/ic_group_access"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_marginEnd="4dp"-->
+<!--                    />-->
 
                 <ImageView
-                    android:id="@+id/img_group_create"
+                    android:id="@+id/img_group_settings"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:padding="4dp"
-                    android:src="@drawable/ic_group_create"
-                    android:layout_toEndOf="@id/group_access"
-                    />
+                    android:src="@drawable/ic_group_setting"
+                    android:layout_marginEnd="4dp"/>
 
             </RelativeLayout>
-
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar_layout"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        android:orientation="vertical"
-        app:spanCount="2"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appbar_layout"
         android:background="@color/background"
+        android:orientation="vertical"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2" />
+
+    <RelativeLayout
+        android:id="@+id/layout_group_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_group_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_et_group_code_input"
+            android:padding="20dp"
+            android:text="그룹 생성"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_group_connect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_group_create"
+            android:text="그룹 접속"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:background="@drawable/dialog_et_group_code_input"/>
 
 
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

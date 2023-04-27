@@ -31,23 +31,17 @@ class GroupActivity : AppCompatActivity() {
 
         // 툴바 생성
         setToolbar()
+        groupItems.add(RecyclerGroupData("", ""))
 
-        // 더미데이터 추가해서 테스트
-        for (i in 0 .. 5) {
-            groupItems.add(RecyclerGroupData(R.drawable.bg_edit, "이씨네 가족"))
-            groupItems.add(RecyclerGroupData(R.drawable.bg_edit, "동창 모임"))
-            groupItems.add(RecyclerGroupData(R.drawable.bg_edit, "경기 풋살팀"))
-        }
-
-        // 그룹생성 버튼 클릭 [ 그룹생성 화면으로 이동 ]
+        // 설정 버튼 클릭 [ 설정 화면으로 이동 ]
         moveGroupCreateActivity()
 
         // 그룹접속 버튼 클릭 [ 다이얼로그 띄움 ]
-        binding.groupAccess.setOnClickListener{showDialog()}
+        //binding.groupAccess.setOnClickListener{showDialog()}
 
         // 그룹을 클릭하여 메인화면으로 이동
-        clickedGroup()
-
+        clickedGroupAdd()
+        clickedGroupBox()
     }
 
     // 툴바 설정 [ 메인화면 ]
@@ -57,12 +51,28 @@ class GroupActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun clickedGroup(){
+    var clicked = false
+
+    // 그룹 [ + ] 버튼 클릭
+    private fun clickedGroupAdd(){
         adapter.setItemClickListener(object : RecyclerGroupActivityAdapter.OnItemClickListener{
             override fun groupClick(v: View, position: Int) {
-                startActivity(Intent(this@GroupActivity, MainActivity::class.java)) // 임시
+                //startActivity(Intent(this@GroupActivity, GroupCreateActivity::class.java)) // 임시
+
+                if (!clicked){
+                    binding.layoutGroupBox.visibility = View.VISIBLE
+                    clicked = true
+                }else{
+                    binding.layoutGroupBox.visibility = View.GONE
+                    clicked = false
+                }
             }
         })
+    }
+
+    // 그룹생성 버튼 클릭
+    private fun clickedGroupBox(){
+        binding.tvGroupCreate.setOnClickListener{startActivity(Intent(this@GroupActivity, GroupCreateActivity::class.java))}
     }
 
     // 그룹코드 입력하는 다이얼로그
@@ -86,9 +96,9 @@ class GroupActivity : AppCompatActivity() {
         }
     }
 
-    // 그룹생성 화면으로 이동
+    // 설정 화면으로 이동
     private fun moveGroupCreateActivity(){
-        binding.imgGroupCreate.setOnClickListener{startActivity(Intent(this, GroupCreateActivity::class.java))}
+        binding.imgGroupSettings.setOnClickListener{startActivity(Intent(this, GroupSettingActivity::class.java))}
     }
 
     // 뒤로가기 버튼
