@@ -23,7 +23,6 @@ import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
-import kr.co.testapp0501.model.user.UserResponse
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -31,7 +30,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import java.util.logging.Level.parse
 
 
 class GroupCreateActivity : AppCompatActivity() {
@@ -74,6 +72,12 @@ class GroupCreateActivity : AppCompatActivity() {
                         val groupType = binding.spinGroupType.selectedItem.toString()
                         Log.i("ss", groupName + groupType + groupImg)
 
+//                        val dataPart: MutableMap<String, String> = HashMap()
+//                        dataPart["groupName"] = groupName
+//                        dataPart["groupType"] = groupType
+//                        dataPart["masterSeq"] = "1"
+//                        dataPart["memo"] = ""
+
                         val groupInfo = Group(groupName, groupType, 1, "")
 
                         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(
@@ -86,9 +90,6 @@ class GroupCreateActivity : AppCompatActivity() {
                                 response: Response<String>
                             ) {
                                 Log.i("GroupCreateActivity code", response.code().toString())
-                                Log.i("GroupCreateActivity code", response.message())
-                                Log.i("GroupCreateActivity code", response.body().toString())
-
                             }
 
                             override fun onFailure(call: Call<String>, t: Throwable) {

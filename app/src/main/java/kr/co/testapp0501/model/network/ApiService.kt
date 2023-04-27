@@ -8,6 +8,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
+import retrofit2.http.PartMap as PartMap
 
 interface ApiService {
 
@@ -48,6 +49,10 @@ interface ApiService {
     // 소셜로 로그인
     @POST(SNS_SIGN_IN)
     fun snsLogin(@Query("user") user: String?): Call<UserResponse>
+
+//    @Multipart
+//    @POST(GROUP_CREATE)
+//    fun uploadData(@PartMap dataPart: Map<String, String>, @Part imageFile: MultipartBody.Part): Call<String>
 
     @Multipart
     @POST(GROUP_CREATE)
