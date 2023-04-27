@@ -1,4 +1,4 @@
-package kr.co.testapp0501.model.users
+package kr.co.testapp0501.model.user
 
 import android.content.Context
 import android.content.SharedPreferences

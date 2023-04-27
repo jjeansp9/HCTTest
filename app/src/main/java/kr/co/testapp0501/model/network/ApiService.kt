@@ -1,6 +1,6 @@
 package kr.co.testapp0501.model.network
 
-import kr.co.testapp0501.model.users.*
+import kr.co.testapp0501.model.user.*
 import retrofit2.Call
 import retrofit2.http.*
 

@@ -1,4 +1,4 @@
-package kr.co.testapp0501.view.activities
+package kr.co.testapp0501.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,10 +21,9 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityLoginBinding
-import kr.co.testapp0501.model.users.NormalLogin
-import kr.co.testapp0501.model.users.NormalUser
-import kr.co.testapp0501.model.users.SocialLogin
-import kr.co.testapp0501.model.users.UserModel
+import kr.co.testapp0501.model.user.NormalLogin
+import kr.co.testapp0501.model.user.SocialLogin
+import kr.co.testapp0501.model.user.UserModel
 import kr.co.testapp0501.viewmodel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package kr.co.testapp0501.view.activities
+package kr.co.testapp0501.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityMemberBinding
-import kr.co.testapp0501.model.recycler.RecyclerGroupData
 import kr.co.testapp0501.model.recycler.RecyclerMemberData
-import kr.co.testapp0501.view.adapters.RecyclerMemberActivityAdapter
+import kr.co.testapp0501.view.adapter.RecyclerMemberActivityAdapter
 
 class MemberActivity : AppCompatActivity() {
     

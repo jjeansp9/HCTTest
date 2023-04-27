@@ -1,16 +1,18 @@
-package kr.co.testapp0501.view.activities
+package kr.co.testapp0501.view.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
@@ -28,12 +30,28 @@ class GroupCreateActivity : AppCompatActivity() {
         checkPermission() // 외부저장소 권한요청
 
         binding.imgAdd.setOnClickListener{imageAdd()}
-        binding.btnComplete.setOnClickListener{clickedComplete()}
+        clickedComplete()
+
     }
 
     // 그룹생성 항목들을 모두 작성 후에 확인버튼을 눌렀을 때
+    @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun clickedComplete(){
+        binding.btnComplete.setOnTouchListener{ view, event ->
+            when(event.action){
+                MotionEvent.ACTION_DOWN -> {
+                    view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
 
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
+
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     // 이미지 추가 버튼 눌렀을 때
@@ -58,11 +76,10 @@ class GroupCreateActivity : AppCompatActivity() {
         val permissions = arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-        if (checkSelfPermission(permissions[0]) == PackageManager.PERMISSION_DENIED) {
+        if (checkSelfPermission(permissions[0]) == PackageManager.PERMISSION_DENIED) { // 허용되지 않았을 때
             requestPermissions(permissions, 100)
-            Toast.makeText(this, "허용하지 않음", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(this, "허용", Toast.LENGTH_SHORT).show()
+        }else{ // 허용됐을 때
+
         }
     }
 

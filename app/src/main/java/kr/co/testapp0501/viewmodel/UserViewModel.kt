@@ -1,6 +1,5 @@
 package kr.co.testapp0501.viewmodel
 
-import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -14,10 +13,10 @@ import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import kr.co.testapp0501.model.UserRepository
-import kr.co.testapp0501.model.users.CheckId
-import kr.co.testapp0501.model.users.NormalLogin
-import kr.co.testapp0501.model.users.NormalUser
-import kr.co.testapp0501.model.users.SocialUser
+import kr.co.testapp0501.model.user.CheckId
+import kr.co.testapp0501.model.user.NormalLogin
+import kr.co.testapp0501.model.user.NormalUser
+import kr.co.testapp0501.model.user.SocialUser
 
 class UserViewModel : ViewModel() {
 

@@ -1,4 +1,4 @@
-package kr.co.testapp0501.view.activities
+package kr.co.testapp0501.view.activity
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivitySignUpSnsBinding
 import kr.co.testapp0501.model.UserRepository
-import kr.co.testapp0501.model.users.SocialUser
+import kr.co.testapp0501.model.user.SocialUser
 import kr.co.testapp0501.view.DatePickerFragment
 
 class SignUpSnsActivity : AppCompatActivity() {

@@ -1,10 +1,9 @@
-package kr.co.testapp0501.view.activities
+package kr.co.testapp0501.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
 import kr.co.testapp0501.R
 
 class IntroActivity : AppCompatActivity() {

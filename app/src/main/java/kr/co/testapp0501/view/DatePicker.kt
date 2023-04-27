@@ -4,10 +4,9 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import kr.co.testapp0501.view.activities.SignUpActivity
-import kr.co.testapp0501.view.activities.SignUpSnsActivity
+import kr.co.testapp0501.view.activity.SignUpActivity
+import kr.co.testapp0501.view.activity.SignUpSnsActivity
 import java.util.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -26,6 +25,8 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         if (activity is SignUpActivity){
             val activitys = activity as SignUpActivity?
             activitys?.processDatePickerResult(year,month,day)
+
+
 
         }else if (activity is SignUpSnsActivity){
             val activitys = activity as SignUpSnsActivity?

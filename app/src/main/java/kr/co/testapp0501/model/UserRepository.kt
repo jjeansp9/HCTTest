@@ -13,11 +13,10 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
-import kr.co.testapp0501.model.users.*
-import kr.co.testapp0501.view.activities.GroupActivity
-import kr.co.testapp0501.view.activities.LoginActivity
-import kr.co.testapp0501.view.activities.SignUpActivity
-import kr.co.testapp0501.view.activities.SignUpSnsActivity
+import kr.co.testapp0501.model.user.*
+import kr.co.testapp0501.view.activity.GroupActivity
+import kr.co.testapp0501.view.activity.SignUpActivity
+import kr.co.testapp0501.view.activity.SignUpSnsActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

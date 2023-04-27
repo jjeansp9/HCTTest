@@ -1,4 +1,4 @@
-package kr.co.testapp0501.view.activities
+package kr.co.testapp0501.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,6 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
@@ -16,14 +15,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivitySignUpBinding
-import kr.co.testapp0501.databinding.ToolbarBinding
-import kr.co.testapp0501.model.users.CheckId
-import kr.co.testapp0501.model.users.NormalUser
+import kr.co.testapp0501.model.user.CheckId
+import kr.co.testapp0501.model.user.NormalUser
 import kr.co.testapp0501.view.DatePickerFragment
 import kr.co.testapp0501.viewmodel.UserViewModel
 

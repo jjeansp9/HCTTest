@@ -1,13 +1,11 @@
-package kr.co.testapp0501.view.adapters
+package kr.co.testapp0501.view.adapter
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerGroupItemBinding
 import kr.co.testapp0501.model.recycler.RecyclerGroupData

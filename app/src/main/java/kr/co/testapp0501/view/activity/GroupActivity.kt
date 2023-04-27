@@ -1,4 +1,4 @@
-package kr.co.testapp0501.view.activities
+package kr.co.testapp0501.view.activity
 
 import android.app.Dialog
 import android.content.Intent
@@ -8,15 +8,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupBinding
 import kr.co.testapp0501.model.recycler.RecyclerGroupData
-import kr.co.testapp0501.view.adapters.RecyclerGroupActivityAdapter
+import kr.co.testapp0501.view.adapter.RecyclerGroupActivityAdapter
 
 class GroupActivity : AppCompatActivity() {
 
