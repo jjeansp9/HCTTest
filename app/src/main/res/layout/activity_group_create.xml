@@ -63,7 +63,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_group_category"
+        android:id="@+id/tv_group_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="그룹 유형"
@@ -76,10 +76,11 @@
         android:textStyle="bold"/>
 
     <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spin_group_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@id/tv_group_category"
+        app:layout_constraintTop_toBottomOf="@id/tv_group_type"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/bg_edit"

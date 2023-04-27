@@ -6,21 +6,38 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
+import kr.co.testapp0501.model.group.Group
+import kr.co.testapp0501.model.network.ApiService
+import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.model.user.UserResponse
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import java.util.logging.Level.parse
+
 
 class GroupCreateActivity : AppCompatActivity() {
 
     private val binding : ActivityGroupCreateBinding by lazy { ActivityGroupCreateBinding.inflate(layoutInflater) }
-    lateinit var imgUri: Uri
+    var imgUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +47,8 @@ class GroupCreateActivity : AppCompatActivity() {
         checkPermission() // 외부저장소 권한요청
 
         binding.imgAdd.setOnClickListener{imageAdd()}
-        clickedComplete()
 
+        clickedComplete()
     }
 
     // 그룹생성 항목들을 모두 작성 후에 확인버튼을 눌렀을 때
@@ -47,6 +64,41 @@ class GroupCreateActivity : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
+                    if (imgUri != null){
+
+                        val file = File(imgPath)
+                        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+
+                        val groupImg= MultipartBody.Part.createFormData("files", file.name, requestBody)
+                        val groupName = binding.etGroupName.text.toString()
+                        val groupType = binding.spinGroupType.selectedItem.toString()
+                        Log.i("ss", groupName + groupType + groupImg)
+
+                        val groupInfo = Group(groupName, groupType, 1, "")
+
+                        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(
+                            ApiService::class.java)
+
+                        apiService.uploadData(groupInfo, groupImg).enqueue(object : Callback<String>{
+
+                            override fun onResponse(
+                                call: Call<String>,
+                                response: Response<String>
+                            ) {
+                                Log.i("GroupCreateActivity code", response.code().toString())
+                                Log.i("GroupCreateActivity code", response.message())
+                                Log.i("GroupCreateActivity code", response.body().toString())
+
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                            }
+
+                        })
+
+                    }else{
+                        Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
+                    }
                     true
                 }
                 else -> false
@@ -61,6 +113,8 @@ class GroupCreateActivity : AppCompatActivity() {
         resultLauncher.launch(intent)
     }
 
+    var imgPath = ""
+
     // 이미지 관련 코드
     var resultLauncher = registerForActivityResult<Intent, ActivityResult>(
         ActivityResultContracts.StartActivityForResult()
@@ -68,7 +122,24 @@ class GroupCreateActivity : AppCompatActivity() {
         if (result.resultCode != RESULT_CANCELED) {
             imgUri = result.data!!.data!!
             Glide.with(this).load(imgUri).into(binding.imgAdd)
+
+            imgPath = getRealPathFromUri(imgUri)!!
         }
+    }
+
+    //Uri -- > 절대경로로 바꿔서 리턴시켜주는 메소드
+    fun getRealPathFromUri(uri: Uri?): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader = CursorLoader(
+            this,
+            uri!!, proj, null, null, null
+        )
+        val cursor = loader.loadInBackground()
+        val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result = cursor.getString(column_index)
+        cursor.close()
+        return result
     }
 
     // 외부저장소 권한요청
@@ -102,4 +173,9 @@ class GroupCreateActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun test(){
+
+    }
+
 }

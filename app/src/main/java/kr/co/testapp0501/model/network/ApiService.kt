@@ -1,20 +1,30 @@
 package kr.co.testapp0501.model.network
 
+import io.reactivex.Single
+import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.user.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
 
     companion object{
         const val BASE_URL = "http://192.168.2.55:9999"
-        const val PREFIX_URL = "/com/avad/api/"
+        const val PREFIX_URL = "/com/avad/api"
 
+        // 일반 회원가입,로그인
         const val NORMAL_SIGN_UP = "$PREFIX_URL/member/self"
         const val NORMAL_SIGN_IN = "$PREFIX_URL/member/self/login"
 
+        // 소셜 회원가입, 로그인
         const val SNS_SIGN_UP = "$PREFIX_URL/member/sns"
         const val SNS_SIGN_IN = "$PREFIX_URL/member/sns/login"
+
+        // 그룹 생성
+        const val GROUP_CREATE = "$PREFIX_URL/group"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -38,4 +48,34 @@ interface ApiService {
     // 소셜로 로그인
     @POST(SNS_SIGN_IN)
     fun snsLogin(@Query("user") user: String?): Call<UserResponse>
+
+    @Multipart
+    @POST(GROUP_CREATE)
+    fun uploadData(@Part("info") info: Group, @Part imageFile: MultipartBody.Part): Call<String>
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
