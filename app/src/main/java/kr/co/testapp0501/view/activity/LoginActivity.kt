@@ -144,7 +144,10 @@ class LoginActivity : AppCompatActivity() {
                         userViewModel.normalLogin(this, login).observe(this){ token ->
                             Log.i("LoginActivity Login", token+"")
                             if (token != null){
-                                startActivity(Intent(this, GroupActivity::class.java))
+
+                                val intent = Intent(this, GroupActivity::class.java)
+                                intent.putExtra("token", token)
+                                startActivity(intent)
 
                                 binding.etInputId.text = Editable.Factory.getInstance().newEditable("")
                                 binding.etInputPw.text = Editable.Factory.getInstance().newEditable("")
@@ -154,7 +157,8 @@ class LoginActivity : AppCompatActivity() {
                             }
                         }
 
-                        startActivity(Intent(this, GroupActivity::class.java)) // 임시
+                        //startActivity(Intent(this, GroupActivity::class.java)) // 임시
+                        //Toast.makeText(this, "입력하신 정보가 일치하지 않아도 임시로 화면 넘어가기", Toast.LENGTH_SHORT).show()
                     }
 
                     true

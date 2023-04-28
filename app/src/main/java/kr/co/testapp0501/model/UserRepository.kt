@@ -14,7 +14,6 @@ import com.navercorp.nid.profile.data.NidProfileResponse
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.user.*
-import kr.co.testapp0501.view.activity.GroupActivity
 import kr.co.testapp0501.view.activity.SignUpActivity
 import kr.co.testapp0501.view.activity.SignUpSnsActivity
 import retrofit2.Call
@@ -22,32 +21,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserRepository {
-
-//    fun addUser(id : Long?, name : String) : LiveData<User>{
-//
-//        Log.i("mm", id.toString()+name)
-//
-//        val userLiveData = MutableLiveData<User>()
-//        val user = User(id, name)
-//
-//        apiService.addUser(user).enqueue(object : retrofit2.Callback<User> {
-//
-//            override fun onResponse(call: Call<User>, response: Response<User>) {
-//
-//                if (response.isSuccessful){
-//                    userLiveData.value = response.body()
-//                }else{
-//                    // Handle error
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<User>, t: Throwable) {
-//                Log.e("UserRepository Error", "${t.message}")
-//            }
-//        })
-//
-//        return userLiveData
-//    }
 
     // 회원가입 할 때 아이디 중복체크
     fun checkId(checkId: CheckId) : LiveData<String>{
@@ -67,7 +40,6 @@ class UserRepository {
                     // Handle error
                 }
             }
-
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
 
             }
@@ -77,10 +49,8 @@ class UserRepository {
 
     // 일반 회원가입
     fun addNormalUser(context: Context, normalUser: NormalUser) : LiveData<Int>{
-        //val userLiveData = MutableLiveData<NormalUser>()
         val userLiveData = MutableLiveData<Int>()
         Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.sex}")
-
         var users = UserModel(context)
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
@@ -89,9 +59,9 @@ class UserRepository {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository addNormalUser()", ">>>>>>"+response.code())
 
+                // Http status 201 : Success
                 // Http status 409 : 아이디 중복
                 // Http status 400 : 비밀번호 형식 등 확인
-                // Http status 201 : Success
                 // Http status 500 : 서버 내부오류
                 userLiveData.value = response.code()
 
@@ -102,9 +72,7 @@ class UserRepository {
                     // 자동으로 로그인하기 위해 디바이스에 [id, pw] 저장
                     users.saveNormalData(normalUser.id, normalUser.pw)
 
-                    context.startActivity(Intent(context, GroupActivity::class.java))
                     (context as SignUpActivity).finish()
-
                     Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 } else {
                     // Handle error
@@ -128,8 +96,8 @@ class UserRepository {
                 Log.i("UserRepository normalLogin()", ">>>>>>"+response.code())
 
                 if (response.isSuccessful) { // 일반로그인에 성공한 경우
-                    userLiveData.value = response.body()?.msg
-                    Log.i("UserRepository normalLogin()", response.body()?.msg.toString() +"\n" + response.body()?.data.toString())
+                    userLiveData.value = response.body()?.data?.jwtToken
+                    Log.i("UserRepository normalLogin()", "message: "+ response.body()?.msg.toString() +"\n jwtToken: " + response.body()?.data?.jwtToken)
 
                 } else { // 일반로그인에 실패한 경우
                     userLiveData.value = null
@@ -157,12 +125,6 @@ class UserRepository {
 //                    Log.i("kakaoLogin", "카카오 이메일 : " + user.kakaoAccount!!.email)
 //                    Log.i("kakaoLogin", "카카오 성별 : " + user.kakaoAccount!!.gender)
 //                    Log.i("kakaoLogin", "카카오 연령대 : " + user.kakaoAccount!!.ageRange)
-//                    Log.i(
-//                        "kakaoLogin",
-//                        "카카오 프로필사진 : " + user.kakaoAccount!!.profile!!.profileImageUrl
-//                    )
-
-                    //userLiveData.value = SocialUser(platform, userInfo.snsId)
 
                     val snsType = platform
                     val snsId = user?.id.toString()
@@ -172,11 +134,6 @@ class UserRepository {
                     intent.putExtra("snsType", snsType) // snsType [ kakao ]
                     intent.putExtra("snsId", snsId) // sns Id
                     context.startActivity(intent)
-//
-//                    Log.i("UserRepository addUser()", "kakao: " + user.snsId.toString())
-
-                    //context.startActivity(Intent(context, GroupActivity::class.java))
-                    //(context as LoginActivity).finish()
                 }
             }
         }else if(platform == "naver"){
@@ -190,20 +147,11 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
 
-//                    val user = SocialUser(platform, nidProfileResponse.profile!!.id!!)
-//                    userLiveData.value = SocialUser(platform, user.snsId)
-
-                    //Log.i("UserRepository addUser()", "naver: " + user.id.toString())
-
-                    //context.startActivity(Intent(context, GroupActivity::class.java))
-                    //(context as LoginActivity).finish()
-
-                    val snsType = platform
                     val snsId = nidProfileResponse.profile!!.id.toString()
 
                     // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
                     val intent = Intent(context, SignUpSnsActivity::class.java)
-                    intent.putExtra("snsType", snsType) // snsType [ naver ]
+                    intent.putExtra("snsType", platform) // snsType [ naver ]
                     intent.putExtra("snsId", snsId) // sns Id
                     context.startActivity(intent)
                 }
@@ -265,7 +213,6 @@ class UserRepository {
                     // 자동으로 로그인하기 위해 디바이스에 [type, id] 저장
                     users.saveSnsData(user.snsType, user.snsId)
 
-                    context.startActivity(Intent(context, GroupActivity::class.java))
                     (context as SignUpSnsActivity).finish()
 
                     Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
@@ -276,10 +223,7 @@ class UserRepository {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.e("UserRepository Error", "${t.message}")
             }
-
-
         })
-
     }
 }
 

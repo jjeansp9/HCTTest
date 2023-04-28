@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -70,7 +71,16 @@ class GroupActivity : AppCompatActivity() {
 
     // 그룹생성 버튼 클릭
     private fun clickedGroupBox(){
-        binding.tvGroupCreate.setOnClickListener{startActivity(Intent(this@GroupActivity, GroupCreateActivity::class.java))}
+        binding.tvGroupCreate.setOnClickListener{
+
+            val token = intent.getStringExtra("token")
+
+            val intent = Intent(this, GroupCreateActivity::class.java)
+            intent.putExtra("token", token)
+            startActivity(intent)
+
+
+        }
     }
 
     // 그룹코드 입력하는 다이얼로그

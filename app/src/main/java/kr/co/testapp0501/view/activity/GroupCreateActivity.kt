@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
@@ -23,6 +24,7 @@ import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.viewmodel.GroupViewModel
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -35,6 +37,7 @@ import java.io.File
 class GroupCreateActivity : AppCompatActivity() {
 
     private val binding : ActivityGroupCreateBinding by lazy { ActivityGroupCreateBinding.inflate(layoutInflater) }
+    private lateinit var groupViewModel: GroupViewModel
     var imgUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +46,7 @@ class GroupCreateActivity : AppCompatActivity() {
 
         setToolbar() // 툴바 생성
         checkPermission() // 외부저장소 권한요청
+        groupViewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
 
         binding.imgAdd.setOnClickListener{imageAdd()}
 
@@ -64,13 +68,17 @@ class GroupCreateActivity : AppCompatActivity() {
 
                     if (imgUri != null){
 
+
+
+                        val token = intent.getStringExtra("token")!!
+
                         val file = File(imgPath)
                         val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
 
                         val groupImg= MultipartBody.Part.createFormData("files", file.name, requestBody)
                         val groupName = binding.etGroupName.text.toString()
                         val groupType = binding.spinGroupType.selectedItem.toString()
-                        Log.i("ss", groupName + groupType + groupImg)
+                        Log.i("ss", groupName + groupType + groupImg + token)
 
 //                        val dataPart: MutableMap<String, String> = HashMap()
 //                        dataPart["groupName"] = groupName
@@ -80,23 +88,10 @@ class GroupCreateActivity : AppCompatActivity() {
 
                         val groupInfo = Group(groupName, groupType, 1, "")
 
-                        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(
-                            ApiService::class.java)
-
-                        apiService.uploadData(groupInfo, groupImg).enqueue(object : Callback<String>{
-
-                            override fun onResponse(
-                                call: Call<String>,
-                                response: Response<String>
-                            ) {
-                                Log.i("GroupCreateActivity code", response.code().toString())
-                            }
-
-                            override fun onFailure(call: Call<String>, t: Throwable) {
-                            }
-
-                        })
-
+                        groupViewModel.createGroup(token, groupInfo, groupImg)
+                        groupViewModel.code.observe(this){
+                            Log.i("GroupCreateaActivity code", it)
+                        }
                     }else{
                         Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
                     }
@@ -174,9 +169,4 @@ class GroupCreateActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    private fun test(){
-
-    }
-
 }

@@ -42,11 +42,11 @@ interface ApiService {
     @POST(NORMAL_SIGN_IN)
     fun normalLogin(@Body user: NormalLogin): Call<UserResponse>
 
-    // 소셜로 회원가입
+    // 소셜 회원가입
     @POST(SNS_SIGN_UP)
     fun addSnsUser(@Body user: SocialUser): Call<UserResponse>
 
-    // 소셜로 로그인
+    // 소셜 로그인
     @POST(SNS_SIGN_IN)
     fun snsLogin(@Query("user") user: String?): Call<UserResponse>
 
@@ -54,9 +54,15 @@ interface ApiService {
 //    @POST(GROUP_CREATE)
 //    fun uploadData(@PartMap dataPart: Map<String, String>, @Part imageFile: MultipartBody.Part): Call<String>
 
+    // 그룹 생성
+    @Headers("Content-Type: application/json")
     @Multipart
     @POST(GROUP_CREATE)
-    fun uploadData(@Part("info") info: Group, @Part imageFile: MultipartBody.Part): Call<String>
+    fun uploadData(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Part("info") info: Group,
+        @Part imageFile: MultipartBody.Part
+    ): Call<String>
 }
 
 
