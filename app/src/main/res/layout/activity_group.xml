@@ -62,28 +62,28 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true">-->
 
-        <ImageView
-            android:id="@+id/img_group_empty"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_group_empty" />
+<!--        <ImageView-->
+<!--            android:id="@+id/img_group_empty"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:src="@drawable/ic_group_empty" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="참여된 그룹이 없습니다."
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/img_group_empty"
-            android:textSize="18sp"
-            android:layout_marginTop="8dp"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="참여된 그룹이 없습니다."-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_below="@id/img_group_empty"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_marginTop="8dp"/>-->
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/layout_group_box"
@@ -110,8 +110,6 @@
             android:padding="20dp"
             android:textColor="@color/black"
             android:background="@drawable/dialog_et_group_code_input"/>
-
-
     </RelativeLayout>
 
 </RelativeLayout>

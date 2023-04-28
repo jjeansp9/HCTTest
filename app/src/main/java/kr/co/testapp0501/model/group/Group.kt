@@ -6,3 +6,4 @@ data class Group(
     val masterSeq : Int,
     var memo : String
 )
+

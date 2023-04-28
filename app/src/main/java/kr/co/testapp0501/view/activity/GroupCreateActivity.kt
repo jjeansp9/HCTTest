@@ -25,8 +25,6 @@ import com.google.gson.Gson
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 import kr.co.testapp0501.model.group.Group
-import kr.co.testapp0501.model.network.ApiService
-import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.viewmodel.GroupViewModel
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

@@ -42,7 +42,7 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         holder.binding.tvGroupName.text = items[position].tvGroupName
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
 
-        if(items[position].imgGroup == ""){
+        if(items[position].imgGroup == "add"){
             holder.binding.tvGroupAdmin.text = ""
             holder.binding.tvGroupAdmin.background = null
         }

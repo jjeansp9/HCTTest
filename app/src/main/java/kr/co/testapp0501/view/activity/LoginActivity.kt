@@ -49,9 +49,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // 디바이스에 저장된 값 불러오기 [ 아래 코드 실행하면 자동로그인 되어 로그인화면 그냥 넘어감 ]
-//        val loadUserInfo: NormalLogin= users.loadNormalData()
-//        val loadSnsUserInfo: SocialLogin= users.loadSnsData()
-//
+        val loadUserInfo: NormalLogin= users.loadNormalData()
+        val loadSnsUserInfo: SocialLogin= users.loadSnsData()
+
 //        Log.i("LoginActivity normal", loadUserInfo.id + ", " + loadUserInfo.pw)
 //        Log.i("LoginActivity sns", loadSnsUserInfo.snsType + "," + loadSnsUserInfo.snsId)
 //
