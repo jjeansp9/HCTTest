@@ -19,6 +19,7 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
+import kr.co.testapp0501.Logger
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityLoginBinding
 import kr.co.testapp0501.model.user.NormalLogin

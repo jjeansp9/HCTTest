@@ -52,19 +52,35 @@ interface ApiService {
     @POST(SNS_SIGN_IN)
     fun snsLogin(@Query("user") user: String?): Call<UserResponse>
 
-//    @Multipart
-//    @POST(GROUP_CREATE)
-//    fun uploadData(@PartMap dataPart: Map<String, String>, @Part imageFile: MultipartBody.Part): Call<String>
-
-    // 그룹 생성
+    // 그룹 생성1
     @Headers("Content-Type: application/json")
     @Multipart
     @POST(GROUP_CREATE)
-    fun uploadData(
+    fun uploadData1(
         @Header("X-AUTH-TOKEN") token: String,
-        @Part("info") info: Group,
+        @PartMap dataPart: Map<String, String>,
         @Part imageFile: MultipartBody.Part
     ): Call<String>
+
+    // 그룹 생성2
+    @Headers("Content-Type: application/json")
+    @Multipart
+    @POST(GROUP_CREATE)
+    fun uploadData2(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Part("info") info: RequestBody,
+        @Part imageFile: MultipartBody.Part
+    ): Call<String>
+
+    // 그룹 생성3
+    @Headers("Content-Type: application/json")
+    @Multipart
+    @POST(GROUP_CREATE)
+    fun uploadData3(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Part("info") info: RequestBody,
+        @Part files: MultipartBody.Part
+        ): Call<String>
 
     // 내가 속한 그룹 목록 불러오기
 //    @GET(GROUP_LIST)

@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +31,7 @@ class GroupActivity : AppCompatActivity() {
 
         // 툴바 생성
         setToolbar()
-        groupItems.add(RecyclerGroupData("", ""))
+        //groupItems.add(RecyclerGroupData("", ""))
 
         // 설정 버튼 클릭 [ 설정 화면으로 이동 ]
         moveGroupCreateActivity()
@@ -54,39 +55,48 @@ class GroupActivity : AppCompatActivity() {
 
     // 그룹 [ + ] 버튼 클릭
     private fun clickedGroupAdd(){
-        adapter.setItemClickListener(object : RecyclerGroupActivityAdapter.OnItemClickListener{
-            override fun groupClick(v: View, position: Int) {
-                //startActivity(Intent(this@GroupActivity, GroupCreateActivity::class.java)) // 임시
-
-                if (!clicked){
-                    binding.layoutGroupBox.visibility = View.VISIBLE
-                    clicked = true
-                }else{
-                    binding.layoutGroupBox.visibility = View.GONE
-                    clicked = false
-                }
-            }
-        })
+//        adapter.setItemClickListener(object : RecyclerGroupActivityAdapter.OnItemClickListener{
+//            override fun groupClick(v: View, position: Int) {
+//                //startActivity(Intent(this@GroupActivity, GroupCreateActivity::class.java)) // 임시
+//
+//                if (!clicked){
+//                    binding.layoutGroupBox.visibility = View.VISIBLE
+//                    clicked = true
+//                }else{
+//                    binding.layoutGroupBox.visibility = View.GONE
+//                    clicked = false
+//                }
+//            }
+//        })
+        binding.icGroupAdd.setOnClickListener {
+//            if (!clicked){
+//                binding.layoutGroupBox.visibility = View.VISIBLE
+//                clicked = true
+//            }else{
+//                binding.layoutGroupBox.visibility = View.GONE
+//                clicked = false
+//            }
+            groupDialog(R.layout.dialog_group_add)
+        }
     }
 
-    // 그룹생성 버튼 클릭
+    // 그룹 생성,접속 버튼 클릭
     private fun clickedGroupBox(){
         binding.tvGroupCreate.setOnClickListener{
-
             val token = intent.getStringExtra("token")
-
             val intent = Intent(this, GroupCreateActivity::class.java)
             intent.putExtra("token", token)
             startActivity(intent)
-
-
+        }
+        binding.tvGroupConnect.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
     // 그룹코드 입력하는 다이얼로그
-    private fun showDialog(){
+    private fun groupDialog(xml : Int){
         val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_group_code_input)
+        dialog.setContentView(xml)
 
         // 다이얼로그 사이즈조절
         val params = dialog.window!!.attributes
@@ -97,11 +107,24 @@ class GroupActivity : AppCompatActivity() {
         // 다이얼로그 텍스트,이미지 설정
         dialog.show()
 
-        val tv : TextView = dialog.findViewById(R.id.tv_code_confirm)
-        tv.setOnClickListener{
-            Toast.makeText(this, "확인버튼 클릭", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java)) // 임시
+
+        val btnGroupCreate : RelativeLayout = dialog.findViewById(R.id.btn_group_create)
+
+        btnGroupCreate.setOnClickListener{
+            val token = intent.getStringExtra("token")
+            val intent = Intent(this, GroupCreateActivity::class.java)
+            intent.putExtra("token", token)
+            startActivity(intent)
         }
+
+        //val tv : TextView = dialog.findViewById(R.id.tv_code_confirm)
+//        tv.setOnClickListener{
+//            Toast.makeText(this, "확인버튼 클릭", Toast.LENGTH_SHORT).show()
+//        }
+    }
+
+    private fun groupAddDialog(){
+
     }
 
     // 설정 화면으로 이동

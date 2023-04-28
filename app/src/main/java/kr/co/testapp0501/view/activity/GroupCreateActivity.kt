@@ -2,8 +2,10 @@ package kr.co.testapp0501.view.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 import kr.co.testapp0501.model.group.Group
@@ -28,6 +31,8 @@ import kr.co.testapp0501.viewmodel.GroupViewModel
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,6 +58,17 @@ class GroupCreateActivity : AppCompatActivity() {
         clickedComplete()
     }
 
+    fun absolutelyPath(path: Uri?, context : Context): String {
+        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        c?.moveToFirst()
+
+        var result = c?.getString(index!!)
+
+        return result!!
+    }
+
     // 그룹생성 항목들을 모두 작성 후에 확인버튼을 눌렀을 때
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun clickedComplete(){
@@ -68,27 +84,24 @@ class GroupCreateActivity : AppCompatActivity() {
 
                     if (imgUri != null){
 
-
-
                         val token = intent.getStringExtra("token")!!
 
-                        val file = File(imgPath)
-                        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                        val file = File(absolutelyPath(imgUri, this))
+                        val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
+                        val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
 
-                        val groupImg= MultipartBody.Part.createFormData("files", file.name, requestBody)
+                        val groupImg= ArrayList<MultipartBody.Part>()
+                        groupImg.add(path)
+
                         val groupName = binding.etGroupName.text.toString()
                         val groupType = binding.spinGroupType.selectedItem.toString()
                         Log.i("ss", groupName + groupType + groupImg + token)
 
-//                        val dataPart: MutableMap<String, String> = HashMap()
-//                        dataPart["groupName"] = groupName
-//                        dataPart["groupType"] = groupType
-//                        dataPart["masterSeq"] = "1"
-//                        dataPart["memo"] = ""
-
                         val groupInfo = Group(groupName, groupType, 1, "")
+                        val json = Gson().toJson(groupInfo)
+                        val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
-                        groupViewModel.createGroup(token, groupInfo, groupImg) // 입력한 항목 값들 ViewModel 로 전달
+                        groupViewModel.createGroup(token, requestBody, path) // 입력한 항목 값들 ViewModel 로 전달
                     }else{
                         Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
                     }

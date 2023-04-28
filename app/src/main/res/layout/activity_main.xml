@@ -73,8 +73,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_familytree"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_familytree" />
 
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_familytree"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="가계도" />
 
                     </RelativeLayout>
@@ -98,8 +98,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_member"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_member" />
 
@@ -108,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_member"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="구성원" />
 
                     </RelativeLayout>
@@ -123,8 +123,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_schedule"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_schedule" />
 
@@ -133,7 +133,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_schedule"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="일정" />
 
                     </RelativeLayout>
@@ -148,8 +148,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_profile" />
 
@@ -158,7 +158,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_profile"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="프로필" />
 
                     </RelativeLayout>
@@ -169,7 +169,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
                     <RelativeLayout
@@ -182,8 +182,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_reference"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_reference" />
 
@@ -192,7 +192,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_reference"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="자료실" />
 
 
@@ -208,8 +208,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_set"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_set" />
 
@@ -218,7 +218,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_set"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="설정" />
 
                     </RelativeLayout>
@@ -233,8 +233,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_album"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_album" />
 
@@ -243,7 +243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_album"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="앨범" />
 
                     </RelativeLayout>
@@ -258,8 +258,8 @@
 
                         <ImageView
                             android:id="@+id/img_menu_dues"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
                             android:src="@drawable/icon_menu_dues" />
 
@@ -268,7 +268,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/img_menu_dues"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="3dp"
                             android:text="회비" />
 
                     </RelativeLayout>
