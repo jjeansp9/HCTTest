@@ -88,10 +88,7 @@ class GroupCreateActivity : AppCompatActivity() {
 
                         val groupInfo = Group(groupName, groupType, 1, "")
 
-                        groupViewModel.createGroup(token, groupInfo, groupImg)
-                        groupViewModel.code.observe(this){
-                            Log.i("GroupCreateaActivity code", it)
-                        }
+                        groupViewModel.createGroup(token, groupInfo, groupImg) // 입력한 항목 값들 ViewModel 로 전달
                     }else{
                         Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
                     }

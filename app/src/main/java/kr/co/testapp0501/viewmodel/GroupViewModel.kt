@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
@@ -20,26 +18,21 @@ class GroupViewModel : ViewModel(){
     val code : LiveData<String>
         get() = _code
 
-
+    // 그룹 생성
     fun createGroup(token : String, groupInfo : Group, groupImg : MultipartBody.Part){
-        viewModelScope.launch {
-            val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(
-                ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-            apiService.uploadData(token, groupInfo, groupImg).enqueue(object : Callback<String> {
-
-                override fun onResponse(
-                    call: Call<String>,
-                    response: Response<String>
-                ) {
-                    _code.value = response.code().toString()
-                    Log.i("GroupViewModel code", response.code().toString())
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                }
-
-            })
-        }
+        apiService.uploadData(token, groupInfo, groupImg).enqueue(object : Callback<String> {
+            override fun onResponse(
+                call: Call<String>,
+                response: Response<String>
+            ) {
+                _code.value = response.code().toString()
+                Log.i("GroupViewModel code", "code : ${response.code()}")
+            }
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e("GroupViewModel error", "error : ${t.message}")
+            }
+        })
     }
 }

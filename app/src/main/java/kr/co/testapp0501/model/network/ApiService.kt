@@ -26,6 +26,8 @@ interface ApiService {
 
         // 그룹 생성
         const val GROUP_CREATE = "$PREFIX_URL/group"
+        // 그룹 목록
+        const val GROUP_LIST = "$PREFIX_URL/group/types"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -63,6 +65,10 @@ interface ApiService {
         @Part("info") info: Group,
         @Part imageFile: MultipartBody.Part
     ): Call<String>
+
+    // 내가 속한 그룹 목록 불러오기
+//    @GET(GROUP_LIST)
+//    suspend fun loadGroupList(@Query("") group: String): Response<List<String>>
 }
 
 
