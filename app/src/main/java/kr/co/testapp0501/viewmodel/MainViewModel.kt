@@ -1,11 +1,29 @@
 package kr.co.testapp0501.viewmodel
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import kr.co.avad.android.humancaretree.base.BaseViewModel
+import kr.co.testapp0501.view.activity.AlbumActivity
+import kr.co.testapp0501.view.activity.MemberActivity
+import java.lang.ref.WeakReference
 
-class MainViewModel : BaseViewModel(){
+class MainViewModel(context: Context) : BaseViewModel(){
 
-    fun onClick(view: View){
+    // 이와 같은 방법으로 context를 받아야 메모리 누수 방지됨
+    private val contextRef = WeakReference(context)
+
+    // 받아온 Activity 에 따라 화면 전환
+    private fun startNewActivity(cls: Class<*>) {
+        val context = contextRef.get() ?: return
+        val intent = Intent(context, cls)
+        context.startActivity(intent)
     }
 
+    // 구성원 메뉴 클릭
+    fun onClickMember() { startNewActivity(MemberActivity::class.java) }
+
+    // 앨범 메뉴 클릭
+    fun onClickAlbum() { startNewActivity(AlbumActivity::class.java) }
 }

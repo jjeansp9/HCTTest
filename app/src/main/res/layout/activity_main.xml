@@ -106,7 +106,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:paddingTop="4dp"
-                            android:paddingBottom="4dp">
+                            android:paddingBottom="4dp"
+                            android:onClick="@{() -> vmMain.onClickMember()}">
 
                             <ImageView
                                 android:id="@+id/img_menu_member"
@@ -241,7 +242,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:paddingTop="4dp"
-                            android:paddingBottom="4dp">
+                            android:paddingBottom="4dp"
+                            android:onClick="@{() -> vmMain.onClickAlbum()}">
 
                             <ImageView
                                 android:id="@+id/img_menu_album"
