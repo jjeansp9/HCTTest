@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
             normalId != "" && normalPw != "" -> {
                 val login = NormalLogin(normalId, normalPw)
                 userViewModel.normalLogin(this, login).observe(this){
-                    if (it == 500){ // code 500: 서버 내부오류
+                    if (it == 500){ // code 500: 서버 내부 오류
                         Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -156,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
 
             // 입력한 id, pw 값을 서버로 보내기
             userViewModel.normalLogin(this, login).observe(this){
-                if (it == 500){
+                if (it == 500){ // code 500: 서버 내부 오류
                     Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
