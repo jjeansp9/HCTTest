@@ -54,14 +54,15 @@ class LoginActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         val loadUserInfo: NormalLogin= users.loadNormalData()
-        val loadSnsUserInfo: SocialLogin= users.loadSnsData()
+        val loadSnsId=  users.loadSnsId()
+        val loadLoginType=  users.loadLoginType()
 
         // 디바이스에 저장된 유저 정보 가져오기
         loadUserData(
             loadUserInfo.id,
             loadUserInfo.pw,
-            loadSnsUserInfo.snsType,
-            loadSnsUserInfo.snsId
+            loadLoginType,
+            loadSnsId
         )
 
         setContentView(binding.root)
@@ -75,9 +76,9 @@ class LoginActivity : AppCompatActivity() {
         binding.layoutSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
 
         binding.imgLogin.setOnClickListener{normalLogin()} // 일반 로그인
-        binding.kakaoLogin.setOnClickListener{login(kakao, loadSnsUserInfo.snsId)} // 카카오 로그인
-        binding.naverLogin.setOnClickListener{login(naver, loadSnsUserInfo.snsId)} // 네이버 로그인
-        binding.googleLogin.setOnClickListener{login(google, loadSnsUserInfo.snsId)} // 구글 로그인
+        binding.kakaoLogin.setOnClickListener{login(kakao, loadSnsId)} // 카카오 로그인
+        binding.naverLogin.setOnClickListener{login(naver, loadSnsId)} // 네이버 로그인
+        binding.googleLogin.setOnClickListener{login(google, loadSnsId)} // 구글 로그인
     }
 
     private fun loadUserData(normalId: String, normalPw: String, snsType: String, snsId: String){
@@ -88,12 +89,19 @@ class LoginActivity : AppCompatActivity() {
 
         // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
         when {
-            normalId != "" && normalPw != "" -> { // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+            // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+            normalId != "" && normalPw != "" -> {
                 val login = NormalLogin(normalId, normalPw)
-                userViewModel.normalLogin(this, login)
+                userViewModel.normalLogin(this, login).observe(this){
+                    if (it == 500){ // code 500: 서버 내부오류
+                        Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 Log.i("LoginActivity Login", "id: $normalId, pw: $normalPw")
             }
-            snsType != "" && snsId != "" -> { // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+
+            // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+            snsType != "default" && snsId != "default" -> {
                 userRepository.snsLogin(this, snsId)
                 Log.i("LoginActivity snsLogin", "id: $snsId")
             }
@@ -102,7 +110,6 @@ class LoginActivity : AppCompatActivity() {
 
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
     private fun login(platform : String, id: String){
-        
         if (id != ""){ // 디바이스에 id값이 저장되어 있다면 실행
             userRepository.snsLogin(this, id)
             Log.i("LoginActivity Login()", id)
@@ -148,7 +155,11 @@ class LoginActivity : AppCompatActivity() {
             val login = NormalLogin(id, pw)
 
             // 입력한 id, pw 값을 서버로 보내기
-            userViewModel.normalLogin(this, login)
+            userViewModel.normalLogin(this, login).observe(this){
+                if (it == 500){
+                    Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
 
             //startActivity(Intent(this, GroupActivity::class.java)) // 임시
             //Toast.makeText(this, "입력하신 정보가 일치하지 않아도 임시로 화면 넘어가기", Toast.LENGTH_SHORT).show()

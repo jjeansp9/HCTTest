@@ -72,6 +72,7 @@ class UserRepository {
                     Log.i("UserRepository addNormalUser()", item?.msg.toString())
 
                     // 자동으로 로그인하기 위해 디바이스에 [id, pw] 저장
+                    users.saveLoginType("defalut")
                     users.saveNormalData(normalUser.id, normalUser.pw)
 
                     (context as SignUpActivity).finish()
@@ -88,17 +89,17 @@ class UserRepository {
     }
 
     // 일반 로그인
-    fun normalLogin(context: Context, login: NormalLogin) : LiveData<String>{
-        val userLiveData = MutableLiveData<String>()
+    fun normalLogin(context: Context, login: NormalLogin) : LiveData<Int>{
+        val userLiveData = MutableLiveData<Int>()
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
         apiService.normalLogin(login).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository normalLogin()", ">>>>>>"+response.code())
-
+                userLiveData.value = response.code()
                 if (response.isSuccessful) { // 일반로그인에 성공한 경우
-                    userLiveData.value = response.body()?.data?.jwtToken
+
                     Log.i("UserRepository normalLogin()", "message: "+ response.body()?.msg.toString() +"\n jwtToken: " + response.body()?.data?.jwtToken)
 
                     val intent = Intent(context, GroupActivity::class.java)
@@ -108,7 +109,6 @@ class UserRepository {
 
                 } else { // 일반로그인에 실패한 경우
                     userLiveData.value = null
-                    Toast.makeText(context, "입력하신 정보가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
@@ -219,7 +219,8 @@ class UserRepository {
                     Log.i("UserRepository snsSignUp()", response.body()?.msg.toString())
 
                     // 자동으로 로그인하기 위해 디바이스에 [type, id] 저장
-                    users.saveSnsData(user.snsType, user.snsId)
+                    users.saveLoginType(user.snsType)
+                    users.saveSnsId(user.snsId)
 
                     val intent = Intent(context, GroupActivity::class.java)
                     intent.putExtra("token", response.body()?.data?.jwtToken)

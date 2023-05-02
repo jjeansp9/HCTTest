@@ -5,21 +5,37 @@ import android.content.SharedPreferences
 
 class UserModel constructor(val context: Context) {
 
-    // sns Data 저장
-    fun saveSnsData(type:String, id:String){
-        context.getSharedPreferences("snsData", Context.MODE_PRIVATE).edit().apply{
+    // login type 저장
+    fun saveLoginType(type:String){
+        context.getSharedPreferences("loginType", Context.MODE_PRIVATE).edit().apply{
             putString("type", type)
-            putString("id", id)
-            commit()
+            apply()
         }
     }
-    // sns Data 불러오기
-    fun loadSnsData(): SocialLogin{
-        val pref: SharedPreferences = context.getSharedPreferences("snsData", Context.MODE_PRIVATE)
-        var type: String = pref.getString("type", "") as String
-        var id: String = pref.getString("id", "") as String // 저장된 데이터가 없으면 ""
 
-        return SocialLogin(type, id)
+    // login type 불러오기
+    fun loadLoginType(): String{
+        val pref: SharedPreferences = context.getSharedPreferences("loginType", Context.MODE_PRIVATE)
+        var type: String = pref.getString("type", "default") as String
+
+        return type
+    }
+
+
+    // sns id 저장
+    fun saveSnsId(id:String){
+        context.getSharedPreferences("snsId", Context.MODE_PRIVATE).edit().apply{
+            putString("id", id)
+            apply()
+        }
+    }
+
+    // sns id 불러오기
+    fun loadSnsId(): String{
+        val pref: SharedPreferences = context.getSharedPreferences("snsId", Context.MODE_PRIVATE)
+        var id: String = pref.getString("id", "default") as String
+
+        return id
     }
 
     // normal Data 저장
@@ -27,15 +43,15 @@ class UserModel constructor(val context: Context) {
         context.getSharedPreferences("normalData", Context.MODE_PRIVATE).edit().apply{
             putString("id", id)
             putString("pw", pw)
-            commit()
+            apply()
         }
     }
 
     // normal Data 불러오기
     fun loadNormalData(): NormalLogin{
         val pref: SharedPreferences = context.getSharedPreferences("normalData", Context.MODE_PRIVATE)
-        var id: String = pref.getString("id", "") as String
-        var pw: String = pref.getString("pw", "") as String // 저장된 데이터가 없으면 ""
+        var id: String = pref.getString("id", "default") as String
+        var pw: String = pref.getString("pw", "default") as String // 저장된 데이터가 없으면 ""
 
         return NormalLogin(id, pw)
     }
