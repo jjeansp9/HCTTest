@@ -2,6 +2,7 @@ package kr.co.testapp0501.model.network
 
 import io.reactivex.Single
 import kr.co.testapp0501.model.group.Group
+import kr.co.testapp0501.model.group.Info
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -70,17 +71,15 @@ interface ApiService {
 
     // 그룹 생성2
     @Headers("Content-Type: application/json")
-    @Multipart
     @POST(GROUP_CREATE)
     fun uploadData2(
         @Header("X-AUTH-TOKEN") token: String,
-        @Part("info") info: RequestBody,
-        @Part imageFile: MultipartBody.Part
+        @Body info: Group,
+        //@Part imageFile: MultipartBody.Part
     ): Call<String>
 
     // 그룹 생성3
     @Headers("Content-Type: application/json")
-    @Multipart
     @POST(GROUP_CREATE)
     fun uploadData3(
         @Header("X-AUTH-TOKEN") token: String,
