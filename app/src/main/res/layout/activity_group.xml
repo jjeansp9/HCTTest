@@ -30,19 +30,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end">
 
-                <ImageView
-                    android:id="@+id/ic_group_add"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_group_add" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/ic_group_add"-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_marginEnd="4dp"-->
+<!--                    android:src="@drawable/ic_group_add" />-->
                 <ImageView
                     android:id="@+id/img_group_settings"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:padding="6dp"
-                    android:layout_toEndOf="@id/ic_group_add"
                     android:src="@drawable/ic_group_setting"
                     android:layout_marginEnd="4dp"/>
             </RelativeLayout>

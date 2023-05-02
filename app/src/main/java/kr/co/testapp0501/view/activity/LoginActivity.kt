@@ -47,29 +47,28 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         // 디바이스에 저장된 값 불러오기 [ 아래 코드 실행하면 자동로그인 되어 로그인화면 그냥 넘어감 ]
         val loadUserInfo: NormalLogin= users.loadNormalData()
         val loadSnsUserInfo: SocialLogin= users.loadSnsData()
 
-//        Log.i("LoginActivity normal", loadUserInfo.id + ", " + loadUserInfo.pw)
-//        Log.i("LoginActivity sns", loadSnsUserInfo.snsType + "," + loadSnsUserInfo.snsId)
-//
-//        // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
-//        when {
-//            loadUserInfo.id != "" && loadUserInfo.pw != "" -> { // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-//                startActivity(Intent(this@LoginActivity, GroupActivity::class.java))
-//                finish()
-//            }
-//            loadSnsUserInfo.snsType != "" && loadSnsUserInfo.snsId != "" -> { // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-//                startActivity(Intent(this@LoginActivity, GroupActivity::class.java))
-//                finish()
-//            }
-//        }
+        Log.i("LoginActivity normal", loadUserInfo.id + ", " + loadUserInfo.pw)
+        Log.i("LoginActivity sns", loadSnsUserInfo.snsType + "," + loadSnsUserInfo.snsId)
 
+        // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
+        when {
+            loadUserInfo.id != "" && loadUserInfo.pw != "" -> { // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+                val login = NormalLogin(loadUserInfo.id, loadUserInfo.pw)
+                userViewModel.normalLogin(this, login)
+                Log.i("LoginActivity Login", "id: ${loadUserInfo.id}, pw: ${loadUserInfo.pw}")
+            }
+            loadSnsUserInfo.snsType != "" && loadSnsUserInfo.snsId != "" -> { // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+                startActivity(Intent(this@LoginActivity, GroupActivity::class.java))
+                finish()
+            }
+        }
         setContentView(binding.root)
-
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
         NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
@@ -127,10 +126,10 @@ class LoginActivity : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
-                    var email = binding.etInputId.text.toString().trim()
+                    var id = binding.etInputId.text.toString().trim()
                     var password = binding.etInputPw.text.toString().trim()
 
-                    if (TextUtils.isEmpty(email)){
+                    if (TextUtils.isEmpty(id)){
                         Toast.makeText(this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show()
 
                     }else if(TextUtils.isEmpty(password)){

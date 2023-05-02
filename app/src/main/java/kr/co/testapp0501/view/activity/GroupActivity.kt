@@ -63,7 +63,7 @@ class GroupActivity : AppCompatActivity() {
                 }
             }
         })
-        binding.icGroupAdd.setOnClickListener {
+//        binding.icGroupAdd.setOnClickListener {
 //            if (!clicked){
 //                binding.layoutGroupBox.visibility = View.VISIBLE
 //                clicked = true
@@ -71,7 +71,7 @@ class GroupActivity : AppCompatActivity() {
 //                binding.layoutGroupBox.visibility = View.GONE
 //                clicked = false
 //            }
-        }
+//        }
     }
 
     // 그룹 생성,접속 버튼 클릭
