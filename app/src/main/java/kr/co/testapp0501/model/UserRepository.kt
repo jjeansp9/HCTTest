@@ -242,6 +242,8 @@ class UserRepository {
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
+        Log.i("UserRepository snsSignIn()", snsId)
+
         apiService.snsLogin(snsId).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository snsSignIn()", ">>>>>>"+response.code())

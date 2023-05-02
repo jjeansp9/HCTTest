@@ -5,16 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import kr.co.avad.android.humancaretree.base.BaseActivity
 import kr.co.testapp0501.R
+import kr.co.testapp0501.databinding.ActivityAlbumBinding
 import kr.co.testapp0501.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val binding : ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        //setContentView(binding.root)
+
+        viewDataBinding.vmMain = getViewModel()
+        viewDataBinding.lifecycleOwner = this
 
         // 툴바 설정 [ 메인 화면 ]
         setToolbar()

@@ -1,292 +1,302 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity"
-    android:background="@color/background">
 
-    <include layout="@layout/toolbar" />
+<layout>
 
-    <ScrollView
+    <data>
+
+        <import type="kr.co.testapp0501.viewmodel.MainViewModel"/>
+        <variable
+            name="vmMain"
+            type="kr.co.testapp0501.viewmodel.MainViewModel" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar_layout">
+        tools:context=".view.activity.MainActivity"
+        android:background="@color/background">
 
-        <RelativeLayout
+        <include layout="@layout/toolbar" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbar_layout">
 
             <RelativeLayout
-                android:id="@+id/layout_group_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_layout_main"
-                android:padding="30dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
-                <TextView
-                    android:id="@+id/tv_hello"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/layout_group_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="환영합니다"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_layout_main"
+                    android:padding="30dp">
 
-                <TextView
-                    android:id="@+id/tv_group_name"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_hello"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="환영합니다"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_group_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_hello"
+                        android:text="이씨네 가족"
+                        android:textColor="@color/black"
+                        android:textSize="26sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_hello"
-                    android:text="이씨네 가족"
-                    android:textColor="@color/black"
-                    android:textSize="26sp" />
+                    android:layout_below="@id/layout_group_title"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_layout_main"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_row_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/btn_familytree"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_familytree"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_familytree" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_familytree"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="가계도" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/btn_member"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_member"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_member" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_member"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="구성원" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/btn_schedule"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_schedule"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_schedule" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_schedule"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="일정" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/btn_profile"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_profile"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_profile" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_profile"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="프로필" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/btn_reference"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_reference"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_reference" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_reference"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="자료실" />
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/btn_set"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_set"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_set" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_set"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="설정" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/btn_album"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_album"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_album" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_album"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="앨범" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/btn_dues"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <ImageView
+                                android:id="@+id/img_menu_dues"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/icon_menu_dues" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_menu_dues"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="회비" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout_group_title"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_layout_main"
-                android:orientation="vertical"
-                android:padding="20dp">
+        </ScrollView>
 
-                <LinearLayout
-                    android:id="@+id/layout_row_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+    </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/btn_familytree"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
+</layout>
 
-                        <ImageView
-                            android:id="@+id/img_menu_familytree"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_familytree" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_familytree"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="가계도" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/btn_member"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <ImageView
-                            android:id="@+id/img_menu_member"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_member" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_member"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="구성원" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/btn_schedule"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <ImageView
-                            android:id="@+id/img_menu_schedule"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_schedule" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_schedule"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="일정" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/btn_profile"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <ImageView
-                            android:id="@+id/img_menu_profile"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_profile" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_profile"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="프로필" />
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:id="@+id/btn_reference"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <ImageView
-                            android:id="@+id/img_menu_reference"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_reference" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_reference"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="자료실" />
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/btn_set"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <ImageView
-                            android:id="@+id/img_menu_set"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_set" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_set"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="설정" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/btn_album"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <ImageView
-                            android:id="@+id/img_menu_album"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_album" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_album"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="앨범" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/btn_dues"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <ImageView
-                            android:id="@+id/img_menu_dues"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/icon_menu_dues" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/img_menu_dues"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:text="회비" />
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-
-    </ScrollView>
-
-
-
-
-
-</RelativeLayout>

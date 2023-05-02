@@ -83,18 +83,21 @@ class LoginActivity : AppCompatActivity() {
         binding.layoutSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
 
         normalLogin() // 일반 로그인
-        binding.kakaoLogin.setOnClickListener{login(kakao)} // 카카오 로그인
-        binding.naverLogin.setOnClickListener{login(naver)} // 네이버 로그인
-        binding.googleLogin.setOnClickListener{login(google)} // 구글 로그인
+        binding.kakaoLogin.setOnClickListener{login(kakao, loadSnsUserInfo.snsId)} // 카카오 로그인
+        binding.naverLogin.setOnClickListener{login(naver, loadSnsUserInfo.snsId)} // 네이버 로그인
+        binding.googleLogin.setOnClickListener{login(google, loadSnsUserInfo.snsId)} // 구글 로그인
 
     }
 
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
-    private fun login(platform : String){
-        userViewModel.startLogin(this, platform)
-//        userViewModel.addSnsUser(this, platform).observe(this){ user ->
-//            Log.i("MainActivity User", platform + ", " + user.snsId)
-//        }
+    private fun login(platform : String, id: String){
+        
+        if (id != ""){ // 디바이스에 id값이 저장되어 있다면 실행
+            userRepository.snsLogin(this, id)
+            Log.i("LoginActivity Login()", id)
+        }else{ // 디바이스에 저장된값이 ""이라면 실행 [ "" 인 경우 로그인 기록이 없다는 의미 ]
+            userViewModel.startLogin(this, platform)
+        }
     }
 
     // 키보드가 열린 상태일 때

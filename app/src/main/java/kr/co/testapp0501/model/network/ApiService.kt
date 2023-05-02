@@ -85,7 +85,7 @@ interface ApiService {
     fun uploadData3(
         @Header("X-AUTH-TOKEN") token: String,
         @Part("info") info: RequestBody,
-        @Part files: MultipartBody.Part
+        @Part files: List<MultipartBody.Part>
         ): Call<String>
 
     // 내가 속한 그룹 목록 불러오기
