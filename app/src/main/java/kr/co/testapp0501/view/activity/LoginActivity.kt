@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (snsType != "default" && snsId != "default"){
             // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-            userRepository.snsLogin(this, snsId)
+            userRepository.snsLogin(this, snsType, snsId)
             Log.i("LoginActivity snsLogin", "id: $snsId")
         }
     }
@@ -109,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
     private fun login(platform : String, id: String){
         if (id != "default"){ // 디바이스에 id값이 저장되어 있다면 로그인 진행
-            userRepository.snsLogin(this, id)
+            userRepository.snsLogin(this, platform, id)
             Log.i("LoginActivity Login()", id)
 
         }else{ // 디바이스에 저장된값이 "default" 면 회원가입 진행

@@ -154,14 +154,19 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 이메일 : " + nidProfileResponse.profile!!.email)
 //                    Log.i("naverInfo", "네이버 성별 : " + nidProfileResponse.profile!!.gender)
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
-
                     val snsId = nidProfileResponse.profile!!.id.toString()
 
-                    // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
-                    val intent = Intent(context, SignUpSnsActivity::class.java)
-                    intent.putExtra("snsType", platform) // snsType [ naver ]
-                    intent.putExtra("snsId", snsId) // sns Id
-                    context.startActivity(intent)
+                    if (snsLogin(context, platform, snsId).value == 200){ // 서버에 저장된 회원 정보가 있다면
+                        snsLogin(context, platform, snsId)
+
+                    }else{ // 서버에 저장된 정보가 없다면
+
+                        // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
+                        val intent = Intent(context, SignUpSnsActivity::class.java)
+                        intent.putExtra("snsType", platform) // snsType [ naver ]
+                        intent.putExtra("snsId", snsId) // sns Id
+                        context.startActivity(intent)
+                    }
                 }
                 override fun onFailure(i: Int, s: String) {
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
@@ -240,8 +245,9 @@ class UserRepository {
     }
 
     // sns 로그인
-    fun snsLogin(context: Context, snsId: String){
-
+    fun snsLogin(context: Context, snsType: String, snsId: String) : LiveData<Int>{
+        var idLiveData = MutableLiveData<Int>()
+        val users = UserModel(context)
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
         Log.i("UserRepository snsSignIn()", snsId)
@@ -249,8 +255,13 @@ class UserRepository {
         apiService.snsLogin(snsId).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository snsSignIn()", ">>>>>>"+response.code())
+                idLiveData.value = response.code()
                 if (response.isSuccessful){
                     Log.i("UserRepository snsSignIn()", response.body()?.msg.toString())
+
+                    // 자동으로 로그인하기 위해 디바이스에 [type, id] 저장
+                    users.saveLoginType(snsType)
+                    users.saveSnsId(snsId)
 
                     val intent = Intent(context, GroupActivity::class.java)
                     intent.putExtra("token", response.body()?.data?.jwtToken)
@@ -266,6 +277,7 @@ class UserRepository {
             }
 
         })
+        return idLiveData
     }
 }
 
