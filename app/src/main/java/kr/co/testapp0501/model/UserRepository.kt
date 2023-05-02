@@ -239,6 +239,7 @@ class UserRepository {
         })
     }
 
+    // sns 로그인
     fun snsLogin(context: Context, snsId: String){
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)

@@ -93,7 +93,7 @@ class GroupCreateActivity : AppCompatActivity() {
 
                         val groupName = binding.etGroupName.text.toString()
                         val groupType = binding.spinGroupType.selectedItem.toString()
-                        Log.i("ss", groupName + groupType + groupImg + token)
+                        Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
 
                         val groupInfo = Group(groupName, groupType, 1, "")
                         val json = Gson().toJson(groupInfo)

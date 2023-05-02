@@ -90,15 +90,15 @@ class LoginActivity : AppCompatActivity() {
         // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
         when {
             // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-            normalId != "" && normalPw != "" -> {
-                val login = NormalLogin(normalId, normalPw)
-                userViewModel.normalLogin(this, login).observe(this){
-                    if (it == 500){ // code 500: 서버 내부 오류
-                        Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                Log.i("LoginActivity Login", "id: $normalId, pw: $normalPw")
-            }
+//            normalId != "" && normalPw != "" -> {
+//                val login = NormalLogin(normalId, normalPw)
+//                userViewModel.normalLogin(this, login).observe(this){
+//                    if (it == 500){ // code 500: 서버 내부 오류
+//                        Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//                Log.i("LoginActivity Login", "id: $normalId, pw: $normalPw")
+//            }
 
             // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
             snsType != "default" && snsId != "default" -> {
@@ -110,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
 
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
     private fun login(platform : String, id: String){
-        if (id != ""){ // 디바이스에 id값이 저장되어 있다면 실행
+        if (id != "default"){ // 디바이스에 id값이 저장되어 있다면 실행
             userRepository.snsLogin(this, id)
             Log.i("LoginActivity Login()", id)
         }else{ // 디바이스에 저장된값이 ""이라면 실행 [ "" 인 경우 로그인 기록이 없다는 의미 ]

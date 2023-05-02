@@ -72,8 +72,6 @@ class SignUpSnsActivity : AppCompatActivity() {
                         "snsGender: ${user.sex}"
             )
         }
-
-
     }
 
     // Date Picker
