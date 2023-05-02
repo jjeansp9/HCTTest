@@ -103,12 +103,18 @@ class GroupActivity : AppCompatActivity() {
 
 
         val btnGroupCreate : RelativeLayout = dialog.findViewById(R.id.btn_group_create)
+        val btnGroupConnect : RelativeLayout = dialog.findViewById(R.id.btn_group_connect)
 
         btnGroupCreate.setOnClickListener{
             val token = intent.getStringExtra("token")
             val intent = Intent(this, GroupCreateActivity::class.java)
             intent.putExtra("token", token)
             startActivity(intent)
+            dialog.dismiss()
+        }
+        btnGroupConnect.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+            dialog.dismiss()
         }
 
         //val tv : TextView = dialog.findViewById(R.id.tv_code_confirm)

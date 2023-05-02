@@ -34,6 +34,8 @@ interface ApiService {
     @GET("$PREFIX_URL/member/check/{memberId}")
     fun checkId(@Path("memberId") memberId : CheckId): Call<UserResponse>
 
+    /** ===================== 일반 회원가입,로그인 ======================== */
+
     // 일반 회원가입
     @Headers("Content-Type: application/json")
     @POST(NORMAL_SIGN_UP)
@@ -44,13 +46,17 @@ interface ApiService {
     @POST(NORMAL_SIGN_IN)
     fun normalLogin(@Body user: NormalLogin): Call<UserResponse>
 
+    /** ===================== 소셜 회원가입,로그인 =======================*/
+
     // 소셜 회원가입
     @POST(SNS_SIGN_UP)
     fun addSnsUser(@Body user: SocialUser): Call<UserResponse>
 
     // 소셜 로그인
     @POST(SNS_SIGN_IN)
-    fun snsLogin(@Query("user") user: String?): Call<UserResponse>
+    fun snsLogin(@Query("snsId") snsId: String?): Call<UserResponse>
+
+    /** ===================== 그룹 생성,접속 ========================= */
 
     // 그룹 생성1
     @Headers("Content-Type: application/json")

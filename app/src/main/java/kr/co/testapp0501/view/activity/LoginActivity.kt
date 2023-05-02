@@ -22,6 +22,7 @@ import com.navercorp.nid.oauth.NidOAuthLogin
 import kr.co.testapp0501.Logger
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityLoginBinding
+import kr.co.testapp0501.model.UserRepository
 import kr.co.testapp0501.model.user.NormalLogin
 import kr.co.testapp0501.model.user.SocialLogin
 import kr.co.testapp0501.model.user.UserModel
@@ -42,6 +43,8 @@ class LoginActivity : AppCompatActivity() {
     private val kakao = "kakao"
     private val naver = "naver"
     private val google = "google"
+
+    private val userRepository = UserRepository()
 
     var users = UserModel(this)
 
@@ -64,8 +67,8 @@ class LoginActivity : AppCompatActivity() {
                 Log.i("LoginActivity Login", "id: ${loadUserInfo.id}, pw: ${loadUserInfo.pw}")
             }
             loadSnsUserInfo.snsType != "" && loadSnsUserInfo.snsId != "" -> { // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-                startActivity(Intent(this@LoginActivity, GroupActivity::class.java))
-                finish()
+                userRepository.snsLogin(this, loadSnsUserInfo.snsId)
+                Log.i("LoginActivity snsLogin", "id: ${loadSnsUserInfo.snsId}")
             }
         }
         setContentView(binding.root)
@@ -141,21 +144,7 @@ class LoginActivity : AppCompatActivity() {
                         val login = NormalLogin(id, pw)
 
                         // 입력한 id, pw 값을 서버로 보내기
-                        userViewModel.normalLogin(this, login).observe(this){ token ->
-                            Log.i("LoginActivity Login", token+"")
-                            if (token != null){
-
-                                val intent = Intent(this, GroupActivity::class.java)
-                                intent.putExtra("token", token)
-                                startActivity(intent)
-
-                                binding.etInputId.text = Editable.Factory.getInstance().newEditable("")
-                                binding.etInputPw.text = Editable.Factory.getInstance().newEditable("")
-                                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
-                            }else{
-                                Toast.makeText(this, "입력하신 정보가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                        userViewModel.normalLogin(this, login)
 
                         //startActivity(Intent(this, GroupActivity::class.java)) // 임시
                         //Toast.makeText(this, "입력하신 정보가 일치하지 않아도 임시로 화면 넘어가기", Toast.LENGTH_SHORT).show()

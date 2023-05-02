@@ -14,6 +14,8 @@ import com.navercorp.nid.profile.data.NidProfileResponse
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.user.*
+import kr.co.testapp0501.view.activity.GroupActivity
+import kr.co.testapp0501.view.activity.LoginActivity
 import kr.co.testapp0501.view.activity.SignUpActivity
 import kr.co.testapp0501.view.activity.SignUpSnsActivity
 import retrofit2.Call
@@ -99,8 +101,14 @@ class UserRepository {
                     userLiveData.value = response.body()?.data?.jwtToken
                     Log.i("UserRepository normalLogin()", "message: "+ response.body()?.msg.toString() +"\n jwtToken: " + response.body()?.data?.jwtToken)
 
+                    val intent = Intent(context, GroupActivity::class.java)
+                    intent.putExtra("token", response.body()?.data?.jwtToken)
+                    context.startActivity(intent)
+                    Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
+
                 } else { // 일반로그인에 실패한 경우
                     userLiveData.value = null
+                    Toast.makeText(context, "입력하신 정보가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
@@ -206,12 +214,16 @@ class UserRepository {
 
         apiService.addSnsUser(user!!).enqueue(object : retrofit2.Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Log.i("UserRepository snsLogin()", ">>>>>>"+response.code())
+                Log.i("UserRepository snsSignUp()", ">>>>>>"+response.code())
                 if (response.isSuccessful) {
-                    Log.i("UserRepository snsLogin()", response.body()?.msg.toString())
+                    Log.i("UserRepository snsSignUp()", response.body()?.msg.toString())
 
                     // 자동으로 로그인하기 위해 디바이스에 [type, id] 저장
                     users.saveSnsData(user.snsType, user.snsId)
+
+                    val intent = Intent(context, GroupActivity::class.java)
+                    intent.putExtra("token", response.body()?.data?.jwtToken)
+                    context.startActivity(intent)
 
                     (context as SignUpSnsActivity).finish()
 
@@ -223,6 +235,32 @@ class UserRepository {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.e("UserRepository Error", "${t.message}")
             }
+        })
+    }
+
+    fun snsLogin(context: Context, snsId: String){
+
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+        apiService.snsLogin(snsId).enqueue(object : Callback<UserResponse>{
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                Log.i("UserRepository snsSignIn()", ">>>>>>"+response.code())
+                if (response.isSuccessful){
+                    Log.i("UserRepository snsSignIn()", response.body()?.msg.toString())
+
+                    val intent = Intent(context, GroupActivity::class.java)
+                    intent.putExtra("token", response.body()?.data?.jwtToken)
+                    context.startActivity(intent)
+
+                    (context as LoginActivity).finish()
+                }else{
+
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+            }
+
         })
     }
 }
