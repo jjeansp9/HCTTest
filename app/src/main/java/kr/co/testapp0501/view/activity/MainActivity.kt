@@ -29,8 +29,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         // 툴바 설정 [ 메인 화면 ]
         setToolbar()
-
-        binding.btnMember.setOnClickListener{startActivity(Intent(this, MemberActivity::class.java))}
     }
 
     // 툴바 설정 [ 메인 화면 ]

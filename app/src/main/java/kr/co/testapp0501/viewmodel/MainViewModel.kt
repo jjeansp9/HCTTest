@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference
 
 class MainViewModel(context: Context) : BaseViewModel(){
 
-    // 이와 같은 방법으로 context를 받아야 메모리 누수 방지됨
+    // 이와 같은 방법으로 context를 받아야 메모리가 누수되는 현상 방지됨
     private val contextRef = WeakReference(context)
 
     // 받아온 Activity 에 따라 화면 전환
