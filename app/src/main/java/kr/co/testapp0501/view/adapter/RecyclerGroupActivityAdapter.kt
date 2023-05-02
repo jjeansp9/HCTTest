@@ -43,6 +43,7 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
 
         if(items[position].imgGroup == "add"){
+            holder.binding.imgGroup.setBackgroundResource(R.drawable.bt_group_plusbox)
             holder.binding.tvGroupAdmin.text = ""
             holder.binding.tvGroupAdmin.background = null
         }

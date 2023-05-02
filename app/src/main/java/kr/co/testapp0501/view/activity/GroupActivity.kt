@@ -31,7 +31,10 @@ class GroupActivity : AppCompatActivity() {
 
         // 툴바 생성
         setToolbar()
+        groupItems.add(RecyclerGroupData("", "동창회"))
+        groupItems.add(RecyclerGroupData("", "가족모임"))
         groupItems.add(RecyclerGroupData("add", ""))
+
 
         // 설정 버튼 클릭 [ 설정 화면으로 이동 ]
         moveGroupCreateActivity()
