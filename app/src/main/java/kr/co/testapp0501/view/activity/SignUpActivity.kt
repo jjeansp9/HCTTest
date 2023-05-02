@@ -45,16 +45,50 @@ class SignUpActivity : AppCompatActivity() {
 
         Log.i("gender", gender) // 회원가입 화면이 처음 열리면 기본성별 M
 
-        clicked() // 버튼 [ 성별 선택, 휴대폰 인증요청, 다음 버튼 ]
+        clickedGender() // 버튼 [ 성별 선택, 휴대폰 인증요청, 다음 버튼 ]
         selectInput() // EditText 클릭 시 background 테두리 변경
 
         // 생년월일 입력란을 클릭하면 캘린더 오픈
-        binding.txtCal.setOnClickListener{
-            showDatePicker(it)
-        }
+        binding.txtCal.setOnClickListener{ showDatePicker(it) }
+
+        binding.btnRequestNum.setOnClickListener{clickedRequestNum()} // 폰번호 인증요청 버튼 클릭
+        binding.btnNext.setOnClickListener{clickedNext()} // 다음버튼 클릭
 
         setEtSpace()
 
+    }
+
+    // 폰번호 인증요청 클릭
+    private fun clickedRequestNum(){
+
+    }
+
+    // 다음버튼 클릭했을 때
+    private fun clickedNext(){
+        val id = binding.etId.text.toString().trim()
+        val pw = binding.etPassword.text.toString().trim()
+        val name = binding.etName.text.toString().trim()
+        val phoneNumber = binding.etPhoneNum.text.toString().trim()
+        val birth = binding.txtCal.text.toString().trim()
+
+        // EditText에 입력한 값들을 user에 대입
+        val user = NormalUser(id, pw, name, phoneNumber, birth, gender)
+
+        // user 에 저장된 값들을 서버로 보내고 곧바로 데이터 확인
+        userViewModel.addNormalUser(this, user).observe(this){ code ->
+            Log.i("SignUpActivity normalUser", "code: $code")
+            // code 400 : 비밀번호 형식 등 확인
+            // code 201 : Success
+            // code 500 : 서버 내부오류
+
+            // code 409 : 아이디 중복
+            if (code == 409){
+                binding.etId.setBackgroundResource(R.drawable.bg_edit_dupl)
+                binding.tvIdDuplicate.text = "중복된 아이디입니다."
+                binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
+                binding.tvIdDuplicate.visibility = View.VISIBLE
+            }
+        }
     }
 
     // EditText에 스페이스바 입력 안되게 설정
@@ -168,7 +202,7 @@ class SignUpActivity : AppCompatActivity() {
 
     // 버튼 [ 성별 선택, 휴대폰 인증요청, 다음 버튼 ]
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor", "ResourceType")
-    private fun clicked(){
+    private fun clickedGender(){
 
         // 성별 버튼 클릭 [남자]
         binding.btnMan.setOnClickListener{
@@ -186,66 +220,6 @@ class SignUpActivity : AppCompatActivity() {
             binding.btnMan.setBackgroundResource(R.drawable.bg_gender_man_white)
             binding.btnMan.setTextColor(ContextCompat.getColor(this, R.color.gender_un_select))
             gender = "F"
-        }
-
-        // 휴대폰번호 인증요청 버튼 클릭
-        binding.btnRequestNum.setOnTouchListener{ view, event ->
-            when(event.action){
-                MotionEvent.ACTION_DOWN -> {
-                    view.setBackgroundResource(R.drawable.bg_btn_un_click)
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    view.setBackgroundResource(R.drawable.bg_btn_click)
-                    true
-                }
-                MotionEvent.ACTION_CANCEL ->{
-                    view.setBackgroundResource(R.drawable.bg_btn_click)
-                    true
-                }
-                else -> {
-
-                    false
-                }
-            }
-        }
-
-        // 다음 버튼 클릭 [ 클릭하면 회원가입하기 위해 모두 입력했으면 정보들을 서버로 데이터를 보냄 ]
-        binding.btnNext.setOnTouchListener{ view, event ->
-            when(event.action){
-                MotionEvent.ACTION_DOWN -> {
-                    view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
-
-                    val id = binding.etId.text.toString().trim()
-                    val pw = binding.etPassword.text.toString().trim()
-                    val name = binding.etName.text.toString().trim()
-                    val phoneNumber = binding.etPhoneNum.text.toString().trim()
-                    val birth = binding.txtCal.text.toString().trim()
-
-                    // EditText에 입력한 값들을 user에 대입
-                    val user = NormalUser(id, pw, name, phoneNumber, birth, gender)
-
-                    // user 에 저장된 값들을 서버로 보내고 곧바로 데이터 확인
-                    userViewModel.addNormalUser(this, user).observe(this){ code ->
-                        Log.i("SignUpActivity normalUser", "code: $code")
-                        // code 400 : 비밀번호 형식 등 확인
-                        // code 201 : Success
-                        // code 500 : 서버 내부오류
-
-                        // code 409 : 아이디 중복
-                        if (code == 409){
-                            Toast.makeText(this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    true
-                }
-                else -> false
-            }
         }
     }
 
@@ -287,20 +261,22 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     // 중복된 아이디가 있는지 확인
-                    if (id == "123"){
-                        binding.etId.setBackgroundResource(R.drawable.bg_edit_dupl)
-                        binding.tvIdDuplicate.text = "중복된 아이디입니다."
-                        binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
-                        binding.tvIdDuplicate.visibility = View.VISIBLE
-
-                    }else if(TextUtils.isEmpty(id)){ // 아이디 입력란이 공백인지 확인
+//                    if (id == "123"){
+//                        binding.etId.setBackgroundResource(R.drawable.bg_edit_dupl)
+//                        binding.tvIdDuplicate.text = "중복된 아이디입니다."
+//                        binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.red))
+//                        binding.tvIdDuplicate.visibility = View.VISIBLE
+//
+//                    }else
+                    if(TextUtils.isEmpty(id)){ // 아이디 입력란이 공백인지 확인
                         binding.tvIdDuplicate.visibility = View.GONE
                     }
-                    else{
-                        binding.tvIdDuplicate.text = "사용이 가능한 아이디입니다."
-                        binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
-                        binding.tvIdDuplicate.visibility = View.VISIBLE
-                    }
+//                    else{
+//                        // TODO : 사용 가능한 아이디일 때 로직 개선하기
+//                        binding.tvIdDuplicate.text = "사용이 가능한 아이디입니다."
+//                        binding.tvIdDuplicate.setTextColor(ContextCompat.getColor(this, R.color.brand_color))
+//                        binding.tvIdDuplicate.visibility = View.VISIBLE
+//                    }
 
                     val regex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).{8,20}$")
 

@@ -3,9 +3,11 @@ package kr.co.testapp0501.view.activity
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import kr.co.testapp0501.R
@@ -33,7 +35,44 @@ class SignUpSnsActivity : AppCompatActivity() {
             showDatePicker(it)
         }
 
-        clickedNext(snsType!!, snsId!!)
+        clickedGender() // 성별 선택
+
+        binding.btnRequestNum.setOnClickListener{clickedRequestNum()} // 폰번호 인증요청 클릭
+        binding.btnNext.setOnClickListener{clickedNext(snsType!!, snsId!!)} // 다음버튼 클릭
+
+    }
+
+    // 폰번호 인증요청 클릭
+    private fun clickedRequestNum(){
+
+    }
+
+    // 다음 버튼 클릭 [ 클릭하면 회원가입하기 위해 모두 입력했으면 정보들을 서버로 데이터를 보냄 ]
+    private fun clickedNext(snsType : String, snsId : String){
+        val name = binding.etName.text.toString().trim()
+        val phoneNumber = binding.etPhoneNum.text.toString().trim()
+        val birth = binding.txtCal.text.toString().trim()
+
+        if (TextUtils.isEmpty(name)){
+            Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+        }else if(TextUtils.isEmpty(phoneNumber)){
+            Toast.makeText(this, "휴대폰 번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+        }else if (TextUtils.isEmpty(birth)){
+            Toast.makeText(this, "생년월일을 선택해주세요.", Toast.LENGTH_SHORT).show()
+        }else{
+            val user = SocialUser(snsType, snsId, name, phoneNumber, birth, gender)
+
+            userRepository.snsRegisterUser(this, user)
+            Log.i("SignUpSnsActivity",
+                "snsType: ${user.snsType}," +
+                        " snsId: ${user.snsId}, " +
+                        "snsName: ${user.name}, " +
+                        "snsPhoneNum: ${user.phoneNumber}, " +
+                        "snsBirth: ${user.birth}, " +
+                        "snsGender: ${user.sex}"
+            )
+        }
+
 
     }
 
@@ -60,8 +99,9 @@ class SignUpSnsActivity : AppCompatActivity() {
         binding.txtCal.text = "$dateMessage" // 선택한 날짜를 화면에 보여주기
     }
 
+    // 성별 선택
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor", "ResourceType")
-    private fun clickedNext(snsType : String, snsId : String){
+    private fun clickedGender(){
 
         // 성별 버튼 클릭 [남자]
         binding.btnMan.setOnClickListener{
@@ -82,36 +122,8 @@ class SignUpSnsActivity : AppCompatActivity() {
             gender = "F"
         }
 
-        // 다음 버튼 클릭 [ 클릭하면 회원가입하기 위해 모두 입력했으면 정보들을 서버로 데이터를 보냄 ]
-        binding.btnNext.setOnTouchListener{ view, event ->
-            when(event.action){
-                MotionEvent.ACTION_DOWN -> {
-                    view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
-                    val name = binding.etName.text.toString().trim()
-                    val phoneNumber = binding.etPhoneNum.text.toString().trim()
-                    val birth = binding.txtCal.text.toString().trim()
 
-                    val user = SocialUser(snsType, snsId, name, phoneNumber, birth, gender)
-
-                    userRepository.snsRegisterUser(this, user)
-                    Log.i("SignUpSnsActivity",
-                        "snsType: ${user.snsType}," +
-                            " snsId: ${user.snsId}, " +
-                            "snsName: ${user.name}, " +
-                                "snsPhoneNum: ${user.phoneNumber}, " +
-                                "snsBirth: ${user.birth}, " +
-                                "snsGender: ${user.sex}"
-                    )
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
 

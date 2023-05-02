@@ -26,6 +26,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_dialog_group_code.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_login_selector.xml" value="0.192" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_next_selector.xml" value="0.1975" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_request_num_click_selector.xml" value="0.192" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_textbox_basic.xml" value="0.179" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_textbox_basic_selector.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_bg_group_code_input.xml" value="0.1795" />
@@ -46,7 +47,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_member.xml" value="0.25" />
-        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_sign_up_sns.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/dialog_group_add.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/dialog_group_code_input.xml" value="0.33" />
