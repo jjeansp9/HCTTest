@@ -46,47 +46,58 @@ class LoginActivity : AppCompatActivity() {
 
     private val userRepository = UserRepository()
 
-    var users = UserModel(this)
+    private var users = UserModel(this)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
-        // 디바이스에 저장된 값 불러오기 [ 아래 코드 실행하면 자동로그인 되어 로그인화면 그냥 넘어감 ]
         val loadUserInfo: NormalLogin= users.loadNormalData()
         val loadSnsUserInfo: SocialLogin= users.loadSnsData()
 
-        Log.i("LoginActivity normal", loadUserInfo.id + ", " + loadUserInfo.pw)
-        Log.i("LoginActivity sns", loadSnsUserInfo.snsType + "," + loadSnsUserInfo.snsId)
+        // 디바이스에 저장된 유저 정보 가져오기
+        loadUserData(
+            loadUserInfo.id,
+            loadUserInfo.pw,
+            loadSnsUserInfo.snsType,
+            loadSnsUserInfo.snsId
+        )
 
-        // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
-        when {
-            loadUserInfo.id != "" && loadUserInfo.pw != "" -> { // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-                val login = NormalLogin(loadUserInfo.id, loadUserInfo.pw)
-                userViewModel.normalLogin(this, login)
-                Log.i("LoginActivity Login", "id: ${loadUserInfo.id}, pw: ${loadUserInfo.pw}")
-            }
-            loadSnsUserInfo.snsType != "" && loadSnsUserInfo.snsId != "" -> { // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-                userRepository.snsLogin(this, loadSnsUserInfo.snsId)
-                Log.i("LoginActivity snsLogin", "id: ${loadSnsUserInfo.snsId}")
-            }
-        }
         setContentView(binding.root)
 
         Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
         NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
-
 
         clickedBackGround()
 
         // 일반 회원가입
         binding.layoutSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
 
-        normalLogin() // 일반 로그인
+        binding.imgLogin.setOnClickListener{normalLogin()} // 일반 로그인
         binding.kakaoLogin.setOnClickListener{login(kakao, loadSnsUserInfo.snsId)} // 카카오 로그인
         binding.naverLogin.setOnClickListener{login(naver, loadSnsUserInfo.snsId)} // 네이버 로그인
         binding.googleLogin.setOnClickListener{login(google, loadSnsUserInfo.snsId)} // 구글 로그인
+    }
 
+    private fun loadUserData(normalId: String, normalPw: String, snsType: String, snsId: String){
+        // 디바이스에 저장된 값 불러오기 [ 아래 코드 실행하면 자동로그인 되어 로그인화면 그냥 넘어감 ]
+
+        Log.i("LoginActivity normal", "$normalId, $normalPw")
+        Log.i("LoginActivity sns", "$snsType,$snsId")
+
+        // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
+        when {
+            normalId != "" && normalPw != "" -> { // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+                val login = NormalLogin(normalId, normalPw)
+                userViewModel.normalLogin(this, login)
+                Log.i("LoginActivity Login", "id: $normalId, pw: $normalPw")
+            }
+            snsType != "" && snsId != "" -> { // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
+                userRepository.snsLogin(this, snsId)
+                Log.i("LoginActivity snsLogin", "id: $snsId")
+            }
+        }
     }
 
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
@@ -122,41 +133,25 @@ class LoginActivity : AppCompatActivity() {
     // 일반회원 로그인
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun normalLogin(){
-        binding.imgLogin.setOnTouchListener{ view, event ->
-            when(event.action){
-                MotionEvent.ACTION_DOWN -> {
-                    view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
+        var id = binding.etInputId.text.toString().trim()
+        var password = binding.etInputPw.text.toString().trim()
 
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
+        if (TextUtils.isEmpty(id)){
+            Toast.makeText(this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show()
 
-                    var id = binding.etInputId.text.toString().trim()
-                    var password = binding.etInputPw.text.toString().trim()
+        }else if(TextUtils.isEmpty(password)){
+            Toast.makeText(this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show()
 
-                    if (TextUtils.isEmpty(id)){
-                        Toast.makeText(this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show()
+        }else{
+            val id = binding.etInputId.text.toString().trim()
+            val pw = binding.etInputPw.text.toString().trim()
+            val login = NormalLogin(id, pw)
 
-                    }else if(TextUtils.isEmpty(password)){
-                        Toast.makeText(this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show()
+            // 입력한 id, pw 값을 서버로 보내기
+            userViewModel.normalLogin(this, login)
 
-                    }else{
-                        val id = binding.etInputId.text.toString().trim()
-                        val pw = binding.etInputPw.text.toString().trim()
-                        val login = NormalLogin(id, pw)
-
-                        // 입력한 id, pw 값을 서버로 보내기
-                        userViewModel.normalLogin(this, login)
-
-                        //startActivity(Intent(this, GroupActivity::class.java)) // 임시
-                        //Toast.makeText(this, "입력하신 정보가 일치하지 않아도 임시로 화면 넘어가기", Toast.LENGTH_SHORT).show()
-                    }
-
-                    true
-                }
-                else -> false
-            }
+            //startActivity(Intent(this, GroupActivity::class.java)) // 임시
+            //Toast.makeText(this, "입력하신 정보가 일치하지 않아도 임시로 화면 넘어가기", Toast.LENGTH_SHORT).show()
         }
     }
 

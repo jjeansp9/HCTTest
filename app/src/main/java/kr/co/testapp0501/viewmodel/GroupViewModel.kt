@@ -24,7 +24,7 @@ class GroupViewModel : ViewModel(){
     fun createGroup(token : String, groupInfo : RequestBody, groupImg : MultipartBody.Part){
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.uploadData3(token, groupInfo, groupImg).enqueue(object : Callback<String> {
+        apiService.uploadData2(token, groupInfo, groupImg).enqueue(object : Callback<String> {
             override fun onResponse(
                 call: Call<String>,
                 response: Response<String>

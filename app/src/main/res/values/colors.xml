@@ -10,8 +10,8 @@
     <color name="gender_select">#eeeeee</color>
     <color name="gender_un_select">#333333</color>
     <color name="red">#ff3e3e</color>
-    <color name="btn_click">#339D58</color>
+    <color name="btn_un_click">#339D58</color>
     <color name="brand_color">#339D58</color>
-    <color name="btn_un_click">#297e46</color>
+    <color name="btn_click">#297e46</color>
     <color name="background">#f5f5f5</color>
 </resources>
