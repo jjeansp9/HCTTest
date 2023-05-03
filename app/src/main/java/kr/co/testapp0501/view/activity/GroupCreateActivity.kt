@@ -92,10 +92,10 @@ class GroupCreateActivity : AppCompatActivity() {
                         Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
 
                         val groupInfo = Group(Info(groupName, groupType, 1, ""))
-//                        val json = Gson().toJson(groupInfo)
-//                        val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
+                        val json = Gson().toJson(groupInfo)
+                        val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
-                        groupViewModel.createGroup(token, groupInfo, path) // 입력한 항목 값들 ViewModel 로 전달
+                        groupViewModel.createGroup(token, requestBody, path) // 입력한 항목 값들 ViewModel 로 전달
                     }else{
                         Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
                     }
@@ -123,7 +123,7 @@ class GroupCreateActivity : AppCompatActivity() {
             imgUri = result.data!!.data!!
             Glide.with(this).load(imgUri).into(binding.imgAdd)
 
-            imgPath = getRealPathFromUri(imgUri)!!
+            //imgPath = getRealPathFromUri(imgUri)!!
         }
     }
 

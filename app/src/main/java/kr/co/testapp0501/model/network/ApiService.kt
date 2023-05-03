@@ -71,11 +71,12 @@ interface ApiService {
 
     // 그룹 생성2
     @Headers("Content-Type: application/json")
+    @Multipart
     @POST(GROUP_CREATE)
     fun uploadData2(
         @Header("X-AUTH-TOKEN") token: String,
-        @Body info: Group,
-        //@Part imageFile: MultipartBody.Part
+        @Body info: RequestBody,
+        @Part imageFile: MultipartBody.Part
     ): Call<String>
 
     // 그룹 생성3
