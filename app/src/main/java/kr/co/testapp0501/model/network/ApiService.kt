@@ -28,7 +28,7 @@ interface ApiService {
         // 그룹 목록
         const val GROUP_LIST = "$PREFIX_URL/group/types"
         // 회원 그룹 조회
-        const val GROUP_LOAD = "$PREFIX_URL/member/{memberSeq}/groups"
+        const val GROUP_LOAD = "$PREFIX_URL/member/1/groups"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -59,44 +59,16 @@ interface ApiService {
 
     /** ===================== 그룹 생성,접속 ========================= */
 
-    // 그룹 생성1
-    @Headers("Content-Type: application/json")
+    // 그룹 생성
     @Multipart
     @POST(GROUP_CREATE)
-    fun uploadData1(
-        @Header("X-AUTH-TOKEN") token: String,
-        @PartMap dataPart: Map<String, String>,
-        @Part imageFile: MultipartBody.Part
-    ): Call<String>
-
-    // 그룹 생성2
-    @Multipart
-    @POST(GROUP_CREATE)
-    fun uploadData2(
+    fun uploadData(
         @Header("X-AUTH-TOKEN") token: String,
         @Part("info") info: RequestBody,
-    ): Call<String>
-
-    // 그룹 생성3
-    @Multipart
-    @POST(GROUP_CREATE)
-    fun uploadData3(
-        @Header("X-AUTH-TOKEN") token: String,
         @Part imageFile: MultipartBody.Part
     ): Call<String>
 
-    // 그룹 생성4
-    @Multipart
-    @POST(GROUP_CREATE)
-    fun uploadData4(
-        @Header("X-AUTH-TOKEN") token: String,
-        @Part("info") info: Group,
-        @Part files: MultipartBody.Part
-        ): Call<String>
-
-
-
-    // 내가 속한 그룹 목록 불러오기
+    // 그룹 형식 리스트
 //    @GET(GROUP_LIST)
 //    suspend fun loadGroupList(@Query("") group: String): Response<List<String>>
 
@@ -104,7 +76,7 @@ interface ApiService {
     @GET(GROUP_LOAD)
     fun loadGroupList(
         @Header("X-AUTH-TOKEN") token: String,
-        @Path("memberSeq") memberSeq: Int
+        @Query("memberSeq") memberSeq: Int
     ): Call<GroupList>
 }
 

@@ -25,7 +25,6 @@ import com.google.gson.Gson
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 import kr.co.testapp0501.model.group.Group
-import kr.co.testapp0501.model.group.Info
 import kr.co.testapp0501.viewmodel.GroupViewModel
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -88,10 +87,12 @@ class GroupCreateActivity : AppCompatActivity() {
                         groupImg.add(path)
 
                         val groupName = binding.etGroupName.text.toString()
-                        val groupType = binding.spinGroupType.selectedItem.toString()
+                        var groupType = binding.spinGroupType.selectedItem.toString()
                         Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
 
-                        val groupInfo = Group(Info(groupName, groupType, 1, ""))
+                        groupType = "family"
+
+                        val groupInfo = Group(groupName, groupType, 1, "")
                         val json = Gson().toJson(groupInfo)
                         val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 

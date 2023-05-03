@@ -23,24 +23,7 @@ class GroupViewModel : ViewModel(){
     fun createGroup(token : String, groupInfo : RequestBody, groupImg : MultipartBody.Part){
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.uploadData2(token, groupInfo).enqueue(object : Callback<String> {
-            override fun onResponse(
-                call: Call<String>,
-                response: Response<String>
-            ) {
-                _code.value = response.code().toString()
-                Log.i("GroupViewModel code", "code : ${response.code()}")
-                Log.i("GroupViewModel code", response.headers().name(0))
-                Log.i("GroupViewModel code", response.body().toString())
-                Log.i("GroupViewModel code", response.headers().value(0))
-                Log.i("GroupViewModel code", response.errorBody().toString())
-            }
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.e("GroupViewModel error", "error : ${t.message}")
-            }
-        })
-
-        apiService.uploadData3(token,  groupImg).enqueue(object : Callback<String> {
+        apiService.uploadData(token, groupInfo, groupImg).enqueue(object : Callback<String> {
             override fun onResponse(
                 call: Call<String>,
                 response: Response<String>
