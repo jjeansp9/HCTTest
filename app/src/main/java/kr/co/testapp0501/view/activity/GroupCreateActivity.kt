@@ -95,7 +95,7 @@ class GroupCreateActivity : AppCompatActivity() {
                         val json = Gson().toJson(groupInfo)
                         val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
-                        groupViewModel.createGroup(token, requestBody, path) // 입력한 항목 값들 ViewModel 로 전달
+                        groupViewModel.createGroup(token, groupInfo, path) // 입력한 항목 값들 ViewModel 로 전달
                     }else{
                         Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
                     }

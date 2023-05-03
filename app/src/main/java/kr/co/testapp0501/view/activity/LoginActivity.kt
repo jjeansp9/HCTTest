@@ -53,19 +53,20 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
+        NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
+
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         val loadUserInfo: NormalLogin= users.loadNormalData()
         val loadSnsId=  users.loadSnsId()
         val loadLoginType=  users.loadLoginType()
+
         snsTokenConfirm(loadSnsId) // sns 자동로그인
         loadUserData(loadUserInfo.id, loadUserInfo.pw) // 일반 자동로그인
+
         setContentView(binding.root)
-
-        Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
-        NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
-
-
         clickedBackGround()
 
         // 일반 회원가입
@@ -75,11 +76,14 @@ class LoginActivity : AppCompatActivity() {
         binding.kakaoLogin.setOnClickListener{login(kakao, loadSnsId)} // 카카오 로그인
         binding.naverLogin.setOnClickListener{login(naver, loadSnsId)} // 네이버 로그인
         binding.googleLogin.setOnClickListener{login(google, loadSnsId)} // 구글 로그인
+
+
+        Log.i("naverToken",NaverIdLoginSDK.getAccessToken().toString() +"," + NaverIdLoginSDK.getRefreshToken() + ", " + NaverIdLoginSDK.getExpiresAt())
     }
 
     // 토큰 존재여부 [ 없으면 회원가입 또는 로그인 진행 ]
     private fun snsTokenConfirm(id: String){
-        if (AuthApiClient.instance.hasToken()) {
+        if (AuthApiClient.instance.hasToken()) { // 카카오 토큰 존재여부
             UserApiClient.instance.accessTokenInfo { _, error ->
                 if (error != null) {
                     if (error is KakaoSdkError && error.isInvalidTokenError()) {
@@ -94,6 +98,9 @@ class LoginActivity : AppCompatActivity() {
                     userRepository.snsLogin(this, kakao, id)
                 }
             }
+
+        }else if (NaverIdLoginSDK.getRefreshToken()!= null){ // 네이버 토큰 존재여부
+            userRepository.snsLogin(this, naver, id)
         }
         else {
             //로그인 필요

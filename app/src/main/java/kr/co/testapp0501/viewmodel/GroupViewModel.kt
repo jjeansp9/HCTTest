@@ -5,12 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kr.co.testapp0501.model.group.Group
-import kr.co.testapp0501.model.group.Info
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,10 +20,10 @@ class GroupViewModel : ViewModel(){
         get() = _code
 
     // 그룹 생성
-    fun createGroup(token : String, groupInfo : RequestBody, groupImg : MultipartBody.Part){
+    fun createGroup(token : String, groupInfo : Group, groupImg : MultipartBody.Part){
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.uploadData2(token, groupInfo, groupImg).enqueue(object : Callback<String> {
+        apiService.uploadData3(token, groupInfo, groupImg).enqueue(object : Callback<String> {
             override fun onResponse(
                 call: Call<String>,
                 response: Response<String>

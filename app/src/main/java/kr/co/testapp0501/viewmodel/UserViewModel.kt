@@ -99,6 +99,7 @@ class UserViewModel : ViewModel() {
             }
         }
         NaverIdLoginSDK.authenticate(context, callback = oauthLoginCallback)
+
     }
 
     // 구글 로그인 메소드

@@ -15,8 +15,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupBinding
+import kr.co.testapp0501.model.group.Data
+import kr.co.testapp0501.model.group.GroupList
+import kr.co.testapp0501.model.network.ApiService
+import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.recycler.RecyclerGroupData
 import kr.co.testapp0501.view.adapter.RecyclerGroupActivityAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class GroupActivity : AppCompatActivity() {
 
@@ -45,6 +52,26 @@ class GroupActivity : AppCompatActivity() {
         // 그룹을 클릭하여 메인화면으로 이동
         clickedGroupAdd()
         clickedGroupBox()
+
+        testGroupList()
+    }
+
+    private fun testGroupList(){
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+        val token = intent.getStringExtra("token")
+
+        apiService.loadGroupList(token!!, 1).enqueue(object : Callback<GroupList>{
+            override fun onResponse(call: Call<GroupList>, response: Response<GroupList>) {
+                Log.i("GroupActivity..response", response.code().toString())
+                Log.i("GroupActivity Http",response.body()?.data?.get(0)?.groupName.toString())
+                Log.i("GroupActivity Http",response.message())
+            }
+
+            override fun onFailure(call: Call<GroupList>, t: Throwable) {
+            }
+
+        })
     }
 
     // 툴바 설정 [ 메인화면 ]

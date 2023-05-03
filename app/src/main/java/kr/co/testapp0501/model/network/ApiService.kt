@@ -1,8 +1,8 @@
 package kr.co.testapp0501.model.network
 
-import io.reactivex.Single
+import kr.co.testapp0501.model.group.Data
 import kr.co.testapp0501.model.group.Group
-import kr.co.testapp0501.model.group.Info
+import kr.co.testapp0501.model.group.GroupList
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -29,6 +29,8 @@ interface ApiService {
         const val GROUP_CREATE = "$PREFIX_URL/group"
         // 그룹 목록
         const val GROUP_LIST = "$PREFIX_URL/group/types"
+        // 회원 그룹 조회
+        const val GROUP_LOAD = "$PREFIX_URL/member/100/groups"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -80,17 +82,24 @@ interface ApiService {
     ): Call<String>
 
     // 그룹 생성3
-    @Headers("Content-Type: application/json")
+    @Multipart
     @POST(GROUP_CREATE)
     fun uploadData3(
         @Header("X-AUTH-TOKEN") token: String,
-        @Part("info") info: RequestBody,
-        @Part files: List<MultipartBody.Part>
+        @Part("info") info: Group,
+        @Part files: MultipartBody.Part
         ): Call<String>
 
     // 내가 속한 그룹 목록 불러오기
 //    @GET(GROUP_LIST)
 //    suspend fun loadGroupList(@Query("") group: String): Response<List<String>>
+
+    // 회원 그룹 조회
+    @GET(GROUP_LOAD)
+    fun loadGroupList(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Query("Info") memberSeq: Int
+    ): Call<GroupList>
 }
 
 
