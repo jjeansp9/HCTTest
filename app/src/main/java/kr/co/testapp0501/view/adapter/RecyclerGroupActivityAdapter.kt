@@ -1,6 +1,7 @@
 package kr.co.testapp0501.view.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerGroupItemBinding
 import kr.co.testapp0501.model.recycler.RecyclerGroupData
+import java.io.File
 
 class RecyclerGroupActivityAdapter constructor(private val context: Context, private var items: MutableList<RecyclerGroupData>): RecyclerView.Adapter<RecyclerGroupActivityAdapter.VH>(){
 
@@ -37,7 +39,13 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
         holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) }
 
-        //Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup)
+//        val imagePath = items[position].imgGroup
+//        val imageFile = File(imagePath)
+//        if(imageFile.exists()) {
+//            val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+//            holder.binding.imgGroup.setImageBitmap(bitmap)
+//        }
+
         Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup)
         holder.binding.tvGroupName.text = items[position].tvGroupName
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin

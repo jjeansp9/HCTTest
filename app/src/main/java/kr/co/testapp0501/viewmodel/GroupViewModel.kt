@@ -26,10 +26,6 @@ class GroupViewModel : ViewModel(){
     val code : LiveData<String>
         get() = _code
 
-    private val _groupList = MutableLiveData<String>()
-    val groupList : LiveData<String>
-        get() = _groupList
-
     // 그룹 생성
     fun createGroup(token : String, groupInfo : RequestBody, groupImg : MultipartBody.Part){
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
@@ -52,14 +48,16 @@ class GroupViewModel : ViewModel(){
         })
     }
 
-    fun loadGroupList(jwtToken: String) : LiveData<Int>{
-        val idLiveData = MutableLiveData<Int>()
+    // 그룹 목록
+    fun loadGroupList(jwtToken: String) : LiveData<GroupList>{
+        val groupList = MutableLiveData<GroupList>()
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
         Log.i("GroupActivity before response", "before")
 
         apiService.loadGroupList(jwtToken, 1).enqueue(object : Callback<GroupList>{
             override fun onResponse(call: Call<GroupList>, response: Response<GroupList>) {
+                groupList.value = response.body()
                 Log.i("GroupActivity after response", response.code().toString())
                 Log.i("GroupActivity Http",response.body().toString())
                 Log.i("GroupActivity Http",response.message() +"," + call.toString())
@@ -68,7 +66,7 @@ class GroupViewModel : ViewModel(){
             }
         })
 
-        return idLiveData
+        return groupList
     }
 
 

@@ -1,5 +1,6 @@
 package kr.co.testapp0501.view.activity
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -36,6 +37,7 @@ class GroupActivity : AppCompatActivity() {
 
     private lateinit var groupViewModel: GroupViewModel
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -46,11 +48,23 @@ class GroupActivity : AppCompatActivity() {
         setToolbar()
 
         val jwtToken = intent.getStringExtra("token")
-        groupViewModel.loadGroupList(jwtToken)
+        groupViewModel.loadGroupList(jwtToken!!).observe(this){
+            for (i in 0 until it.data.size){
+                if (it.data[i].filePaths.isNotEmpty()) {
+                    groupItems.add(RecyclerGroupData(it.data[i].filePaths[0], it.data[i].groupName))
+                    Log.i("iii if", i.toString() + it.data[i].filePaths[0])
+                } else {
+                    // filePaths가 비어있는 경우, 기본 이미지를 사용하도록 설정
+                    groupItems.add(RecyclerGroupData("", it.data[i].groupName))
+                    Log.i("iii else", i.toString())
+                }
+            }
+            groupItems.add(RecyclerGroupData("add", ""))
+            adapter.notifyDataSetChanged()
 
-        groupItems.add(RecyclerGroupData("", "동창회"))
-        groupItems.add(RecyclerGroupData("", "가족모임"))
-        groupItems.add(RecyclerGroupData("add", ""))
+        }
+
+
 
 
         // 설정 버튼 클릭 [ 설정 화면으로 이동 ]
