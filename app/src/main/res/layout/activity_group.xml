@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.GroupActivity">
 
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
@@ -48,18 +50,25 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_group"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar_layout"
-        android:background="@color/background"
-        android:orientation="vertical"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2" />
+        android:layout_below="@id/appbar_layout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 <!--    <RelativeLayout-->
 <!--        android:layout_width="wrap_content"-->
@@ -83,32 +92,5 @@
 <!--            android:layout_marginTop="8dp"/>-->
 
 <!--    </RelativeLayout>-->
-
-    <RelativeLayout
-        android:id="@+id/layout_group_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tv_group_create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dialog_et_group_code_input"
-            android:padding="20dp"
-            android:text="그룹 생성"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/tv_group_connect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_group_create"
-            android:text="그룹 접속"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:background="@drawable/dialog_et_group_code_input"/>
-    </RelativeLayout>
 
 </RelativeLayout>

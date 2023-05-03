@@ -65,9 +65,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
 
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3' // okHttp 4.x 버전
+    // okHttp 4.x 버전
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1' // ViewModel
+    // ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // RxJava, RxAndroid
@@ -92,4 +94,7 @@ dependencies {
 
     // rx EventBus
     implementation "org.greenrobot:eventbus:$eventbus_version"
+
+    // swipeRefresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

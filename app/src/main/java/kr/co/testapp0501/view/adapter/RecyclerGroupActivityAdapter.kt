@@ -2,6 +2,7 @@ package kr.co.testapp0501.view.adapter
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,11 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         holder.binding.tvGroupName.text = items[position].tvGroupName
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
 
-        if(items[position].imgGroup == "add"){
+        Log.i("swipes position", position.toString())
+
+
+        if(items.lastIndex == position){
+            Log.i("swipe lastIndex", position.toString())
             holder.binding.imgGroup.setBackgroundResource(R.drawable.bt_group_plusbox)
             holder.binding.tvGroupAdmin.text = ""
             holder.binding.tvGroupAdmin.background = null
