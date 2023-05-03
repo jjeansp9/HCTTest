@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import kr.co.avad.android.humancaretree.base.BaseViewModel
+import kr.co.testapp0501.ProfileActivity
 import kr.co.testapp0501.view.activity.AlbumActivity
 import kr.co.testapp0501.view.activity.MemberActivity
 import java.lang.ref.WeakReference
@@ -21,9 +22,9 @@ class MainViewModel(context: Context) : BaseViewModel(){
         context.startActivity(intent)
     }
 
-    // 구성원 메뉴 클릭
-    fun onClickMember() { startNewActivity(MemberActivity::class.java) }
 
-    // 앨범 메뉴 클릭
-    fun onClickAlbum() { startNewActivity(AlbumActivity::class.java) }
+    fun onClickMember() {startNewActivity(MemberActivity::class.java)} // 구성원 메뉴 클릭
+    fun onClickAlbum() {startNewActivity(AlbumActivity::class.java)} // 앨범 메뉴 클릭
+    fun onClickProfile() {startNewActivity(ProfileActivity::class.java)} // 프로필 메뉴 클릭릭
+
 }

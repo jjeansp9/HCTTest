@@ -15,15 +15,10 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-
-    private lateinit var binding: ActivityMainBinding
-    private val viewModel = MainViewModel(this)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.vmMain = viewModel
+        viewDataBinding.vmMain = MainViewModel(this)
         viewDataBinding.lifecycleOwner = this
 //        viewDataBinding.vmMain = getViewModel()
 

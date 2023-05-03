@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.kakao.sdk.auth.AuthApiClient
+import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
@@ -56,19 +58,13 @@ class LoginActivity : AppCompatActivity() {
         val loadUserInfo: NormalLogin= users.loadNormalData()
         val loadSnsId=  users.loadSnsId()
         val loadLoginType=  users.loadLoginType()
-
-        // 디바이스에 저장된 유저 정보 가져오기
-        loadUserData(
-            loadUserInfo.id,
-            loadUserInfo.pw,
-            loadLoginType,
-            loadSnsId
-        )
-
+        snsTokenConfirm(loadSnsId) // sns 자동로그인
+        loadUserData(loadUserInfo.id, loadUserInfo.pw) // 일반 자동로그인
         setContentView(binding.root)
 
         Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
         NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
+
 
         clickedBackGround()
 
@@ -81,11 +77,34 @@ class LoginActivity : AppCompatActivity() {
         binding.googleLogin.setOnClickListener{login(google, loadSnsId)} // 구글 로그인
     }
 
-    private fun loadUserData(normalId: String, normalPw: String, snsType: String, snsId: String){
+    // 토큰 존재여부 [ 없으면 회원가입 또는 로그인 진행 ]
+    private fun snsTokenConfirm(id: String){
+        if (AuthApiClient.instance.hasToken()) {
+            UserApiClient.instance.accessTokenInfo { _, error ->
+                if (error != null) {
+                    if (error is KakaoSdkError && error.isInvalidTokenError()) {
+                        //로그인 필요
+                    }
+                    else {
+                        //기타 에러
+                    }
+                }
+                else {
+                    //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+                    //userRepository.snsLogin(this, kakao, id)
+                }
+            }
+        }
+        else {
+            //로그인 필요
+        }
+    }
+
+    // 일반회원 저장된 정보가 있다면 자동로그인
+    private fun loadUserData(normalId: String, normalPw: String){
         // 디바이스에 저장된 값 불러오기 [ 아래 코드 실행하면 자동로그인 되어 로그인화면 그냥 넘어감 ]
 
         Log.i("LoginActivity normal", "$normalId, $normalPw")
-        Log.i("LoginActivity sns", "$snsType,$snsId")
 
         // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
         if (normalId != "default" && normalPw != "default"){
@@ -98,23 +117,11 @@ class LoginActivity : AppCompatActivity() {
             }
             Log.i("LoginActivity Login", "id: $normalId, pw: $normalPw")
         }
-
-        if (snsType != "default" && snsId != "default"){
-            // 소셜 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-            userRepository.snsLogin(this, snsType, snsId)
-            Log.i("LoginActivity snsLogin", "id: $snsId")
-        }
     }
 
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
     private fun login(platform : String, id: String){
-        if (id != "default"){ // 디바이스에 id값이 저장되어 있다면 로그인 진행
-            userRepository.snsLogin(this, platform, id)
-            Log.i("LoginActivity Login()", id)
-
-        }else{ // 디바이스에 저장된값이 "default" 면 회원가입 진행
-            userViewModel.startLogin(this, platform)
-        }
+        userViewModel.startLogin(this, platform)
     }
 
     // 키보드가 열린 상태일 때

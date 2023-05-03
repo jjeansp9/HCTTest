@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.user.UserApiClient
@@ -156,17 +158,25 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
                     val snsId = nidProfileResponse.profile!!.id.toString()
 
-                    if (snsLogin(context, platform, snsId).value == 200){ // 서버에 저장된 회원 정보가 있다면
-                        snsLogin(context, platform, snsId)
 
-                    }else{ // 서버에 저장된 정보가 없다면
+                    snsLogin(context,platform, snsId).observe(context){ it ->
+                        when (it) {
+                            200 -> { // 서버에 저장된 회원 정보가 있다면
+                                snsLogin(context, platform, snsId)
+                            }
+                            404 -> { // 서버에 저장된 정보가 없다면
 
-                        // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
-                        val intent = Intent(context, SignUpSnsActivity::class.java)
-                        intent.putExtra("snsType", platform) // snsType [ naver ]
-                        intent.putExtra("snsId", snsId) // sns Id
-                        context.startActivity(intent)
+                                val intent = Intent(context, SignUpSnsActivity::class.java)
+                                intent.putExtra("snsType", platform) // snsType [ naver ]
+                                intent.putExtra("snsId", snsId) // sns Id
+                                context.startActivity(intent)
+                            }
+                            500 -> { // 서버 내부오류
+                                Toast.makeText(context, "잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
+
                 }
                 override fun onFailure(i: Int, s: String) {
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
@@ -280,6 +290,9 @@ class UserRepository {
         return idLiveData
     }
 }
+
+private fun <T> LiveData<T>.observe(context: Context, function: (T) -> Unit) {}
+
 
 
 
