@@ -254,7 +254,7 @@ class UserRepository {
 
     // sns 로그인
     fun snsLogin(context: Context, snsType: String, snsId: String) : LiveData<Int>{
-        var idLiveData = MutableLiveData<Int>()
+        val idLiveData = MutableLiveData<Int>()
         val users = UserModel(context)
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 

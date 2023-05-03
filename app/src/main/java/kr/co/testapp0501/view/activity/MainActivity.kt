@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import kr.co.avad.android.humancaretree.base.BaseActivity
 import kr.co.testapp0501.R
-import kr.co.testapp0501.databinding.ActivityAlbumBinding
 import kr.co.testapp0501.databinding.ActivityMainBinding
 import kr.co.testapp0501.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel

@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="kr.co.testapp0501.viewmodel.MainViewModel"/>
         <variable
             name="vmMain"
             type="kr.co.testapp0501.viewmodel.MainViewModel" />
-
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -162,7 +160,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:paddingTop="4dp"
-                            android:paddingBottom="4dp">
+                            android:paddingBottom="4dp"
+                            android:onClick="@{() -> vmMain.onClickProfile()}">
 
                             <ImageView
                                 android:id="@+id/img_menu_profile"

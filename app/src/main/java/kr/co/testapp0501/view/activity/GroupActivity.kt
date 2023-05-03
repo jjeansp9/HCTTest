@@ -13,6 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupBinding
 import kr.co.testapp0501.model.group.Data
@@ -21,6 +22,8 @@ import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.recycler.RecyclerGroupData
 import kr.co.testapp0501.view.adapter.RecyclerGroupActivityAdapter
+import kr.co.testapp0501.viewmodel.GroupViewModel
+import kr.co.testapp0501.viewmodel.UserViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,13 +34,20 @@ class GroupActivity : AppCompatActivity() {
     private val groupItems = mutableListOf<RecyclerGroupData>()
     private val adapter = RecyclerGroupActivityAdapter(this, groupItems)
 
+    private lateinit var groupViewModel: GroupViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.recyclerGroup.adapter = adapter
+        groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
 
         // 툴바 생성
         setToolbar()
+
+        val jwtToken = intent.getStringExtra("token")
+        groupViewModel.loadGroupList(jwtToken)
+
         groupItems.add(RecyclerGroupData("", "동창회"))
         groupItems.add(RecyclerGroupData("", "가족모임"))
         groupItems.add(RecyclerGroupData("add", ""))
@@ -53,25 +63,11 @@ class GroupActivity : AppCompatActivity() {
         clickedGroupAdd()
         clickedGroupBox()
 
-        testGroupList()
+
+
     }
 
-    private fun testGroupList(){
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        val token = intent.getStringExtra("token")
-
-        apiService.loadGroupList(token!!, 1).enqueue(object : Callback<GroupList>{
-            override fun onResponse(call: Call<GroupList>, response: Response<GroupList>) {
-                Log.i("GroupActivity..response", response.code().toString())
-                Log.i("GroupActivity Http",response.body()?.data?.get(0)?.groupName.toString())
-                Log.i("GroupActivity Http",response.message())
-            }
-
-            override fun onFailure(call: Call<GroupList>, t: Throwable) {
-            }
-        })
-    }
 
     // 툴바 설정 [ 메인화면 ]
     private fun setToolbar(){
@@ -92,6 +88,8 @@ class GroupActivity : AppCompatActivity() {
                 }
             }
         })
+
+
 //        binding.icGroupAdd.setOnClickListener {
 //            if (!clicked){
 //                binding.layoutGroupBox.visibility = View.VISIBLE
