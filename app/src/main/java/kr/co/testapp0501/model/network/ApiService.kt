@@ -1,13 +1,11 @@
 package kr.co.testapp0501.model.network
 
-import kr.co.testapp0501.model.group.Data
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.group.GroupList
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 import retrofit2.http.PartMap as PartMap
 
@@ -30,11 +28,11 @@ interface ApiService {
         // 그룹 목록
         const val GROUP_LIST = "$PREFIX_URL/group/types"
         // 회원 그룹 조회
-        const val GROUP_LOAD = "$PREFIX_URL/member/100/groups"
+        const val GROUP_LOAD = "$PREFIX_URL/member/{memberSeq}/groups"
     }
 
     // 일반 회원가입 ID 중복체크
-    @GET("$PREFIX_URL/member/check/{memberId}")
+    @POST("$PREFIX_URL/member/check/{memberId}")
     fun checkId(@Path("memberId") memberId : CheckId): Call<UserResponse>
 
     /** ===================== 일반 회원가입,로그인 ======================== */
@@ -72,13 +70,11 @@ interface ApiService {
     ): Call<String>
 
     // 그룹 생성2
-    @Headers("Content-Type: application/json")
     @Multipart
     @POST(GROUP_CREATE)
     fun uploadData2(
         @Header("X-AUTH-TOKEN") token: String,
-        @Body info: RequestBody,
-        @Part imageFile: MultipartBody.Part
+        @Part("info") info: RequestBody,
     ): Call<String>
 
     // 그룹 생성3
@@ -86,9 +82,19 @@ interface ApiService {
     @POST(GROUP_CREATE)
     fun uploadData3(
         @Header("X-AUTH-TOKEN") token: String,
+        @Part imageFile: MultipartBody.Part
+    ): Call<String>
+
+    // 그룹 생성4
+    @Multipart
+    @POST(GROUP_CREATE)
+    fun uploadData4(
+        @Header("X-AUTH-TOKEN") token: String,
         @Part("info") info: Group,
         @Part files: MultipartBody.Part
         ): Call<String>
+
+
 
     // 내가 속한 그룹 목록 불러오기
 //    @GET(GROUP_LIST)
@@ -98,7 +104,7 @@ interface ApiService {
     @GET(GROUP_LOAD)
     fun loadGroupList(
         @Header("X-AUTH-TOKEN") token: String,
-        @Query("Info") memberSeq: Int
+        @Path("memberSeq") memberSeq: Int
     ): Call<GroupList>
 }
 

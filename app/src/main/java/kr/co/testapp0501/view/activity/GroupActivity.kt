@@ -70,7 +70,6 @@ class GroupActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<GroupList>, t: Throwable) {
             }
-
         })
     }
 
