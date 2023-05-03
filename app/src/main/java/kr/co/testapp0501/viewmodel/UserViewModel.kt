@@ -73,6 +73,7 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    // TODO : 최초 앱 접속했을 때는 네이버 버튼 눌러서 회원가입. 이미 했다면 자동로그인 개선하기
     // 네이버 로그인 메소드
     private fun naverLogin(context: Context){
 

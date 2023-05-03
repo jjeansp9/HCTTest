@@ -6,7 +6,7 @@ data class Group(
 data class Info(
     val groupName : String,
     val groupType : String,
-    val masterSeq : Int,
+    val memberSeq : Int,
     var memo : String
 )
 

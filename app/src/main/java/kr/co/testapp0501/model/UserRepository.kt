@@ -158,7 +158,6 @@ class UserRepository {
 //                    Log.i("naverInfo", "네이버 연령대 : " + nidProfileResponse.profile!!.age)
                     val snsId = nidProfileResponse.profile!!.id.toString()
 
-
                     snsLogin(context,platform, snsId).observe(context){ it ->
                         when (it) {
                             200 -> { // 서버에 저장된 회원 정보가 있다면
@@ -176,7 +175,6 @@ class UserRepository {
                             }
                         }
                     }
-
                 }
                 override fun onFailure(i: Int, s: String) {
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
