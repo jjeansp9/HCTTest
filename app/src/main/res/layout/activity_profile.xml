@@ -89,12 +89,18 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="#CFF7F8"
+                    android:layout_height="40dp"
+                    android:background="#C9EAD0"
                     app:tabGravity="fill"
-                    app:tabMode="fixed"/>
+                    app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/brand_color"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabTextColor="#2C2C2C"
+                    app:tabSelectedTextAppearance="@style/tabSelectedTextSizeBold"
+                    app:tabTextAppearance="@style/tabTextSizeBold"/>
 
                 <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintTop_toBottomOf="@id/tab_layout"
