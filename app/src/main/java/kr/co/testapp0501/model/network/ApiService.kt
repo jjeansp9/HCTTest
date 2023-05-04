@@ -2,10 +2,12 @@ package kr.co.testapp0501.model.network
 
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.group.GroupList
+import kr.co.testapp0501.model.group.GroupMatching
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 import retrofit2.http.PartMap as PartMap
 
@@ -25,8 +27,10 @@ interface ApiService {
 
         // 그룹 생성
         const val GROUP_CREATE = "$PREFIX_URL/group"
-        // 그룹 목록
-        const val GROUP_LIST = "$PREFIX_URL/group/types"
+        // 그룹 매칭
+        const val GROUP_MATCHING = "$PREFIX_URL/group/matching"
+        // 그룹 형식 리스트
+        //const val GROUP_LIST = "$PREFIX_URL/group/types"
         // 회원 그룹 조회
         const val GROUP_LOAD = "$PREFIX_URL/member/1/groups"
     }
@@ -57,7 +61,7 @@ interface ApiService {
     @POST(SNS_SIGN_IN)
     fun snsLogin(@Query("snsId") snsId: String?): Call<UserResponse>
 
-    /** ===================== 그룹 생성,접속 ========================= */
+    /** ===================== 그룹 생성,매칭 ========================= */
 
     // 그룹 생성
     @Multipart
@@ -68,16 +72,25 @@ interface ApiService {
         @Part imageFile: MultipartBody.Part
     ): Call<String>
 
+    // 그룹 매칭
+    @Headers("Content-Type: application/json")
+    @POST(GROUP_MATCHING)
+    fun groupMatching(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Body groupMatching: GroupMatching
+    ): Call<String>
+
     // 그룹 형식 리스트
 //    @GET(GROUP_LIST)
 //    suspend fun loadGroupList(@Query("") group: String): Response<List<String>>
 
-    // 회원 그룹 조회
+    // 회원 그룹 조회 [ 회원 그룹목록 불러오기 ]
     @GET(GROUP_LOAD)
     fun loadGroupList(
         @Header("X-AUTH-TOKEN") token: String,
         @Query("memberSeq") memberSeq: Int
     ): Call<GroupList>
+
 }
 
 

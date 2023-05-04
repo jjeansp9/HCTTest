@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="kr.co.testapp0501.viewmodel.MainViewModel"/>
@@ -8,113 +8,132 @@
             type="kr.co.testapp0501.viewmodel.MainViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ProfileActivity">
+        tools:context=".view.activity.ProfileActivity"
+        tools:ignore="MissingConstraints">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <include layout="@layout/toolbar"/>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:toolbarId="@+id/toolbar">
+                android:background="@color/white"
+                android:layout_marginTop="?attr/actionBarSize"
+                app:elevation="0dp">
 
 
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_collapseMode="pin">
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    >
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Test"
-                        android:padding="12dp"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
 
-                </androidx.appcompat.widget.Toolbar>
+                        <ImageView
+                            android:id="@+id/img_profile"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/icon_menu_profile"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="14dp"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_group_general"
-                    android:layout_gravity="center"
-                    app:layout_scrollFlags = "scroll|enterAlways"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="홍길동"
+                            app:layout_constraintTop_toBottomOf="@id/img_profile"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginBottom="16dp"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="관리자"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="18dp"
+                            android:layout_marginBottom="10dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
 
 
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
-
-
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <TableLayout
-                android:id="@+id/tab"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="#CFF7F8">
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            </TableLayout>
-
-
-
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tab">
-
-                <RelativeLayout
+                <TableLayout
+                    android:id="@+id/tab"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="50dp"
+                    android:background="#CFF7F8"/>
+
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tab"
+                    >
 
                     <RelativeLayout
-                        android:id="@+id/layout1"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
-                        android:background="#757575">
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:id="@+id/layout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="500dp"
+                            android:background="#757575">
 
 
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/layout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="500dp"
+                            android:background="#EAC4C4"
+                            android:layout_below="@id/layout1">
+
+
+                        </RelativeLayout>
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/layout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp"
-                        android:background="#EAC4C4"
-                        android:layout_below="@id/layout1">
+
+                </androidx.core.widget.NestedScrollView>
 
 
-                    </RelativeLayout>
-                </RelativeLayout>
+            </RelativeLayout>
 
 
-            </androidx.core.widget.NestedScrollView>
-
-
-        </RelativeLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 
 
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

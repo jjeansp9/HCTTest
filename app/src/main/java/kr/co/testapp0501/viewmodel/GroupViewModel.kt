@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.group.GroupList
+import kr.co.testapp0501.model.group.GroupMatching
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.user.UserModel
@@ -67,6 +68,29 @@ class GroupViewModel : ViewModel(){
         })
 
         return groupList
+    }
+
+    // 그룹 코드
+    fun groupMatching(jwtToken: String, groupMatching: GroupMatching) : LiveData<Int>{
+        var serverResponse = MutableLiveData<Int>()
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+
+        Log.i("GroupViewModel groupMatching jwtToken", jwtToken)
+
+        apiService.groupMatching(jwtToken, groupMatching).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                serverResponse.value = response.code()
+                Log.i("item", response.code().toString())
+                if (response.isSuccessful){
+
+                }
+            }
+            override fun onFailure(call: Call<String>, t: Throwable) {
+            }
+
+        })
+
+        return serverResponse
     }
 
 

@@ -40,25 +40,26 @@
             android:paddingEnd="8dp"/>
 
         <EditText
+            android:id="@+id/et_code_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toEndOf="@id/tv_code_input"
             android:background="@drawable/dialog_et_group_code_input"
             android:maxLines="1"
-            android:maxLength="15"
+            android:maxLength="30"
             android:inputType="text"
             android:paddingStart="12dp"/>
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/btn_code_confirm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/dialog_btn_group_code">
 
         <TextView
-            android:id="@+id/tv_code_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="확인"

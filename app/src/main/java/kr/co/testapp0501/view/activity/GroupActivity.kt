@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -20,6 +21,7 @@ import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupBinding
 import kr.co.testapp0501.model.group.Data
 import kr.co.testapp0501.model.group.GroupList
+import kr.co.testapp0501.model.group.GroupMatching
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.recycler.RecyclerGroupData
@@ -40,6 +42,7 @@ class GroupActivity : AppCompatActivity() {
     private lateinit var groupViewModel: GroupViewModel // 뷰모델
 
     private val swipeRefreshLayout : SwipeRefreshLayout by lazy { findViewById(R.id.swipe_refresh_layout) }
+    private lateinit var jwtToken: String
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,13 +53,13 @@ class GroupActivity : AppCompatActivity() {
 
         // 툴바 생성
         setToolbar()
-        val jwtToken = intent.getStringExtra("token")
+        jwtToken = intent.getStringExtra("token")!!
 
         swipeRefreshLayout.setOnRefreshListener{
             groupItems.clear()
-            groupList(jwtToken!!)
+            groupList(jwtToken)
         }
-        groupList(jwtToken!!)
+        groupList(jwtToken)
 
         // 설정 버튼 클릭 [ 설정 화면으로 이동 ]
         moveGroupCreateActivity()
@@ -118,7 +121,7 @@ class GroupActivity : AppCompatActivity() {
         val btnGroupCreate : RelativeLayout = dialog.findViewById(R.id.btn_group_create)
         val btnGroupConnect : RelativeLayout = dialog.findViewById(R.id.btn_group_connect)
 
-        // 그룹 생성버튼
+        // 그룹생성 버튼
         btnGroupCreate.setOnClickListener{
             val token = intent.getStringExtra("token")
             val intent = Intent(this, GroupCreateActivity::class.java)
@@ -126,16 +129,46 @@ class GroupActivity : AppCompatActivity() {
             startActivity(intent)
             dialog.dismiss()
         }
-        // 그룹 추가버튼
+        // 그룹추가 버튼
         btnGroupConnect.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
             dialog.dismiss()
+            // 그룹코드 다이얼로그
+            groupCodeDialog(R.layout.dialog_group_code_input)
         }
 
-        //val tv : TextView = dialog.findViewById(R.id.tv_code_confirm)
-//        tv.setOnClickListener{
-//            Toast.makeText(this, "확인버튼 클릭", Toast.LENGTH_SHORT).show()
-//        }
+    }
+
+    // 그룹코드 다이얼로그
+    private fun groupCodeDialog(xml: Int){
+        val dialog = Dialog(this)
+        dialog.setContentView(xml)
+
+        // 다이얼로그 사이즈조절
+        val params = dialog.window!!.attributes
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        // 다이얼로그 텍스트,이미지 설정
+        dialog.show()
+
+        val btnConfirm : RelativeLayout = dialog.findViewById(R.id.btn_code_confirm)
+        val etCodeInput : EditText = dialog.findViewById(R.id.et_code_input)
+        val groupCode = etCodeInput.text.toString().trim()
+
+        val groupMatching = GroupMatching("cQvvqnKLEG", "2")
+
+        btnConfirm.setOnClickListener{
+            // 통신을 위해 et에 입력한 그룹코드 값 보내기
+            groupViewModel.groupMatching(jwtToken, groupMatching).observe(this){
+                if (it == 200){
+                    Toast.makeText(this, "그룹코드가 일치합니다", Toast.LENGTH_SHORT).show()
+                }else if (it == 400){
+                    Toast.makeText(this, "그룹코드가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     // 설정 화면으로 이동
