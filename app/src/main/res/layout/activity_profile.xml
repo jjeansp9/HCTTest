@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar_layout"
+                android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -80,59 +80,40 @@
             </com.google.android.material.appbar.AppBarLayout>
 
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <TableLayout
-                    android:id="@+id/tab"
+                <!--        탭 레이아웃        -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="#CFF7F8"/>
+                    android:background="#CFF7F8"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"/>
 
-
-                <androidx.core.widget.NestedScrollView
+                <androidx.viewpager2.widget.ViewPager2
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tab"
-                    >
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/tab_layout"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/background"/>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/layout1"
-                            android:layout_width="match_parent"
-                            android:layout_height="500dp"
-                            android:background="#757575">
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/layout2"
-                            android:layout_width="match_parent"
-                            android:layout_height="500dp"
-                            android:background="#EAC4C4"
-                            android:layout_below="@id/layout1">
+<!--                <androidx.core.widget.NestedScrollView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/tab_layout"-->
+<!--                    >-->
+<!--                    -->
+<!--                </androidx.core.widget.NestedScrollView>-->
 
 
-                        </RelativeLayout>
-                    </RelativeLayout>
-
-
-                </androidx.core.widget.NestedScrollView>
-
-
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
