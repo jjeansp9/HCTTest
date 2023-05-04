@@ -1,13 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.ProfileTab1InfoFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.ProfileTab1InfoFragment"
+    android:background="@color/white"
+    tools:ignore="MissingConstraints"
+    android:padding="20dp">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Tab1" />
+        android:id="@+id/tv_date_of_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생년월일"
+        android:textColor="@color/black"/>
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1999년"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:id="@+id/tv_date_of_death"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사망일"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_of_birth"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_of_birth"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:id="@+id/tv_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나이"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_of_death"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="25살"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_of_death"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:id="@+id/tv_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="성별"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_age"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="남자"
+        app:layout_constraintTop_toBottomOf="@id/tv_age"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:id="@+id/zodiac_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="띠"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_gender"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="토끼띠"
+        app:layout_constraintTop_toBottomOf="@id/tv_gender"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:id="@+id/tv_contact_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="연락처"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/zodiac_sign"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="010-4054-0000"
+        app:layout_constraintTop_toBottomOf="@id/zodiac_sign"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주소"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_contact_num"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="경기 수원시 망포동 신원빌라 103동"
+        app:layout_constraintTop_toBottomOf="@id/tv_contact_num"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1006호"
+        app:layout_constraintTop_toBottomOf="@id/tv_address"
+        app:layout_constraintStart_toEndOf="@id/tv_date_of_birth"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="12dp"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
