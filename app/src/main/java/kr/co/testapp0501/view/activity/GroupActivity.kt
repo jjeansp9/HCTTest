@@ -113,6 +113,7 @@ class GroupActivity : AppCompatActivity() {
                 if (position == groupItems.size -1){
                     groupDialog(R.layout.dialog_group_add)
                 }
+                Log.i("positions", groupItems[position].groupSeq.toString())
             }
         })
     }

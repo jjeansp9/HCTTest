@@ -38,22 +38,15 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-        //holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) }
+        holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) } // 그룹목록 클릭이벤트
 
-        val imagePath = items[position].imgGroup
-        val imageFile = File(imagePath)
-        if(imageFile.exists()) {
-            val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
-            holder.binding.imgGroup.setImageBitmap(bitmap)
-        }
-
-        Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup)
-        holder.binding.tvGroupName.text = items[position].tvGroupName
+        Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup) // 그룹목록 이미지
+        holder.binding.tvGroupName.text = items[position].tvGroupName // 그룹 이름
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
 
         Log.i("swipes position", position.toString())
 
-
+        // 마지막에 생성된 그룹목록은 [+] box의 형태로 생성
         if(items.lastIndex == position){
             Log.i("swipe lastIndex", position.toString())
             holder.binding.imgGroup.setBackgroundResource(R.drawable.bt_group_plusbox)
