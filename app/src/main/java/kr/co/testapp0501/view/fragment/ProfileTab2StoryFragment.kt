@@ -1,6 +1,7 @@
 package kr.co.testapp0501.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,4 +41,6 @@ class ProfileTab2StoryFragment : Fragment() {
                 }
             }
     }
+
+
 }

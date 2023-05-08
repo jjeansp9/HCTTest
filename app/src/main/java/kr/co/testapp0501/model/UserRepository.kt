@@ -139,11 +139,24 @@ class UserRepository {
                     val snsType = platform
                     val snsId = user?.id.toString()
 
-                    // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
-                    val intent = Intent(context, SignUpSnsActivity::class.java)
-                    intent.putExtra("snsType", snsType) // snsType [ kakao ]
-                    intent.putExtra("snsId", snsId) // sns Id
-                    context.startActivity(intent)
+                    snsLogin(context,platform, snsId).observe(context){ it ->
+                        when (it) {
+                            200 -> { // 서버에 저장된 회원 정보가 있다면
+                                snsLogin(context, platform, snsId)
+                            }
+                            404 -> { // 서버에 저장된 정보가 없다면
+
+                                // sns로 로그인 사용자의 추가 정보를 얻기 위해, Intent 객체 생성 후 데이터 전달
+                                val intent = Intent(context, SignUpSnsActivity::class.java)
+                                intent.putExtra("snsType", snsType) // snsType [ kakao ]
+                                intent.putExtra("snsId", snsId) // sns Id
+                                context.startActivity(intent)
+                            }
+                            500 -> { // 서버 내부오류
+                                Toast.makeText(context, "잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
                 }
             }
         }else if(platform == "naver"){

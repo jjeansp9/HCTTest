@@ -1,16 +1,12 @@
 package kr.co.testapp0501.view.activity
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
-import kr.co.avad.android.humancaretree.base.BaseActivity
+import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityMainBinding
 import kr.co.testapp0501.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 

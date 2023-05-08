@@ -1,4 +1,4 @@
-package kr.co.avad.android.humancaretree.base
+package kr.co.testapp0501.base
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

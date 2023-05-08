@@ -1,10 +1,8 @@
 package kr.co.testapp0501.viewmodel
 
-import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.view.View
-import kr.co.avad.android.humancaretree.base.BaseViewModel
+import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.view.activity.AlbumActivity
 import kr.co.testapp0501.view.activity.MemberActivity
 import kr.co.testapp0501.view.activity.ProfileActivity

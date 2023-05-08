@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kr.co.testapp0501.R
+import kr.co.testapp0501.databinding.FragmentProfileTab1InfoBinding
+import kr.co.testapp0501.view.activity.ProfileActivity
+import kr.co.testapp0501.viewmodel.ProfileViewModel
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class ProfileTab1InfoFragment : Fragment() {
+class ProfileTab1InfoFragment : Fragment(R.layout.fragment_profile_tab1_info) {
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var viewDataBinding: FragmentProfileTab1InfoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,13 +25,6 @@ class ProfileTab1InfoFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profile_tab1_info, container, false)
     }
 
     companion object {
@@ -39,4 +37,24 @@ class ProfileTab1InfoFragment : Fragment() {
                 }
             }
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        viewDataBinding = FragmentProfileTab1InfoBinding.inflate(inflater, container, false)
+        viewDataBinding.vmProfile = ProfileViewModel()
+        viewDataBinding.lifecycleOwner = this
+        return viewDataBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+    }
+
+
+
+
 }
