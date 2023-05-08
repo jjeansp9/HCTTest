@@ -7,13 +7,13 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import kr.co.testapp0501.R
+import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.databinding.ActivityMemberBinding
 import kr.co.testapp0501.model.recycler.RecyclerMemberData
 import kr.co.testapp0501.view.adapter.RecyclerMemberActivityAdapter
+import kr.co.testapp0501.viewmodel.MemberViewModel
 
-class MemberActivity : AppCompatActivity() {
-    
-    private val binding : ActivityMemberBinding by lazy { ActivityMemberBinding.inflate(layoutInflater) }
+class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_main) {
 
     private val matchingItems = mutableListOf<RecyclerMemberData>()
     private val adminItems = mutableListOf<RecyclerMemberData>()
@@ -26,10 +26,11 @@ class MemberActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        binding.recyclerMatchingWait.adapter = matchingAdapter
-        binding.recyclerAdmin.adapter = adminAdapter
-        binding.recyclerMember.adapter = memberAdapter
+        viewDataBinding.vmMember = MemberViewModel()
+        viewDataBinding.lifecycleOwner = this
+        viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
+        viewDataBinding.recyclerAdmin.adapter = adminAdapter
+        viewDataBinding.recyclerMember.adapter = memberAdapter
 
         // 툴바 설정 [ 구성원 화면 ]
         setToolbar()

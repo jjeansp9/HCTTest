@@ -110,8 +110,15 @@ class GroupActivity : AppCompatActivity() {
     private fun clickedGroupAdd(){
         adapter.setItemClickListener(object : RecyclerGroupActivityAdapter.OnItemClickListener{
             override fun groupClick(v: View, position: Int) {
-                if (position == groupItems.size -1){
+
+                if (position == groupItems.size -1) { // 그룹 [ + ] 버튼 클릭
                     groupDialog(R.layout.dialog_group_add)
+
+                } else { // [+]버튼을 제외한 모든 그룹목록을 클릭 시 메인액티비티로 이동
+                    val token = intent.getStringExtra("jwtToken")
+                    val intent = Intent(this@GroupActivity, MainActivity::class.java)
+                    intent.putExtra("jwtToken", token)
+                    startActivity(intent)
                 }
                 Log.i("positions", groupItems[position].groupSeq.toString())
             }
@@ -137,15 +144,14 @@ class GroupActivity : AppCompatActivity() {
 
         // 그룹생성 버튼
         btnGroupCreate.setOnClickListener{
-            val token = intent.getStringExtra("token")
+            val token = intent.getStringExtra("jwtToken")
             val intent = Intent(this, GroupCreateActivity::class.java)
-            intent.putExtra("token", token)
+            intent.putExtra("jwtToken", token)
             startActivity(intent)
             dialog.dismiss()
         }
         // 그룹추가 버튼
         btnGroupConnect.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
             dialog.dismiss()
             // 그룹코드 다이얼로그
             groupCodeDialog(R.layout.dialog_group_code_input)

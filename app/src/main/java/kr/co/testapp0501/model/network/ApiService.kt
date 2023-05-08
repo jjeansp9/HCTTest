@@ -102,6 +102,7 @@ interface ApiService {
     // 그룹 참여자 매칭 대기목록
     @GET(GROUP_MATCHING_WAITING_LIST)
     fun groupMatchingList(
+        @Header("X-AUTH-TOKEN") token: String,
         @Path("groupSeq") groupSeq: Int
     ): Call<MatchingWaitingList>
 

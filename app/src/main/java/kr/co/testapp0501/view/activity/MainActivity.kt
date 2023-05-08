@@ -13,7 +13,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewDataBinding.vmMain = MainViewModel(this)
+        val jwtToken = intent.getStringExtra("jwtToken")!!
+
+        viewDataBinding.vmMain = MainViewModel(this, jwtToken)
         viewDataBinding.lifecycleOwner = this
 //        viewDataBinding.vmMain = getViewModel()
 

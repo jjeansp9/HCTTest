@@ -77,7 +77,7 @@ class GroupCreateActivity : AppCompatActivity() {
 
                     if (imgUri != null){
 
-                        val token = intent.getStringExtra("token")!!
+                        val token = intent.getStringExtra("jwtToken")!!
 
                         val file = File(absolutelyPath(imgUri, this))
                         val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())

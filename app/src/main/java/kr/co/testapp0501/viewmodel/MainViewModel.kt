@@ -8,7 +8,7 @@ import kr.co.testapp0501.view.activity.MemberActivity
 import kr.co.testapp0501.view.activity.ProfileActivity
 import java.lang.ref.WeakReference
 
-class MainViewModel(context: Context) : BaseViewModel(){
+class MainViewModel(context: Context, jwtToken: String) : BaseViewModel(){
 
     // 이와 같은 방법으로 context를 받아야 메모리가 누수되는 현상 방지됨
     private val contextRef = WeakReference(context)
@@ -21,7 +21,9 @@ class MainViewModel(context: Context) : BaseViewModel(){
     }
 
 
-    fun onClickMember() {startNewActivity(MemberActivity::class.java)} // 구성원 메뉴 클릭
+    fun onClickMember() {
+        startNewActivity(MemberActivity::class.java)
+    } // 구성원 메뉴 클릭
     fun onClickAlbum() {startNewActivity(AlbumActivity::class.java)} // 앨범 메뉴 클릭
     fun onClickProfile() {startNewActivity(ProfileActivity::class.java)} // 프로필 메뉴 클릭릭
 
