@@ -58,6 +58,7 @@ class ProfileTab2StoryFragment : Fragment() {
         binding.profileStoryRecycler.adapter = adapter
         binding.profileStoryRecycler.addItemDecoration(DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL))
 
+        // 더미데이터
         for (i in 0 .. 10){
             items.add(RecyclerTab2StoryItem("1999.01.24",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
