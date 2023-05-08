@@ -2,8 +2,90 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="MissingConstraints">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_story_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1999.01.13"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:id="@+id/btn_story_edit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="#B6B6B6"
+        app:layout_constraintStart_toEndOf="@id/tv_story_date"
+        android:layout_marginStart="6dp"/>
+
+    <ImageView
+        android:id="@+id/btn_story_delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="#474747"
+        app:layout_constraintStart_toEndOf="@id/btn_story_edit"
+        android:layout_marginStart="6dp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공개여부"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginEnd="4dp"
+            />
+
+        <Switch
+            android:id="@+id/switch_public_or_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tv"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/btn_story_delete"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_story"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/img_story"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/img_story"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:background="#BF5454" />
+
+    </RelativeLayout>
+
+
+
+
+
+
 
 
 

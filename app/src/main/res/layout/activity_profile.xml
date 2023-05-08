@@ -66,13 +66,20 @@
                             android:textStyle="bold"/>
 
                         <TextView
+                            android:id="@+id/tv_admin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="관리자"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginEnd="18dp"
-                            android:layout_marginBottom="10dp"/>
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_profile_admin"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
