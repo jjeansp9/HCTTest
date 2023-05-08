@@ -45,7 +45,7 @@ class GroupActivity : AppCompatActivity() {
 
         // 툴바 생성
         setToolbar()
-        jwtToken = intent.getStringExtra("token")!!
+        jwtToken = intent.getStringExtra("jwtToken")!!
 
         // 아래로 당겨서 새로고침
         updateGroupList()
@@ -119,6 +119,7 @@ class GroupActivity : AppCompatActivity() {
                     val intent = Intent(this@GroupActivity, MainActivity::class.java)
                     intent.putExtra("jwtToken", token)
                     startActivity(intent)
+                    Log.i("positions", token!!)
                 }
                 Log.i("positions", groupItems[position].groupSeq.toString())
             }

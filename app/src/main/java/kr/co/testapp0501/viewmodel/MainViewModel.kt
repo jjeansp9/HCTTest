@@ -3,28 +3,25 @@ package kr.co.testapp0501.viewmodel
 import android.content.Context
 import android.content.Intent
 import kr.co.testapp0501.base.BaseViewModel
-import kr.co.testapp0501.view.activity.AlbumActivity
-import kr.co.testapp0501.view.activity.MemberActivity
-import kr.co.testapp0501.view.activity.ProfileActivity
+import kr.co.testapp0501.view.activity.*
 import java.lang.ref.WeakReference
 
 class MainViewModel(context: Context, jwtToken: String) : BaseViewModel(){
 
     // 이와 같은 방법으로 context를 받아야 메모리가 누수되는 현상 방지됨
     private val contextRef = WeakReference(context)
+    private val token = jwtToken
 
     // 받아온 Activity 에 따라 화면 전환
     private fun startNewActivity(cls: Class<*>) {
         val context = contextRef.get() ?: return
         val intent = Intent(context, cls)
+        intent.putExtra("jwtToken", token)
         context.startActivity(intent)
     }
 
-
-    fun onClickMember() {
-        startNewActivity(MemberActivity::class.java)
-    } // 구성원 메뉴 클릭
+    fun onClickMember() {startNewActivity(MemberActivity::class.java)} // 구성원 메뉴 클릭
     fun onClickAlbum() {startNewActivity(AlbumActivity::class.java)} // 앨범 메뉴 클릭
-    fun onClickProfile() {startNewActivity(ProfileActivity::class.java)} // 프로필 메뉴 클릭릭
+    fun onClickProfile() {startNewActivity(ProfileActivity::class.java)} // 프로필 메뉴 클릭
 
 }

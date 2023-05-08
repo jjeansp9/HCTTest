@@ -105,7 +105,7 @@ class UserRepository {
                     Log.i("UserRepository normalLogin()", "message: "+ response.body()?.msg.toString() +"\n jwtToken: " + response.body()?.data?.jwtToken)
 
                     val intent = Intent(context, GroupActivity::class.java)
-                    intent.putExtra("token", response.body()?.data?.jwtToken)
+                    intent.putExtra("jwtToken", response.body()?.data?.jwtToken)
                     context.startActivity(intent)
                     Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
 
@@ -249,7 +249,7 @@ class UserRepository {
                     users.saveSnsId(user.snsId)
 
                     val intent = Intent(context, GroupActivity::class.java)
-                    intent.putExtra("token", response.body()?.data?.jwtToken)
+                    intent.putExtra("jwtToken", response.body()?.data?.jwtToken)
                     context.startActivity(intent)
 
                     (context as SignUpSnsActivity).finish()
@@ -285,7 +285,7 @@ class UserRepository {
                     users.saveSnsId(snsId)
 
                     val intent = Intent(context, GroupActivity::class.java)
-                    intent.putExtra("token", response.body()?.data?.jwtToken)
+                    intent.putExtra("jwtToken", response.body()?.data?.jwtToken)
                     context.startActivity(intent)
 
                     (context as LoginActivity).finish()

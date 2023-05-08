@@ -2,6 +2,7 @@ package kr.co.testapp0501.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -31,6 +32,9 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
         viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
         viewDataBinding.recyclerAdmin.adapter = adminAdapter
         viewDataBinding.recyclerMember.adapter = memberAdapter
+
+        val jwtToken = intent.getStringExtra("jwtToken")!!
+        Log.i("jwtToken", jwtToken)
 
         // 툴바 설정 [ 구성원 화면 ]
         setToolbar()
