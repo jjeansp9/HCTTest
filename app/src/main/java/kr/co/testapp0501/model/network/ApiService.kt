@@ -3,6 +3,7 @@ package kr.co.testapp0501.model.network
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.group.GroupList
 import kr.co.testapp0501.model.group.GroupMatching
+import kr.co.testapp0501.model.group.MatchingWaitingList
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -16,6 +17,9 @@ interface ApiService {
     companion object{
         const val BASE_URL = "http://192.168.2.55:9999"
         const val PREFIX_URL = "/com/avad/api"
+
+        // 일반 회원가입 ID 중복체크
+        const val NORMAL_ID_CHECK = "$PREFIX_URL/member/check/{memberId}"
 
         // 일반 회원가입,로그인
         const val NORMAL_SIGN_UP = "$PREFIX_URL/member/self"
@@ -33,10 +37,12 @@ interface ApiService {
         //const val GROUP_LIST = "$PREFIX_URL/group/types"
         // 회원 그룹 조회
         const val GROUP_LOAD = "$PREFIX_URL/member/1/groups"
+        // 그룹 매칭 대기 회원 조회
+        const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/members"
     }
 
     // 일반 회원가입 ID 중복체크
-    @POST("$PREFIX_URL/member/check/{memberId}")
+    @POST(NORMAL_ID_CHECK)
     fun checkId(@Path("memberId") memberId : CheckId): Call<UserResponse>
 
     /** ===================== 일반 회원가입,로그인 ======================== */
@@ -90,6 +96,11 @@ interface ApiService {
         @Header("X-AUTH-TOKEN") token: String,
         @Query("memberSeq") memberSeq: Int
     ): Call<GroupList>
+
+    @GET(GROUP_MATCHING_WAITING_LIST)
+    fun groupMatchingList(
+        @Path("groupSeq") groupSeq: Int
+    ): Call<MatchingWaitingList>
 
 }
 

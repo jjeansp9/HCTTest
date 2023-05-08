@@ -38,12 +38,14 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
         Glide.with(context).load(R.drawable.btn_next_selector).into(holder.binding.btnMemberNext) // 멤버 [>] 버튼
 
         holder.binding.tvName.text = items[position].tvName // 멤버 이름
-        holder.binding.tvMatching.text = items[position].btnMatching // 타입
+        holder.binding.tvBirth.text = items[position].tvBirth // 멤버 생일
+        holder.binding.btnMatching.text = items[position].btnMatching // 타입
 
         when (items[position].type) {
             "매칭대기" -> {
-                holder.binding.tvMatching.visibility = View.VISIBLE // 매칭하기 버튼
-                holder.binding.tvMatching.setOnClickListener{itemClickListener.itemClick(holder.binding.tvMatching, position)} // 매칭하기를 클릭했을 때
+                holder.binding.tvBirth.visibility = View.VISIBLE // 생일
+                holder.binding.btnMatching.visibility = View.VISIBLE // 매칭하기 버튼
+                holder.binding.btnMatching.setOnClickListener{itemClickListener.itemClick(holder.binding.btnMatching, position)} // 매칭하기를 클릭했을 때
             }
             "admin" -> {
                 holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼

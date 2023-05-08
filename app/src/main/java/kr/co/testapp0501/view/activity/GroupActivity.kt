@@ -19,18 +19,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupBinding
-import kr.co.testapp0501.model.group.Data
-import kr.co.testapp0501.model.group.GroupList
 import kr.co.testapp0501.model.group.GroupMatching
-import kr.co.testapp0501.model.network.ApiService
-import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.recycler.RecyclerGroupData
 import kr.co.testapp0501.view.adapter.RecyclerGroupActivityAdapter
 import kr.co.testapp0501.viewmodel.GroupViewModel
-import kr.co.testapp0501.viewmodel.UserViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class GroupActivity : AppCompatActivity() {
 

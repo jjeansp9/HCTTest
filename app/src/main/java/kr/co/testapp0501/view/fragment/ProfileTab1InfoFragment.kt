@@ -55,7 +55,4 @@ class ProfileTab1InfoFragment : Fragment(R.layout.fragment_profile_tab1_info) {
 
     }
 
-
-
-
 }

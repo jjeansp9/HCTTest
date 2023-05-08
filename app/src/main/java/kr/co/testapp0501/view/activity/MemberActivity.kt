@@ -36,22 +36,22 @@ class MemberActivity : AppCompatActivity() {
 
         // 더미데이터 추가해서 테스트 [ 매칭 ]
         for (i in 0 .. 2) {
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "길동이", "매칭하기",  "매칭대기"))
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "춘삼이", "매칭하기",  "매칭대기"))
-            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "돌석이", "매칭하기",  "매칭대기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "길동이", "94.01.04", "매칭하기",  "매칭대기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "춘삼이", "94.01.04", "매칭하기",  "매칭대기"))
+            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "돌석이", "94.01.04", "매칭하기",  "매칭대기"))
         }
 
         // 더미데이터 추가해서 테스트 [ 관리자 ]
         for (i in 0 .. 2) {
-            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "말동이", "admin",  "admin"))
-            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "강순이", "admin",  "admin"))
+            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "말동이","94.01.04",  "admin",  "admin"))
+            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "강순이","94.01.04",  "admin",  "admin"))
         }
 
         // 더미데이터 추가해서 테스트 [ 멤버목록 ]
         for (i in 0 .. 10) {
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동", "A",  "A"))
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨", "A",  "A"))
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨", "A",  "A"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동","94.01.04",  "A",  "A"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨","94.01.04",  "A",  "A"))
+            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨","94.01.04",  "A",  "A"))
         }
 
         clickedMatching() // 매칭대기 클릭

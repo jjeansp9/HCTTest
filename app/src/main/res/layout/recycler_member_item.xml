@@ -17,13 +17,25 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/img_member"
         android:text="홍길동"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/black"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/tv_name"
+        android:text="94.01.03"
+        android:textColor="@color/black"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_admin"
@@ -46,21 +58,15 @@
         android:layout_centerVertical="true"
         android:visibility="invisible"/>
 
-    <TextView
-        android:id="@+id/tv_matching"
+    <Button
+        android:id="@+id/btn_matching"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="34dp"
         android:text="매칭하기"
-        android:background="@color/brand_color"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
         android:textColor="@color/white"
-        android:layout_alignParentEnd="true"
+        android:background="@drawable/btn_matching_selector"
         android:layout_centerVertical="true"
-        android:visibility="gone"
-        />
-
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
