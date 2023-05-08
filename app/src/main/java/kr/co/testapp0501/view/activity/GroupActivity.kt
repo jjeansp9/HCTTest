@@ -59,19 +59,20 @@ class GroupActivity : AppCompatActivity() {
         clickedGroupAdd()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun groupList(jwtToken: String){
         groupViewModel.loadGroupList(jwtToken).observe(this){
             for (i in 0 until it.data.size){
                 if (it.data[i].filePaths.isNotEmpty()) {
-                    groupItems.add(RecyclerGroupData(it.data[i].filePaths[0], it.data[i].groupName))
-                    Log.i("iii if", i.toString() + it.data[i].filePaths[0])
+                    groupItems.add(RecyclerGroupData(it.data[i].filePaths[0], it.data[i].groupName, it.data[i].groupSeq, it.data[i].memberSeq))
+                    Log.i("iii if", i.toString() + it.data[i].filePaths[0] + it.data[i].groupSeq + it.data[i].memberSeq)
                 } else {
                     // filePaths가 비어있는 경우, 기본 이미지를 사용하도록 설정
-                    groupItems.add(RecyclerGroupData("", it.data[i].groupName))
+                    groupItems.add(RecyclerGroupData("", it.data[i].groupName, it.data[i].groupSeq, it.data[i].memberSeq))
                     Log.i("iii else", i.toString())
                 }
             }
-            groupItems.add(groupItems.size, RecyclerGroupData("add", ""))
+            groupItems.add(groupItems.size, RecyclerGroupData("add", "", 1000000000, 1000000000))
             adapter.notifyDataSetChanged()
             swipeRefreshLayout.isRefreshing = false
         }
