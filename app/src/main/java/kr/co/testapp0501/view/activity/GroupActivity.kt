@@ -12,7 +12,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
