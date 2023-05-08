@@ -62,6 +62,7 @@ class GroupViewModel : ViewModel(){
                 Log.i("GroupActivity after response", response.code().toString())
                 Log.i("GroupActivity Http",response.body().toString())
                 Log.i("GroupActivity Http",response.message() +"," + call.toString())
+                Log.i("GroupActivity Http",response.body()!!.data[0].filePaths.toString())
             }
             override fun onFailure(call: Call<GroupList>, t: Throwable) {
             }

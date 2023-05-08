@@ -17,6 +17,7 @@ interface ApiService {
     companion object{
         const val BASE_URL = "http://192.168.2.55:9999"
         const val PREFIX_URL = "/com/avad/api"
+        const val FILE_SUFFIX_URL = "$BASE_URL/attachFile"
 
         // 일반 회원가입 ID 중복체크
         const val NORMAL_ID_CHECK = "$PREFIX_URL/member/check/{memberId}"
@@ -37,8 +38,9 @@ interface ApiService {
         //const val GROUP_LIST = "$PREFIX_URL/group/types"
         // 회원 그룹 조회
         const val GROUP_LOAD = "$PREFIX_URL/member/1/groups"
+        const val GROUP_FILE = "/attachFile{fileUrl}"
         // 그룹 매칭 대기 회원 조회
-        const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/members"
+        const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}members"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -97,6 +99,7 @@ interface ApiService {
         @Query("memberSeq") memberSeq: Int
     ): Call<GroupList>
 
+    // 그룹 참여자 매칭 대기목록
     @GET(GROUP_MATCHING_WAITING_LIST)
     fun groupMatchingList(
         @Path("groupSeq") groupSeq: Int

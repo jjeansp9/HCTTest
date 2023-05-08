@@ -38,14 +38,14 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-        holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) }
+        //holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) }
 
-//        val imagePath = items[position].imgGroup
-//        val imageFile = File(imagePath)
-//        if(imageFile.exists()) {
-//            val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
-//            holder.binding.imgGroup.setImageBitmap(bitmap)
-//        }
+        val imagePath = items[position].imgGroup
+        val imageFile = File(imagePath)
+        if(imageFile.exists()) {
+            val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+            holder.binding.imgGroup.setImageBitmap(bitmap)
+        }
 
         Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup)
         holder.binding.tvGroupName.text = items[position].tvGroupName
