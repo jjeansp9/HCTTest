@@ -5,7 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import kr.co.testapp0501.R
+import kr.co.testapp0501.databinding.FragmentProfileTab2StoryBinding
+import kr.co.testapp0501.databinding.FragmentProfileTab3AlbumBinding
+import kr.co.testapp0501.model.recycler.RecyclerTab2StoryItem
+import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumItem
+import kr.co.testapp0501.view.adapter.RecyclerTab2StoryAdapter
+import kr.co.testapp0501.view.adapter.RecyclerTab3AlbumAdapter
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -22,21 +29,25 @@ class ProfileTab3AlbumFragment : Fragment() {
         }
     }
 
+    private val binding: FragmentProfileTab3AlbumBinding by lazy { FragmentProfileTab3AlbumBinding.inflate(layoutInflater) }
+
+    private val items = mutableListOf<RecyclerTab3AlbumItem>()
+    private val adapter by lazy { context?.let { RecyclerTab3AlbumAdapter(it, items) } }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile_tab3_album, container, false)
+        return binding.root
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileTab3AlbumFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.profileAlbumRecycler.adapter = adapter
+        binding.profileAlbumRecycler.addItemDecoration(DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL))
+
+        for (i in 0 .. 10){
+            items.add(RecyclerTab3AlbumItem("까망이 근황이에요 ㅎㅎ", "2023.02.18", 0, ""))
+        }
     }
 }

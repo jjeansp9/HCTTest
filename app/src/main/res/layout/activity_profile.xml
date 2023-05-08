@@ -97,7 +97,7 @@
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="#C9EAD0"
+                    android:background="#CFEFD6"
                     app:tabGravity="fill"
                     app:tabMode="fixed"
                     app:tabIndicatorColor="@color/brand_color"

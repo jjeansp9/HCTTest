@@ -28,4 +28,5 @@ class ProfileViewModel: BaseViewModel() {
         tvAddress1.value = "경기 수원시 망포동 신원빌라 103동"
         tvAddress2.value = "1006호"
     }
+
 }
