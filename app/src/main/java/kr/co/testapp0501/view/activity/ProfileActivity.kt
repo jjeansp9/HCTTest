@@ -32,7 +32,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         tabChanged() // 탭 전환 이벤트
     }
 
-    // 툴바 설정 [ 메인 화면 ]
+    // 툴바 설정 [ 프로필 화면 ]
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
