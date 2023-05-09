@@ -32,9 +32,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
         viewDataBinding.recyclerAdmin.adapter = adminAdapter
         viewDataBinding.recyclerMember.adapter = memberAdapter
 
-
-
-
         setToolbar() // 툴바 설정 [ 구성원 화면 ]
 
         dummyData() // 더미데이터로 UI 테스트
@@ -49,8 +46,8 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
         val groupSeq = intent.getIntExtra("jwtToken", -1)
         Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq")
 
-        viewDataBinding.vmMember.groupMatchingList(jwtToken, groupSeq)
-
+        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
+        viewDataBinding.vmMember?.groupMemberList(jwtToken, groupSeq)
 
         // 더미데이터 추가해서 테스트 [ 매칭 ]
         for (i in 0 .. 2) {
@@ -60,7 +57,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
         }
 
         // 더미데이터 추가해서 테스트 [ 관리자 ]
-        for (i in 0 .. 2) {
+        for (i in 0 .. 1) {
             adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "말동이","94.01.04",  "admin",  "admin"))
             adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "강순이","94.01.04",  "admin",  "admin"))
         }

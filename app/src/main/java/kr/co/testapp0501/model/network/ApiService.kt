@@ -13,7 +13,7 @@ interface ApiService {
 
     companion object{
         const val BASE_URL = "http://192.168.2.55:9999"
-        const val PREFIX_URL = "/com/avad/api"
+        private const val PREFIX_URL = "/com/avad/api"
         const val FILE_SUFFIX_URL = "$BASE_URL/attachFile"
 
         // 일반 회원가입 ID 중복체크
