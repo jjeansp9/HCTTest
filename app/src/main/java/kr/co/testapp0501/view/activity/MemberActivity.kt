@@ -101,6 +101,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
         tv.text = "구성원"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // 뒤로가기 버튼

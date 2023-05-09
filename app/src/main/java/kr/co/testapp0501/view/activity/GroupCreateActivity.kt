@@ -162,6 +162,7 @@ class GroupCreateActivity : AppCompatActivity() {
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
         tv.text = "그룹 생성"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // 뒤로가기 버튼

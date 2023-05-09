@@ -129,7 +129,7 @@ class SignUpActivity : AppCompatActivity() {
         //btnBack.setOnClickListener{btnBack.isSelected = !btnBack.isSelected}
         tv.text = "회원가입"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // Date Picker

@@ -2,6 +2,7 @@ package kr.co.testapp0501.view.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.testapp0501.base.BaseActivity
@@ -27,8 +28,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             tab.text = tabTitle[position]
 
         }.attach()
-
+        setToolbar()
         tabChanged() // 탭 전환 이벤트
+    }
+
+    // 툴바 설정 [ 메인 화면 ]
+    private fun setToolbar(){
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.text = "프로필"
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // 2번,3번 탭에서는 [수정하기] 버튼 숨김

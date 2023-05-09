@@ -1,9 +1,6 @@
 package kr.co.testapp0501.model.network
 
-import kr.co.testapp0501.model.group.Group
-import kr.co.testapp0501.model.group.GroupList
-import kr.co.testapp0501.model.group.GroupMatching
-import kr.co.testapp0501.model.group.MatchingWaitingList
+import kr.co.testapp0501.model.group.*
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -40,7 +37,9 @@ interface ApiService {
         const val GROUP_LOAD = "$PREFIX_URL/member/1/groups"
         const val GROUP_FILE = "/attachFile{fileUrl}"
         // 그룹 매칭 대기 회원 조회
-        const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}members"
+        const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/maching/members"
+        // 그룹 회원 조회
+        const val GROUP_MEMBER_LIST = "$PREFIX_URL/group/{groupSeq}/members"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -99,12 +98,19 @@ interface ApiService {
         @Query("memberSeq") memberSeq: Int
     ): Call<GroupList>
 
-    // 그룹 참여자 매칭 대기목록
+    // 그룹 매칭 대기 회원 조회
     @GET(GROUP_MATCHING_WAITING_LIST)
     fun groupMatchingList(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("groupSeq") groupSeq: Int
     ): Call<MatchingWaitingList>
+
+    // 그룹 회원 조회
+    @GET(GROUP_MEMBER_LIST)
+    fun groupMemberList(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("groupSeq") groupSeq: Int
+    ): Call<GroupMemberList>
 
 }
 

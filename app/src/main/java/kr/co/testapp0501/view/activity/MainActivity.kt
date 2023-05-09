@@ -30,6 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
         tv.setText(R.string.logo_name)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // 뒤로가기 버튼
