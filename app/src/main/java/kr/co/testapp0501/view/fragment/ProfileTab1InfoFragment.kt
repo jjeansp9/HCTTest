@@ -7,9 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.FragmentProfileTab1InfoBinding
-import kr.co.testapp0501.model.recycler.RecyclerTab2StoryItem
-import kr.co.testapp0501.view.activity.ProfileActivity
-import kr.co.testapp0501.view.adapter.RecyclerTab2StoryAdapter
 import kr.co.testapp0501.viewmodel.ProfileViewModel
 
 private const val ARG_PARAM1 = "param1"

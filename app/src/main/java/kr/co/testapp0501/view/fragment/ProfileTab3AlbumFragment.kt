@@ -6,12 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
-import kr.co.testapp0501.R
-import kr.co.testapp0501.databinding.FragmentProfileTab2StoryBinding
 import kr.co.testapp0501.databinding.FragmentProfileTab3AlbumBinding
-import kr.co.testapp0501.model.recycler.RecyclerTab2StoryItem
-import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumItem
-import kr.co.testapp0501.view.adapter.RecyclerTab2StoryAdapter
+import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumData
 import kr.co.testapp0501.view.adapter.RecyclerTab3AlbumAdapter
 
 private const val ARG_PARAM1 = "param1"
@@ -31,7 +27,7 @@ class ProfileTab3AlbumFragment : Fragment() {
 
     private val binding: FragmentProfileTab3AlbumBinding by lazy { FragmentProfileTab3AlbumBinding.inflate(layoutInflater) }
 
-    private val items = mutableListOf<RecyclerTab3AlbumItem>()
+    private val items = mutableListOf<RecyclerTab3AlbumData>()
     private val adapter by lazy { context?.let { RecyclerTab3AlbumAdapter(it, items) } }
 
     override fun onCreateView(
@@ -47,7 +43,7 @@ class ProfileTab3AlbumFragment : Fragment() {
         binding.profileAlbumRecycler.addItemDecoration(DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL))
 
         for (i in 0 .. 10){
-            items.add(RecyclerTab3AlbumItem("까망이 근황이에요 ㅎㅎ", "2023.02.18", 0, ""))
+            items.add(RecyclerTab3AlbumData("까망이 근황이에요 ㅎㅎ", "2023.02.18", 0, ""))
         }
     }
 }

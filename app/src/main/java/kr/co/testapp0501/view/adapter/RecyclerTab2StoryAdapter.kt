@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerProfileTab2ItemBinding
-import kr.co.testapp0501.model.recycler.RecyclerTab2StoryItem
+import kr.co.testapp0501.model.recycler.RecyclerTab2StoryData
 
-class RecyclerTab2StoryAdapter constructor(private val context: Context, private val items: MutableList<RecyclerTab2StoryItem>): RecyclerView.Adapter<RecyclerTab2StoryAdapter.VH>(){
+class RecyclerTab2StoryAdapter constructor(private val context: Context, private val items: MutableList<RecyclerTab2StoryData>): RecyclerView.Adapter<RecyclerTab2StoryAdapter.VH>(){
     inner class VH constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
         val binding: RecyclerProfileTab2ItemBinding = RecyclerProfileTab2ItemBinding.bind(itemView)
     }

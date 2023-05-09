@@ -18,132 +18,142 @@
 
         <include layout="@layout/toolbar" />
 
-        <RelativeLayout
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/appbar_layout">-->
+
+<!--            <androidx.core.widget.NestedScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fillViewport="true">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:id="@+id/layout_matching_wait"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@color/white">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_wait"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:paddingStart="20dp"-->
+<!--                            android:paddingTop="20dp"-->
+<!--                            android:paddingBottom="8dp"-->
+<!--                            android:text="매칭대기"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="16sp" />-->
+
+<!--                        <androidx.recyclerview.widget.RecyclerView-->
+<!--                            android:id="@+id/recycler_matching_wait"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@id/tv_wait"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:overScrollMode="never"-->
+<!--                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+<!--                    </RelativeLayout>-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/line1"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:layout_below="@id/layout_matching_wait"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:background="#CACACA" />-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:id="@+id/layout_admin"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/line1"-->
+<!--                        android:background="@color/white">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_admin"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:paddingStart="20dp"-->
+<!--                            android:paddingTop="20dp"-->
+<!--                            android:paddingBottom="8dp"-->
+<!--                            android:text="관리자"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="16sp" />-->
+
+<!--                        <androidx.recyclerview.widget.RecyclerView-->
+<!--                            android:id="@+id/recycler_admin"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@id/tv_admin"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:overScrollMode="never"-->
+<!--                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+
+<!--                    </RelativeLayout>-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/line2"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:layout_below="@id/layout_admin"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginEnd="16dp"-->
+<!--                        android:background="#CACACA" />-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:id="@+id/layout_matching_list"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_below="@+id/line2"-->
+<!--                        android:background="@color/white">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_a"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:paddingStart="20dp"-->
+<!--                            android:paddingTop="20dp"-->
+<!--                            android:paddingBottom="8dp"-->
+<!--                            android:text="A"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="16sp" />-->
+
+<!--                        <androidx.recyclerview.widget.RecyclerView-->
+<!--                            android:id="@+id/recycler_member"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@id/tv_a"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:overScrollMode="never"-->
+<!--                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+<!--                    </RelativeLayout>-->
+
+<!--                </RelativeLayout>-->
+
+<!--            </androidx.core.widget.NestedScrollView>-->
+
+
+<!--        </RelativeLayout>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_member"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/appbar_layout">
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:id="@+id/layout_matching_wait"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white">
-
-                        <TextView
-                            android:id="@+id/tv_wait"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
-                            android:paddingTop="20dp"
-                            android:paddingBottom="8dp"
-                            android:text="매칭대기"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_matching_wait"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_wait"
-                            android:orientation="vertical"
-                            android:overScrollMode="never"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/line1"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_below="@id/layout_matching_wait"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="#CACACA" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_admin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line1"
-                        android:background="@color/white">
-
-                        <TextView
-                            android:id="@+id/tv_admin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
-                            android:paddingTop="20dp"
-                            android:paddingBottom="8dp"
-                            android:text="관리자"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_admin"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_admin"
-                            android:orientation="vertical"
-                            android:overScrollMode="never"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/line2"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_below="@id/layout_admin"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="#CACACA" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_matching_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/line2"
-                        android:background="@color/white">
-
-                        <TextView
-                            android:id="@+id/tv_a"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
-                            android:paddingTop="20dp"
-                            android:paddingBottom="8dp"
-                            android:text="A"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_member"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_a"
-                            android:orientation="vertical"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            android:overScrollMode="never"/>
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbar_layout"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
     </RelativeLayout>

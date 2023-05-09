@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerProfileTab3ItemBinding
-import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumItem
+import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumData
 
-class RecyclerTab3AlbumAdapter constructor(private val context: Context, private val items: MutableList<RecyclerTab3AlbumItem>): RecyclerView.Adapter<RecyclerTab3AlbumAdapter.VH>(){
+class RecyclerTab3AlbumAdapter constructor(private val context: Context, private val items: MutableList<RecyclerTab3AlbumData>): RecyclerView.Adapter<RecyclerTab3AlbumAdapter.VH>(){
     inner class VH constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
         val binding: RecyclerProfileTab3ItemBinding = RecyclerProfileTab3ItemBinding.bind(itemView)
     }

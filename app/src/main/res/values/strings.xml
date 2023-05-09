@@ -16,6 +16,7 @@
         <item name="android:textColor">#000000</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="tabTextSizeBold" parent="TextAppearance.Design.Tab"> <!--  선택되지 않은 탭 카테고리 텍스트  -->
         <item name="android:textSize">16sp</item>
     </style>
