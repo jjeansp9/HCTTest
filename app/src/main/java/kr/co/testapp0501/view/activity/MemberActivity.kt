@@ -1,5 +1,6 @@
 package kr.co.testapp0501.view.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -26,11 +27,14 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 //    private val adminAdapter = RecyclerMemberActivityAdapter(this, adminItems)
     private val memberAdapter = RecyclerMemberActivityAdapter(this, memberItems)
 
+    private lateinit var jwtToken: String
+    private var groupSeq: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val jwtToken = intent.getStringExtra("jwtToken")!!
-        val groupSeq = intent.getIntExtra("groupSeq", -1)
+        jwtToken = intent.getStringExtra("jwtToken")!!
+        groupSeq = intent.getIntExtra("groupSeq", groupSeq)
 
         viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq)
         viewDataBinding.lifecycleOwner = this
@@ -47,13 +51,20 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         clickedMember() // 멤버 클릭
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun dummyData(){
-//        val jwtToken = intent.getStringExtra("jwtToken")!!
-//        val groupSeq = intent.getIntExtra("jwtToken", -1)
-//        Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq")
+        Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq")
 //
 //        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
-//        viewDataBinding.vmMember?.groupMemberList(jwtToken, groupSeq)
+
+        // 그룹에 속한 회원 목록
+        viewDataBinding.vmMember?.groupMemberList(jwtToken, groupSeq)?.observe(this){
+
+            for(i in it.data.indices){
+                memberItems.add(RecyclerMemberData(R.drawable.bg_edit, it.data[i].memberVO.name, "", "", it.data[i].memberAuthLevel))
+            }
+            viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
+        }
 
         // 더미데이터 추가해서 테스트 [ 매칭 ]
 //        for (i in 0 .. 2) {
@@ -67,24 +78,8 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 //            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "말동이","94.01.04",  "admin",  "admin"))
 //            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "강순이","94.01.04",  "admin",  "admin"))
 //        }
-
-        // 더미데이터 추가해서 테스트 [ 멤버목록 ]
-        for (i in 0 .. 10) {
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "홍길동","94.01.04",  "A",  "A"))
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨","94.01.04",  "A",  "A"))
-            memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨","94.01.04",  "A",  "A"))
-        }
     }
 
-    // 매칭대기중인 사용자 클릭
-//    private fun clickedMatching(){
-//        matchingAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
-//            override fun itemClick(v: View, position: Int) {
-//                Toast.makeText(this@MemberActivity, matchingItems[position].tvName, Toast.LENGTH_SHORT).show()
-//            }
-//
-//        })
-//    }
 //
 //    // 관리자 클릭
 //    private fun clickedAdmin(){
@@ -100,6 +95,14 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         memberAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
             override fun itemClick(v: View, position: Int) {
                 Toast.makeText(this@MemberActivity, memberItems[position].tvName, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun acceptClick(v: View, position: Int) {
+                return
+            }
+
+            override fun cancelClick(v: View, position: Int) {
+                return
             }
 
         })

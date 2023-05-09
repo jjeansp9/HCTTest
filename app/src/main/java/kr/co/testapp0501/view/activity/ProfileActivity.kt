@@ -1,6 +1,7 @@
 package kr.co.testapp0501.view.activity
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
@@ -40,6 +41,17 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         tv.text = "프로필"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    // 뒤로가기 버튼
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // 2번,3번 탭에서는 [수정하기] 버튼 숨김

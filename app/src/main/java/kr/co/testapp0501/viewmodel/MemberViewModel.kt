@@ -3,6 +3,8 @@ package kr.co.testapp0501.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.model.group.GroupMemberList
 import kr.co.testapp0501.model.group.MatchingWaitingList
@@ -35,32 +37,39 @@ class MemberViewModel(context: Context, private val jwtToken: String, private va
     } // 멤버 요청 대기화면으로 이동
 
     // 그룹 매칭 대기 회원 조회
-    fun groupMatchingList(jwtToken: String, groupSeq: Int){
+    fun groupMatchingList(jwtToken: String, groupSeq: Int): LiveData<MatchingWaitingList>{
+
+        val memberWaitingList = MutableLiveData<MatchingWaitingList>()
+
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
         val requestUrl = ApiService.BASE_URL + ApiService.GROUP_MATCHING_WAITING_LIST
 
         Log.i("MemberViewModel groupMatchingList value", "$groupSeq, $jwtToken")
         Log.i("MemberViewModel groupMatchingList Url", requestUrl) // 요청 url
-        apiService.groupMatchingList(jwtToken, groupSeq).enqueue(object : Callback<String>{
+
+        apiService.groupMatchingList(jwtToken, groupSeq).enqueue(object : Callback<MatchingWaitingList>{
             override fun onResponse(
-                call: Call<String>,
-                response: Response<String>
+                call: Call<MatchingWaitingList>,
+                response: Response<MatchingWaitingList>
             ) {
                 Log.i("MemberViewModel groupMatchingList code", response.code().toString())
                 if (response.isSuccessful){
-
+                    memberWaitingList.value = response.body()
                 }
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<MatchingWaitingList>, t: Throwable) {
 
             }
-
         })
+        return memberWaitingList
     }
 
     // 그룸 회원 조회
-    fun groupMemberList(jwtToken: String, groupSeq: Int){
+    fun groupMemberList(jwtToken: String, groupSeq: Int): LiveData<GroupMemberList> {
+
+        val memberList = MutableLiveData<GroupMemberList>()
+
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
         val requestUrl = ApiService.BASE_URL + ApiService.GROUP_MEMBER_LIST
 
@@ -74,7 +83,7 @@ class MemberViewModel(context: Context, private val jwtToken: String, private va
             ) {
                 Log.i("MemberViewModel groupMemberList code", response.code().toString())
                 if (response.isSuccessful){
-
+                    memberList.value = response.body()
                 }
             }
 
@@ -83,6 +92,8 @@ class MemberViewModel(context: Context, private val jwtToken: String, private va
             }
 
         })
+
+        return memberList
     }
 
 }

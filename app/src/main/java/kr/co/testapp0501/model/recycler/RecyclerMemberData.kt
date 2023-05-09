@@ -5,5 +5,5 @@ data class RecyclerMemberData(
     val tvName: String,
     val tvBirth: String,
     val btnMatching: String,
-    val type: String
+    val memberAuthLevel: Int
 )

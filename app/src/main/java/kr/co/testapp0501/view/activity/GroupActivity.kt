@@ -192,6 +192,7 @@ class GroupActivity : AppCompatActivity() {
             val groupCode = etCodeInput.text.toString().trim()
             val groupMatching = GroupMatching(groupCode, memberSeq)
             Log.i("GroupActivity memberSeq", memberSeq.toString())
+
             // 통신을 위해 et에 입력한 그룹코드 값 보내기
             groupViewModel.groupMatching(jwtToken, groupMatching).observe(this){
 
@@ -203,6 +204,8 @@ class GroupActivity : AppCompatActivity() {
                 }else if (it == 409){
                     Toast.makeText(this, "해당 코드로 이미 요청하였습니다", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
+                }else if (it == 500){
+                    Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
         }

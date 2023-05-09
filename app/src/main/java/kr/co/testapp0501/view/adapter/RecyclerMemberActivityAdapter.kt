@@ -18,6 +18,8 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
     // (1) 리스너 인터페이스
     interface OnItemClickListener {
         fun itemClick(v: View, position: Int)
+        fun acceptClick(v: View, position: Int)
+        fun cancelClick(v: View, position: Int)
     }
     // (2) 외부에서 클릭 시 이벤트 설정
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -39,25 +41,29 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
 
         holder.binding.tvName.text = items[position].tvName // 멤버 이름
         holder.binding.tvBirth.text = items[position].tvBirth // 멤버 생일
-        holder.binding.btnMatching.text = items[position].btnMatching // 타입
+        //holder.binding.btnMatching.text = items[position].btnMatching // 타입
 
-        when (items[position].type) {
-            "매칭대기" -> {
+        when (items[position].memberAuthLevel) {
+            10 -> {
                 holder.binding.tvBirth.visibility = View.VISIBLE // 생일
-                holder.binding.btnMatching.visibility = View.VISIBLE // 매칭하기 버튼
-                holder.binding.btnMatching.setOnClickListener{itemClickListener.itemClick(holder.binding.btnMatching, position)} // 매칭하기를 클릭했을 때
+
+                holder.binding.btnMemberAccpet.visibility = View.VISIBLE // 수락 버튼
+                holder.binding.btnMemberCancel.visibility = View.VISIBLE // 거절 버튼
+
+                holder.binding.btnMemberAccpet.setOnClickListener{itemClickListener.acceptClick(holder.binding.btnMemberAccpet, position)} // 수락
+                holder.binding.btnMemberCancel.setOnClickListener{itemClickListener.cancelClick(holder.binding.btnMemberCancel, position)} // 거절
             }
-            "admin" -> {
+            1 -> {
                 //holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼
                 holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
                 holder.binding.tvAdmin.visibility = View.VISIBLE // 관리자 칭호
                 holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
             }
-            "A" -> {
-                //holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼
-                holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
-                holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
-            }
+//            "A" -> {
+//                //holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼
+//                holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
+//                holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
+//            }
         }
     }
 

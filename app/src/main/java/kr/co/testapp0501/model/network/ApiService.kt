@@ -105,7 +105,7 @@ interface ApiService {
     fun groupMatchingList(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("groupSeq") groupSeq: Int
-    ): Call<String>
+    ): Call<MatchingWaitingList>
 
     // 그룹 회원 조회
     @GET(GROUP_MEMBER_LIST)

@@ -81,7 +81,7 @@ class GroupViewModel : ViewModel(){
         apiService.groupMatching(jwtToken, groupMatching).enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 serverResponse.value = response.code()
-                Log.i("item", response.code().toString())
+                Log.i("GroupViewModel groupMatching code", response.code().toString())
                 if (response.isSuccessful){
 
                 }

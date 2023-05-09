@@ -11,18 +11,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.activity.MemberRequestActivity">
+        tools:context=".view.activity.MemberRequestActivity"
+        tools:ignore="MissingConstraints">
 
         <include layout="@layout/toolbar"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_matching_wait"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toTopOf=""/>
+            app:layout_constraintTop_toBottomOf="@id/appbar_layout"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

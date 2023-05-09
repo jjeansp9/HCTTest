@@ -1,24 +1,31 @@
 package kr.co.testapp0501.view.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.databinding.ActivityMemberRequestBinding
 import kr.co.testapp0501.databinding.ActivityProfileBinding
+import kr.co.testapp0501.model.recycler.RecyclerMemberData
+import kr.co.testapp0501.view.adapter.RecyclerMemberActivityAdapter
 import kr.co.testapp0501.viewmodel.MemberViewModel
 
 class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layout.activity_member_request) {
+
+    private val matchingItems = mutableListOf<RecyclerMemberData>()
+    private val matchingAdapter = RecyclerMemberActivityAdapter(this, matchingItems)
 
     private lateinit var jwtToken : String
     private var groupSeq : Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_member_request)
 
         jwtToken = intent.getStringExtra("jwtToken")!!
         groupSeq = intent.getIntExtra("groupSeq", groupSeq)
@@ -27,13 +34,41 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
         viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq)
         viewDataBinding.lifecycleOwner = this
 
+        viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
+
         setToolbar()
         requestMemberList()
+        clickedMatching()
     }
 
+    // 매칭대기중인 사용자 클릭
+    private fun clickedMatching(){
+        matchingAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
+            override fun itemClick(v: View, position: Int) {
+                return
+            }
+
+            override fun acceptClick(v: View, position: Int) {
+                Toast.makeText(this@MemberRequestActivity, matchingItems[position].tvName+"님의 요청을 수락하시겠습니까?", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun cancelClick(v: View, position: Int) {
+                Toast.makeText(this@MemberRequestActivity, matchingItems[position].tvName+"님의 요청을 거절하시겠습니까?", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     private fun requestMemberList(){
         Log.i("memberRequest", groupSeq.toString())
-        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
+        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)?.observe(this){
+            for (i in it.data.indices){
+                matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, it.data[i].memberVO.name, "", "", 10))
+            }
+            Log.i("wwwwww", matchingItems.size.toString() + it.data[0].memberVO.name)
+            viewDataBinding.recyclerMatchingWait.adapter?.notifyDataSetChanged()
+        }
     }
 
     // 툴바 설정 [ 구성원 요청 화면 ]

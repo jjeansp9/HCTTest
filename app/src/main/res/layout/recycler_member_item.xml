@@ -44,7 +44,12 @@
         android:layout_toEndOf="@id/tv_name"
         android:layout_centerVertical="true"
         android:textSize="12sp"
+        android:background="@drawable/bg_member_admin"
         android:layout_marginStart="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:visibility="gone"/>
 
 <!--    <ImageView-->
@@ -56,15 +61,25 @@
 <!--        android:layout_centerVertical="true"-->
 <!--        android:visibility="invisible"/>-->
 
-    <Button
-        android:id="@+id/btn_matching"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:text="매칭하기"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_matching_selector"
+
+    <ImageView
+        android:id="@+id/btn_member_cancel"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/btn_member_waiting_cancel"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/btn_member_accpet"
+        android:padding="6dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/btn_member_accpet"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/btn_member_waiting_accept"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:padding="6dp"
         android:visibility="gone"/>
 
 </RelativeLayout>
