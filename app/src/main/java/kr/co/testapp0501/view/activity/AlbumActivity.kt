@@ -1,6 +1,7 @@
 package kr.co.testapp0501.view.activity
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
@@ -25,5 +26,16 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         tv.text = "앨범"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    // 뒤로가기 버튼
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
