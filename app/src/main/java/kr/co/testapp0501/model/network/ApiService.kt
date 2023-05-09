@@ -34,7 +34,7 @@ interface ApiService {
         // 그룹 형식 리스트
         //const val GROUP_LIST = "$PREFIX_URL/group/types"
         // 회원 그룹 조회
-        const val GROUP_LOAD = "$PREFIX_URL/member/1/groups"
+        const val GROUP_LOAD = "$PREFIX_URL/member/{memberSeq}/groups"
         const val GROUP_FILE = "/attachFile{fileUrl}"
         // 그룹 매칭 대기 회원 조회
         const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/maching/members"
@@ -91,11 +91,13 @@ interface ApiService {
 //    @GET(GROUP_LIST)
 //    suspend fun loadGroupList(@Query("") group: String): Response<List<String>>
 
+    /** ===================== 그룹 회원,매칭 조회 ========================= */
+
     // 회원 그룹 조회 [ 회원 그룹목록 불러오기 ]
     @GET(GROUP_LOAD)
     fun loadGroupList(
         @Header("X-AUTH-TOKEN") token: String,
-        @Query("memberSeq") memberSeq: Int
+        @Path("memberSeq") memberSeq: Int
     ): Call<GroupList>
 
     // 그룹 매칭 대기 회원 조회

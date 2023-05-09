@@ -284,6 +284,8 @@ class UserRepository {
                     users.saveLoginType(snsType)
                     users.saveSnsId(snsId)
 
+                    Log.i("aaaaaaa", response.body()?.data?.seq.toString())
+
                     val intent = Intent(context, GroupActivity::class.java)
                     intent.putExtra("jwtToken", response.body()?.data?.jwtToken)
                     context.startActivity(intent)

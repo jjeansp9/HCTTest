@@ -63,8 +63,8 @@ class LoginActivity : AppCompatActivity() {
         val loadSnsId=  users.loadSnsId()
         val loadLoginType=  users.loadLoginType()
 
-        snsTokenConfirm(loadSnsId) // sns 자동로그인
-        loadUserData(loadUserInfo.id, loadUserInfo.pw) // 일반 자동로그인
+        //snsTokenConfirm(loadSnsId) // sns 자동로그인
+        //loadUserData(loadUserInfo.id, loadUserInfo.pw) // 일반 자동로그인
 
         setContentView(binding.root)
         clickedBackGround()
