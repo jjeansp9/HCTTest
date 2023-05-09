@@ -111,7 +111,7 @@ class GroupActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
-    // 그룹 [ + ] 버튼 클릭
+    // 그룹 목록에 있는 그룹 클릭
     private fun clickedGroupAdd(){
         adapter.setItemClickListener(object : RecyclerGroupActivityAdapter.OnItemClickListener{
             override fun groupClick(v: View, position: Int) {
@@ -124,6 +124,8 @@ class GroupActivity : AppCompatActivity() {
                     val intent = Intent(this@GroupActivity, MainActivity::class.java)
                     intent.putExtra("jwtToken", token)
                     intent.putExtra("groupSeq", groupItems[position].groupSeq)
+                    intent.putExtra("groupName", groupItems[position].tvGroupName)
+                    intent.putExtra("memberSeq", groupItems[position].memberSeq)
                     startActivity(intent)
                     Log.i("positions", token!!)
                 }
