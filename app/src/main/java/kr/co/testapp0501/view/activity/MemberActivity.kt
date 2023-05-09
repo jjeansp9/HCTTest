@@ -61,7 +61,15 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         viewDataBinding.vmMember?.groupMemberList(jwtToken, groupSeq)?.observe(this){
 
             for(i in it.data.indices){
-                memberItems.add(RecyclerMemberData(R.drawable.bg_edit, it.data[i].memberVO.name, "", "", it.data[i].memberAuthLevel))
+                memberItems.add(RecyclerMemberData(
+                    R.drawable.bg_edit,
+                    it.data[i].memberVO.name,
+                    it.data[i].memberVO.birth,
+                    -1,
+                    it.data[i].memberVO.seq,
+                    it.data[i].seq,
+                    it.data[i].memberAuthLevel
+                ))
             }
             viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
         }

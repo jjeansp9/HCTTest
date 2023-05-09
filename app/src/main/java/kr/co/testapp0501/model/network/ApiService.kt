@@ -40,6 +40,8 @@ interface ApiService {
         const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/matching/members"
         // 그룹 회원 조회
         const val GROUP_MEMBER_LIST = "$PREFIX_URL/group/{groupSeq}/members"
+        // 그룹 매칭 대기 회원 수락
+        const val GROUP_MATCHING_WAITING_ACCEPT = "$PREFIX_URL/group/member"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -113,6 +115,12 @@ interface ApiService {
         @Header("X-AUTH-TOKEN") token: String,
         @Path("groupSeq") groupSeq: Int
     ): Call<GroupMemberList>
+
+    @POST(GROUP_MATCHING_WAITING_ACCEPT)
+    fun groupMatchingAccept(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Body memberSeq: GroupMatchingAccept
+    ): Call<String>
 
 }
 

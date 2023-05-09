@@ -4,6 +4,8 @@ data class RecyclerMemberData(
     val imgMember: Int,
     val tvName: String,
     val tvBirth: String,
-    val btnMatching: String,
+    val groupSeq: Int,
+    val memberSeq: Int,
+    val matchingSeq: Int,
     val memberAuthLevel: Int
 )

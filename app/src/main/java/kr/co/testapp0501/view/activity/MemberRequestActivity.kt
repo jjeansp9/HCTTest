@@ -12,6 +12,7 @@ import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.databinding.ActivityMemberRequestBinding
 import kr.co.testapp0501.databinding.ActivityProfileBinding
+import kr.co.testapp0501.model.group.GroupMatchingAccept
 import kr.co.testapp0501.model.recycler.RecyclerMemberData
 import kr.co.testapp0501.view.adapter.RecyclerMemberActivityAdapter
 import kr.co.testapp0501.viewmodel.MemberViewModel
@@ -50,6 +51,9 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
 
             override fun acceptClick(v: View, position: Int) {
                 Toast.makeText(this@MemberRequestActivity, matchingItems[position].tvName+"님의 요청을 수락하시겠습니까?", Toast.LENGTH_SHORT).show()
+
+                val seq = GroupMatchingAccept(matchingItems[position].groupSeq, matchingItems[position].memberSeq, matchingItems[position].matchingSeq)
+                viewDataBinding.vmMember?.groupMatchingAccept(jwtToken, seq)
             }
 
             override fun cancelClick(v: View, position: Int) {
@@ -64,7 +68,15 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
         Log.i("memberRequest", groupSeq.toString())
         viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)?.observe(this){
             for (i in it.data.indices){
-                matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, it.data[i].memberVO.name, "", "", 10))
+                matchingItems.add(RecyclerMemberData(
+                    R.drawable.bg_edit,
+                    it.data[i].memberVO.name,
+                    it.data[i].memberVO.birth,
+                    it.data[i].groupSeq,
+                    it.data[i].memberVO.seq,
+                    it.data[i].seq,
+                    10
+                ))
             }
             Log.i("wwwwww", matchingItems.size.toString() + it.data[0].memberVO.name)
             viewDataBinding.recyclerMatchingWait.adapter?.notifyDataSetChanged()

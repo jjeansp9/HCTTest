@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kr.co.testapp0501.base.BaseViewModel
+import kr.co.testapp0501.model.group.GroupMatchingAccept
 import kr.co.testapp0501.model.group.GroupMemberList
 import kr.co.testapp0501.model.group.MatchingWaitingList
 import kr.co.testapp0501.model.network.ApiService
@@ -88,6 +89,37 @@ class MemberViewModel(context: Context, private val jwtToken: String, private va
             }
 
             override fun onFailure(call: Call<GroupMemberList>, t: Throwable) {
+
+            }
+
+        })
+
+        return memberList
+    }
+
+    // 그룸 매칭 대기 회원 수락
+    fun groupMatchingAccept(jwtToken: String, memberSeq: GroupMatchingAccept): LiveData<String> {
+
+        val memberList = MutableLiveData<String>()
+
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val requestUrl = ApiService.BASE_URL + ApiService.GROUP_MATCHING_WAITING_ACCEPT
+
+        Log.i("MemberViewModel groupMatchingAccept value", "$jwtToken, $memberSeq")
+        Log.i("MemberViewModel groupMatchingAccept Url", requestUrl) // 요청 url
+
+        apiService.groupMatchingAccept(jwtToken, memberSeq).enqueue(object : Callback<String>{
+            override fun onResponse(
+                call: Call<String>,
+                response: Response<String>
+            ) {
+                Log.i("MemberViewModel groupMatchingAccept code", response.code().toString())
+                if (response.isSuccessful){
+                    memberList.value = response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
 
             }
 
