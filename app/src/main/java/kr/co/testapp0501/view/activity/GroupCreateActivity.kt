@@ -78,6 +78,7 @@ class GroupCreateActivity : AppCompatActivity() {
                     if (imgUri != null){
 
                         val token = intent.getStringExtra("jwtToken")!!
+                        val memberSeq = intent.getIntExtra("memberSeq", -1)
 
                         val file = File(absolutelyPath(imgUri, this))
                         val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
@@ -92,7 +93,7 @@ class GroupCreateActivity : AppCompatActivity() {
 
                         groupType = "family"
 
-                        val groupInfo = Group(groupName, groupType, 1, "")
+                        val groupInfo = Group(groupName, groupType, memberSeq, "")
                         val json = Gson().toJson(groupInfo)
                         val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 

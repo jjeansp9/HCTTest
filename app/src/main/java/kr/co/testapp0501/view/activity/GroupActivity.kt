@@ -35,6 +35,7 @@ class GroupActivity : AppCompatActivity() {
 
     private val swipeRefreshLayout : SwipeRefreshLayout by lazy { findViewById(R.id.swipe_refresh_layout) }
     private lateinit var jwtToken: String
+    private var memberSeq: Int = -1
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +47,12 @@ class GroupActivity : AppCompatActivity() {
         // 툴바 생성
         setToolbar()
         jwtToken = intent.getStringExtra("jwtToken")!!
+        memberSeq = intent.getIntExtra("memberSeq", memberSeq)
 
         // 아래로 당겨서 새로고침
         updateGroupList()
 
-        groupList(jwtToken)
+        groupList(jwtToken, memberSeq)
 
         // 설정 버튼 클릭 [ 설정 화면으로 이동 ]
         moveGroupCreateActivity()
@@ -63,14 +65,14 @@ class GroupActivity : AppCompatActivity() {
     private fun updateGroupList(){
         swipeRefreshLayout.setOnRefreshListener{
             groupItems.clear()
-            groupList(jwtToken)
+            groupList(jwtToken, memberSeq)
         }
     }
 
     // 그룹목록 불러오기
     @SuppressLint("NotifyDataSetChanged")
-    private fun groupList(jwtToken: String){
-        groupViewModel.loadGroupList(jwtToken).observe(this){
+    private fun groupList(jwtToken: String, memberSeq: Int){
+        groupViewModel.loadGroupList(jwtToken, memberSeq).observe(this){
             for (i in 0 until it.data.size){
                 if (it.data[i].filePaths.isNotEmpty()) {
 
@@ -84,8 +86,10 @@ class GroupActivity : AppCompatActivity() {
                         i.toString() + ": "
                                 + ApiService.FILE_SUFFIX_URL
                                 + "/attachFile" + it.data[i].filePaths[0]
-                                + it.data[i].groupSeq
-                                + it.data[i].memberSeq
+                                + "seq: "
+                                + it.data[i].groupSeq + ","
+                                + it.data[i].memberSeq + ","
+                                + it.data[i].memberAuthLevel
                     )
                 } else {
                     // filePaths가 비어있는 경우, 기본 이미지를 사용하도록 설정
@@ -93,7 +97,7 @@ class GroupActivity : AppCompatActivity() {
                     Log.i("GroupActivity groupItems else", i.toString())
                 }
             }
-            groupItems.add(groupItems.size, RecyclerGroupData("add", "", 1000000000, 1000000000))
+            groupItems.add(groupItems.size, RecyclerGroupData("add", "", -1, -1))
             adapter.notifyDataSetChanged()
             swipeRefreshLayout.isRefreshing = false
         }
@@ -148,8 +152,11 @@ class GroupActivity : AppCompatActivity() {
         // 그룹생성 버튼
         btnGroupCreate.setOnClickListener{
             val token = intent.getStringExtra("jwtToken")
+            val memberSeq = intent.getIntExtra("memberSeq", -1)
+
             val intent = Intent(this, GroupCreateActivity::class.java)
             intent.putExtra("jwtToken", token)
+            intent.putExtra("memberSeq", memberSeq)
             startActivity(intent)
             dialog.dismiss()
         }
@@ -183,20 +190,19 @@ class GroupActivity : AppCompatActivity() {
 
             val etCodeInput : EditText = dialog.findViewById(R.id.et_code_input)
             val groupCode = etCodeInput.text.toString().trim()
-            val groupMatching = GroupMatching(groupCode, "2")
-
+            val groupMatching = GroupMatching(groupCode, memberSeq)
+            Log.i("GroupActivity memberSeq", memberSeq.toString())
             // 통신을 위해 et에 입력한 그룹코드 값 보내기
             groupViewModel.groupMatching(jwtToken, groupMatching).observe(this){
-                Log.i("testsss", "7y03j1EYP5,$groupCode")
 
                 if (it == 200){
                     Toast.makeText(this, "그룹코드가 일치합니다", Toast.LENGTH_SHORT).show()
-                    dialog.show()
+                    dialog.dismiss()
                 }else if (it == 400){
                     Toast.makeText(this, "그룹코드가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
                 }else if (it == 409){
                     Toast.makeText(this, "해당 코드로 이미 요청하였습니다", Toast.LENGTH_SHORT).show()
-                    dialog.show()
+                    dialog.dismiss()
                 }
             }
         }

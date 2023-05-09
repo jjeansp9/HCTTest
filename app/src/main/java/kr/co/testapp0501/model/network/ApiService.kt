@@ -37,7 +37,7 @@ interface ApiService {
         const val GROUP_LOAD = "$PREFIX_URL/member/{memberSeq}/groups"
         const val GROUP_FILE = "/attachFile{fileUrl}"
         // 그룹 매칭 대기 회원 조회
-        const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/maching/members"
+        const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/matching/members"
         // 그룹 회원 조회
         const val GROUP_MEMBER_LIST = "$PREFIX_URL/group/{groupSeq}/members"
     }
@@ -105,7 +105,7 @@ interface ApiService {
     fun groupMatchingList(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("groupSeq") groupSeq: Int
-    ): Call<MatchingWaitingList>
+    ): Call<String>
 
     // 그룹 회원 조회
     @GET(GROUP_MEMBER_LIST)

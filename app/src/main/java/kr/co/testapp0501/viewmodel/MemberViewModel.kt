@@ -39,13 +39,12 @@ class MemberViewModel(context: Context, private val jwtToken: String, private va
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
         val requestUrl = ApiService.BASE_URL + ApiService.GROUP_MATCHING_WAITING_LIST
 
-        Log.i("MemberViewModel groupMatchingList value", "$jwtToken, $groupSeq")
+        Log.i("MemberViewModel groupMatchingList value", "$groupSeq, $jwtToken")
         Log.i("MemberViewModel groupMatchingList Url", requestUrl) // 요청 url
-
-        apiService.groupMatchingList(jwtToken, groupSeq).enqueue(object : Callback<MatchingWaitingList>{
+        apiService.groupMatchingList(jwtToken, groupSeq).enqueue(object : Callback<String>{
             override fun onResponse(
-                call: Call<MatchingWaitingList>,
-                response: Response<MatchingWaitingList>
+                call: Call<String>,
+                response: Response<String>
             ) {
                 Log.i("MemberViewModel groupMatchingList code", response.code().toString())
                 if (response.isSuccessful){
@@ -53,7 +52,7 @@ class MemberViewModel(context: Context, private val jwtToken: String, private va
                 }
             }
 
-            override fun onFailure(call: Call<MatchingWaitingList>, t: Throwable) {
+            override fun onFailure(call: Call<String>, t: Throwable) {
 
             }
 

@@ -2,6 +2,7 @@ package kr.co.testapp0501.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import kr.co.testapp0501.R
@@ -21,6 +22,7 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
 
         jwtToken = intent.getStringExtra("jwtToken")!!
         groupSeq = intent.getIntExtra("groupSeq", groupSeq)
+        Log.i("memberRequest", groupSeq.toString())
 
         viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq)
         viewDataBinding.lifecycleOwner = this
@@ -30,6 +32,7 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
     }
 
     private fun requestMemberList(){
+        Log.i("memberRequest", groupSeq.toString())
         viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
     }
 

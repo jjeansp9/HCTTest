@@ -9,5 +9,6 @@ data class GroupListData(
     val groupSeq: Int,
     val groupName: String,
     val memberSeq: Int,
-    val filePaths: List<String>
+    val filePaths: List<String>,
+    val memberAuthLevel: Int
 )

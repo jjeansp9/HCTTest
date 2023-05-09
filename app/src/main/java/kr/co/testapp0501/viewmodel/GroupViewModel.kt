@@ -50,19 +50,19 @@ class GroupViewModel : ViewModel(){
     }
 
     // 그룹 목록
-    fun loadGroupList(jwtToken: String) : LiveData<GroupList>{
+    fun loadGroupList(jwtToken: String, memberSeq: Int) : LiveData<GroupList>{
         val groupList = MutableLiveData<GroupList>()
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        Log.i("GroupActivity before response", "before")
+        Log.i("GroupActivity before response", "before$memberSeq")
 
-        apiService.loadGroupList(jwtToken, 1).enqueue(object : Callback<GroupList>{
+        apiService.loadGroupList(jwtToken, memberSeq).enqueue(object : Callback<GroupList>{
             override fun onResponse(call: Call<GroupList>, response: Response<GroupList>) {
                 groupList.value = response.body()
                 Log.i("GroupActivity after response", response.code().toString())
                 Log.i("GroupActivity Http",response.body().toString())
                 Log.i("GroupActivity Http",response.message() +"," + call.toString())
-                Log.i("GroupActivity Http",response.body()!!.data[0].filePaths.toString())
+                //Log.i("GroupActivity Http",response.body()!!.data[0].filePaths.toString())
             }
             override fun onFailure(call: Call<GroupList>, t: Throwable) {
             }
