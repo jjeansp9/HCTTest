@@ -10,10 +10,11 @@ import retrofit2.Response
 
 class MemberViewModel : BaseViewModel() {
 
-    private fun groupMatchingList(){
+    // 그룹 매칭 대기 회원 조회
+    fun groupMatchingList(jwtToken: String, groupSeq: Int){
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        apiService.groupMatchingList("", 1).enqueue(object : Callback<MatchingWaitingList>{
+        apiService.groupMatchingList(jwtToken, groupSeq).enqueue(object : Callback<MatchingWaitingList>{
             override fun onResponse(
                 call: Call<MatchingWaitingList>,
                 response: Response<MatchingWaitingList>

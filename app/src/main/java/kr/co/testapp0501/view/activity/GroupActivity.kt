@@ -119,6 +119,7 @@ class GroupActivity : AppCompatActivity() {
                     val token = intent.getStringExtra("jwtToken")
                     val intent = Intent(this@GroupActivity, MainActivity::class.java)
                     intent.putExtra("jwtToken", token)
+                    intent.putExtra("groupSeq", groupItems[position].groupSeq)
                     startActivity(intent)
                     Log.i("positions", token!!)
                 }

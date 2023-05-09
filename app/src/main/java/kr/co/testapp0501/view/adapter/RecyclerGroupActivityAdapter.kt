@@ -40,7 +40,9 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
         holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) } // 그룹목록 클릭이벤트
 
-        Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup) // 그룹목록 이미지
+        if (items[position].imgGroup == "") Glide.with(context).load(R.drawable.img_group_general).into(holder.binding.imgGroup) // 그룹목록 이미지
+        else Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup) // 그룹목록 이미지
+
         holder.binding.tvGroupName.text = items[position].tvGroupName // 그룹 이름
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
 

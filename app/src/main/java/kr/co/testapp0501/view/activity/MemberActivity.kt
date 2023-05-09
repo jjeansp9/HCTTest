@@ -1,12 +1,12 @@
 package kr.co.testapp0501.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.databinding.ActivityMemberBinding
@@ -24,7 +24,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
     private val adminAdapter = RecyclerMemberActivityAdapter(this, adminItems)
     private val memberAdapter = RecyclerMemberActivityAdapter(this, memberItems)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding.vmMember = MemberViewModel()
@@ -33,11 +32,25 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
         viewDataBinding.recyclerAdmin.adapter = adminAdapter
         viewDataBinding.recyclerMember.adapter = memberAdapter
 
-        val jwtToken = intent.getStringExtra("jwtToken")!!
-        Log.i("jwtToken", jwtToken)
 
-        // 툴바 설정 [ 구성원 화면 ]
-        setToolbar()
+
+
+        setToolbar() // 툴바 설정 [ 구성원 화면 ]
+
+        dummyData() // 더미데이터로 UI 테스트
+
+        clickedMatching() // 매칭대기 클릭
+        clickedAdmin() // 관리자 클릭
+        clickedMember() // 멤버 클릭
+    }
+
+    private fun dummyData(){
+        val jwtToken = intent.getStringExtra("jwtToken")!!
+        val groupSeq = intent.getIntExtra("jwtToken", -1)
+        Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq")
+
+        viewDataBinding.vmMember.groupMatchingList(jwtToken, groupSeq)
+
 
         // 더미데이터 추가해서 테스트 [ 매칭 ]
         for (i in 0 .. 2) {
@@ -58,10 +71,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
             memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "김씨","94.01.04",  "A",  "A"))
             memberItems.add(RecyclerMemberData(R.drawable.bg_edit, "황씨","94.01.04",  "A",  "A"))
         }
-
-        clickedMatching() // 매칭대기 클릭
-        clickedAdmin() // 관리자 클릭
-        clickedMember() // 멤버 클릭
     }
 
     // 매칭대기중인 사용자 클릭
@@ -80,7 +89,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mai
             override fun itemClick(v: View, position: Int) {
                 Toast.makeText(this@MemberActivity, adminItems[position].tvName, Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 

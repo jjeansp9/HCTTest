@@ -44,7 +44,7 @@ class GroupCreateActivity : AppCompatActivity() {
 
         setToolbar() // 툴바 생성
         checkPermission() // 외부저장소 권한요청
-        groupViewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
+        groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
 
         binding.imgAdd.setOnClickListener{imageAdd()}
 
