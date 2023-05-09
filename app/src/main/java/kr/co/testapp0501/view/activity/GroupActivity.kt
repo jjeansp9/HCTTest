@@ -177,18 +177,26 @@ class GroupActivity : AppCompatActivity() {
         dialog.show()
 
         val btnConfirm : RelativeLayout = dialog.findViewById(R.id.btn_code_confirm)
-        val etCodeInput : EditText = dialog.findViewById(R.id.et_code_input)
-        val groupCode = etCodeInput.text.toString().trim()
 
-        val groupMatching = GroupMatching("cQvvqnKLEG", "2")
-
+        // 그룹접속코드 입력 후 확인버튼
         btnConfirm.setOnClickListener{
+
+            val etCodeInput : EditText = dialog.findViewById(R.id.et_code_input)
+            val groupCode = etCodeInput.text.toString().trim()
+            val groupMatching = GroupMatching(groupCode, "2")
+
             // 통신을 위해 et에 입력한 그룹코드 값 보내기
             groupViewModel.groupMatching(jwtToken, groupMatching).observe(this){
+                Log.i("testsss", "7y03j1EYP5,$groupCode")
+
                 if (it == 200){
                     Toast.makeText(this, "그룹코드가 일치합니다", Toast.LENGTH_SHORT).show()
+                    dialog.show()
                 }else if (it == 400){
                     Toast.makeText(this, "그룹코드가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
+                }else if (it == 409){
+                    Toast.makeText(this, "해당 코드로 이미 요청하였습니다", Toast.LENGTH_SHORT).show()
+                    dialog.show()
                 }
             }
         }

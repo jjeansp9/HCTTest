@@ -16,7 +16,7 @@ class MainViewModel(context: Context, private val jwtToken: String, private val 
         val context = contextRef.get() ?: return
         val intent = Intent(context, cls)
         intent.putExtra("jwtToken", jwtToken)
-        intent.putExtra("jwtToken", groupSeq)
+        intent.putExtra("groupSeq", groupSeq)
         context.startActivity(intent)
     }
 

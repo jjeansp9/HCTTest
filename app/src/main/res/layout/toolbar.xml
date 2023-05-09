@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="kr.co.testapp0501.viewmodel.MemberViewModel"/>
+        <variable
+            name="vmMember"
+            type="kr.co.testapp0501.viewmodel.MemberViewModel" />
+    </data>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
@@ -39,6 +46,7 @@
                 android:src="@drawable/ic_member_waiting_accept"
                 android:layout_gravity="end"
                 android:padding="4dp"
+                android:onClick="@{() -> vmMember.onClickMemberRequest()}"
                 android:layout_marginEnd="10dp"
                 android:visibility="gone"/>
 

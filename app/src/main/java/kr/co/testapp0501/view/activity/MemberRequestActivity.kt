@@ -8,12 +8,29 @@ import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.databinding.ActivityMemberRequestBinding
 import kr.co.testapp0501.databinding.ActivityProfileBinding
+import kr.co.testapp0501.viewmodel.MemberViewModel
 
 class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layout.activity_member_request) {
+
+    private lateinit var jwtToken : String
+    private var groupSeq : Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_request)
+
+        jwtToken = intent.getStringExtra("jwtToken")!!
+        groupSeq = intent.getIntExtra("groupSeq", groupSeq)
+
+        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq)
+        viewDataBinding.lifecycleOwner = this
+
         setToolbar()
+        requestMemberList()
+    }
+
+    private fun requestMemberList(){
+        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
     }
 
     // 툴바 설정 [ 구성원 요청 화면 ]

@@ -28,7 +28,11 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewDataBinding.vmMember = MemberViewModel()
+
+        val jwtToken = intent.getStringExtra("jwtToken")!!
+        val groupSeq = intent.getIntExtra("groupSeq", -1)
+
+        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq)
         viewDataBinding.lifecycleOwner = this
 //        viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
 //        viewDataBinding.recyclerAdmin.adapter = adminAdapter
@@ -41,7 +45,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 //        clickedMatching() // 매칭대기 클릭
 //        clickedAdmin() // 관리자 클릭
         clickedMember() // 멤버 클릭
-        clickedMemberAccept() // 구성원 요청대기 클릭
     }
 
     private fun dummyData(){
@@ -114,13 +117,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         tv.text = "구성원"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-    }
-
-    private fun clickedMemberAccept(){
-        findViewById<ImageView>(R.id.btn_member_accept_list).setOnClickListener{
-            startActivity(Intent(this, MemberRequestActivity::class.java))
-        }
-
     }
 
     // 뒤로가기 버튼

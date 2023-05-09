@@ -16,7 +16,59 @@
         android:layout_height="match_parent"
         tools:context=".view.activity.MemberActivity">
 
-        <include layout="@layout/toolbar" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--            <ImageView-->
+                <!--                android:id="@+id/btn_back"-->
+                <!--                android:layout_width="50dp"-->
+                <!--                android:layout_height="50dp"-->
+                <!--                android:paddingTop="13dp"-->
+                <!--                android:paddingBottom="13dp"-->
+                <!--                android:paddingEnd="13dp"-->
+                <!--                android:src="@drawable/btn_back_selector"/>-->
+
+                <TextView
+                    android:id="@+id/tv_toolber_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="title"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="19sp"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:id="@+id/btn_member_accept_list"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_member_waiting_accept"
+                    android:layout_gravity="end"
+                    android:padding="4dp"
+                    android:onClick="@{() -> vmMember.onClickMemberRequest()}"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/btn_member_search"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/btn_search_selector"
+                    android:layout_gravity="end"
+                    android:padding="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:visibility="gone"/>
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
 <!--        <RelativeLayout-->
 <!--            android:layout_width="match_parent"-->

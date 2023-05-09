@@ -4,7 +4,7 @@
     <data>
         <import type="kr.co.testapp0501.viewmodel.MemberViewModel"/>
         <variable
-            name="vmMain"
+            name="vmMember"
             type="kr.co.testapp0501.viewmodel.MemberViewModel" />
     </data>
 

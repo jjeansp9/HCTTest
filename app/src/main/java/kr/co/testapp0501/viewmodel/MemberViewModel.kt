@@ -1,16 +1,38 @@
 package kr.co.testapp0501.viewmodel
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.model.group.GroupMemberList
 import kr.co.testapp0501.model.group.MatchingWaitingList
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.view.activity.MemberActivity
+import kr.co.testapp0501.view.activity.MemberRequestActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.ref.WeakReference
 
-class MemberViewModel : BaseViewModel() {
+class MemberViewModel(context: Context, private val jwtToken: String, private val groupSeq: Int) : BaseViewModel() {
+
+    // 이와 같은 방법으로 context를 받아야 메모리가 누수되는 현상 방지됨
+    private val contextRef = WeakReference(context)
+
+    // 받아온 Activity 에 따라 화면 전환
+    private fun startNewActivity(cls: Class<*>) {
+        val context = contextRef.get() ?: return
+        val intent = Intent(context, cls)
+        intent.putExtra("jwtToken", jwtToken)
+        intent.putExtra("groupSeq", groupSeq)
+        context.startActivity(intent)
+    }
+
+    fun onClickMemberRequest() {
+        startNewActivity(MemberRequestActivity::class.java)
+        Log.i("click", "clicked")
+    } // 멤버 요청 대기화면으로 이동
 
     // 그룹 매칭 대기 회원 조회
     fun groupMatchingList(jwtToken: String, groupSeq: Int){
