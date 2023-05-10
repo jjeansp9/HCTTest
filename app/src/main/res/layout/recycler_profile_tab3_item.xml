@@ -53,6 +53,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/bg_edit"
         android:scaleType="centerCrop"
-        android:padding="2dp"/>
+        android:padding="1dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
