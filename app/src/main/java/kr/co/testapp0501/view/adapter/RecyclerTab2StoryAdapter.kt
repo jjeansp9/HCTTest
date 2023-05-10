@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerProfileTab2ItemBinding
 import kr.co.testapp0501.model.recycler.RecyclerTab2StoryData
@@ -24,7 +27,9 @@ class RecyclerTab2StoryAdapter constructor(private val context: Context, private
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.binding.tvStoryDate.text = items[position].tvStoryDate // 내 이야기 날짜
         holder.binding.tvStory.text = items[position].tvStory // 내 이야기 글
-        Glide.with(context).load(items[position].imgStory).into(holder.binding.imgStory) // 내 이야기 이미지
+
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(24))
+        Glide.with(context).load(items[position].imgStory).apply(requestOptions).into(holder.binding.imgStory) // 내 이야기 이미지
 
     }
 

@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerProfileTab3ItemBinding
 import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumData
@@ -25,7 +28,9 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         holder.binding.tvAlbumTitle.text = items[position].tvAlbumTitle
         holder.binding.tvAlbumDate.text = items[position].tvAlbumDate.toString()
         holder.binding.tvNumOfComments.text = items[position].tvNumOfComments.toString()
-        Glide.with(context).load(items[position].imgAlbum).into(holder.binding.imgAlbum)
+
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(24))
+        Glide.with(context).load(items[position].imgAlbum).apply(requestOptions).into(holder.binding.imgAlbum)
     }
 
     override fun getItemCount(): Int = items.size
