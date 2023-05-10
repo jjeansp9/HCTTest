@@ -22,7 +22,7 @@
         android:layout_toEndOf="@id/img_member"
         android:text="홍길동"
         android:textColor="@color/black"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_birth"

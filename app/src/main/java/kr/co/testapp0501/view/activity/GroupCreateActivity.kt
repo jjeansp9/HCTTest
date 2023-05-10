@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -41,9 +42,15 @@ class GroupCreateActivity : AppCompatActivity() {
     private lateinit var groupViewModel: GroupViewModel
     var imgUri: Uri? = null
 
+    private lateinit var jwtToken: String
+    private var memberSeq: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        jwtToken = intent.getStringExtra("jwtToken")!!
+        memberSeq = intent.getIntExtra("memberSeq", memberSeq)
 
         setToolbar() // 툴바 생성
         checkPermission() // 외부저장소 권한요청
@@ -78,32 +85,55 @@ class GroupCreateActivity : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
 
-                    if (imgUri != null){
+                    // progressBar가 돌고있을 땐 그룹생성 버튼을 눌러도 동작 안하게 설정
+                    if (binding.progressBar.visibility == View.GONE){
+                        if (imgUri != null){
 
-                        val token = intent.getStringExtra("jwtToken")!!
-                        val memberSeq = intent.getIntExtra("memberSeq", -1)
+                            val token = intent.getStringExtra("jwtToken")!!
+                            val memberSeq = intent.getIntExtra("memberSeq", -1)
 
-                        val file = File(absolutelyPath(imgUri, this))
-                        val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
-                        val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
+                            val file = File(absolutelyPath(imgUri, this))
+                            val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
+                            val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
 
-                        val groupImg= ArrayList<MultipartBody.Part>()
-                        groupImg.add(path)
+                            val groupImg= ArrayList<MultipartBody.Part>()
+                            groupImg.add(path)
 
-                        val groupName = binding.etGroupName.text.toString()
-                        var groupType = binding.spinGroupType.selectedItem.toString()
-                        Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
+                            val groupName = binding.etGroupName.text.toString()
+                            var groupType = binding.spinGroupType.selectedItem.toString()
+                            Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
 
-                        //groupType = "family"
+                            val groupInfo = Group(groupName, groupType, memberSeq, "")
+                            val json = Gson().toJson(groupInfo)
+                            val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
-                        val groupInfo = Group(groupName, groupType, memberSeq, "")
-                        val json = Gson().toJson(groupInfo)
-                        val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
-
-                        groupViewModel.createGroup(token, requestBody, path) // 입력한 항목 값들 ViewModel 로 전달
-                    }else{
-                        Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
+                            // 입력한 항목 값들 ViewModel 로 전달
+                            binding.progressBar.visibility = View.VISIBLE
+                            groupViewModel.createGroup(token, requestBody, path).observe(this){
+                                when (it) {
+                                    201 -> { // Success
+                                        finish()
+                                        binding.progressBar.visibility = View.GONE
+                                        Toast.makeText(this, "그룹을 생성하였습니다.", Toast.LENGTH_SHORT).show()
+                                        return@observe
+                                    }
+                                    400 -> { // 파라미터 오류
+                                        binding.progressBar.visibility = View.GONE
+                                        Toast.makeText(this, "그룹명을 입력해주세요", Toast.LENGTH_SHORT).show()
+                                        return@observe
+                                    }
+                                    500 -> { // 서버 내부오류
+                                        binding.progressBar.visibility = View.GONE
+                                        Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                                        return@observe
+                                    }
+                                }
+                            }
+                        }else{
+                            Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
+                        }
                     }
+
                     true
                 }
                 else -> false
@@ -146,6 +176,7 @@ class GroupCreateActivity : AppCompatActivity() {
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.visibility = View.VISIBLE
         tv.text = "그룹 생성"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)

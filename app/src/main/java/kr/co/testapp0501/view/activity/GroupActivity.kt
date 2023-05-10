@@ -111,7 +111,7 @@ class GroupActivity : AppCompatActivity() {
         }
     }
 
-    // 툴바 설정 [ 메인화면 ]
+    // 툴바 설정 [ 그룹화면 ]
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

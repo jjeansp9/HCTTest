@@ -125,6 +125,7 @@ class SignUpActivity : AppCompatActivity() {
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.visibility = View.VISIBLE
         //val btnBack = findViewById<ImageView>(R.id.btn_back)
         //btnBack.setOnClickListener{btnBack.isSelected = !btnBack.isSelected}
         tv.text = "회원가입"

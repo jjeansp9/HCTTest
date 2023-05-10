@@ -96,6 +96,7 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.visibility = View.VISIBLE
         tv.text = "구성원 요청"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)

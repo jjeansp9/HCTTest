@@ -130,6 +130,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 
         setSupportActionBar(toolbar)
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.visibility = View.VISIBLE
         tv.text = "구성원"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)

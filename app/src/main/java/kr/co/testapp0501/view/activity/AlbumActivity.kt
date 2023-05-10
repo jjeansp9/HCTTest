@@ -2,6 +2,7 @@ package kr.co.testapp0501.view.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
@@ -23,6 +24,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
+        tv.visibility = View.VISIBLE
         tv.text = "앨범"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)

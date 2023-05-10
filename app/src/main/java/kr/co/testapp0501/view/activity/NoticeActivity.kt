@@ -26,7 +26,6 @@ class NoticeActivity : BaseActivity<ActivityNoticeBinding>(R.layout.activity_not
         setSupportActionBar(toolbar)
 
         val tv = findViewById<TextView>(R.id.tv_toolber_title) // 타이틀 뷰
-        findViewById<ImageView>(R.id.btn_notice).visibility = View.VISIBLE // 알림 아이콘
 
         tv.text = "알림"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

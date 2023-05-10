@@ -23,12 +23,9 @@ import retrofit2.Response
 
 class GroupViewModel : ViewModel(){
 
-    private val _code = MutableLiveData<String>()
-    val code : LiveData<String>
-        get() = _code
-
     // 그룹 생성
-    fun createGroup(token : String, groupInfo : RequestBody, groupImg : MultipartBody.Part){
+    fun createGroup(token : String, groupInfo : RequestBody, groupImg : MultipartBody.Part): LiveData<Int>{
+        val result = MutableLiveData<Int>()
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
         apiService.uploadData(token, groupInfo, groupImg).enqueue(object : Callback<String> {
@@ -36,7 +33,7 @@ class GroupViewModel : ViewModel(){
                 call: Call<String>,
                 response: Response<String>
             ) {
-                _code.value = response.code().toString()
+                result.value = response.code()
                 Log.i("GroupViewModel code", "code : ${response.code()}")
                 Log.i("GroupViewModel code", response.headers().name(0))
                 Log.i("GroupViewModel code", response.body().toString())
@@ -47,6 +44,7 @@ class GroupViewModel : ViewModel(){
                 Log.e("GroupViewModel error", "error : ${t.message}")
             }
         })
+        return result
     }
 
     // 그룹 목록
