@@ -30,7 +30,7 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-        var itemView: View = layoutInflater.inflate(R.layout.recycler_member_item, parent, false)
+        val itemView: View = layoutInflater.inflate(R.layout.recycler_member_item, parent, false)
         return VH(itemView)
     }
 

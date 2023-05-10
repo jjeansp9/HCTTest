@@ -175,29 +175,64 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="4dp">
 
-            <ImageView
-                android:id="@+id/google_login"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginRight="6dp"
-                android:padding="12dp"
-                android:src="@drawable/btn_sns_google" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+                <ImageView
+                    android:id="@+id/google_login"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:padding="8dp"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/btn_sns_google" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/google_login"
+                    android:layout_centerHorizontal="true"
+                    android:text="구글"
+                    android:textColor="#999999"/>
+            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/kakao_login"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginRight="6dp"
-                android:padding="12dp"
-                android:src="@drawable/btn_sns_kakao" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+                <ImageView
+                    android:id="@+id/kakao_login"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:padding="8dp"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/btn_sns_kakao" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/kakao_login"
+                    android:layout_centerHorizontal="true"
+                    android:text="카카오톡"
+                    android:textColor="#999999"/>
+            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/naver_login"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:padding="12dp"
-                android:src="@drawable/btn_sns_naver" />
-
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+                <ImageView
+                    android:id="@+id/naver_login"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:padding="8dp"
+                    android:src="@drawable/btn_sns_naver" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/naver_login"
+                    android:layout_centerHorizontal="true"
+                    android:text="네이버"
+                    android:textColor="#999999"/>
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>

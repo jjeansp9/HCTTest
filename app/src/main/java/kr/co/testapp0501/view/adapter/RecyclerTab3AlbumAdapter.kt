@@ -17,7 +17,7 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-        var itemView: View = layoutInflater.inflate(R.layout.recycler_profile_tab3_item, parent, false)
+        val itemView: View = layoutInflater.inflate(R.layout.recycler_profile_tab3_item, parent, false)
         return VH(itemView)
     }
 

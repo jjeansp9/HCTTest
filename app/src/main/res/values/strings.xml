@@ -4,9 +4,9 @@
 
     <!--  그룹생성 액티비티에서 그룹형식 정할 때 사용  -->
     <string-array name="group_select">
-        <item>일반</item>
-        <item>동창</item>
-        <item>가족</item>
+        <item>family</item>
+        <item>sport</item>
+        <item>meeting</item>
     </string-array>
 
     <!--  프로필 액티비티에 있는 탭 레이아웃에서 Text 속성 정의  -->

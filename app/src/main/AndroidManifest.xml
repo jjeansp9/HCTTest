@@ -46,7 +46,7 @@
             android:exported="false"
             />
         <activity
-            android:name=".view.activity.GroupCreateActivity"
+            android:name=".view.activity.IntroActivity"
             android:exported="false"
             />
         <activity
@@ -82,7 +82,7 @@
             android:exported="false"
             /> <!-- 앱 시작할 때 처음으로 실행하는 액티비티 -->
         <activity
-            android:name=".view.activity.IntroActivity"
+            android:name=".view.activity.GroupCreateActivity"
             android:exported="true"
             >
             <intent-filter>

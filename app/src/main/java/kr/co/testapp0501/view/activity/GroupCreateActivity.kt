@@ -21,6 +21,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
@@ -52,12 +55,13 @@ class GroupCreateActivity : AppCompatActivity() {
     }
 
     fun absolutelyPath(path: Uri?, context : Context): String {
-        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
-        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
-        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        val proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        val c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+        val index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         c?.moveToFirst()
 
-        var result = c?.getString(index!!)
+        val result = c?.getString(index!!)
+        c?.close()
 
         return result!!
     }
@@ -69,7 +73,6 @@ class GroupCreateActivity : AppCompatActivity() {
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
                     view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
-
                     true
                 }
                 MotionEvent.ACTION_UP -> {
@@ -91,7 +94,7 @@ class GroupCreateActivity : AppCompatActivity() {
                         var groupType = binding.spinGroupType.selectedItem.toString()
                         Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
 
-                        groupType = "family"
+                        //groupType = "family"
 
                         val groupInfo = Group(groupName, groupType, memberSeq, "")
                         val json = Gson().toJson(groupInfo)
@@ -115,33 +118,15 @@ class GroupCreateActivity : AppCompatActivity() {
         resultLauncher.launch(intent)
     }
 
-    var imgPath = ""
-
     // 이미지 관련 코드
-    var resultLauncher = registerForActivityResult<Intent, ActivityResult>(
+    private var resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode != RESULT_CANCELED) {
             imgUri = result.data!!.data!!
-            Glide.with(this).load(imgUri).into(binding.imgAdd)
-
-            //imgPath = getRealPathFromUri(imgUri)!!
+            val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(16))
+            Glide.with(this).load(imgUri).apply(requestOptions).into(binding.imgAdd)
         }
-    }
-
-    //Uri -- > 절대경로로 바꿔서 리턴시켜주는 메소드
-    fun getRealPathFromUri(uri: Uri?): String? {
-        val proj = arrayOf(MediaStore.Images.Media.DATA)
-        val loader = CursorLoader(
-            this,
-            uri!!, proj, null, null, null
-        )
-        val cursor = loader.loadInBackground()
-        val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        cursor.moveToFirst()
-        val result = cursor.getString(column_index)
-        cursor.close()
-        return result
     }
 
     // 외부저장소 권한요청

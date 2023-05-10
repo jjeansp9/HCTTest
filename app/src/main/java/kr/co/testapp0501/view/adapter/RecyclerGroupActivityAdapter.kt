@@ -6,8 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.roundedCorners
+import com.bumptech.glide.request.RequestOptions
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerGroupItemBinding
 import kr.co.testapp0501.model.recycler.RecyclerGroupData
@@ -32,7 +37,7 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val layoutInflater:LayoutInflater = LayoutInflater.from(context)
-        var itemView: View = layoutInflater.inflate(R.layout.recycler_group_item, parent, false)
+        val itemView: View = layoutInflater.inflate(R.layout.recycler_group_item, parent, false)
         return VH(itemView)
     }
 
@@ -40,8 +45,10 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
         holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) } // 그룹목록 클릭이벤트
 
-        if (items[position].imgGroup == "") Glide.with(context).load(R.drawable.img_group_general).into(holder.binding.imgGroup) // 그룹목록 이미지
-        else Glide.with(context).load(items[position].imgGroup).into(holder.binding.imgGroup) // 그룹목록 이미지
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(16))
+
+        if (items[position].imgGroup == "") Glide.with(context).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
+        else Glide.with(context).load(items[position].imgGroup).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
 
         holder.binding.tvGroupName.text = items[position].tvGroupName // 그룹 이름
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
