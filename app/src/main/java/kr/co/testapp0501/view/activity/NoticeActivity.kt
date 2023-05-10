@@ -1,34 +1,26 @@
 package kr.co.testapp0501.view.activity
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
-import kr.co.testapp0501.databinding.ActivityMainBinding
+import kr.co.testapp0501.base.BaseActivity
+import kr.co.testapp0501.databinding.ActivityNoticeBinding
 import kr.co.testapp0501.viewmodel.MainViewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-
+class NoticeActivity : BaseActivity<ActivityNoticeBinding>(R.layout.activity_notice) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val jwtToken = intent.getStringExtra("jwtToken")!!
-        val groupSeq = intent.getIntExtra("groupSeq", -1)
-        val memberSeq = intent.getIntExtra("memberSeq", -1)
-        val memberLevel = intent.getIntExtra("memberLevel", -1)
-
-        viewDataBinding.vmMain = MainViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
+        viewDataBinding.vmMain = MainViewModel(this, "", -1, -1, -1)
         viewDataBinding.lifecycleOwner = this
-//        viewDataBinding.vmMain = getViewModel()
 
-        // 툴바 설정 [ 메인 화면 ]
         setToolbar()
     }
 
-    // 툴바 설정 [ 메인 화면 ]
+    // 툴바 설정 [ 알림 화면 ]
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -36,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val tv = findViewById<TextView>(R.id.tv_toolber_title) // 타이틀 뷰
         findViewById<ImageView>(R.id.btn_notice).visibility = View.VISIBLE // 알림 아이콘
 
-        tv.setText(R.string.logo_name)
+        tv.text = "알림"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }

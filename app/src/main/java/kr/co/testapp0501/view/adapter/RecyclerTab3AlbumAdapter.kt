@@ -30,7 +30,8 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         holder.binding.tvNumOfComments.text = items[position].tvNumOfComments.toString()
 
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(24))
-        Glide.with(context).load(items[position].imgAlbum).apply(requestOptions).into(holder.binding.imgAlbum)
+        if (items[position].imgAlbum == "") Glide.with(context).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgAlbum) // 앨범글 이미지
+        else Glide.with(context).load(items[position].imgAlbum).apply(requestOptions).into(holder.binding.imgAlbum) // 앨범글 이미지
     }
 
     override fun getItemCount(): Int = items.size

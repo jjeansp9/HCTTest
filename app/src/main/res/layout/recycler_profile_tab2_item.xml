@@ -78,16 +78,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentEnd="true"
-            android:background="#BF5454" />
+            android:src="@drawable/img_group_general"/>
 
     </RelativeLayout>
-
-
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

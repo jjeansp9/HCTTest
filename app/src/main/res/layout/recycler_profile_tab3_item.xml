@@ -49,7 +49,7 @@
         android:id="@+id/img_album"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:background="#FDE5E5"
+        android:src="@drawable/img_group_general"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 
