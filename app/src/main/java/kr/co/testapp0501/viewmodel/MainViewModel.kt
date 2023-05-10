@@ -30,9 +30,10 @@ class MainViewModel(
 
     fun onClickNotice() {startNewActivity(NoticeActivity::class.java)} // 알림 아이콘 클릭
 
-    fun onClickMember() {startNewActivity(MemberActivity::class.java)} // 구성원 메뉴 클릭
-    fun onClickAlbum() {startNewActivity(AlbumActivity::class.java)} // 앨범 메뉴 클릭
-    fun onClickProfile() {startNewActivity(ProfileActivity::class.java)} // 프로필 메뉴 클릭
+    fun onClickTree() {startNewActivity(TreeActivity::class.java)} // 가계도 클릭
+    fun onClickMember() {startNewActivity(MemberActivity::class.java)} // 구성원 클릭
+    fun onClickAlbum() {startNewActivity(AlbumActivity::class.java)} // 앨범 클릭
+    fun onClickProfile() {startNewActivity(ProfileActivity::class.java)} // 프로필 클릭
 
 
 }

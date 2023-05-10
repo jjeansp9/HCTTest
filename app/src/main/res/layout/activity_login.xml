@@ -8,233 +8,244 @@
     android:background="@color/background"
     android:id="@+id/login_root">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
 
-        <ImageView
-            android:id="@+id/img_logo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/img_ex_logo" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
 
         <RelativeLayout
-            android:id="@+id/layout_sign_in"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/img_logo"
-            android:layout_marginTop="24dp"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:layout_gravity="center"
+            >
 
-            <EditText
-                android:id="@+id/et_input_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edit"
-                android:hint="이메일 입력"
-                android:inputType="text|textNoSuggestions"
-                android:maxLength="30"
-                android:maxLines="1"
-                android:padding="12dp"
-                android:textColorHint="#CCCCCC"
-                android:textSize="16sp"
-                tools:ignore="TextFields" />
-
-            <EditText
-                android:id="@+id/et_input_pw"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/et_input_id"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/bg_edit"
-                android:hint="비밀번호 입력"
-                android:maxLines="1"
-                android:maxLength="20"
-                android:inputType="textPassword|textNoSuggestions"
-                android:padding="12dp"
-                android:textColorHint="#CCCCCC"
-                android:textSize="16sp"
-                tools:ignore="TextFields" />
+            <ImageView
+                android:id="@+id/img_logo"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_ex_logo" />
 
             <RelativeLayout
+                android:id="@+id/layout_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_logo"
+                android:layout_marginTop="24dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp">
+
+                <EditText
+                    android:id="@+id/et_input_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edit"
+                    android:hint="이메일 입력"
+                    android:inputType="text|textNoSuggestions"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="12dp"
+                    android:textColorHint="#CCCCCC"
+                    android:textSize="16sp"
+                    tools:ignore="TextFields" />
+
+                <EditText
+                    android:id="@+id/et_input_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_input_id"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_edit"
+                    android:hint="비밀번호 입력"
+                    android:maxLines="1"
+                    android:maxLength="20"
+                    android:inputType="textPassword|textNoSuggestions"
+                    android:padding="12dp"
+                    android:textColorHint="#CCCCCC"
+                    android:textSize="16sp"
+                    tools:ignore="TextFields" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_input_pw"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:id="@+id/img_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/btn_login_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="로그인"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/et_input_pw"
-                android:layout_marginTop="16dp">
+                android:layout_below="@id/layout_sign_in"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/img_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="@drawable/btn_login_selector" />
+                <TextView
+                    android:id="@+id/tv_find_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="6dp"
+                    android:paddingBottom="16dp"
+                    android:text="아이디 찾기"
+                    android:textColor="#999999"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="로그인"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </RelativeLayout>
+                    android:text="|"
+                    android:textColor="#999999" />
+
+                <TextView
+                    android:id="@+id/tv_find_pw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="6dp"
+                    android:paddingBottom="16dp"
+                    android:text="비밀번호 찾기"
+                    android:textColor="#999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="|"
+                    android:textColor="#999999" />
+
+                <TextView
+                    android:id="@+id/tv_sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="6dp"
+                    android:paddingBottom="16dp"
+                    android:text="회원가입"
+                    android:textColor="#999999" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_sns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_sign_up"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="1dp"
+                    android:background="#C5C5C5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:text="SNS 계정으로 로그인"
+                    android:textColor="#8C8C8C"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="1dp"
+                    android:background="#C5C5C5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_sns_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_sns"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+                    <ImageView
+                        android:id="@+id/google_login"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:padding="8dp"
+                        android:layout_marginEnd="6dp"
+                        android:src="@drawable/btn_sns_google" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/google_login"
+                        android:layout_centerHorizontal="true"
+                        android:text="구글"
+                        android:textColor="#999999"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+                    <ImageView
+                        android:id="@+id/kakao_login"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:padding="8dp"
+                        android:layout_marginEnd="6dp"
+                        android:src="@drawable/btn_sns_kakao" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/kakao_login"
+                        android:layout_centerHorizontal="true"
+                        android:text="카카오톡"
+                        android:textColor="#999999"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+                    <ImageView
+                        android:id="@+id/naver_login"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:padding="8dp"
+                        android:src="@drawable/btn_sns_naver" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/naver_login"
+                        android:layout_centerHorizontal="true"
+                        android:text="네이버"
+                        android:textColor="#999999"/>
+                </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 
 
-        <LinearLayout
-            android:id="@+id/layout_sign_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_sign_in"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_find_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="6dp"
-                android:paddingTop="16dp"
-                android:paddingRight="6dp"
-                android:paddingBottom="16dp"
-                android:text="아이디 찾기"
-                android:textColor="#999999"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="|"
-                android:textColor="#999999" />
-
-            <TextView
-                android:id="@+id/tv_find_pw"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="6dp"
-                android:paddingTop="16dp"
-                android:paddingRight="6dp"
-                android:paddingBottom="16dp"
-                android:text="비밀번호 찾기"
-                android:textColor="#999999" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="|"
-                android:textColor="#999999" />
-
-            <TextView
-                android:id="@+id/tv_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="6dp"
-                android:paddingTop="16dp"
-                android:paddingRight="6dp"
-                android:paddingBottom="16dp"
-                android:text="회원가입"
-                android:textColor="#999999" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_sns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_sign_up"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="1dp"
-                android:background="#C5C5C5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:text="SNS 계정으로 로그인"
-                android:textColor="#8C8C8C"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="1dp"
-                android:background="#C5C5C5" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_sns_sign_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_sns"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="4dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-                <ImageView
-                    android:id="@+id/google_login"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:padding="8dp"
-                    android:layout_marginEnd="6dp"
-                    android:src="@drawable/btn_sns_google" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/google_login"
-                    android:layout_centerHorizontal="true"
-                    android:text="구글"
-                    android:textColor="#999999"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-                <ImageView
-                    android:id="@+id/kakao_login"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:padding="8dp"
-                    android:layout_marginEnd="6dp"
-                    android:src="@drawable/btn_sns_kakao" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/kakao_login"
-                    android:layout_centerHorizontal="true"
-                    android:text="카카오톡"
-                    android:textColor="#999999"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-                <ImageView
-                    android:id="@+id/naver_login"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:padding="8dp"
-                    android:src="@drawable/btn_sns_naver" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/naver_login"
-                    android:layout_centerHorizontal="true"
-                    android:text="네이버"
-                    android:textColor="#999999"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-    </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

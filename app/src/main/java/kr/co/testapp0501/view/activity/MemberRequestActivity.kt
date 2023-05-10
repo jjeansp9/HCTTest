@@ -75,7 +75,7 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
             viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)?.observe(this){
                 for (i in it.data.indices){
                     matchingItems.add(RecyclerMemberData(
-                        R.drawable.bg_edit,
+                        -1,
                         it.data[i].memberVO.name,
                         it.data[i].memberVO.birth,
                         it.data[i].groupSeq,

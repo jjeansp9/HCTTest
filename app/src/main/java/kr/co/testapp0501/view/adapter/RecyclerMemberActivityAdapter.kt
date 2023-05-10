@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerMemberItemBinding
 import kr.co.testapp0501.model.recycler.RecyclerMemberData
@@ -36,7 +39,18 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-        Glide.with(context).load(R.drawable.bg_edit).into(holder.binding.imgMember) // 멤버 프로필사진
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
+
+        if (items[position].imgMember == -1) Glide.with(context)
+            .load(R.drawable.img_profile)
+            .apply(requestOptions)
+            .into(holder.binding.imgMember) // 멤버 프로필사진
+
+        else Glide.with(context)
+            .load(items[position].imgMember)
+            .apply(requestOptions)
+            .into(holder.binding.imgMember) // 멤버 프로필사진
+
         //Glide.with(context).load(R.drawable.btn_next_selector).into(holder.binding.btnMemberNext) // 멤버 [>] 버튼
 
         holder.binding.tvName.text = items[position].tvName // 멤버 이름
@@ -46,6 +60,7 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
         when (items[position].memberAuthLevel) {
             10 -> {
                 holder.binding.tvBirth.visibility = View.VISIBLE // 생일
+                holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
 
                 holder.binding.btnMemberAccpet.visibility = View.VISIBLE // 수락 버튼
                 holder.binding.btnMemberCancel.visibility = View.VISIBLE // 거절 버튼

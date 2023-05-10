@@ -143,7 +143,8 @@
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:layout_centerHorizontal="true"
-                                android:src="@drawable/icon_menu_familytree" />
+                                android:src="@drawable/icon_menu_familytree"
+                                android:onClick="@{() -> vmMain.onClickTree()}"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
