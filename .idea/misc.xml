@@ -19,6 +19,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender_girl_white.xml" value="0.179" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender_man.xml" value="0.179" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_gender_man_white.xml" value="0.179" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_group_admin.xml" value="0.29" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_layout_main.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_lunar.xml" value="0.1915" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_member_admin.xml" value="0.1915" />
@@ -53,7 +54,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_create.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_setting.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_intro.xml" value="0.25" />
-        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_member.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_member_request.xml" value="0.3130630630630631" />
@@ -71,7 +72,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_group_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_member_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_profile_tab2_item.xml" value="0.33" />
-        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_profile_tab3_item.xml" value="0.31216216216216214" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_profile_tab3_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/toolbar.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>

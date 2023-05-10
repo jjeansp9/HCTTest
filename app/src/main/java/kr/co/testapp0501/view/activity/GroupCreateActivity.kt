@@ -154,7 +154,7 @@ class GroupCreateActivity : AppCompatActivity() {
     ) { result ->
         if (result.resultCode != RESULT_CANCELED) {
             imgUri = result.data!!.data!!
-            val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(24))
+            val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
             Glide.with(this).load(imgUri).apply(requestOptions).into(binding.imgAdd)
         }
     }

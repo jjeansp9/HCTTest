@@ -50,7 +50,9 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:src="@drawable/img_group_general"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_edit"
+        android:scaleType="centerCrop"
+        android:padding="2dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

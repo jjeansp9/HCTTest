@@ -28,8 +28,8 @@ class RecyclerTab2StoryAdapter constructor(private val context: Context, private
         holder.binding.tvStoryDate.text = items[position].tvStoryDate // 내 이야기 날짜
         holder.binding.tvStory.text = items[position].tvStory // 내 이야기 글
 
-        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(24))
-        if (items[position].imgStory == "") Glide.with(context).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgStory) // 이야기 이미지
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
+        if (items[position].imgStory == "") Glide.with(context).load(R.drawable.img_story).apply(requestOptions).into(holder.binding.imgStory) // 이야기 이미지
         else Glide.with(context).load(items[position].imgStory).apply(requestOptions).into(holder.binding.imgStory) // 이야기 이미지
 
     }

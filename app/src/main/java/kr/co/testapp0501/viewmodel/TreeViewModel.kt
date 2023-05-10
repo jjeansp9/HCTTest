@@ -1,4 +1,6 @@
 package kr.co.testapp0501.viewmodel
 
-class TreeViewModel {
+import kr.co.testapp0501.base.BaseViewModel
+
+class TreeViewModel : BaseViewModel() {
 }

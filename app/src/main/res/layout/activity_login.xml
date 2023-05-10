@@ -6,27 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.LoginActivity"
     android:background="@color/background"
-    android:id="@+id/login_root">
-
+    android:id="@+id/login_root"
+    android:gravity="center">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        >
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            >
+            android:layout_gravity="top">
 
             <ImageView
                 android:id="@+id/img_logo"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/img_ex_logo" />
+                android:src="@drawable/img_ex_logo"
+                android:layout_marginTop="20dp"/>
 
             <RelativeLayout
                 android:id="@+id/layout_sign_in"
@@ -233,13 +232,15 @@
                         android:layout_height="70dp"
                         android:padding="8dp"
                         android:src="@drawable/btn_sns_naver" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/naver_login"
                         android:layout_centerHorizontal="true"
                         android:text="네이버"
-                        android:textColor="#999999"/>
+                        android:textColor="#999999"
+                        android:layout_marginBottom="20dp"/>
                 </RelativeLayout>
             </LinearLayout>
 

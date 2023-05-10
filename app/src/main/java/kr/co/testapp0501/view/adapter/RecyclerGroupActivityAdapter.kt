@@ -45,7 +45,7 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
         holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) } // 그룹목록 클릭이벤트
 
-        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(24))
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
 
         if (items[position].imgGroup == "") Glide.with(context).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
         else Glide.with(context).load(items[position].imgGroup).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
@@ -68,6 +68,8 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
             holder.binding.imgGroup.setBackgroundResource(R.drawable.bt_group_plusbox)
             holder.binding.tvGroupAdmin.text = ""
             holder.binding.tvGroupAdmin.background = null
+        }else{
+            holder.binding.imgGroup.setBackgroundResource(R.drawable.bg_edit)
         }
     }
 
