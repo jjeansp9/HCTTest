@@ -80,6 +80,7 @@ class GroupActivity : AppCompatActivity() {
                     groupItems.add(RecyclerGroupData(
                         ApiService.FILE_SUFFIX_URL+it.data[i].filePaths[0],
                         it.data[i].groupName,
+                        "관리자",
                         it.data[i].groupSeq,
                         it.data[i].memberSeq,
                         it.data[i].memberAuthLevel
@@ -98,6 +99,7 @@ class GroupActivity : AppCompatActivity() {
                     groupItems.add(RecyclerGroupData(
                         "",
                         it.data[i].groupName,
+                        "관리자",
                         it.data[i].groupSeq,
                         it.data[i].memberSeq,
                         it.data[i].memberAuthLevel
@@ -114,6 +116,7 @@ class GroupActivity : AppCompatActivity() {
             }
             groupItems.add(groupItems.size, RecyclerGroupData(
                 "add",
+                "",
                 "",
                 -1,
                 -1,

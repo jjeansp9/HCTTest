@@ -47,17 +47,18 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         viewDataBinding.recyclerMember.adapter = memberAdapter
 
         setToolbar() // 툴바 설정 [ 구성원 화면 ]
-
-        dummyData() // 더미데이터로 UI 테스트
-
-//        clickedMatching() // 매칭대기 클릭
-//        clickedAdmin() // 관리자 클릭
         clickedMember() // 멤버 클릭
     }
 
+    override fun onResume() {
+        super.onResume()
+        groupMemberList() // 그룹 회원 목록
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    private fun dummyData(){
+    private fun groupMemberList(){
         Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq, $memberLevel")
+        memberItems.clear()
 //
 //        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
 
@@ -78,36 +79,16 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
             }
             viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
         }
-
-        // 더미데이터 추가해서 테스트 [ 매칭 ]
-//        for (i in 0 .. 2) {
-//            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "길동이", "94.01.04", "매칭하기",  "매칭대기"))
-//            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "춘삼이", "94.01.04", "매칭하기",  "매칭대기"))
-//            matchingItems.add(RecyclerMemberData(R.drawable.bg_edit, "돌석이", "94.01.04", "매칭하기",  "매칭대기"))
-//        }
-//
-//        // 더미데이터 추가해서 테스트 [ 관리자 ]
-//        for (i in 0 .. 1) {
-//            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "말동이","94.01.04",  "admin",  "admin"))
-//            adminItems.add(RecyclerMemberData(R.drawable.bg_edit, "강순이","94.01.04",  "admin",  "admin"))
-//        }
     }
-
-//
-//    // 관리자 클릭
-//    private fun clickedAdmin(){
-//        adminAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
-//            override fun itemClick(v: View, position: Int) {
-//                Toast.makeText(this@MemberActivity, adminItems[position].tvName, Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
 
     // 멤버 클릭
     private fun clickedMember(){
         memberAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun itemClick(v: View, position: Int) {
                 Toast.makeText(this@MemberActivity, memberItems[position].tvName, Toast.LENGTH_SHORT).show()
+                memberItems.removeAt(position)
+                viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
             }
 
             override fun acceptClick(v: View, position: Int) {

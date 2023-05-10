@@ -51,8 +51,7 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         else Glide.with(context).load(items[position].imgGroup).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
 
         holder.binding.tvGroupName.text = items[position].tvGroupName // 그룹 이름
-        //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
-
+        holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin // 그룹 관리자
         Log.i("swipes position", position.toString())
 
         // 권한에 따라 관리자 뱃지 숨기기/보여주기

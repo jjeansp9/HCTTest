@@ -53,12 +53,18 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
                 return
             }
 
-            // TODO 다이얼로그 형태로 한번 띄워서 버튼클릭 실수 방지하기
+            @SuppressLint("NotifyDataSetChanged")
             override fun acceptClick(v: View, position: Int) {
-                Toast.makeText(this@MemberRequestActivity, matchingItems[position].tvName+"님의 요청을 수락하였습니다.", Toast.LENGTH_SHORT).show()
 
                 val seq = GroupMatchingAccept(matchingItems[position].groupSeq, matchingItems[position].memberSeq, matchingItems[position].matchingSeq)
                 viewDataBinding.vmMember?.groupMatchingAccept(jwtToken, seq)
+
+                Toast.makeText(this@MemberRequestActivity, matchingItems[position].tvName+"님의 요청을 수락하였습니다.", Toast.LENGTH_SHORT).show()
+
+                matchingItems.removeAt(position)
+                viewDataBinding.recyclerMatchingWait.adapter?.notifyDataSetChanged()
+
+
             }
 
             override fun cancelClick(v: View, position: Int) {
