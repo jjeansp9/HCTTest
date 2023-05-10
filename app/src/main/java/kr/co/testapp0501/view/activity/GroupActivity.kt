@@ -95,7 +95,13 @@ class GroupActivity : AppCompatActivity() {
                     )
                 } else {
                     // filePaths가 비어있는 경우, 기본 이미지를 사용하도록 설정
-                    groupItems.add(RecyclerGroupData("", it.data[i].groupName, it.data[i].groupSeq, it.data[i].memberSeq, it.data[i].memberAuthLevel))
+                    groupItems.add(RecyclerGroupData(
+                        "",
+                        it.data[i].groupName,
+                        it.data[i].groupSeq,
+                        it.data[i].memberSeq,
+                        it.data[i].memberAuthLevel
+                    ))
                     Log.i("GroupActivity groupItems else",
                         i.toString() + ": "
                                 + ApiService.FILE_SUFFIX_URL
@@ -106,7 +112,13 @@ class GroupActivity : AppCompatActivity() {
                     )
                 }
             }
-            groupItems.add(groupItems.size, RecyclerGroupData("add", "", -1, -1, -1))
+            groupItems.add(groupItems.size, RecyclerGroupData(
+                "add",
+                "",
+                -1,
+                -1,
+                -1
+            ))
             adapter.notifyDataSetChanged()
             swipeRefreshLayout.isRefreshing = false
             binding.progressBar.visibility = View.GONE

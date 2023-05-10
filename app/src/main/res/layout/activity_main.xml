@@ -42,8 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/img_humantree"
-                    android:visibility="gone"/>
+                    android:src="@drawable/img_humantree"/>
 
                 <TextView
                     android:id="@+id/tv_toolber_title"

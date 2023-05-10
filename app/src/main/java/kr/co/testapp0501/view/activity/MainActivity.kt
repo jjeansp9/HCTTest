@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
+import kr.co.testapp0501.common.CommonUtil
 import kr.co.testapp0501.databinding.ActivityMainBinding
 import kr.co.testapp0501.viewmodel.MainViewModel
 
@@ -26,6 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         // 툴바 설정 [ 메인 화면 ]
         setToolbar()
+        //CommonUtil.setToolbar(this, )
     }
 
     // 툴바 설정 [ 메인 화면 ]
