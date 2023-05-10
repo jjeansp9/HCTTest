@@ -72,6 +72,7 @@ class GroupActivity : AppCompatActivity() {
     // 그룹목록 불러오기
     @SuppressLint("NotifyDataSetChanged")
     private fun groupList(jwtToken: String, memberSeq: Int){
+        binding.progressBar.visibility = View.VISIBLE
         groupViewModel.loadGroupList(jwtToken, memberSeq).observe(this){
             for (i in 0 until it.data.size){
                 if (it.data[i].filePaths.isNotEmpty()) {
@@ -108,6 +109,7 @@ class GroupActivity : AppCompatActivity() {
             groupItems.add(groupItems.size, RecyclerGroupData("add", "", -1, -1, -1))
             adapter.notifyDataSetChanged()
             swipeRefreshLayout.isRefreshing = false
+            binding.progressBar.visibility = View.GONE
         }
     }
 
