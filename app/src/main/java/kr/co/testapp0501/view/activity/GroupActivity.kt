@@ -80,24 +80,32 @@ class GroupActivity : AppCompatActivity() {
                         ApiService.FILE_SUFFIX_URL+it.data[i].filePaths[0],
                         it.data[i].groupName,
                         it.data[i].groupSeq,
-                        it.data[i].memberSeq
+                        it.data[i].memberSeq,
+                        it.data[i].memberAuthLevel
                     ))
                     Log.i("GroupActivity groupItems if",
                         i.toString() + ": "
                                 + ApiService.FILE_SUFFIX_URL
                                 + "/attachFile" + it.data[i].filePaths[0]
-                                + "seq: "
+                                + ", seq: "
                                 + it.data[i].groupSeq + ","
                                 + it.data[i].memberSeq + ","
                                 + it.data[i].memberAuthLevel
                     )
                 } else {
                     // filePaths가 비어있는 경우, 기본 이미지를 사용하도록 설정
-                    groupItems.add(RecyclerGroupData("", it.data[i].groupName, it.data[i].groupSeq, it.data[i].memberSeq))
-                    Log.i("GroupActivity groupItems else", i.toString())
+                    groupItems.add(RecyclerGroupData("", it.data[i].groupName, it.data[i].groupSeq, it.data[i].memberSeq, it.data[i].memberAuthLevel))
+                    Log.i("GroupActivity groupItems else",
+                        i.toString() + ": "
+                                + ApiService.FILE_SUFFIX_URL
+                                + ", seq: "
+                                + it.data[i].groupSeq + ","
+                                + it.data[i].memberSeq + ","
+                                + it.data[i].memberAuthLevel
+                    )
                 }
             }
-            groupItems.add(groupItems.size, RecyclerGroupData("add", "", -1, -1))
+            groupItems.add(groupItems.size, RecyclerGroupData("add", "", -1, -1, -1))
             adapter.notifyDataSetChanged()
             swipeRefreshLayout.isRefreshing = false
         }
@@ -107,7 +115,6 @@ class GroupActivity : AppCompatActivity() {
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
@@ -126,6 +133,7 @@ class GroupActivity : AppCompatActivity() {
                     intent.putExtra("groupSeq", groupItems[position].groupSeq)
                     intent.putExtra("groupName", groupItems[position].tvGroupName)
                     intent.putExtra("memberSeq", groupItems[position].memberSeq)
+                    intent.putExtra("memberLevel", groupItems[position].memberAuthLevel)
                     startActivity(intent)
                     Log.i("positions", token!!)
                 }
@@ -198,7 +206,7 @@ class GroupActivity : AppCompatActivity() {
             // 통신을 위해 et에 입력한 그룹코드 값 보내기
             groupViewModel.groupMatching(jwtToken, groupMatching).observe(this){
 
-                if (it == 200){
+                if (it == 201){
                     Toast.makeText(this, "그룹코드가 일치합니다", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }else if (it == 400){
@@ -217,17 +225,4 @@ class GroupActivity : AppCompatActivity() {
     private fun moveGroupCreateActivity(){
         binding.imgGroupSettings.setOnClickListener{startActivity(Intent(this, GroupSettingActivity::class.java))}
     }
-
-    // 뒤로가기 버튼
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-
 }

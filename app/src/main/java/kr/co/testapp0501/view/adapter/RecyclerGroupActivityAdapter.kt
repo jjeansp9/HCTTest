@@ -45,7 +45,7 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
         holder.binding.groupRoot.setOnClickListener { itemClickListener.groupClick(holder.binding.groupRoot, position) } // 그룹목록 클릭이벤트
 
-        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(16))
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(24))
 
         if (items[position].imgGroup == "") Glide.with(context).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
         else Glide.with(context).load(items[position].imgGroup).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
@@ -54,6 +54,13 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         //holder.binding.tvGroupAdmin.text = items[position].tvGroupAdmin
 
         Log.i("swipes position", position.toString())
+
+        // 권한에 따라 관리자 뱃지 숨기기/보여주기
+        if (items[position].memberAuthLevel == 1){
+            holder.binding.tvGroupAdmin.visibility = View.VISIBLE
+        }else{
+            holder.binding.tvGroupAdmin.visibility = View.GONE
+        }
 
         // 마지막에 생성된 그룹목록은 [+] box의 형태로 생성
         if(items.lastIndex == position){

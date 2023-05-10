@@ -18,7 +18,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.ref.WeakReference
 
-class MemberViewModel(context: Context, private val jwtToken: String, private val groupSeq: Int) : BaseViewModel() {
+class MemberViewModel(
+    context: Context,
+    private val jwtToken: String,
+    private val groupSeq: Int,
+    private val memberSeq: Int,
+    private val memberLevel: Int
+    ) : BaseViewModel() {
 
     // 이와 같은 방법으로 context를 받아야 메모리가 누수되는 현상 방지됨
     private val contextRef = WeakReference(context)
@@ -29,13 +35,16 @@ class MemberViewModel(context: Context, private val jwtToken: String, private va
         val intent = Intent(context, cls)
         intent.putExtra("jwtToken", jwtToken)
         intent.putExtra("groupSeq", groupSeq)
+        intent.putExtra("memberSeq", memberSeq)
+        intent.putExtra("memberLevel", memberLevel)
         context.startActivity(intent)
     }
 
+    // 멤버 요청 대기화면으로 이동
     fun onClickMemberRequest() {
         startNewActivity(MemberRequestActivity::class.java)
         Log.i("click", "clicked")
-    } // 멤버 요청 대기화면으로 이동
+    }
 
     // 그룹 매칭 대기 회원 조회
     fun groupMatchingList(jwtToken: String, groupSeq: Int): LiveData<MatchingWaitingList>{

@@ -7,5 +7,6 @@ data class RecyclerMemberData(
     val groupSeq: Int,
     val memberSeq: Int,
     val matchingSeq: Int,
+    val permission: String,
     val memberAuthLevel: Int
 )

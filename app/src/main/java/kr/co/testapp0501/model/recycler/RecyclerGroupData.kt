@@ -4,5 +4,6 @@ data class RecyclerGroupData(
     val imgGroup : String,
     val tvGroupName : String,
     val groupSeq : Int,
-    val memberSeq : Int
+    val memberSeq : Int,
+    val memberAuthLevel : Int
 )

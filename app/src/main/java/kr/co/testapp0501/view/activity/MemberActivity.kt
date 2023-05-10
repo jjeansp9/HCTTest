@@ -29,14 +29,18 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 
     private lateinit var jwtToken: String
     private var groupSeq: Int = -1
+    private var memberSeq: Int = -1
+    private var memberLevel: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         jwtToken = intent.getStringExtra("jwtToken")!!
         groupSeq = intent.getIntExtra("groupSeq", groupSeq)
+        memberSeq = intent.getIntExtra("memberSeq", memberSeq)
+        memberLevel = intent.getIntExtra("memberLevel", memberLevel)
 
-        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq)
+        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
         viewDataBinding.lifecycleOwner = this
 //        viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
 //        viewDataBinding.recyclerAdmin.adapter = adminAdapter
@@ -53,13 +57,12 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 
     @SuppressLint("NotifyDataSetChanged")
     private fun dummyData(){
-        Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq")
+        Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq, $memberLevel")
 //
 //        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
 
         // 그룹에 속한 회원 목록
         viewDataBinding.vmMember?.groupMemberList(jwtToken, groupSeq)?.observe(this){
-
             for(i in it.data.indices){
                 memberItems.add(RecyclerMemberData(
                     R.drawable.bg_edit,
@@ -68,8 +71,10 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
                     -1,
                     it.data[i].memberVO.seq,
                     it.data[i].seq,
+                    "",
                     it.data[i].memberAuthLevel
                 ))
+
             }
             viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
         }

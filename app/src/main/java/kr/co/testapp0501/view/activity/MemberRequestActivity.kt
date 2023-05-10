@@ -24,15 +24,19 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
 
     private lateinit var jwtToken : String
     private var groupSeq : Int = -1
+    private var memberSeq: Int = -1
+    private var memberLevel: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         jwtToken = intent.getStringExtra("jwtToken")!!
         groupSeq = intent.getIntExtra("groupSeq", groupSeq)
-        Log.i("memberRequest", groupSeq.toString())
+        memberSeq = intent.getIntExtra("memberSeq", memberSeq)
+        memberLevel = intent.getIntExtra("memberLevel", memberLevel)
+        Log.i("memberRequest groupSeq", groupSeq.toString())
 
-        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq)
+        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
         viewDataBinding.lifecycleOwner = this
 
         viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
@@ -65,21 +69,24 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
 
     @SuppressLint("NotifyDataSetChanged")
     private fun requestMemberList(){
-        Log.i("memberRequest", groupSeq.toString())
-        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)?.observe(this){
-            for (i in it.data.indices){
-                matchingItems.add(RecyclerMemberData(
-                    R.drawable.bg_edit,
-                    it.data[i].memberVO.name,
-                    it.data[i].memberVO.birth,
-                    it.data[i].groupSeq,
-                    it.data[i].memberVO.seq,
-                    it.data[i].seq,
-                    10
-                ))
+        Log.i("memberRequestActivity", "$jwtToken, $groupSeq, $memberLevel")
+        if (memberLevel == 1) {
+            viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)?.observe(this){
+                for (i in it.data.indices){
+                    matchingItems.add(RecyclerMemberData(
+                        R.drawable.bg_edit,
+                        it.data[i].memberVO.name,
+                        it.data[i].memberVO.birth,
+                        it.data[i].groupSeq,
+                        it.data[i].memberVO.seq,
+                        it.data[i].seq,
+                        it.data[i].permission,
+                        10
+                    ))
+                }
+                //Log.i("wwwwww", matchingItems.size.toString() + it.data[0].memberVO.name)
+                viewDataBinding.recyclerMatchingWait.adapter?.notifyDataSetChanged()
             }
-            Log.i("wwwwww", matchingItems.size.toString() + it.data[0].memberVO.name)
-            viewDataBinding.recyclerMatchingWait.adapter?.notifyDataSetChanged()
         }
     }
 

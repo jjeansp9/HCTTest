@@ -6,7 +6,13 @@ import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.view.activity.*
 import java.lang.ref.WeakReference
 
-class MainViewModel(context: Context, private val jwtToken: String, private val groupSeq: Int) : BaseViewModel(){
+class MainViewModel(
+    context: Context,
+    private val jwtToken: String,
+    private val groupSeq: Int,
+    private val memberSeq: Int,
+    private val memberLevel: Int
+    ) : BaseViewModel(){
 
     // 이와 같은 방법으로 context를 받아야 메모리가 누수되는 현상 방지됨
     private val contextRef = WeakReference(context)
@@ -17,6 +23,8 @@ class MainViewModel(context: Context, private val jwtToken: String, private val 
         val intent = Intent(context, cls)
         intent.putExtra("jwtToken", jwtToken)
         intent.putExtra("groupSeq", groupSeq)
+        intent.putExtra("memberSeq", memberSeq)
+        intent.putExtra("memberLevel", memberLevel)
         context.startActivity(intent)
     }
 

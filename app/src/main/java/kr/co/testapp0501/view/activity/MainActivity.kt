@@ -15,8 +15,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         val jwtToken = intent.getStringExtra("jwtToken")!!
         val groupSeq = intent.getIntExtra("groupSeq", -1)
+        val memberSeq = intent.getIntExtra("memberSeq", -1)
+        val memberLevel = intent.getIntExtra("memberLevel", -1)
 
-        viewDataBinding.vmMain = MainViewModel(this, jwtToken, groupSeq)
+        viewDataBinding.vmMain = MainViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
         viewDataBinding.lifecycleOwner = this
 //        viewDataBinding.vmMain = getViewModel()
 
