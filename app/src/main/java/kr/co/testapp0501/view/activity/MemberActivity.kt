@@ -107,7 +107,9 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
             @SuppressLint("NotifyDataSetChanged")
             override fun itemClick(v: View, position: Int) {
                 Toast.makeText(this@MemberActivity, "${memberItems[position].tvName}님의 프로필 화면으로 이동", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@MemberActivity, ProfileActivity::class.java))
+                val intent = Intent(this@MemberActivity, ProfileActivity::class.java)
+                intent.putExtra("memberName", memberItems[position].tvName)
+                startActivity(intent)
             }
 
             override fun acceptClick(v: View, position: Int) {

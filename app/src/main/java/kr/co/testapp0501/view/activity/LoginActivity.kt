@@ -4,15 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.kakao.sdk.auth.AuthApiClient
@@ -21,12 +18,9 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
-import kr.co.testapp0501.Logger
-import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityLoginBinding
 import kr.co.testapp0501.model.UserRepository
 import kr.co.testapp0501.model.user.NormalLogin
-import kr.co.testapp0501.model.user.SocialLogin
 import kr.co.testapp0501.model.user.UserModel
 import kr.co.testapp0501.viewmodel.UserViewModel
 
@@ -60,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         val loadUserInfo: NormalLogin= users.loadNormalData()
-        val loadSnsId=  users.loadSnsId()
+        val loadSnsId=  users.loadSnsData()
         val loadLoginType=  users.loadLoginType()
 
         //snsTokenConfirm(loadSnsId) // sns 자동로그인
@@ -73,9 +67,9 @@ class LoginActivity : AppCompatActivity() {
         binding.tvSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
 
         binding.imgLogin.setOnClickListener{normalLogin()} // 일반 로그인
-        binding.kakaoLogin.setOnClickListener{login(kakao, loadSnsId)} // 카카오 로그인
-        binding.naverLogin.setOnClickListener{login(naver, loadSnsId)} // 네이버 로그인
-        binding.googleLogin.setOnClickListener{login(google, loadSnsId)} // 구글 로그인
+        binding.kakaoLogin.setOnClickListener{login(kakao)} // 카카오 로그인
+        binding.naverLogin.setOnClickListener{login(naver)} // 네이버 로그인
+        binding.googleLogin.setOnClickListener{login(google)} // 구글 로그인
 
 
         Log.i("naverToken",NaverIdLoginSDK.getAccessToken().toString() +"," + NaverIdLoginSDK.getRefreshToken() + ", " + NaverIdLoginSDK.getExpiresAt())
@@ -116,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
         // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
         if (normalId != "default" && normalPw != "default"){
             // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-            val login = NormalLogin(normalId, normalPw)
+            val login = NormalLogin(normalId, normalPw, "")
             userViewModel.normalLogin(this, login).observe(this){
                 if (it == 500){ // code 500: 서버 내부 오류
                     Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
@@ -127,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // 파라미터 값에 맞는 플랫폼으로 로그인 실행
-    private fun login(platform : String, id: String){
+    private fun login(platform : String){
         userViewModel.startLogin(this, platform)
     }
 
@@ -165,7 +159,7 @@ class LoginActivity : AppCompatActivity() {
         }else{
             val id = binding.etInputId.text.toString().trim()
             val pw = binding.etInputPw.text.toString().trim()
-            val login = NormalLogin(id, pw)
+            val login = NormalLogin(id, pw, "")
 
             // 입력한 id, pw 값을 서버로 보내기
             userViewModel.normalLogin(this, login).observe(this){

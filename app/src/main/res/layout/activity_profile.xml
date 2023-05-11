@@ -55,6 +55,7 @@
                             android:background="@drawable/bg_profile_circle"/>
 
                         <TextView
+                            android:id="@+id/tv_profile_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="홍길동"

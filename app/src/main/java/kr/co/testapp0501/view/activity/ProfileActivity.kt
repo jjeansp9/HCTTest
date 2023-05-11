@@ -9,10 +9,14 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.ActivityProfileBinding
+import kr.co.testapp0501.model.user.UserModel
 import kr.co.testapp0501.view.adapter.ViewPagerFragmentAdapter
 import kr.co.testapp0501.viewmodel.ProfileViewModel
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
+
+    private var users = UserModel(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,7 +34,20 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
         }.attach()
         setToolbar()
+
+        // 프로필화면 이름설정
+        setProfileName()
+
         tabChanged() // 탭 전환 이벤트
+    }
+
+    // 프로필화면 이름설정
+    private fun setProfileName(){
+        if (intent.getStringExtra("memberName") == null){
+            viewDataBinding.tvProfileName.text = users.loadNormalData().name
+        }else{
+            viewDataBinding.tvProfileName.text = intent.getStringExtra("memberName")
+        }
     }
 
     // 툴바 설정 [ 프로필 화면 ]

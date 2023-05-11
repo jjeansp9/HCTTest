@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.user.UserApiClient
@@ -75,7 +73,7 @@ class UserRepository {
 
                     // 자동으로 로그인하기 위해 디바이스에 [id, pw] 저장
                     users.saveLoginType("defalut")
-                    users.saveNormalData(normalUser.id, normalUser.pw)
+                    users.saveNormalData(normalUser.id, normalUser.pw, normalUser.name)
 
                     (context as SignUpActivity).finish()
                     Toast.makeText(context, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show()
@@ -249,7 +247,7 @@ class UserRepository {
 
                     // 자동으로 로그인하기 위해 디바이스에 [type, id] 저장
                     users.saveLoginType(user.snsType)
-                    users.saveSnsId(user.snsId)
+                    users.saveSnsData(user.snsId)
 
                     val intent = Intent(context, GroupActivity::class.java)
                     intent.putExtra("jwtToken", response.body()?.data?.jwtToken)
@@ -283,9 +281,8 @@ class UserRepository {
                 if (response.isSuccessful){
                     Log.i("UserRepository snsSignIn()", response.body()?.msg.toString())
 
-                    // 자동으로 로그인하기 위해 디바이스에 [type, id] 저장
                     users.saveLoginType(snsType)
-                    users.saveSnsId(snsId)
+                    users.saveSnsData(snsId)
 
                     val intent = Intent(context, GroupActivity::class.java)
                     intent.putExtra("jwtToken", response.body()?.data?.jwtToken)

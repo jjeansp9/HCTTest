@@ -23,7 +23,7 @@ class UserModel constructor(val context: Context) {
 
 
     // sns id 저장
-    fun saveSnsId(id:String){
+    fun saveSnsData(id:String){
         context.getSharedPreferences("snsId", Context.MODE_PRIVATE).edit().apply{
             putString("id", id)
             apply()
@@ -31,7 +31,7 @@ class UserModel constructor(val context: Context) {
     }
 
     // sns id 불러오기
-    fun loadSnsId(): String{
+    fun loadSnsData(): String{
         val pref: SharedPreferences = context.getSharedPreferences("snsId", Context.MODE_PRIVATE)
         var id: String = pref.getString("id", "default") as String
 
@@ -39,10 +39,11 @@ class UserModel constructor(val context: Context) {
     }
 
     // normal Data 저장
-    fun saveNormalData(id:String, pw:String){
+    fun saveNormalData(id:String, pw:String, name:String){
         context.getSharedPreferences("normalData", Context.MODE_PRIVATE).edit().apply{
             putString("id", id)
             putString("pw", pw)
+            putString("name", name)
             apply()
         }
     }
@@ -52,8 +53,9 @@ class UserModel constructor(val context: Context) {
         val pref: SharedPreferences = context.getSharedPreferences("normalData", Context.MODE_PRIVATE)
         var id: String = pref.getString("id", "default") as String
         var pw: String = pref.getString("pw", "default") as String // 저장된 데이터가 없으면 ""
+        var name: String = pref.getString("name", "default") as String // 저장된 데이터가 없으면 ""
 
-        return NormalLogin(id, pw)
+        return NormalLogin(id, pw, name)
     }
 
 }

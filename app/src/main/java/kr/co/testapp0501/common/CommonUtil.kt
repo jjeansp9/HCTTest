@@ -20,6 +20,5 @@ class CommonUtil {
             activity.supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
-
     }
 }
