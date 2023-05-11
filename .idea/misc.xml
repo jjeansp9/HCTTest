@@ -30,6 +30,8 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_textbox_gender_girl.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_textbox_gender_man.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/bg_update_request_member.xml" value="0.29" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_album_like_selector.xml" value="0.178" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_album_upload_selector.xml" value="0.178" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_back_selector.xml" value="0.1975" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_dialog_group_code.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/btn_login_selector.xml" value="0.192" />
@@ -49,6 +51,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/ic_launcher_background.xml" value="0.179" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/ic_main_menu_img.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/fonts/drawable-anydpi/ic_group_access.xml" value="0.193" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/fonts/drawable-anydpi/ic_group_add.xml" value="0.178" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_album.xml" value="0.29128248113998323" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_access.xml" value="0.3130630630630631" />
@@ -71,6 +74,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_profile_tab1_info.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_profile_tab2_story.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_profile_tab3_album.xml" value="0.3130630630630631" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_album_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_group_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_member_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_profile_tab2_item.xml" value="0.33" />

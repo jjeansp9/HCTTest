@@ -37,7 +37,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         // 프로필화면 이름설정
         setProfileName()
         tabChanged() // 탭 전환 이벤트
-        viewDataBinding.btnProfileUpdate.setOnClickListener{btnUpdate()}
+        //viewDataBinding.btnProfileUpdate.setOnClickListener{btnUpdate()}
     }
 
     private fun btnUpdate(){
@@ -82,9 +82,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 super.onPageSelected(position)
 
                 when(position){
-                    0 ->{viewDataBinding.btnProfileUpdate.visibility = View.VISIBLE}
-                    1 ->{viewDataBinding.btnProfileUpdate.visibility = View.GONE}
-                    2 ->{viewDataBinding.btnProfileUpdate.visibility = View.GONE}
+//                    0 ->{viewDataBinding.btnProfileUpdate.visibility = View.VISIBLE}
+//                    1 ->{viewDataBinding.btnProfileUpdate.visibility = View.GONE}
+//                    2 ->{viewDataBinding.btnProfileUpdate.visibility = View.GONE}
                 }
             }
         })

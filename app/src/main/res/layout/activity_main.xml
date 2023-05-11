@@ -167,7 +167,8 @@
                                 android:layout_below="@id/img_menu_familytree"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="가계도" />
+                                android:text="가계도"
+                                android:textColor="@color/black"/>
 
                         </RelativeLayout>
 
@@ -193,7 +194,8 @@
                                 android:layout_below="@id/img_menu_member"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="구성원" />
+                                android:text="구성원"
+                                android:textColor="@color/black"/>
 
                         </RelativeLayout>
 
@@ -218,7 +220,8 @@
                                 android:layout_below="@id/img_menu_schedule"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="일정" />
+                                android:text="일정"
+                                android:textColor="@color/black"/>
 
                         </RelativeLayout>
 
@@ -244,7 +247,8 @@
                                 android:layout_below="@id/img_menu_profile"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="프로필" />
+                                android:text="프로필"
+                                android:textColor="@color/black"/>
 
                         </RelativeLayout>
 
@@ -278,7 +282,8 @@
                                 android:layout_below="@id/img_menu_reference"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="자료실" />
+                                android:text="자료실"
+                                android:textColor="@color/black"/>
 
 
                         </RelativeLayout>
@@ -304,7 +309,8 @@
                                 android:layout_below="@id/img_menu_set"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="설정" />
+                                android:text="설정"
+                                android:textColor="@color/black"/>
 
                         </RelativeLayout>
 
@@ -330,7 +336,8 @@
                                 android:layout_below="@id/img_menu_album"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="앨범" />
+                                android:text="앨범"
+                                android:textColor="@color/black"/>
 
                         </RelativeLayout>
 
@@ -355,7 +362,8 @@
                                 android:layout_below="@id/img_menu_dues"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="3dp"
-                                android:text="회비" />
+                                android:text="회비"
+                                android:textColor="@color/black"/>
 
                         </RelativeLayout>
 

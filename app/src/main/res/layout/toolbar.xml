@@ -67,6 +67,16 @@
                 android:layout_marginEnd="4dp"
                 android:visibility="gone"/>
 
+            <ImageView
+                android:id="@+id/btn_album_upload"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/btn_album_upload_selector"
+                android:layout_gravity="end"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp"
+                android:visibility="gone"/>
+
 <!--            <ImageView-->
 <!--                android:id="@+id/btn_notice"-->
 <!--                android:layout_width="48dp"-->

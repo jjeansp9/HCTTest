@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:ignore="MissingConstraints">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_album_profile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/img_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/img_album_picture"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:padding="1dp"
+        android:background="@drawable/bg_profile_circle"
+        android:layout_marginTop="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/img_album_picture"
+        app:layout_constraintStart_toEndOf="@id/img_album_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="6dp">
+
+        <TextView
+            android:id="@+id/tv_album_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홍길동"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2023년 2월 15일 오후 7:03"
+            android:layout_below="@id/tv_album_name"/>
+
+    </RelativeLayout>
+
+
+
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="#C1C1C1"
+        app:layout_constraintBottom_toTopOf="@id/img_album_picture"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        />
+
+    <ImageView
+        android:id="@+id/img_album_picture"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/img_album_profile"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/img_group_general"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/tv_album_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="앨범 타이틀"
+        app:layout_constraintTop_toBottomOf="@id/img_album_picture"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_album_contents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_album_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginTop="2dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        android:textColor="#2B2B2B"
+        android:maxLines="2"
+        android:ellipsize="end"/>
+
+    <ImageView
+        android:id="@+id/layout_line_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#A5A5A5"
+        app:layout_constraintTop_toBottomOf="@id/tv_album_contents"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋아요"
+        app:layout_constraintTop_toBottomOf="@id/layout_line_top"
+        app:layout_constraintBottom_toTopOf="@id/layout_line_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/layout_line_center"/>
+
+    <ImageView
+        android:id="@+id/layout_line_center"
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_line_top"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="#A5A5A5"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="댓글쓰기"
+        app:layout_constraintTop_toBottomOf="@id/layout_line_top"
+        app:layout_constraintBottom_toTopOf="@id/layout_line_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/layout_line_center"/>
+
+    <ImageView
+        android:id="@+id/layout_line_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#A5A5A5"
+        app:layout_constraintTop_toBottomOf="@id/layout_line_center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
