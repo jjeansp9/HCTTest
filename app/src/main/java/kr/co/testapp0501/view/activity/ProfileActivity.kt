@@ -1,5 +1,6 @@
 package kr.co.testapp0501.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -19,11 +20,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewDataBinding.vmProfile = ProfileViewModel()
         viewDataBinding.lifecycleOwner = this
 
-        // FragmentStateAdapter 생성 : Fragment 여러개를 ViewPager2에 연결해주는 역할
         val pagerAdapter = ViewPagerFragmentAdapter(this)
 
         viewDataBinding.viewPager.adapter = pagerAdapter
@@ -37,8 +36,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
         // 프로필화면 이름설정
         setProfileName()
-
         tabChanged() // 탭 전환 이벤트
+        viewDataBinding.btnProfileUpdate.setOnClickListener{btnUpdate()}
+    }
+
+    private fun btnUpdate(){
+        startActivity(Intent(this, ProfileUpdateActivity::class.java))
     }
 
     // 프로필화면 이름설정
