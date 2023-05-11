@@ -79,7 +79,9 @@
                     android:layout_marginEnd="30dp"
                     android:paddingBottom="12dp"
                     android:layout_marginTop="8dp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:imeOptions="flagNoExtractUi"
+                    android:windowSoftInputMode="adjustUnspecified"/>
 
                 <TextView
                     android:id="@+id/tv_group_type"

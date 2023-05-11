@@ -52,8 +52,6 @@ class GroupActivity : AppCompatActivity() {
         // 아래로 당겨서 새로고침
         updateGroupList()
 
-        groupList(jwtToken, memberSeq)
-
         // 설정 버튼 클릭 [ 설정 화면으로 이동 ]
         moveGroupCreateActivity()
 
@@ -61,10 +59,14 @@ class GroupActivity : AppCompatActivity() {
         clickedGroupAdd()
     }
 
+    override fun onResume() {
+        super.onResume()
+        groupList(jwtToken, memberSeq)
+    }
+
     // 아래로 당겨서 새로고침
     private fun updateGroupList(){
         swipeRefreshLayout.setOnRefreshListener{
-            groupItems.clear()
             groupList(jwtToken, memberSeq)
         }
     }
@@ -72,6 +74,7 @@ class GroupActivity : AppCompatActivity() {
     // 그룹목록 불러오기
     @SuppressLint("NotifyDataSetChanged")
     private fun groupList(jwtToken: String, memberSeq: Int){
+        groupItems.clear()
         binding.progressBar.visibility = View.VISIBLE
         groupViewModel.loadGroupList(jwtToken, memberSeq).observe(this){
             for (i in 0 until it.data.size){

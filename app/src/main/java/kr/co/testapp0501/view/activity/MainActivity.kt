@@ -17,11 +17,14 @@ import kr.co.testapp0501.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+    var groupName : String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val jwtToken = intent.getStringExtra("jwtToken")!!
         val groupSeq = intent.getIntExtra("groupSeq", -1)
+        groupName = intent.getStringExtra("groupName")!!
         val memberSeq = intent.getIntExtra("memberSeq", -1)
         val memberLevel = intent.getIntExtra("memberLevel", -1)
 
@@ -39,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun setTitleLayout(){
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(60))
         val iv : ImageView = findViewById(R.id.img_group_title)
+        viewDataBinding.tvGroupName.text = groupName
         Glide.with(this).load(R.drawable.img_main_top_01).apply(requestOptions).into(iv)
 
     //        if (items[position].imgGroup == "") Glide.with(this).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지

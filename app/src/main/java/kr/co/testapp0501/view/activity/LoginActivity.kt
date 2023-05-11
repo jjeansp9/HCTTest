@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
         clickedBackGround()
 
         // 일반 회원가입
-        binding.layoutSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
+        binding.tvSignUp.setOnClickListener{startActivity(Intent(this, SignUpActivity::class.java))}
 
         binding.imgLogin.setOnClickListener{normalLogin()} // 일반 로그인
         binding.kakaoLogin.setOnClickListener{login(kakao, loadSnsId)} // 카카오 로그인

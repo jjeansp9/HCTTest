@@ -135,7 +135,8 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_layout_main"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="20dp"
+                    android:layout_marginBottom="20dp">
 
                     <LinearLayout
                         android:id="@+id/layout_row_1"
