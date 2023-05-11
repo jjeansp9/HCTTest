@@ -48,7 +48,9 @@
                     android:padding="12dp"
                     android:textColorHint="#CCCCCC"
                     android:textSize="16sp"
-                    tools:ignore="TextFields" />
+                    tools:ignore="TextFields"
+                    android:imeOptions="flagNoExtractUi"
+                    android:windowSoftInputMode="adjustUnspecified"/>
 
                 <EditText
                     android:id="@+id/et_input_pw"
@@ -64,7 +66,9 @@
                     android:padding="12dp"
                     android:textColorHint="#CCCCCC"
                     android:textSize="16sp"
-                    tools:ignore="TextFields" />
+                    tools:ignore="TextFields"
+                    android:imeOptions="flagNoExtractUi"
+                    android:windowSoftInputMode="adjustUnspecified"/>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"

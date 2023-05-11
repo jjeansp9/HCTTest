@@ -35,7 +35,6 @@
             android:layout_height="wrap_content"
             android:text="코드 입력"
             android:layout_centerVertical="true"
-
             android:paddingStart="8dp"
             android:paddingEnd="8dp"/>
 
@@ -48,7 +47,9 @@
             android:maxLines="1"
             android:maxLength="30"
             android:inputType="text"
-            android:paddingStart="12dp"/>
+            android:paddingStart="12dp"
+            android:imeOptions="flagNoExtractUi"
+            android:windowSoftInputMode="adjustUnspecified"/>
 
     </RelativeLayout>
 

@@ -47,7 +47,9 @@
                 android:paddingTop="12dp"
                 android:layout_marginTop="8dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:imeOptions="flagNoExtractUi"
+                android:windowSoftInputMode="adjustUnspecified"/>
 
 
             <TextView
@@ -82,7 +84,9 @@
                 android:paddingBottom="12dp"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:imeOptions="flagNoExtractUi"
+                android:windowSoftInputMode="adjustUnspecified"/>
 
             <TextView
                 android:id="@+id/tv_pw_duplicate"
@@ -116,7 +120,9 @@
                 android:paddingStart="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:imeOptions="flagNoExtractUi"
+                android:windowSoftInputMode="adjustUnspecified"/>
 
             <TextView
                 android:id="@+id/tv_not_same"
@@ -150,7 +156,9 @@
                 android:paddingStart="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:imeOptions="flagNoExtractUi"
+                android:windowSoftInputMode="adjustUnspecified"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -248,7 +256,9 @@
                     android:paddingStart="16dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:imeOptions="flagNoExtractUi"
+                    android:windowSoftInputMode="adjustUnspecified"/>
 
                 <TextView
                     android:id="@+id/btn_request_num"
@@ -276,7 +286,9 @@
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:textColorHint="#999999"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:imeOptions="flagNoExtractUi"
+                android:windowSoftInputMode="adjustUnspecified"/>
 
             <TextView
                 android:id="@+id/tv_response_num_success"

@@ -53,6 +53,7 @@
         <activity
             android:name=".view.activity.SignUpSnsActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             />
         <activity
             android:name=".view.activity.GroupCreateActivity"
@@ -65,6 +66,7 @@
         <activity
             android:name=".view.activity.SignUpActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -85,6 +87,7 @@
         <activity
             android:name=".view.activity.LoginActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan"
             />
         <activity
             android:name=".view.activity.MainActivity"

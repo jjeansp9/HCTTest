@@ -19,5 +19,7 @@ class CommonUtil {
             activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             activity.supportActionBar?.setDisplayShowTitleEnabled(false)
         }
+
+
     }
 }
