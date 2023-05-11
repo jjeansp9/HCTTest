@@ -87,7 +87,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
             @SuppressLint("NotifyDataSetChanged")
             override fun itemClick(v: View, position: Int) {
                 Toast.makeText(this@MemberActivity, memberItems[position].tvName, Toast.LENGTH_SHORT).show()
-                memberItems.removeAt(position)
                 viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
             }
 

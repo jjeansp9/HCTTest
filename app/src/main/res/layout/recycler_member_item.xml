@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="56dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
+    android:layout_marginTop="8dp"
     android:id="@+id/item_root">
 
     <ImageView
         android:id="@+id/img_member"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_marginEnd="12dp"
         android:src="@drawable/img_profile"
         android:padding="1dp"
         android:background="@drawable/bg_profile"/>
 
-    <TextView
-        android:id="@+id/tv_name"
+    <LinearLayout
+        android:id="@+id/layout_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/img_member"
-        android:text="홍길동"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:layout_toEndOf="@id/img_member">
+
+        <TextView
+            android:id="@+id/tv_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="관리자"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:background="@drawable/bg_member_admin"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홍길동"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_birth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/tv_name"
+        android:layout_toEndOf="@id/layout_name"
         android:text="94.01.03"
         android:layout_marginStart="12dp"
         android:textColor="@color/black"
         android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/tv_admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="관리자"
-        android:textColor="@color/black"
-        android:layout_toEndOf="@id/tv_name"
-        android:layout_centerVertical="true"
-        android:textSize="12sp"
-        android:background="@drawable/bg_member_admin"
-        android:layout_marginStart="8dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:visibility="gone"/>
+
 
 <!--    <ImageView-->
 <!--        android:id="@+id/btn_member_next"-->
