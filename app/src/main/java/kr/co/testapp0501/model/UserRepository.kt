@@ -108,6 +108,8 @@ class UserRepository {
                     intent.putExtra("jwtToken", response.body()?.data?.jwtToken)
                     intent.putExtra("memberSeq", response.body()?.data?.seq)
                     context.startActivity(intent)
+
+                    (context as LoginActivity).finish()
                     Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
 
                 } else { // 일반로그인에 실패한 경우

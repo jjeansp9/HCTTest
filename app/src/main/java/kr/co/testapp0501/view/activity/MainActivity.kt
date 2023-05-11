@@ -5,6 +5,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.common.CommonUtil
@@ -27,7 +31,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         // 툴바 설정 [ 메인 화면 ]
         setToolbar()
+        setTitleLayout()
         //CommonUtil.setToolbar(this, )
+    }
+
+    // 타이틀 Layout View 설정
+    private fun setTitleLayout(){
+        val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(60))
+        val iv : ImageView = findViewById(R.id.img_group_title)
+        Glide.with(this).load(R.drawable.img_main_top_01).apply(requestOptions).into(iv)
+
+    //        if (items[position].imgGroup == "") Glide.with(this).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
+    //        else Glide.with(context).load(items[position].imgGroup).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
     }
 
     // 툴바 설정 [ 메인 화면 ]

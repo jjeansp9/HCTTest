@@ -87,29 +87,43 @@
 
                 <RelativeLayout
                     android:id="@+id/layout_group_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@drawable/bg_layout_main"
-                    android:padding="30dp">
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/tv_hello"
+                    <ImageView
+                        android:id="@+id/img_group_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_main_top_01" />
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="환영합니다"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="30dp">
 
-                    <TextView
-                        android:id="@+id/tv_group_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_hello"
-                        android:text="이씨네 가족"
-                        android:textColor="@color/black"
-                        android:textSize="26sp" />
+                        <TextView
+                            android:id="@+id/tv_group_hello"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="환영합니다"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_group_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_group_hello"
+                            android:text="이씨네 가족"
+                            android:textColor="@color/black"
+                            android:textSize="24sp" />
+
+                    </RelativeLayout>
+
 
                 </RelativeLayout>
 
@@ -143,8 +157,8 @@
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:layout_centerHorizontal="true"
-                                android:src="@drawable/icon_menu_familytree"
-                                android:onClick="@{() -> vmMain.onClickTree()}"/>
+                                android:onClick="@{() -> vmMain.onClickTree()}"
+                                android:src="@drawable/icon_menu_familytree" />
 
                             <TextView
                                 android:layout_width="wrap_content"

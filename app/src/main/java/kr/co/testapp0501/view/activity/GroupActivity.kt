@@ -224,7 +224,7 @@ class GroupActivity : AppCompatActivity() {
             groupViewModel.groupMatching(jwtToken, groupMatching).observe(this){
 
                 if (it == 201){
-                    Toast.makeText(this, "그룹코드가 일치합니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "그룹 관리자에게 참여를 요청하였습니다", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }else if (it == 400){
                     Toast.makeText(this, "그룹코드가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
