@@ -56,6 +56,7 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
         holder.binding.tvName.text = items[position].tvName // 멤버 이름
         holder.binding.tvBirth.text = items[position].tvBirth // 멤버 생일
         //holder.binding.btnMatching.text = items[position].btnMatching // 타입
+        holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
 
         when (items[position].memberAuthLevel) {
             10 -> {
@@ -72,7 +73,6 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
                 //holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼
                 holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
                 holder.binding.tvAdmin.visibility = View.VISIBLE // 관리자 칭호
-                holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
             }
 //            "A" -> {
 //                //holder.binding.btnMemberNext.visibility = View.VISIBLE // 멤버 NEXT 버튼

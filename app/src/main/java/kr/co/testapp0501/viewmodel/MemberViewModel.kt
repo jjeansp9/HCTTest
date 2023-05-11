@@ -17,6 +17,7 @@ import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.view.activity.MemberActivity
 import kr.co.testapp0501.view.activity.MemberRequestActivity
+import kr.co.testapp0501.view.activity.ProfileActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +46,7 @@ class MemberViewModel(
         intent.putExtra("memberLevel", memberLevel)
         context.startActivity(intent)
     }
+
 
     // 멤버 요청 대기화면으로 이동
     fun onClickMemberRequest() {

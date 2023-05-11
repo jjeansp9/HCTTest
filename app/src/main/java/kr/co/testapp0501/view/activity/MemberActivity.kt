@@ -15,6 +15,7 @@ import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.databinding.ActivityMemberBinding
 import kr.co.testapp0501.model.recycler.RecyclerMemberData
 import kr.co.testapp0501.view.adapter.RecyclerMemberActivityAdapter
+import kr.co.testapp0501.viewmodel.MainViewModel
 import kr.co.testapp0501.viewmodel.MemberViewModel
 
 class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_member) {
@@ -39,7 +40,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 
         setToolbar() // 툴바 설정 [ 구성원 화면 ]
         clickedMember() // 멤버 클릭
-        setViewModel()
     }
 
     // jwtToken, groupSeq, memberSeq, memberLevel
@@ -50,24 +50,13 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         memberLevel = intent.getIntExtra("memberLevel", memberLevel)
     }
 
-    private fun setViewModel(){
-        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)?.observe(this){
-            if (it.data.isEmpty()){
-                //viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel, 1)
-            }else{
-                //Toast.makeText(this, "그룹참여를 요청한 멤버가 없습니다", Toast.LENGTH_SHORT).show()
-            }
-
-        }
-    }
-
-
-
+    // 화면에 보여질 때마다 그룹목록 데이터 갱신
     override fun onResume() {
         super.onResume()
         groupMemberList() // 그룹 회원 목록
     }
 
+    // 그룹에 속해있는 멤버 목록 불러오기
     @SuppressLint("NotifyDataSetChanged")
     private fun groupMemberList(){
         Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq, $memberLevel")
@@ -117,8 +106,8 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         memberAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
             @SuppressLint("NotifyDataSetChanged")
             override fun itemClick(v: View, position: Int) {
-                Toast.makeText(this@MemberActivity, memberItems[position].tvName, Toast.LENGTH_SHORT).show()
-                viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
+                Toast.makeText(this@MemberActivity, "${memberItems[position].tvName}님의 프로필 화면으로 이동", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@MemberActivity, ProfileActivity::class.java))
             }
 
             override fun acceptClick(v: View, position: Int) {
