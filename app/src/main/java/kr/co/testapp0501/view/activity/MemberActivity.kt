@@ -19,12 +19,7 @@ import kr.co.testapp0501.viewmodel.MemberViewModel
 
 class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_member) {
 
-//    private val matchingItems = mutableListOf<RecyclerMemberData>()
-//    private val adminItems = mutableListOf<RecyclerMemberData>()
     private val memberItems = mutableListOf<RecyclerMemberData>()
-
-//    private val matchingAdapter = RecyclerMemberActivityAdapter(this, matchingItems)
-//    private val adminAdapter = RecyclerMemberActivityAdapter(this, adminItems)
     private val memberAdapter = RecyclerMemberActivityAdapter(this, memberItems)
 
     private lateinit var jwtToken: String
@@ -42,8 +37,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
 
         viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
         viewDataBinding.lifecycleOwner = this
-//        viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
-//        viewDataBinding.recyclerAdmin.adapter = adminAdapter
         viewDataBinding.recyclerMember.adapter = memberAdapter
 
         setToolbar() // 툴바 설정 [ 구성원 화면 ]
@@ -59,23 +52,41 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
     private fun groupMemberList(){
         Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq, $memberLevel")
         memberItems.clear()
-//
-//        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)
 
         // 그룹에 속한 회원 목록
         viewDataBinding.vmMember?.groupMemberList(jwtToken, groupSeq)?.observe(this){
-            for(i in it.data.indices){
-                memberItems.add(RecyclerMemberData(
-                    -1,
-                    it.data[i].memberVO.name,
-                    it.data[i].memberVO.birth,
-                    -1,
-                    it.data[i].memberVO.seq,
-                    it.data[i].seq,
-                    "",
-                    it.data[i].memberAuthLevel
-                ))
+            val sortedData = it.data.sortedBy { it.memberVO.name } // 이름으로 정렬된 리스트 생성
 
+            var firstIndex = 0 // 첫 번째 인덱스
+
+            for (i in sortedData.indices) {
+                val data = sortedData[i]
+                if (data.memberAuthLevel == 1) { // memberAuthLevel이 1이면
+                    memberItems.add(0, RecyclerMemberData(
+                        -1,
+                        data.memberVO.name,
+                        data.memberVO.birth,
+                        -1,
+                        data.memberVO.seq,
+                        data.seq,
+                        "",
+                        data.memberAuthLevel
+                    ))
+                    firstIndex++ // 첫 번째 인덱스를 1 증가시킴
+                } else { // memberAuthLevel이 1이 아니면
+                    memberItems.add(
+                        RecyclerMemberData(
+                            -1,
+                            data.memberVO.name,
+                            data.memberVO.birth,
+                            -1,
+                            data.memberVO.seq,
+                            data.seq,
+                            "",
+                            data.memberAuthLevel
+                        )
+                    )
+                }
             }
             viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
         }
@@ -97,7 +108,6 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
             override fun cancelClick(v: View, position: Int) {
                 return
             }
-
         })
     }
 
