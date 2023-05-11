@@ -36,7 +36,7 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
         memberLevel = intent.getIntExtra("memberLevel", memberLevel)
         Log.i("memberRequest groupSeq", groupSeq.toString())
 
-        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
+        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel, 0)
         viewDataBinding.lifecycleOwner = this
 
         viewDataBinding.recyclerMatchingWait.adapter = matchingAdapter
@@ -46,7 +46,7 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
         clickedMatching()
     }
 
-    // 매칭대기중인 사용자 클릭
+    // 매칭 대기중인 사용자 클릭
     private fun clickedMatching(){
         matchingAdapter.setItemClickListener(object: RecyclerMemberActivityAdapter.OnItemClickListener{
             override fun itemClick(v: View, position: Int) {
@@ -68,7 +68,9 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
             }
 
             override fun cancelClick(v: View, position: Int) {
-                Toast.makeText(this@MemberRequestActivity, matchingItems[position].tvName+"님의 요청을 거절하시겠습니까?", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MemberRequestActivity, matchingItems[position].tvName+"님의 요청을 거절하였습니다.", Toast.LENGTH_SHORT).show()
+                matchingItems.removeAt(position)
+                viewDataBinding.recyclerMatchingWait.adapter?.notifyDataSetChanged()
             }
 
         })

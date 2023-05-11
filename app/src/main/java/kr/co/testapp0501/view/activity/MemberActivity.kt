@@ -26,22 +26,42 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
     private var groupSeq: Int = -1
     private var memberSeq: Int = -1
     private var memberLevel: Int = -1
+    private var updateMember: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        jwtToken = intent.getStringExtra("jwtToken")!!
-        groupSeq = intent.getIntExtra("groupSeq", groupSeq)
-        memberSeq = intent.getIntExtra("memberSeq", memberSeq)
-        memberLevel = intent.getIntExtra("memberLevel", memberLevel)
+        getIntentData() // jwtToken, groupSeq, memberSeq, memberLevel
 
-        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
+        viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel, 0)
         viewDataBinding.lifecycleOwner = this
         viewDataBinding.recyclerMember.adapter = memberAdapter
 
         setToolbar() // 툴바 설정 [ 구성원 화면 ]
         clickedMember() // 멤버 클릭
+        setViewModel()
     }
+
+    // jwtToken, groupSeq, memberSeq, memberLevel
+    private fun getIntentData(){
+        jwtToken = intent.getStringExtra("jwtToken")!!
+        groupSeq = intent.getIntExtra("groupSeq", groupSeq)
+        memberSeq = intent.getIntExtra("memberSeq", memberSeq)
+        memberLevel = intent.getIntExtra("memberLevel", memberLevel)
+    }
+
+    private fun setViewModel(){
+        viewDataBinding.vmMember?.groupMatchingList(jwtToken, groupSeq)?.observe(this){
+            if (it.data.isEmpty()){
+                //viewDataBinding.vmMember = MemberViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel, 1)
+            }else{
+                //Toast.makeText(this, "그룹참여를 요청한 멤버가 없습니다", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -114,8 +134,9 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
     // 툴바 설정 [ 구성원 화면 ]
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        if (memberLevel == 1) findViewById<ImageView>(R.id.btn_member_accept_list).visibility = View.VISIBLE
+        else findViewById<ImageView>(R.id.btn_member_accept_list).visibility = View.GONE
 
-        findViewById<ImageView>(R.id.btn_member_accept_list).visibility = View.VISIBLE
         findViewById<ImageView>(R.id.btn_member_search).visibility = View.VISIBLE
 
         setSupportActionBar(toolbar)

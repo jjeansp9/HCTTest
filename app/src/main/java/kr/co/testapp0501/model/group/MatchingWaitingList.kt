@@ -1,7 +1,7 @@
 package kr.co.testapp0501.model.group
 
 data class MatchingWaitingList(
-    val msg: String,
+    var msg: String,
     val data: List<MatchingListData>
 )
 

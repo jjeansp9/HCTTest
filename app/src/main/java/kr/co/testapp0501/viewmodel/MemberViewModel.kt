@@ -3,8 +3,12 @@ package kr.co.testapp0501.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.model.group.GroupMatchingAccept
 import kr.co.testapp0501.model.group.GroupMemberList
@@ -23,7 +27,8 @@ class MemberViewModel(
     private val jwtToken: String,
     private val groupSeq: Int,
     private val memberSeq: Int,
-    private val memberLevel: Int
+    private val memberLevel: Int,
+    private val updateMember: Int
     ) : BaseViewModel() {
 
     // 이와 같은 방법으로 context를 받아야 메모리가 누수되는 현상 방지됨
@@ -33,6 +38,7 @@ class MemberViewModel(
     private fun startNewActivity(cls: Class<*>) {
         val context = contextRef.get() ?: return
         val intent = Intent(context, cls)
+
         intent.putExtra("jwtToken", jwtToken)
         intent.putExtra("groupSeq", groupSeq)
         intent.putExtra("memberSeq", memberSeq)
@@ -42,8 +48,11 @@ class MemberViewModel(
 
     // 멤버 요청 대기화면으로 이동
     fun onClickMemberRequest() {
+        if (updateMember == 1){
+
+        }
         startNewActivity(MemberRequestActivity::class.java)
-        Log.i("click", "clicked")
+        Log.i("ssss", updateMember.toString())
     }
 
     // 그룹 매칭 대기 회원 조회
@@ -65,6 +74,7 @@ class MemberViewModel(
                 Log.i("MemberViewModel groupMatchingList code", response.code().toString())
                 if (response.isSuccessful){
                     memberWaitingList.value = response.body()
+                    memberWaitingList.value?.msg = response.code().toString()
                 }
             }
 
@@ -136,5 +146,9 @@ class MemberViewModel(
 
         return memberList
     }
+
+}
+
+private fun <T> LiveData<T>.observe(context: Context, observer: Observer<T>) {
 
 }

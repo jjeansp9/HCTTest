@@ -50,12 +50,13 @@
                     android:id="@+id/btn_member_accept_list"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_member_waiting_accept"
-                    android:layout_gravity="end"
-                    android:padding="4dp"
-                    android:onClick="@{() -> vmMember.onClickMemberRequest()}"
                     android:layout_marginEnd="10dp"
-                    android:visibility="gone"/>
+                    android:onClick="@{() -> vmMember.onClickMemberRequest()}"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_member_waiting_accept"
+                    android:visibility="visible"
+                    android:layout_gravity="end"/>
+
 
                 <ImageView
                     android:id="@+id/btn_member_search"
@@ -65,7 +66,7 @@
                     android:layout_gravity="end"
                     android:padding="8dp"
                     android:layout_marginEnd="4dp"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
