@@ -28,6 +28,7 @@ class GroupViewModel : ViewModel(){
         val result = MutableLiveData<Int>()
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
+
         apiService.uploadData(token, groupInfo, groupImg).enqueue(object : Callback<String> {
             override fun onResponse(
                 call: Call<String>,

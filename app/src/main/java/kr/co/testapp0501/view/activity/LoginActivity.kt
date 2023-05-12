@@ -53,12 +53,7 @@ class LoginActivity : AppCompatActivity() {
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
-        val loadUserInfo: NormalLogin= users.loadNormalData()
-        val loadSnsId=  users.loadSnsData()
-        val loadLoginType=  users.loadLoginType()
-
-        //snsTokenConfirm(loadSnsId) // sns 자동로그인
-        //loadUserData(loadUserInfo.id, loadUserInfo.pw) // 일반 자동로그인
+        autoLogin() // 자동로그인
 
         setContentView(binding.root)
         clickedBackGround()
@@ -75,8 +70,18 @@ class LoginActivity : AppCompatActivity() {
         Log.i("naverToken",NaverIdLoginSDK.getAccessToken().toString() +"," + NaverIdLoginSDK.getRefreshToken() + ", " + NaverIdLoginSDK.getExpiresAt())
     }
 
-    // 토큰 존재여부 [ 없으면 회원가입 또는 로그인 진행 ]
-    private fun snsTokenConfirm(id: String){
+
+
+
+    // 카카오, 네이버, 일반 자동로그인
+    private fun autoLogin(){
+
+        val loadUserInfo: NormalLogin= users.loadNormalData()
+        val loadSnsId=  users.loadSnsData()
+        val loadLoginType=  users.loadLoginType()
+        Log.i("login data", loadUserInfo.id + ", " + loadSnsId)
+
+        // 토큰 존재여부 [ 없으면 회원가입 또는 로그인 진행 ]
         if (AuthApiClient.instance.hasToken()) { // 카카오 토큰 존재여부
             UserApiClient.instance.accessTokenInfo { _, error ->
                 if (error != null) {
@@ -89,34 +94,29 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else {
                     //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
-                    userRepository.snsLogin(this, kakao, id)
+                    userRepository.snsLogin(this, kakao, loadSnsId)
+                    return@accessTokenInfo
                 }
             }
 
         }else if (NaverIdLoginSDK.getRefreshToken()!= null){ // 네이버 토큰 존재여부
-            userRepository.snsLogin(this, naver, id)
-        }
-        else {
-            //로그인 필요
-        }
-    }
+            userRepository.snsLogin(this, naver, loadSnsId)
+            return
 
-    // 일반회원 저장된 정보가 있다면 자동로그인
-    private fun loadUserData(normalId: String, normalPw: String){
-        // 디바이스에 저장된 값 불러오기 [ 아래 코드 실행하면 자동로그인 되어 로그인화면 그냥 넘어감 ]
 
-        Log.i("LoginActivity normal", "$normalId, $normalPw")
-
-        // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
-        if (normalId != "default" && normalPw != "default"){
+        }else if (loadUserInfo.id != "default" && loadUserInfo.pw != "default"){
+            // 디바이스에 저장된 ID값이 있다면 로그인 화면을 생략하고, 그룹 화면으로 이동
             // 일반 회원가입을 이미 했다면 자동로그인 [ 로그인화면 넘어가기 ]
-            val login = NormalLogin(normalId, normalPw, "")
+            val login = NormalLogin(loadUserInfo.id, loadUserInfo.pw, "")
             userViewModel.normalLogin(this, login).observe(this){
                 if (it == 500){ // code 500: 서버 내부 오류
                     Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
-            Log.i("LoginActivity Login", "id: $normalId, pw: $normalPw")
+            Log.i("LoginActivity Login", "id: $loadUserInfo.id, pw: $loadUserInfo.pw")
+            return
+        }else{
+
         }
     }
 

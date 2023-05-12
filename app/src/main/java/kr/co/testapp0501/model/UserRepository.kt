@@ -141,9 +141,10 @@ class UserRepository {
                     val snsId = user?.id.toString()
 
                     snsLogin(context,platform, snsId).observe(context){ it ->
+                        Log.i("UserRepository code", it.toString())
                         when (it) {
                             200 -> { // 서버에 저장된 회원 정보가 있다면
-                                snsLogin(context, platform, snsId)
+                                Log.i("UserRepository code", it.toString())
                             }
                             404 -> { // 서버에 저장된 정보가 없다면
 
@@ -152,6 +153,7 @@ class UserRepository {
                                 intent.putExtra("snsType", snsType) // snsType [ kakao ]
                                 intent.putExtra("snsId", snsId) // sns Id
                                 context.startActivity(intent)
+                                Log.i("UserRepository code", it.toString())
                             }
                             500 -> { // 서버 내부오류
                                 Toast.makeText(context, "잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show()
@@ -175,7 +177,6 @@ class UserRepository {
                     snsLogin(context,platform, snsId).observe(context){ it ->
                         when (it) {
                             200 -> { // 서버에 저장된 회원 정보가 있다면
-                                snsLogin(context, platform, snsId)
                             }
                             404 -> { // 서버에 저장된 정보가 없다면
 
@@ -272,14 +273,14 @@ class UserRepository {
         val users = UserModel(context)
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
 
-        Log.i("UserRepository snsSignIn()", snsId)
+        Log.i("UserRepository snsSignIn() id", snsId)
 
         apiService.snsLogin(snsId).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Log.i("UserRepository snsSignIn()", ">>>>>>"+response.code())
                 idLiveData.value = response.code()
                 if (response.isSuccessful){
-                    Log.i("UserRepository snsSignIn()", response.body()?.msg.toString())
+                    Log.i("UserRepository snsSignIn() token", response.body()?.msg.toString())
 
                     users.saveLoginType(snsType)
                     users.saveSnsData(snsId)

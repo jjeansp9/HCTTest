@@ -76,67 +76,62 @@ class GroupCreateActivity : AppCompatActivity() {
     // 그룹생성 항목들을 모두 작성 후에 확인버튼을 눌렀을 때
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     private fun clickedComplete(){
-        binding.btnComplete.setOnTouchListener{ view, event ->
-            when(event.action){
-                MotionEvent.ACTION_DOWN -> {
-                    view.setBackgroundColor(ContextCompat.getColor(this, R.color.btn_un_click))
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    view.setBackgroundColor( ContextCompat.getColor(this, R.color.btn_click))
+        binding.btnComplete.setOnClickListener{
+            // progressBar가 돌고있을 땐 그룹생성 버튼을 눌러도 동작 안하게 설정
+            if (binding.progressBar.visibility == View.GONE){
+                if (imgUri != null){
+                    binding.progressBar.visibility = View.VISIBLE
+                    val token = intent.getStringExtra("jwtToken")!!
+                    val memberSeq = intent.getIntExtra("memberSeq", -1)
 
-                    // progressBar가 돌고있을 땐 그룹생성 버튼을 눌러도 동작 안하게 설정
-                    if (binding.progressBar.visibility == View.GONE){
-                        if (imgUri != null){
+                    val file = File(absolutelyPath(imgUri, this))
+                    val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
+                    val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
 
-                            val token = intent.getStringExtra("jwtToken")!!
-                            val memberSeq = intent.getIntExtra("memberSeq", -1)
+                    val groupImg= ArrayList<MultipartBody.Part>()
+                    groupImg.add(path)
 
-                            val file = File(absolutelyPath(imgUri, this))
-                            val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
-                            val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
+                    val groupName = binding.etGroupName.text.toString()
+                    var groupType = binding.spinGroupType.selectedItem.toString()
 
-                            val groupImg= ArrayList<MultipartBody.Part>()
-                            groupImg.add(path)
+                    when(groupType){
+                        "가족" -> groupType = "family"
+                        "동창" -> groupType = "meeting"
+                        "운동" -> groupType = "sport"
+                        "일반" -> groupType = "meeting"
+                    }
 
-                            val groupName = binding.etGroupName.text.toString()
-                            var groupType = binding.spinGroupType.selectedItem.toString()
-                            Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
+                    Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
+                    val groupInfo = Group(groupName, groupType, memberSeq, "")
+                    val json = Gson().toJson(groupInfo)
+                    val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
-                            val groupInfo = Group(groupName, groupType, memberSeq, "")
-                            val json = Gson().toJson(groupInfo)
-                            val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
+                    // 입력한 항목 값들 ViewModel 로 전달
 
-                            // 입력한 항목 값들 ViewModel 로 전달
-                            binding.progressBar.visibility = View.VISIBLE
-                            groupViewModel.createGroup(token, requestBody, path).observe(this){
-                                when (it) {
-                                    201 -> { // Success
-                                        finish()
-                                        binding.progressBar.visibility = View.GONE
-                                        Toast.makeText(this, "그룹을 생성하였습니다.", Toast.LENGTH_SHORT).show()
-                                        return@observe
-                                    }
-                                    400 -> { // 파라미터 오류
-                                        binding.progressBar.visibility = View.GONE
-                                        Toast.makeText(this, "그룹명을 입력해주세요", Toast.LENGTH_SHORT).show()
-                                        return@observe
-                                    }
-                                    500 -> { // 서버 내부오류
-                                        binding.progressBar.visibility = View.GONE
-                                        Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
-                                        return@observe
-                                    }
-                                }
+                    groupViewModel.createGroup(token, requestBody, path).observe(this){
+                        when (it) {
+                            201 -> { // Success
+                                finish()
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "그룹을 생성하였습니다.", Toast.LENGTH_SHORT).show()
+                                return@observe
                             }
-                        }else{
-                            Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
+                            400 -> { // 파라미터 오류
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "그룹명을 입력해주세요", Toast.LENGTH_SHORT).show()
+                                return@observe
+                            }
+                            500 -> { // 서버 내부오류
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                                return@observe
+                            }
                         }
                     }
 
-                    true
+                }else{
+                    Toast.makeText(this, "이미지를 추가해주세요", Toast.LENGTH_SHORT).show()
                 }
-                else -> false
             }
         }
     }

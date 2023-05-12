@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.GroupActivity">
 
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
@@ -32,13 +30,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end">
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/ic_group_add"-->
-<!--                    android:layout_width="48dp"-->
-<!--                    android:layout_height="48dp"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:layout_marginEnd="4dp"-->
-<!--                    android:src="@drawable/ic_group_add" />-->
                 <ImageView
                     android:id="@+id/img_group_settings"
                     android:layout_width="48dp"
@@ -68,44 +59,5 @@
             app:spanCount="2" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <RelativeLayout
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#66000000"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminateTint="@color/brand_color"/>
-
-    </RelativeLayout>
-
-
-<!--    <RelativeLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerInParent="true">-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/img_group_empty"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:src="@drawable/ic_group_empty" />-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="참여된 그룹이 없습니다."-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_below="@id/img_group_empty"-->
-<!--            android:textSize="18sp"-->
-<!--            android:layout_marginTop="8dp"/>-->
-
-<!--    </RelativeLayout>-->
 
 </RelativeLayout>

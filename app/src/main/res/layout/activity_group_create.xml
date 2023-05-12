@@ -125,14 +125,13 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#66000000"
         android:visibility="gone">
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:indeterminateTint="@color/brand_color"/>
+            android:indeterminateTint="#373737"/>
 
     </RelativeLayout>
 
@@ -141,7 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/btn_click"
+        android:background="@drawable/btn_login_selector"
         android:gravity="center"
         android:padding="16dp"
         android:text="확인"

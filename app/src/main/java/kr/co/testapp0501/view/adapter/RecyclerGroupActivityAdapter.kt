@@ -57,8 +57,10 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         // 권한에 따라 관리자 뱃지 숨기기/보여주기
         if (items[position].memberAuthLevel == 1){
             holder.binding.tvGroupAdmin.visibility = View.VISIBLE
+            holder.binding.tvGroupAdmin.setBackgroundResource(R.drawable.bg_group_admin)
         }else{
             holder.binding.tvGroupAdmin.visibility = View.GONE
+            holder.binding.tvGroupAdmin.background = null
         }
 
         // 마지막에 생성된 그룹목록은 [+] box의 형태로 생성
