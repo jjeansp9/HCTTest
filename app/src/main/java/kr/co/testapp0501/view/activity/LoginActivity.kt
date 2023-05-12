@@ -44,16 +44,13 @@ class LoginActivity : AppCompatActivity() {
 
     private var users = UserModel(this)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
         NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
-
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-
         autoLogin() // 자동로그인
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         setContentView(binding.root)
         clickedBackGround()
@@ -69,9 +66,6 @@ class LoginActivity : AppCompatActivity() {
 
         Log.i("naverToken",NaverIdLoginSDK.getAccessToken().toString() +"," + NaverIdLoginSDK.getRefreshToken() + ", " + NaverIdLoginSDK.getExpiresAt())
     }
-
-
-
 
     // 카카오, 네이버, 일반 자동로그인
     private fun autoLogin(){
