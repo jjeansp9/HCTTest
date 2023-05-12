@@ -2,7 +2,9 @@ package kr.co.testapp0501.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -19,6 +21,10 @@ import kr.co.testapp0501.viewmodel.ProfileViewModel
 class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album) {
 
     private val albumItems = mutableListOf<RecyclerAlbumData>()
+    private val albumPicture = mutableListOf<Int>()
+    private val albumPicture2 = mutableListOf<Int>()
+    private val albumPicture3 = mutableListOf<Int>()
+    private val albumPicture4 = mutableListOf<Int>()
     private val albumAdapter = RecyclerAlbumActivityAdapter(this, albumItems)
 
     // 테스트용 더미데이터
@@ -31,6 +37,8 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         viewDataBinding.recyclerAlbum.adapter = albumAdapter
 
         setToolbar()
+
+        Log.i("dddddd", Color.GRAY.toString() +", "+ Color.BLACK)
 
         updateAlbumList() // 앨범 글목록 아래로 당겨서 새로고침
     }
@@ -62,15 +70,59 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
     // ui 테스트용 데이터
     @SuppressLint("NotifyDataSetChanged")
     private fun dummyData(){
-        albumItems.clear()
+
+        albumPicture.add(0, R.drawable.test_010)
+
+        albumPicture2.add(0, R.drawable.img_group_sports)
+        albumPicture2.add(1, R.drawable.img_group_family)
+
+        albumPicture3.add(0, R.drawable.img_group_general)
+        albumPicture3.add(1, R.drawable.test_010)
+        albumPicture3.add(2, R.drawable.img_group_family)
+
+        albumPicture4.add(0, R.drawable.img_group_general)
+        albumPicture4.add(1, R.drawable.test_010)
+        albumPicture4.add(2, R.drawable.img_group_family)
+        albumPicture4.add(3, R.drawable.img_group_family)
+
         for (i in 0 .. 10){
             albumItems.add(
                 RecyclerAlbumData(
                 "",
-                "홍길동",
+                "홍길동1",
                 "2023년 2월 16일 오후 7:02",
-                "",
+                albumPicture,
                 "title",
+                    testContents
+                )
+            )
+            albumItems.add(
+                RecyclerAlbumData(
+                    "",
+                    "홍길동2",
+                    "2023년 2월 16일 오후 7:02",
+                    albumPicture2,
+                    "title",
+                    testContents
+                )
+            )
+            albumItems.add(
+                RecyclerAlbumData(
+                    "",
+                    "홍길동3",
+                    "2023년 2월 16일 오후 7:02",
+                    albumPicture3,
+                    "title",
+                    testContents
+                )
+            )
+            albumItems.add(
+                RecyclerAlbumData(
+                    "",
+                    "홍길동4",
+                    "2023년 2월 16일 오후 7:02",
+                    albumPicture4,
+                    "title",
                     testContents
                 )
             )
