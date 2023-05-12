@@ -97,16 +97,33 @@
                 android:src="@drawable/img_group_family"
                 />
 
-            <TextView
-                android:id="@+id/img_picture_count"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ 2"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:layout_centerInParent="true"
-                android:visibility="gone"/>
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/tv_picture_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_picture_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_picture_plus"
+                    android:text="2"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:textColor="@color/white"/>
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
 
