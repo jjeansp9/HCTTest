@@ -3,6 +3,7 @@ package kr.co.testapp0501.view.activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -19,6 +20,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     var groupName : String = ""
 
+    private val data = arrayOf("Apple", "Banana", "Cherry", "Durian", "Eggfruit")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,6 +34,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         viewDataBinding.vmMain = MainViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
         viewDataBinding.lifecycleOwner = this
 //        viewDataBinding.vmMain = getViewModel()
+
+        val adapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            data
+        )
+        viewDataBinding.albumUpdateList.adapter = adapter
 
         // 툴바 설정 [ 메인 화면 ]
         setToolbar()
