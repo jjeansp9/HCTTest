@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.LightingColorFilter
 import android.graphics.PorterDuff
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,13 +48,16 @@ class RecyclerAlbumActivityAdapter constructor(private val context: Context, pri
         when {
             albumItem.albumUploadPicture.isEmpty() -> {
                 Glide.with(context).load(R.drawable.img_group_general).into(holder.binding.imgAlbumUploadPictureFirst)
+                holder.binding.layoutAlbumUploadPicture.layoutParams.height = dpToPx(context, 270f)
             }
             albumItem.albumUploadPicture.size == 1 -> {
                 Glide.with(context).load(albumItem.albumUploadPicture[0]).into(holder.binding.imgAlbumUploadPictureFirst)
+                holder.binding.layoutAlbumUploadPicture.layoutParams.height = dpToPx(context, 270f)
             }
             albumItem.albumUploadPicture.size == 2 -> {
-                Glide.with(context).load(albumItem.albumUploadPicture[0]).into(holder.binding.imgAlbumUploadPictureFirst)
-                Glide.with(context).load(albumItem.albumUploadPicture[1]).into(holder.binding.imgAlbumUploadPictureSecond)
+                Glide.with(context).load(albumItem.albumUploadPicture[0]).into(holder.binding.imgAlbumUploadPictureFirst) // 첫째 업로드 사진
+                Glide.with(context).load(albumItem.albumUploadPicture[1]).into(holder.binding.imgAlbumUploadPictureSecond) // 둘째 업로드 사진
+                holder.binding.layoutAlbumUploadPicture.layoutParams.height = dpToPx(context, 180f)
                 holder.binding.imgAlbumPictureLine.visibility = View.VISIBLE
                 holder.binding.layoutAlbumUploadPictureSecond.visibility = View.VISIBLE
             }
@@ -63,9 +67,10 @@ class RecyclerAlbumActivityAdapter constructor(private val context: Context, pri
 
                 Glide.with(context).load(albumItem.albumUploadPicture[0]).into(holder.binding.imgAlbumUploadPictureFirst)
                 Glide.with(context).load(albumItem.albumUploadPicture[1]).into(holder.binding.imgAlbumUploadPictureSecond)
+                holder.binding.layoutAlbumUploadPicture.layoutParams.height = dpToPx(context, 180f)
 
                 holder.binding.imgAlbumPictureLine.visibility = View.VISIBLE
-                holder.binding.tvPictureCount.visibility = View.VISIBLE
+                holder.binding.layoutPictureCount.visibility = View.VISIBLE
                 holder.binding.layoutAlbumUploadPictureSecond.visibility = View.VISIBLE
 
                 holder.binding.imgAlbumUploadPictureSecond.colorFilter = LightingColorFilter(
@@ -74,6 +79,15 @@ class RecyclerAlbumActivityAdapter constructor(private val context: Context, pri
                 )
             }
         }
+    }
+
+    // dp 값을 px 단위로 변환하는 함수
+    fun dpToPx(context: Context, dp: Float): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        ).toInt()
     }
 }
 

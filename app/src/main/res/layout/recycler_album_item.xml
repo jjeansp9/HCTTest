@@ -98,9 +98,11 @@
                 />
 
             <RelativeLayout
+                android:id="@+id/layout_picture_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+                android:layout_centerInParent="true"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_picture_plus"
@@ -117,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_picture_plus"
-                    android:text="2"
+                    android:layout_marginStart="4dp"
                     android:textStyle="bold"
                     android:textSize="24sp"
                     android:textColor="@color/white"/>

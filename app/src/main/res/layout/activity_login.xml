@@ -7,7 +7,9 @@
     tools:context=".view.activity.LoginActivity"
     android:background="@color/background"
     android:id="@+id/login_root"
-    android:gravity="center">
+    android:gravity="center"
+    app:clickable="true"
+    app:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="match_parent"
