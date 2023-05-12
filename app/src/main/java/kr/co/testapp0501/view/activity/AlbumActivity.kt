@@ -1,6 +1,7 @@
 package kr.co.testapp0501.view.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
+import kr.co.testapp0501.common.CommonUtil
 import kr.co.testapp0501.databinding.ActivityAlbumBinding
 import kr.co.testapp0501.model.recycler.RecyclerAlbumData
 import kr.co.testapp0501.view.adapter.RecyclerAlbumActivityAdapter
@@ -28,9 +30,21 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         viewDataBinding.lifecycleOwner = this
         viewDataBinding.recyclerAlbum.adapter = albumAdapter
 
-        setToolbar() // 툴바 설정
+        setToolbar()
 
         updateAlbumList() // 앨범 글목록 아래로 당겨서 새로고침
+    }
+
+    private fun setToolbar(){
+        CommonUtil.setToolbar(
+            this,
+            AlbumUploadActivity::class.java,
+            "앨범",
+            R.drawable.btn_album_upload_selector,
+            0,
+            firstMenuOn = true,
+            secondMenuOn = false
+        )
     }
 
     override fun onResume() {
@@ -65,17 +79,25 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         viewDataBinding.swipeRefreshLayout.isRefreshing = false
     }
 
-    // 툴바 설정 [ 앨범 화면 ]
-    private fun setToolbar(){
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val tv = findViewById<TextView>(R.id.tv_toolber_title)
-        val btnAlbumUpload = findViewById<ImageView>(R.id.btn_album_upload)
-        tv.visibility = View.VISIBLE
-        btnAlbumUpload.visibility = View.VISIBLE
-        tv.text = "앨범"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+//    // 툴바 설정 [ 앨범 화면 ]
+//    private fun setToolbar(){
+//        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+//        setSupportActionBar(toolbar)
+//        val tv = findViewById<TextView>(R.id.tv_toolber_title)
+//        //val btnAlbumUpload = findViewById<ImageView>(R.id.btn_album_upload)
+//        tv.visibility = View.VISIBLE
+//        btnAlbumUpload.visibility = View.VISIBLE
+//
+//        btnAlbumUpload.setOnClickListener{clickAlbumUpload()}
+//
+//        tv.text = "앨범"
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayShowTitleEnabled(false)
+//    }
+
+    // 앨범 툴바에 있는 [+] 버튼 클릭
+    private fun clickAlbumUpload(){
+        startActivity(Intent(this, AlbumUploadActivity::class.java))
     }
 
     // 뒤로가기 버튼

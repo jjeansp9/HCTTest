@@ -27,15 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/btn_back"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:paddingTop="13dp"-->
-<!--                android:paddingBottom="13dp"-->
-<!--                android:paddingEnd="13dp"-->
-<!--                android:src="@drawable/btn_back_selector"/>-->
-
             <TextView
                 android:id="@+id/tv_toolber_title"
                 android:layout_width="wrap_content"
@@ -46,29 +37,8 @@
                 android:textSize="19sp"
                 android:layout_gravity="center"/>
 
-<!--            <ImageView-->
-<!--                android:id="@+id/btn_member_accept_list"-->
-<!--                android:layout_width="48dp"-->
-<!--                android:layout_height="48dp"-->
-<!--                android:src="@drawable/ic_member_waiting_accept"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:padding="4dp"-->
-<!--                android:onClick="@{() -> vmMember.onClickMemberRequest()}"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                android:visibility="gone"/>-->
-
             <ImageView
-                android:id="@+id/btn_member_search"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/btn_search_selector"
-                android:layout_gravity="end"
-                android:padding="8dp"
-                android:layout_marginEnd="4dp"
-                android:visibility="gone"/>
-
-            <ImageView
-                android:id="@+id/btn_album_upload"
+                android:id="@+id/btn_menu_second"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/btn_album_upload_selector"
@@ -77,18 +47,15 @@
                 android:layout_marginEnd="4dp"
                 android:visibility="gone"/>
 
-<!--            <ImageView-->
-<!--                android:id="@+id/btn_notice"-->
-<!--                android:layout_width="48dp"-->
-<!--                android:layout_height="48dp"-->
-<!--                android:src="@drawable/btn_notice_selector"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:padding="8dp"-->
-<!--                android:layout_marginEnd="4dp"-->
-<!--                android:visibility="gone"-->
-<!--                android:onClick="@{() -> vmMember.onClickMemberRequest()}"/>-->
-
-
+            <ImageView
+                android:id="@+id/btn_menu_first"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/btn_search_selector"
+                android:layout_gravity="end"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp"
+                android:visibility="gone"/>
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

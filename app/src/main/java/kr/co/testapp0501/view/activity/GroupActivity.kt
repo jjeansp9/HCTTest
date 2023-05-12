@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kr.co.testapp0501.R
+import kr.co.testapp0501.common.CommonUtil
 import kr.co.testapp0501.databinding.ActivityGroupBinding
 import kr.co.testapp0501.model.group.GroupMatching
 import kr.co.testapp0501.model.network.ApiService
@@ -43,8 +44,8 @@ class GroupActivity : AppCompatActivity() {
         binding.recyclerGroup.adapter = adapter
         groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
 
-        // 툴바 생성
         setToolbar()
+
         jwtToken = intent.getStringExtra("jwtToken")!!
         memberSeq = intent.getIntExtra("memberSeq", memberSeq)
 
@@ -56,6 +57,18 @@ class GroupActivity : AppCompatActivity() {
 
         // 그룹을 클릭하여 메인화면으로 이동
         clickedGroupAdd()
+    }
+
+    private fun setToolbar(){
+        CommonUtil.setToolbar(
+            this,
+            javaClass,
+            "그룹",
+            R.drawable.ic_group_setting,
+            0,
+            firstMenuOn = true,
+            secondMenuOn = false
+        )
     }
 
     override fun onResume() {
@@ -126,13 +139,6 @@ class GroupActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
             binding.swipeRefreshLayout.isRefreshing = false
         }
-    }
-
-    // 툴바 설정 [ 그룹화면 ]
-    private fun setToolbar(){
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // 그룹 목록에 있는 그룹 클릭
@@ -240,6 +246,6 @@ class GroupActivity : AppCompatActivity() {
 
     // 설정 화면으로 이동
     private fun moveGroupCreateActivity(){
-        binding.imgGroupSettings.setOnClickListener{startActivity(Intent(this, GroupSettingActivity::class.java))}
+        //binding.imgGroupSettings.setOnClickListener{startActivity(Intent(this, GroupSettingActivity::class.java))}
     }
 }

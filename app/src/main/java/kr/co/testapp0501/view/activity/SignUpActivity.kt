@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.R
+import kr.co.testapp0501.common.CommonUtil
 import kr.co.testapp0501.databinding.ActivitySignUpBinding
 import kr.co.testapp0501.model.user.CheckId
 import kr.co.testapp0501.model.user.NormalUser
@@ -40,7 +41,6 @@ class SignUpActivity : AppCompatActivity() {
         // ViewModel 생성
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
-        // 툴바 설정
         setToolbar()
 
         Log.i("gender", gender) // 회원가입 화면이 처음 열리면 기본성별 M
@@ -56,6 +56,18 @@ class SignUpActivity : AppCompatActivity() {
 
         setEtSpace()
 
+    }
+
+    private fun setToolbar(){
+        CommonUtil.setToolbar(
+            this,
+            javaClass,
+            "회원가입",
+            0,
+            0,
+            firstMenuOn = false,
+            secondMenuOn = false
+        )
     }
 
     // 폰번호 인증요청 클릭
@@ -118,19 +130,6 @@ class SignUpActivity : AppCompatActivity() {
                 override fun afterTextChanged(s: Editable?) {}
             })
         }
-    }
-
-    // 툴바 설정
-    private fun setToolbar(){
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val tv = findViewById<TextView>(R.id.tv_toolber_title)
-        tv.visibility = View.VISIBLE
-        //val btnBack = findViewById<ImageView>(R.id.btn_back)
-        //btnBack.setOnClickListener{btnBack.isSelected = !btnBack.isSelected}
-        tv.text = "회원가입"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // Date Picker

@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
 
         Log.d("keyHash", " KeyHash :" + Utility.getKeyHash(this)) // 카카오 SDK용 키해시 값
         NaverIdLoginSDK.initialize(this, clientId, clientSecret, "Test") // 네이버 클라이언트 등록
-        autoLogin() // 자동로그인
+        //autoLogin() // 자동로그인
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         setContentView(binding.root)

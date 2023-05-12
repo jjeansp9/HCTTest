@@ -27,6 +27,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import kr.co.testapp0501.R
+import kr.co.testapp0501.common.CommonUtil
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.viewmodel.GroupViewModel
@@ -52,13 +53,26 @@ class GroupCreateActivity : AppCompatActivity() {
         jwtToken = intent.getStringExtra("jwtToken")!!
         memberSeq = intent.getIntExtra("memberSeq", memberSeq)
 
-        setToolbar() // 툴바 생성
+        setToolbar()
+
         checkPermission() // 외부저장소 권한요청
         groupViewModel = ViewModelProvider(this)[GroupViewModel::class.java]
 
         binding.imgAdd.setOnClickListener{imageAdd()}
 
         clickedComplete()
+    }
+
+    private fun setToolbar(){
+        CommonUtil.setToolbar(
+            this,
+            javaClass,
+            "그룹 생성",
+            0,
+            0,
+            firstMenuOn = false,
+            secondMenuOn = false
+        )
     }
 
     fun absolutelyPath(path: Uri?, context : Context): String {
@@ -164,17 +178,6 @@ class GroupCreateActivity : AppCompatActivity() {
         }else{ // 허용됐을 때
 
         }
-    }
-
-    // 툴바 설정 [ 메인화면 ]
-    private fun setToolbar(){
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val tv = findViewById<TextView>(R.id.tv_toolber_title)
-        tv.visibility = View.VISIBLE
-        tv.text = "그룹 생성"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     // 뒤로가기 버튼

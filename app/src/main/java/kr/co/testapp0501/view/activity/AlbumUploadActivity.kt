@@ -1,19 +1,16 @@
 package kr.co.testapp0501.view.activity
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
 import kr.co.testapp0501.R
-import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.common.CommonUtil
-import kr.co.testapp0501.databinding.ActivityTreeBinding
-import kr.co.testapp0501.viewmodel.TreeViewModel
 
-class TreeActivity : BaseActivity<ActivityTreeBinding>(R.layout.activity_tree) {
+class AlbumUploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewDataBinding.vmTree = TreeViewModel()
-        viewDataBinding.lifecycleOwner = this
+        setContentView(R.layout.activity_album_upload)
 
         setToolbar()
     }
@@ -22,11 +19,11 @@ class TreeActivity : BaseActivity<ActivityTreeBinding>(R.layout.activity_tree) {
         CommonUtil.setToolbar(
             this,
             javaClass,
-            "가계도",
+            "게시물 작성",
             0,
             0,
-            firstMenuOn = false,
-            secondMenuOn = false
+            false,
+            false
         )
     }
 
