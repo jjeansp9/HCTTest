@@ -19,6 +19,8 @@ class ProfileUpdateActivity : BaseActivity<ActivityProfileUpdateBinding>(R.layou
 
         setToolbar()
     }
+    override fun initObservers() {
+    }
 
     // 툴바 설정 [ 프로필 화면 ]
     private fun setToolbar(){

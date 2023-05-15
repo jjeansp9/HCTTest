@@ -27,8 +27,7 @@
                 android:layout_height="30dp"
                 android:background="@drawable/bg_profile_circle"
                 android:padding="1dp"
-                app:imageUrl="@{item.imgCommentProfile}"
-                app:defaultImage="@drawable/img_profile"
+
                 />
 
             <TextView

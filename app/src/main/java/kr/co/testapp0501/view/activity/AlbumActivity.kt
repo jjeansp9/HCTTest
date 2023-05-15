@@ -62,6 +62,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
             }
             // 댓글
             override fun commentClick(v: View, position: Int) {
+                startActivity(Intent(this@AlbumActivity, AlbumCommentActivity::class.java))
             }
         })
     }
@@ -177,5 +178,8 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun initObservers() {
     }
 }

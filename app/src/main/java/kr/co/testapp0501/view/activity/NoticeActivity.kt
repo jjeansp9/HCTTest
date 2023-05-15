@@ -19,6 +19,8 @@ class NoticeActivity : BaseActivity<ActivityNoticeBinding>(R.layout.activity_not
 
         setToolbar()
     }
+    override fun initObservers() {
+    }
 
     // 툴바 설정 [ 알림 화면 ]
     private fun setToolbar(){

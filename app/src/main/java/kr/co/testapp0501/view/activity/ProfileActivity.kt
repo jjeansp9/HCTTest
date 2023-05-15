@@ -39,6 +39,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         tabChanged() // 탭 전환 이벤트
         //viewDataBinding.btnProfileUpdate.setOnClickListener{btnUpdate()}
     }
+    override fun initObservers() {
+    }
 
     private fun btnUpdate(){
         startActivity(Intent(this, ProfileUpdateActivity::class.java))

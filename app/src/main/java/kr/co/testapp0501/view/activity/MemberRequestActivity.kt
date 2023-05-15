@@ -45,6 +45,8 @@ class MemberRequestActivity : BaseActivity<ActivityMemberRequestBinding>(R.layou
         requestMemberList()
         clickedMatching()
     }
+    override fun initObservers() {
+    }
 
     // 매칭 대기중인 사용자 클릭
     private fun clickedMatching(){

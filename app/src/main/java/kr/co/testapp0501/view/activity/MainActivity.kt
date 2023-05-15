@@ -52,6 +52,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setTitleLayout()
         //CommonUtil.setToolbar(this, )
     }
+    override fun initObservers() {
+    }
 
     // 타이틀 Layout View 설정
     private fun setTitleLayout(){

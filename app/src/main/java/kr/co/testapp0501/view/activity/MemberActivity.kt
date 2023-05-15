@@ -49,6 +49,8 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
         memberSeq = intent.getIntExtra("memberSeq", memberSeq)
         memberLevel = intent.getIntExtra("memberLevel", memberLevel)
     }
+    override fun initObservers() {
+    }
 
     // 화면에 보여질 때마다 그룹목록 데이터 갱신
     override fun onResume() {

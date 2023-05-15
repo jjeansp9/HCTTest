@@ -29,6 +29,8 @@ class HierarchyActivity : BaseActivity<ActivityHierarchyBinding>(R.layout.activi
             secondMenuOn = false
         )
     }
+    override fun initObservers() {
+    }
 
     // 뒤로가기 버튼
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
