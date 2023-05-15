@@ -41,6 +41,29 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         Log.i("dddddd", Color.GRAY.toString() +", "+ Color.BLACK)
 
         updateAlbumList() // 앨범 글목록 아래로 당겨서 새로고침
+
+        albumItemClick()
+    }
+
+    private fun albumItemClick(){
+        albumAdapter.setItemClickListener(object: RecyclerAlbumActivityAdapter.OnItemClickListener{
+            // 프로필 이미지
+            override fun profileImgClick(v: View, position: Int) {
+
+            }
+            // 앨범글 이미지
+            override fun pictureClick(v: View, position: Int) {
+            }
+            // 앨범 글마다 오른쪽 상단 앨범 설정
+            override fun albumSetClick(v: View, position: Int) {
+            }
+            // 좋아요
+            override fun likeClick(v: View, position: Int) {
+            }
+            // 댓글
+            override fun commentClick(v: View, position: Int) {
+            }
+        })
     }
 
     private fun setToolbar(){
@@ -93,7 +116,9 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
                 "2023년 2월 16일 오후 7:02",
                 albumPicture,
                 "title",
-                    testContents
+                    testContents,
+                    0,
+                    0
                 )
             )
             albumItems.add(
@@ -103,7 +128,9 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
                     "2023년 2월 16일 오후 7:02",
                     albumPicture2,
                     "title",
-                    testContents
+                    testContents,
+                    0,
+                    364
                 )
             )
             albumItems.add(
@@ -113,7 +140,9 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
                     "2023년 2월 16일 오후 7:02",
                     albumPicture3,
                     "title",
-                    testContents
+                    testContents,
+                    7,
+                    0
                 )
             )
             albumItems.add(
@@ -123,7 +152,9 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
                     "2023년 2월 16일 오후 7:02",
                     albumPicture4,
                     "title",
-                    testContents
+                    testContents,
+                    4,
+                    12
                 )
             )
         }
@@ -131,21 +162,6 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         viewDataBinding.swipeRefreshLayout.isRefreshing = false
     }
 
-//    // 툴바 설정 [ 앨범 화면 ]
-//    private fun setToolbar(){
-//        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-//        val tv = findViewById<TextView>(R.id.tv_toolber_title)
-//        //val btnAlbumUpload = findViewById<ImageView>(R.id.btn_album_upload)
-//        tv.visibility = View.VISIBLE
-//        btnAlbumUpload.visibility = View.VISIBLE
-//
-//        btnAlbumUpload.setOnClickListener{clickAlbumUpload()}
-//
-//        tv.text = "앨범"
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
-//    }
 
     // 앨범 툴바에 있는 [+] 버튼 클릭
     private fun clickAlbumUpload(){

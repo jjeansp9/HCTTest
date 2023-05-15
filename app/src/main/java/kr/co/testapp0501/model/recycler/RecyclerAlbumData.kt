@@ -6,5 +6,7 @@ data class RecyclerAlbumData(
     val albumUploadDate: String,
     val albumUploadPicture: List<Int>,
     val albumTitle: String,
-    val albumContents: String
+    val albumContents: String,
+    val albumLike: Int,
+    val albumComment: Int,
 )

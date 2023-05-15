@@ -1,6 +1,6 @@
 package kr.co.testapp0501.model.group
 
-data class Group(
+data class GroupCreate(
     val groupName : String,
     val groupType : String,
     val memberSeq : Int,

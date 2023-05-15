@@ -26,9 +26,10 @@ class ProfileTab3AlbumFragment : Fragment() {
     }
 
     private val binding: FragmentProfileTab3AlbumBinding by lazy { FragmentProfileTab3AlbumBinding.inflate(layoutInflater) }
+    private val setViewType = 1 // [프로필 3번째 탭], [메인화면 앨범 새글] 구분하기 위한 변수
 
     private val items = mutableListOf<RecyclerTab3AlbumData>()
-    private val adapter by lazy { context?.let { RecyclerTab3AlbumAdapter(it, items) } }
+    private val adapter by lazy { context?.let { RecyclerTab3AlbumAdapter(it, items, setViewType) } }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

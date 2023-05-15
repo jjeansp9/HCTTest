@@ -11,25 +11,19 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
-import kr.co.testapp0501.R
 import kr.co.testapp0501.common.CommonUtil
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
-import kr.co.testapp0501.model.group.Group
+import kr.co.testapp0501.model.group.GroupCreate
 import kr.co.testapp0501.viewmodel.GroupViewModel
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -116,7 +110,7 @@ class GroupCreateActivity : AppCompatActivity() {
                     }
 
                     Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
-                    val groupInfo = Group(groupName, groupType, memberSeq, "")
+                    val groupInfo = GroupCreate(groupName, groupType, memberSeq, "")
                     val json = Gson().toJson(groupInfo)
                     val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 

@@ -1,20 +1,13 @@
 package kr.co.testapp0501.viewmodel
 
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kr.co.testapp0501.model.group.Group
 import kr.co.testapp0501.model.group.GroupList
 import kr.co.testapp0501.model.group.GroupMatching
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
-import kr.co.testapp0501.model.user.UserModel
-import kr.co.testapp0501.model.user.UserResponse
-import kr.co.testapp0501.view.activity.GroupActivity
-import kr.co.testapp0501.view.activity.LoginActivity
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call

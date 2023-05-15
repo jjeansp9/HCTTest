@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -14,33 +16,36 @@ import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.common.CommonUtil
 import kr.co.testapp0501.databinding.ActivityMainBinding
+import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumData
+import kr.co.testapp0501.view.adapter.RecyclerTab3AlbumAdapter
 import kr.co.testapp0501.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    var groupName : String = ""
+    private var groupName : String = ""
+    private val setViewType = 0 // [프로필 3번째 탭], [메인화면 앨범 새글] 구분하기 위한 변수
 
-    private val data = arrayOf("Apple", "Banana", "Cherry", "Durian", "Eggfruit")
+    private val items = mutableListOf<RecyclerTab3AlbumData>()
+    private val adapter by lazy { RecyclerTab3AlbumAdapter(this, items, setViewType)  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val jwtToken = intent.getStringExtra("jwtToken")!!
         val groupSeq = intent.getIntExtra("groupSeq", -1)
-        groupName = intent.getStringExtra("groupName")!!
         val memberSeq = intent.getIntExtra("memberSeq", -1)
         val memberLevel = intent.getIntExtra("memberLevel", -1)
+        groupName = intent.getStringExtra("groupName")!!
 
         viewDataBinding.vmMain = MainViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
         viewDataBinding.lifecycleOwner = this
-//        viewDataBinding.vmMain = getViewModel()
 
-        val adapter = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_list_item_1,
-            data
-        )
-        viewDataBinding.albumUpdateList.adapter = adapter
+        viewDataBinding.recyclerAlbumUpdate.adapter = adapter
+        viewDataBinding.recyclerAlbumUpdate.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
+        for (i in 0 .. 10){
+            items.add(RecyclerTab3AlbumData("까망이 근황이에요 ㅎㅎ", "2023.02.18", 0, ""))
+        }
 
         // 툴바 설정 [ 메인 화면 ]
         setToolbar()
