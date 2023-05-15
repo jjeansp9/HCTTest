@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
+import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityAlbumCommentBinding
 import kr.co.testapp0501.view.adapter.AlbumCommentAdapter
 import kr.co.testapp0501.viewmodel.AlbumCommentViewModel
@@ -24,6 +25,19 @@ class AlbumCommentActivity : BaseActivity<ActivityAlbumCommentBinding>(R.layout.
         viewDataBinding.lifecycleOwner = this
 
         initViews()
+        setToolbar()
+    }
+
+    private fun setToolbar(){
+        CommonUtil.setToolbar(
+            this,
+            javaClass,
+            "댓글",
+            0,
+            0,
+            firstMenuOn = false,
+            secondMenuOn = false
+        )
     }
 
     override fun onResume() {

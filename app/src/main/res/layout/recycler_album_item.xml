@@ -189,10 +189,12 @@
         android:paddingBottom="6dp">
 
         <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="#E1AEAE"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_album_like_selector"
+            android:layout_gravity="center_vertical"
+            android:checked="false"
+            android:layout_marginTop="1dp"/>
         <TextView
             android:id="@+id/tv_like"
             android:layout_width="wrap_content"
@@ -236,10 +238,11 @@
         android:paddingBottom="6dp">
 
         <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="#959595"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_album_comment_selector"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="1dp"/>
 
         <TextView
             android:id="@+id/tv_comment"
