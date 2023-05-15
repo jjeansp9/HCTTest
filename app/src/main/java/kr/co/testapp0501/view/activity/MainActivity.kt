@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
-import kr.co.testapp0501.common.CommonUtil
+import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityMainBinding
 import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumData
 import kr.co.testapp0501.view.adapter.RecyclerTab3AlbumAdapter

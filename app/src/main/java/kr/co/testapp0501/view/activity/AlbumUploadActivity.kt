@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
 import kr.co.testapp0501.R
-import kr.co.testapp0501.common.CommonUtil
+import kr.co.testapp0501.common.util.CommonUtil
 
 class AlbumUploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -21,7 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
-import kr.co.testapp0501.common.CommonUtil
+import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityGroupCreateBinding
 import kr.co.testapp0501.model.group.GroupCreate
 import kr.co.testapp0501.viewmodel.GroupViewModel

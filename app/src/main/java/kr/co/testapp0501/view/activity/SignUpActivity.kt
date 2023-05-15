@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.R
-import kr.co.testapp0501.common.CommonUtil
+import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivitySignUpBinding
 import kr.co.testapp0501.model.user.CheckId
 import kr.co.testapp0501.model.user.NormalUser

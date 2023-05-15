@@ -53,11 +53,13 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/fonts/drawable-anydpi/ic_group_access.xml" value="0.193" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/fonts/drawable-anydpi/ic_group_add.xml" value="0.178" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_album.xml" value="0.29128248113998323" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_album_comment.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_album_upload.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_access.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_create.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_setting.xml" value="0.3130630630630631" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_hierarchy.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_intro.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -75,6 +77,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_profile_tab1_info.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_profile_tab2_story.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_profile_tab3_album.xml" value="0.3130630630630631" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/layout_album_comment_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_album_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_group_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_main_album_update_item.xml" value="0.3130630630630631" />

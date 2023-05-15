@@ -4,17 +4,17 @@
 
     <data>
 
-        <import type="kr.co.testapp0501.viewmodel.TreeViewModel"/>
+        <import type="kr.co.testapp0501.viewmodel.HierarchyViewModel"/>
         <variable
             name="vmTree"
-            type="kr.co.testapp0501.viewmodel.TreeViewModel"/>
+            type="kr.co.testapp0501.viewmodel.HierarchyViewModel"/>
 
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.activity.TreeActivity"
+        tools:context=".view.activity.HierarchyActivity"
         android:background="@color/background">
 
         <include layout="@layout/toolbar"/>

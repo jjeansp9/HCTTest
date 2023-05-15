@@ -1,4 +1,4 @@
-package kr.co.testapp0501.common
+package kr.co.testapp0501.common.util
 
 import android.content.Intent
 import android.util.Log

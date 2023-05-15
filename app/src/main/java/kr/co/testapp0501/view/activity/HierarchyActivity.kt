@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.MenuItem
 import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
-import kr.co.testapp0501.common.CommonUtil
-import kr.co.testapp0501.databinding.ActivityTreeBinding
-import kr.co.testapp0501.viewmodel.TreeViewModel
+import kr.co.testapp0501.common.util.CommonUtil
+import kr.co.testapp0501.databinding.ActivityHierarchyBinding
+import kr.co.testapp0501.viewmodel.HierarchyViewModel
 
-class TreeActivity : BaseActivity<ActivityTreeBinding>(R.layout.activity_tree) {
+class HierarchyActivity : BaseActivity<ActivityHierarchyBinding>(R.layout.activity_hierarchy) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewDataBinding.vmTree = TreeViewModel()
+        viewDataBinding.vmTree = HierarchyViewModel()
         viewDataBinding.lifecycleOwner = this
 
         setToolbar()

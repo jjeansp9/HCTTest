@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
-import kr.co.testapp0501.common.CommonUtil
+import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityAlbumBinding
 import kr.co.testapp0501.model.recycler.RecyclerAlbumData
 import kr.co.testapp0501.view.adapter.RecyclerAlbumActivityAdapter

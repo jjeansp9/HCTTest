@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kr.co.testapp0501.R
-import kr.co.testapp0501.common.CommonUtil
+import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityGroupBinding
 import kr.co.testapp0501.model.group.GroupMatching
 import kr.co.testapp0501.model.network.ApiService
