@@ -9,9 +9,9 @@ var viewModelPart = module {
     viewModel {
         AlbumViewModel()
     }
-    viewModel {
-        AlbumCommentViewModel()
-    }
+//    viewModel {
+//        AlbumCommentViewModel()
+//    }
 }
 
 var AppDiModule = listOf(

@@ -21,13 +21,14 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_comment_profile"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/bg_profile_circle"
                 android:padding="1dp"
-
+                imageUrl="@{item.imgCommentProfile}"
+                defaultImage="@drawable/img_profile"
                 />
 
             <TextView

@@ -5,5 +5,5 @@ data class AlbumCommentItemModel(
     val imgCommentProfile: String,
     val tvCommentContents: String,
     val tvCommentDate: String,
-    val tvCommentLike: Int,
+    val tvCommentLike: String,
 ): java.io.Serializable

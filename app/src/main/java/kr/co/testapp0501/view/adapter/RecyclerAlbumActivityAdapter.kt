@@ -45,7 +45,7 @@ class RecyclerAlbumActivityAdapter constructor(private val context: Context, pri
         holder.binding.layoutAlbumUploadPicture.setOnClickListener { itemClickListener.pictureClick(holder.binding.layoutAlbumUploadPicture, position) } // 앨범 업로드 이미지
         holder.binding.albumSet.setOnClickListener { itemClickListener.albumSetClick(holder.binding.albumSet, position) } // 앨범 설정 이미지
         holder.binding.layoutLike.setOnClickListener { itemClickListener.likeClick(holder.binding.layoutLike, position) } // 좋아요
-        holder.binding.layoutComment.setOnClickListener { itemClickListener.likeClick(holder.binding.layoutComment, position) } // 댓글
+        holder.binding.layoutComment.setOnClickListener { itemClickListener.commentClick(holder.binding.layoutComment, position) } // 댓글
 
         // 앨범 관련
         holder.binding.tvAlbumName.text = items[position].albumName // 글쓴이

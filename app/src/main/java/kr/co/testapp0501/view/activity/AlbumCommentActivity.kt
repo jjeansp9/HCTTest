@@ -3,10 +3,12 @@ package kr.co.testapp0501.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.databinding.ActivityAlbumCommentBinding
 import kr.co.testapp0501.view.adapter.AlbumCommentAdapter
+import kr.co.testapp0501.viewmodel.AlbumCommentViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class AlbumCommentActivity : BaseActivity<ActivityAlbumCommentBinding>(R.layout.activity_album_comment) {
@@ -18,7 +20,7 @@ class AlbumCommentActivity : BaseActivity<ActivityAlbumCommentBinding>(R.layout.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewDataBinding.vmAlbumComment = getViewModel()
+        viewDataBinding.vmAlbumComment = AlbumCommentViewModel()
         viewDataBinding.lifecycleOwner = this
 
         initViews()
@@ -43,6 +45,8 @@ class AlbumCommentActivity : BaseActivity<ActivityAlbumCommentBinding>(R.layout.
             }
         )
         viewDataBinding.recyclerAlbumComment.adapter = adapter
+        viewDataBinding.recyclerAlbumComment.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        viewDataBinding.vmAlbumComment?.loadCommentList()
     }
 
 

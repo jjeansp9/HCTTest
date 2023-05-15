@@ -13,7 +13,7 @@ class AlbumCommentAdapter(private val onAlbumCommentItemClick: (AlbumCommentItem
     inner class AlbumCommentViewHolder(private val binding: LayoutAlbumCommentItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(albumCommentItem: AlbumCommentItemModel, onAlbumCommentItemClick: (AlbumCommentItemModel) -> Unit){
             binding.item = albumCommentItem
-            binding.btnCommentLike.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
+            binding.root.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
             binding.executePendingBindings()
         }
     }
