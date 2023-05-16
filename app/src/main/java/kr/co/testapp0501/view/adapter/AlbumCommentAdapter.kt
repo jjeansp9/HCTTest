@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.testapp0501.databinding.LayoutAlbumCommentItemBinding
 import kr.co.testapp0501.model.album.AlbumCommentItemModel
 
-class AlbumCommentAdapter(private val onAlbumCommentItemClick: (AlbumCommentItemModel) -> Unit) : ListAdapter<AlbumCommentItemModel, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class AlbumCommentAdapter(
+    private val onAlbumCommentItemClick: (AlbumCommentItemModel) -> Unit
+    ) : ListAdapter<AlbumCommentItemModel, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     inner class AlbumCommentViewHolder(private val binding: LayoutAlbumCommentItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(albumCommentItem: AlbumCommentItemModel, onAlbumCommentItemClick: (AlbumCommentItemModel) -> Unit){
