@@ -1,6 +1,7 @@
 package kr.co.testapp0501.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,14 +10,17 @@ import kr.co.testapp0501.databinding.LayoutAlbumCommentItemBinding
 import kr.co.testapp0501.model.album.AlbumCommentItemModel
 
 class AlbumCommentAdapter(
-    private val onAlbumCommentItemClick: (AlbumCommentItemModel) -> Unit
+    private val onAlbumCommentItemClick: (String) -> Unit
     ) : ListAdapter<AlbumCommentItemModel, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     inner class AlbumCommentViewHolder(private val binding: LayoutAlbumCommentItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(albumCommentItem: AlbumCommentItemModel, onAlbumCommentItemClick: (AlbumCommentItemModel) -> Unit){
+        fun bind(albumCommentItem: AlbumCommentItemModel, onAlbumCommentItemClick: (String) -> Unit){
             binding.item = albumCommentItem
-            binding.root.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
-            binding.btnCommentReply.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
+            //binding.root.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
+            binding.btnCommentReply.setOnClickListener{
+                onAlbumCommentItemClick(albumCommentItem.replyClick)
+                binding.layoutAlbumCommentReply.visibility = View.VISIBLE
+            }
             binding.executePendingBindings()
         }
     }

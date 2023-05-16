@@ -56,6 +56,7 @@ class AlbumCommentActivity : BaseActivity<ActivityAlbumCommentBinding>(R.layout.
         adapter = AlbumCommentAdapter(
             onAlbumCommentItemClick = {clickedItem ->
                 Toast.makeText(this, clickedItem.toString(), Toast.LENGTH_SHORT).show()
+
             }
         )
         viewDataBinding.recyclerAlbumComment.adapter = adapter

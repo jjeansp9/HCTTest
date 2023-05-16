@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View" />
         <variable name="item"
             type="kr.co.testapp0501.model.album.AlbumCommentItemModel"/>
     </data>
@@ -161,8 +162,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="20dp"
             android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:visibility="gone">
+            android:paddingBottom="16dp">
 
             <ImageView
                 android:id="@+id/img_reply_input"
@@ -183,7 +183,9 @@
                 android:layout_marginStart="4dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:paddingBottom="12dp">
+                android:paddingBottom="12dp"
+                android:visibility="gone"
+                android:onClick="">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_comment_reply_profile"
