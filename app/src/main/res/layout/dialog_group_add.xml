@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="30dp"
-        android:background="#DDDDDD">
+        android:background="@drawable/dialog_bg">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,17 +28,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_group_create"
-        android:padding="30dp"
-        android:background="#DDDDDD"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:background="@drawable/dialog_bg"
+        android:padding="30dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="그룹참여"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_centerInParent="true"/>
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

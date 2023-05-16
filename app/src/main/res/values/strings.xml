@@ -23,4 +23,8 @@
 
     <string name="album_update">앨범 새글</string>
 
+    <!--  게시물작성에서 사진업로드 타입 다이얼로그  -->
+    <string name="photo_shoot">사진 촬영</string>
+    <string name="photo_select">사진 선택</string>
+
 </resources>

@@ -11,7 +11,7 @@
         android:layout_marginTop="8dp"
         >
         <RelativeLayout
-            android:id="@+id/layout_img"
+            android:id="@+id/layout_album_upload"
             android:layout_width="116dp"
             android:layout_height="116dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -19,12 +19,22 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/img_group"
+                android:id="@+id/img_album_upload"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bt_group_plusbox" />
+
+            <TextView
+                android:id="@+id/tv_album_upload_photo_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(0/10)"
+                android:textColor="#979797"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="74dp"/>
 
 
         </RelativeLayout>
