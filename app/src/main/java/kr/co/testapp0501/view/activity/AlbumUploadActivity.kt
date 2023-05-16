@@ -41,7 +41,8 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         requestCameraPermission() // 카메라 권한
         checkPermission() // 외부저장소 권한요청
 
-        getImgData()
+        getImgData() // 촬영한 사진의 데이터 가져오기
+        // TODO 사진촬영한 데이터 가져오기
     }
 
     override fun initObservers() {
