@@ -149,7 +149,7 @@ class GroupActivity : AppCompatActivity() {
             override fun groupClick(v: View, position: Int) {
 
                 if (position == groupItems.size -1) { // 그룹 [ + ] 버튼 클릭
-                    groupDialog(R.layout.dialog_group_add)
+                    groupDialog()
 
                 } else { // [+]버튼을 제외한 모든 그룹목록을 클릭 시 메인액티비티로 이동
                     val token = intent.getStringExtra("jwtToken")
@@ -168,13 +168,13 @@ class GroupActivity : AppCompatActivity() {
     }
 
     // 그룹생성, 그룹추가 다이얼로그
-    private fun groupDialog(xml : Int){
+    private fun groupDialog(){
         val dialog = Dialog(this)
-        dialog.setContentView(xml)
+        dialog.setContentView(R.layout.dialog_group_add)
 
         // 다이얼로그 사이즈조절
         val params = dialog.window!!.attributes
-        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.width = 400
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -199,15 +199,15 @@ class GroupActivity : AppCompatActivity() {
         btnGroupConnect.setOnClickListener{
             dialog.dismiss()
             // 그룹코드 다이얼로그
-            groupCodeDialog(R.layout.dialog_group_code_input)
+            groupCodeDialog()
         }
 
     }
 
     // 그룹코드 다이얼로그
-    private fun groupCodeDialog(xml: Int){
+    private fun groupCodeDialog(){
         val dialog = Dialog(this)
-        dialog.setContentView(xml)
+        dialog.setContentView(R.layout.dialog_group_code_input)
 
         // 다이얼로그 사이즈조절
         val params = dialog.window!!.attributes

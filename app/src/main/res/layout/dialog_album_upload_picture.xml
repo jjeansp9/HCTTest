@@ -30,13 +30,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_album_upload_photo_shoot"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/tv_code_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/photo_shoot"
@@ -51,14 +51,14 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#cccccc"/>
+        android:src="#cccccc"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btn_code_confirm"
+        android:id="@+id/btn_album_upload_photo_select"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white">
+        android:background="@drawable/dialog_bg_bottom">
 
         <TextView
             android:layout_width="wrap_content"
