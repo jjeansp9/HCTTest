@@ -14,6 +14,7 @@ class AlbumCommentAdapter(private val onAlbumCommentItemClick: (AlbumCommentItem
         fun bind(albumCommentItem: AlbumCommentItemModel, onAlbumCommentItemClick: (AlbumCommentItemModel) -> Unit){
             binding.item = albumCommentItem
             binding.root.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
+            binding.btnCommentReply.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
             binding.executePendingBindings()
         }
     }

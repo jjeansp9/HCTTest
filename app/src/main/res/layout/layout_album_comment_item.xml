@@ -6,132 +6,243 @@
         <variable name="item"
             type="kr.co.testapp0501.model.album.AlbumCommentItemModel"/>
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp">
 
-        <RelativeLayout
-            android:id="@+id/layout_comment_profile_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        tools:ignore="MissingConstraints"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_album_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_comment_profile"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/bg_profile_circle"
-                android:padding="1dp"
-                imageUrl="@{item.imgCommentProfile}"
-                defaultImage="@drawable/img_profile"
-                />
-
-            <TextView
-                android:id="@+id/tv_comment_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="이름"
-                android:text="@{item.tvCommentName}"
-                android:layout_toEndOf="@id/img_comment_profile"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="4dp"
-                android:textColor="@color/black"/>
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:paddingStart="16dp">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/img_reply"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_album_comment_reply"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_comment_profile_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_album_comment_more_selector"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_reply"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp">
 
-        </RelativeLayout>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_comment_profile"
+                    defaultImage="@drawable/img_profile"
+                    imageUrl="@{item.imgCommentProfile}"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_profile_circle"
+                    android:padding="1dp" />
+
+                <TextView
+                    android:id="@+id/tv_comment_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_toEndOf="@id/img_comment_profile"
+                    android:hint="이름"
+                    android:textStyle="bold"
+                    android:text="@{item.tvCommentName}"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:src="@drawable/icon_album_comment_more_selector" />
+
+            </RelativeLayout>
 
 
-
-        <TextView
-            android:id="@+id/tv_comment_contents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="댓글 내용"
-            app:layout_constraintTop_toBottomOf="@id/layout_comment_profile_name"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="2dp"
-            android:text="@{item.tvCommentContents}"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/tv_comment_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="2023.3.7.22:30"
-            android:text="@{item.tvCommentDate}"
-            android:textColor="#cccccc"
-            app:layout_constraintTop_toBottomOf="@id/tv_comment_contents"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="2dp"/>
-
-        <TextView
-            android:id="@+id/btn_comment_reply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="답글"
-            app:layout_constraintTop_toBottomOf="@id/tv_comment_date"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/bg_edit"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"/>
-
-        <LinearLayout
-            android:id="@+id/btn_comment_like"
-            android:layout_width="72dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_edit"
-            android:paddingStart="13dp"
-            android:paddingEnd="13dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ToggleButton
-                android:id="@+id/img_comment_like"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="1dp"
-                android:text=""
-                android:textOn=""
-                android:textOff=""
-                android:checked="false"
-                android:background="@drawable/btn_album_like_selector"/>
 
             <TextView
-                android:id="@+id/tv_comment_like"
-                android:layout_width="30dp"
+                android:id="@+id/tv_comment_contents"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="99+"
-                android:gravity="center"
-                android:layout_marginStart="2dp"
-                android:text="@{item.tvCommentLike}"
+                android:hint="댓글 내용"
+                app:layout_constraintTop_toBottomOf="@id/layout_comment_profile_name"
+                app:layout_constraintStart_toEndOf="@id/img_reply"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="4dp"
+                android:text="@{item.tvCommentContents}"
                 android:textColor="@color/black"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_comment_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="2023.3.7.22:30"
+                android:text="@{item.tvCommentDate}"
+                android:textColor="#AEAEAE"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_comment_contents"
+                app:layout_constraintStart_toEndOf="@id/img_reply"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="4dp"/>
+
+            <TextView
+                android:id="@+id/btn_comment_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="답글"
+                app:layout_constraintTop_toBottomOf="@id/tv_comment_date"
+                app:layout_constraintStart_toEndOf="@id/img_reply"
+                android:background="@drawable/bg_album_comment_box"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginStart="4dp"/>
+
+            <LinearLayout
+                android:id="@+id/btn_comment_like"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_album_comment_box"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginEnd="20dp">
+
+                <ToggleButton
+                    android:id="@+id/img_comment_like"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="1dp"
+                    android:text=""
+                    android:textOn=""
+                    android:textOff=""
+                    android:checked="false"
+                    android:background="@drawable/btn_album_like_selector"/>
+
+                <TextView
+                    android:id="@+id/tv_comment_like"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:hint="99+"
+                    android:gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:text="@{item.tvCommentLike}"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_album_comment_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_album_comment"
+            android:background="@color/background"
+            android:paddingStart="16dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/img_reply_input"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_album_comment_reply"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_comment_reply_profile_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_reply_input"
+                android:background="@drawable/bg_album_comment_box"
+                android:layout_marginStart="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="12dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_comment_reply_profile"
+                    defaultImage="@drawable/img_profile"
+                    imageUrl=""
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/et_input_reply"
+                    android:background="@drawable/bg_profile_circle"
+                    android:padding="1dp"/>
+
+                <TextView
+                    android:id="@+id/tv_comment_reply_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintStart_toEndOf="@id/img_comment_reply_profile"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/et_input_reply"
+                    android:hint="내 이름"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_send_reply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="등록"
+                    android:textColor="@color/brand_color"
+                    android:textStyle="bold"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="6dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/et_input_reply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:hint="답글 쓰기"
+                    android:minLines="4"
+                    android:maxLines="4"
+                    android:gravity="start"
+                    android:padding="8dp"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_send_reply"
+                    android:background="@drawable/bg_album_comment_box"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+    </layout>
