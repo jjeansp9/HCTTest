@@ -60,8 +60,8 @@
             tools:listitem="@layout/layout_album_upload_footer"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"/>
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
