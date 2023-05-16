@@ -13,6 +13,7 @@ class AlbumCommentViewModel : ViewModel() {
 
     fun loadCommentList(){
 
+        // ui 테스트 하기위한 더미데이터
         val commentList = mutableListOf<AlbumCommentItemModel>()
 
         for (i in 0 .. 5){
