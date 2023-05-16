@@ -3,7 +3,7 @@
 
     <data>
         <variable
-            name="vmAlbumComment"
+            name="vmAlbumUpload"
             type="kr.co.testapp0501.viewmodel.AlbumUploadViewModel" />
     </data>
 
@@ -62,8 +62,9 @@
             android:background="@color/background">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_album_upload"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/background"
                 tools:listitem="@layout/layout_album_upload_footer"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
