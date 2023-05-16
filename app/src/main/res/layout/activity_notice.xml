@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         tools:context=".view.activity.NoticeActivity">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/custom_toolbar"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

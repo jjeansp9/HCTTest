@@ -14,7 +14,7 @@
         tools:context=".view.activity.AlbumCommentActivity"
         tools:ignore="MissingConstraints">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/custom_toolbar"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_album_comment"

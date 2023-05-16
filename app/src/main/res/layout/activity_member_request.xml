@@ -16,7 +16,7 @@
         tools:context=".view.activity.MemberRequestActivity"
         tools:ignore="MissingConstraints">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/custom_toolbar"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_matching_wait"

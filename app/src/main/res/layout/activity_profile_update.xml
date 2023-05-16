@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".view.activity.ProfileUpdateActivity">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/custom_toolbar"/>
 
         <Button
             android:id="@+id/btn_profile_update"

@@ -1,68 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.AlbumUploadActivity"
-    tools:ignore="MissingConstraints"
-    android:background="@color/white">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/toolbar"/>
-
-    <EditText
-        android:id="@+id/et_album_upload_title"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
-        android:hint="제목"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        android:paddingBottom="16dp"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:maxLines="1"
-        android:inputType="text|textNoSuggestions"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
-
-    <EditText
-        android:id="@+id/et_album_upload_contents"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="내용을 입력해주세요"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        android:minLines="16"
-        android:inputType="textMultiLine|textNoSuggestions"
-        app:layout_constraintTop_toBottomOf="@id/et_album_upload_title"
-        android:paddingBottom="16dp"
-        android:paddingTop="4dp"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="start"
-        android:background="#ffffff"/>
+    <data>
+        <variable
+            name="vmAlbumComment"
+            type="kr.co.testapp0501.viewmodel.AlbumUploadViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/et_album_upload_contents"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/background">
+        android:layout_height="match_parent"
+        tools:context=".view.activity.AlbumUploadActivity"
+        tools:ignore="MissingConstraints"
+        android:background="@color/white">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <include layout="@layout/custom_toolbar"/>
+
+        <EditText
+            android:id="@+id/et_album_upload_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background"
-            tools:listitem="@layout/layout_album_upload_footer"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"/>
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+            android:hint="제목"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:maxLines="1"
+            android:inputType="text|textNoSuggestions"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <EditText
+            android:id="@+id/et_album_upload_contents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="내용을 입력해주세요"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:minLines="16"
+            android:inputType="textMultiLine|textNoSuggestions"
+            app:layout_constraintTop_toBottomOf="@id/et_album_upload_title"
+            android:paddingBottom="16dp"
+            android:paddingTop="4dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start"
+            android:background="#ffffff"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/et_album_upload_contents"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/background">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                tools:listitem="@layout/layout_album_upload_footer"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

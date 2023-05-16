@@ -16,7 +16,7 @@
         tools:context=".view.activity.ProfileActivity"
         tools:ignore="MissingConstraints">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/custom_toolbar"/>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"

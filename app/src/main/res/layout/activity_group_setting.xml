@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.GroupSettingActivity">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/custom_toolbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"

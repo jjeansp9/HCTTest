@@ -20,7 +20,7 @@
         tools:context=".view.activity.AlbumActivity"
         android:background="@color/background">
 
-        <include layout="@layout/toolbar" />
+        <include layout="@layout/custom_toolbar" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"

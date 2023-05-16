@@ -88,6 +88,7 @@ class GroupActivity : AppCompatActivity() {
     private fun groupList(jwtToken: String, memberSeq: Int){
         groupViewModel.loadGroupList(jwtToken, memberSeq).observe(this){
             groupItems.clear()
+            binding.progressBar.visibility = View.VISIBLE
             for (i in 0 until it.data.size){
                 if (it.data[i].filePaths.isNotEmpty()) {
 
@@ -137,6 +138,7 @@ class GroupActivity : AppCompatActivity() {
                 -1
             ))
             adapter.notifyDataSetChanged()
+            binding.progressBar.visibility = View.GONE
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }

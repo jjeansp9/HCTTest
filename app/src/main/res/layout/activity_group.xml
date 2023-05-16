@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.GroupActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/custom_toolbar"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -27,5 +27,20 @@
             app:spanCount="2" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="#373737"/>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

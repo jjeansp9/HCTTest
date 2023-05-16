@@ -5,9 +5,15 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
 import kr.co.testapp0501.R
+import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.common.util.CommonUtil
+import kr.co.testapp0501.databinding.ActivityAlbumCommentBinding
+import kr.co.testapp0501.databinding.ActivityAlbumUploadBinding
 
-class AlbumUploadActivity : AppCompatActivity() {
+class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.activity_album_upload) {
+
+    companion object{ private const val TAG = "albumUpload" }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album_upload)
@@ -22,19 +28,13 @@ class AlbumUploadActivity : AppCompatActivity() {
             "게시물 작성",
             0,
             0,
-            false,
-            false
+            firstMenuOn = false,
+            secondMenuOn = false
         )
     }
 
-    // 뒤로가기 버튼
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+
+    override fun initObservers() {
+
     }
 }

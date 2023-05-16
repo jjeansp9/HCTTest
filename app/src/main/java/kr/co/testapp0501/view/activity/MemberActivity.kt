@@ -63,7 +63,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
     private fun groupMemberList(){
         Log.i("jwtTokenAndGroupSeq", "$jwtToken, $groupSeq, $memberLevel")
         memberItems.clear()
-
+        viewDataBinding.progressBar.visibility = View.VISIBLE
         // 그룹에 속한 회원 목록
         viewDataBinding.vmMember?.groupMemberList(jwtToken, groupSeq)?.observe(this){
             val sortedData = it.data.sortedBy { it.memberVO.name } // 이름으로 정렬된 리스트 생성
@@ -100,6 +100,7 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
                 }
             }
             viewDataBinding.recyclerMember.adapter?.notifyDataSetChanged()
+            viewDataBinding.progressBar.visibility = View.GONE
         }
     }
 
