@@ -15,8 +15,21 @@ class AlbumCommentViewModel : ViewModel() {
 
         val commentList = mutableListOf<AlbumCommentItemModel>()
 
-        for (i in 0 .. 15){
-            commentList.add(AlbumCommentItemModel("홍길동", "", "안녕하세요", "2023.03.21.22:30", "12", "1"))
+        for (i in 0 .. 5){
+            commentList.add(AlbumCommentItemModel(
+                "홍길동",
+                "",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "2023.03.21.22:30",
+                "12"
+            ))
+            commentList.add(AlbumCommentItemModel(
+                "홍길동1",
+                "",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "2023.03.21.22:30",
+                "12"
+            ))
         }
 
         albumCommentItems.postValue(commentList)

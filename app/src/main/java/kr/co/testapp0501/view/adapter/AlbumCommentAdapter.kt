@@ -18,7 +18,7 @@ class AlbumCommentAdapter(
             binding.item = albumCommentItem
             //binding.root.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
             binding.btnCommentReply.setOnClickListener{
-                onAlbumCommentItemClick(albumCommentItem.replyClick)
+                onAlbumCommentItemClick("")
                 binding.layoutAlbumCommentReply.visibility = View.VISIBLE
             }
             binding.executePendingBindings()

@@ -71,17 +71,17 @@
 
             </RelativeLayout>
 
-
-
             <TextView
                 android:id="@+id/tv_comment_contents"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="댓글 내용"
                 app:layout_constraintTop_toBottomOf="@id/layout_comment_profile_name"
                 app:layout_constraintStart_toEndOf="@id/img_reply"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="2dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginEnd="20dp"
                 android:text="@{item.tvCommentContents}"
                 android:textColor="@color/black"/>
 
@@ -162,7 +162,8 @@
             android:paddingStart="16dp"
             android:paddingEnd="20dp"
             android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingBottom="16dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/img_reply_input"
@@ -183,9 +184,7 @@
                 android:layout_marginStart="4dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:paddingBottom="12dp"
-                android:visibility="gone"
-                android:onClick="">
+                android:paddingBottom="12dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_comment_reply_profile"
