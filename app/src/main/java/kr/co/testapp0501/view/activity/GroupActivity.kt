@@ -174,7 +174,7 @@ class GroupActivity : AppCompatActivity() {
 
         // 다이얼로그 사이즈조절
         val params = dialog.window!!.attributes
-        params.width = 400
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 

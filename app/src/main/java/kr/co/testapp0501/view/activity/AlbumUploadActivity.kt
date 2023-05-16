@@ -49,7 +49,7 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         )
 
         viewDataBinding.recyclerAlbumUpload.adapter = adapter
-        viewDataBinding?.vmAlbumUpload?.getPhoto()
+        viewDataBinding.vmAlbumUpload?.getPhoto()
     }
 
     private fun customDialog(){
@@ -58,7 +58,7 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
 
         // 다이얼로그 사이즈조절
         val params = dialog.window!!.attributes
-        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.width = 650
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -68,22 +68,15 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         val btnPhotoShoot : ConstraintLayout = dialog.findViewById(R.id.btn_album_upload_photo_shoot)
         val btnPhotoSelect : ConstraintLayout = dialog.findViewById(R.id.btn_album_upload_photo_select)
 
-
         // 사진촬영 버튼
         btnPhotoShoot.setOnClickListener{
-            val token = intent.getStringExtra("jwtToken")
-            val memberSeq = intent.getIntExtra("memberSeq", -1)
-
-            val intent = Intent(this, GroupCreateActivity::class.java)
-            intent.putExtra("jwtToken", token)
-            intent.putExtra("memberSeq", memberSeq)
-            startActivity(intent)
+            // 사진촬영 관련 코드 수행
             dialog.dismiss()
         }
         // 사진선택 버튼
         btnPhotoSelect.setOnClickListener{
+            // 사진 선택 관련 코드 수행
             dialog.dismiss()
-            // 그룹코드 다이얼로그
         }
     }
 

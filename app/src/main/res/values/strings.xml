@@ -27,4 +27,7 @@
     <string name="photo_shoot">사진 촬영</string>
     <string name="photo_select">사진 선택</string>
 
+    <!--  툴바 완료버튼  -->
+<!--    <string name="toolbar_complete">완료</string>-->
+
 </resources>

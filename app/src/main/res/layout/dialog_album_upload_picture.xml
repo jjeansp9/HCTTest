@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="160dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/dialog_bg"
-    android:orientation="vertical"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@drawable/dialog_bg_top">
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +48,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.1dp"
         android:src="#cccccc"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
