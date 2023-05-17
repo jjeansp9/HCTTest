@@ -96,8 +96,6 @@ class GroupCreateActivity : AppCompatActivity() {
                     val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
                     val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
 
-                    val groupImg= ArrayList<MultipartBody.Part>()
-                    groupImg.add(path)
 
                     val groupName = binding.etGroupName.text.toString()
                     var groupType = binding.spinGroupType.selectedItem.toString()
@@ -108,8 +106,8 @@ class GroupCreateActivity : AppCompatActivity() {
                         "운동" -> groupType = "sport"
                         "일반" -> groupType = "meeting"
                     }
-
-                    Log.i("GroupCreateActivity upload", groupName + groupType + groupImg + token)
+                    Log.i("GroupCreateActivity upload", path.toString())
+                    Log.i("GroupCreateActivity upload", groupName + groupType + token)
                     val groupInfo = GroupCreate(groupName, groupType, memberSeq, "")
                     val json = Gson().toJson(groupInfo)
                     val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())

@@ -1,6 +1,10 @@
 package kr.co.testapp0501.common.util
 
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -34,11 +38,11 @@ class CommonUtil {
                 firstMenu.visibility = View.VISIBLE
 
                 // 현재 액티비티, 화면이동할 액티비티값을 파라미터로 받아서 화면이동
-                if (activity.localClassName == "view.activity.AlbumActivity"){
-                    firstMenu.setOnClickListener{
-                        activity.startActivity(Intent(activity, cls))
-                    }
-                }
+//                if (activity.localClassName == "view.activity.AlbumActivity"){
+//                    firstMenu.setOnClickListener{
+//                        activity.startActivity(Intent(activity, cls))
+//                    }
+//                }
             }
             Log.i("activityqqq", activity.localClassName)
             if (secondMenuOn){ // 인자로 받은 값이 false면 이 코드는 실행 안함
@@ -57,22 +61,18 @@ class CommonUtil {
             activity.supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
-        @JvmStatic
-        @BindingAdapter(value = ["imageUrl", "defaultImage"], requireAll = false)
-        fun loadImage(view: ImageView, imageUrl: String?, defaultImage: Int?){
-            imageUrl?.let {
-                Glide.with(view)
-                    .load(it)
-                    .placeholder(defaultImage ?: R.drawable.img_profile)
-                    .into(view)
-            } ?: run {
-                defaultImage?.let {
-                    view.setImageResource(it)
-                } ?: run {
-                    view.setImageResource(R.drawable.img_profile)
-                }
-            }
+        fun absolutelyPath(path: Uri?, context : Context): String {
+            val proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+            val c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+            val index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            c?.moveToFirst()
+
+            val result = c?.getString(index!!)
+            c?.close()
+
+            return result!!
         }
+
 
     }
 }

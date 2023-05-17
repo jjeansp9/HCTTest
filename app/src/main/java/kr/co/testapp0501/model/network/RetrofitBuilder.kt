@@ -16,7 +16,7 @@ class RetrofitBuilder {
                 .build()
 
             val builder = Retrofit.Builder()
-            builder.baseUrl(ApiService.BASE_URL)
+            builder.baseUrl(ApiService.BASE_URL_FIRST)
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))

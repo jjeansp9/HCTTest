@@ -1,10 +1,10 @@
-package kr.co.testapp0501.model.recycler
+package kr.co.testapp0501.model.album
 
-data class RecyclerAlbumData(
+data class AlbumModel(
     val albumProfileImg: String,
     val albumName: String,
     val albumUploadDate: String,
-    val albumUploadPicture: List<Int>,
+    val albumUploadPicture: List<String>,
     val albumTitle: String,
     val albumContents: String,
     val albumLike: Int,

@@ -36,7 +36,8 @@
                 tools:listitem="@layout/recycler_album_item"
                 android:background="@color/background"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="vertical"/>
+                android:orientation="vertical"
+                app:reverseLayout="true"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

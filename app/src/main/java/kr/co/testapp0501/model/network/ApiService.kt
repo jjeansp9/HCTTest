@@ -12,9 +12,10 @@ import retrofit2.http.PartMap as PartMap
 interface ApiService {
 
     companion object{
-        const val BASE_URL = "http://192.168.2.55:9999"
+        const val BASE_URL_FIRST = "http://192.168.2.55:9999"
+        const val BASE_URL_SECOND = "http://192.168.2.55:9999"
         private const val PREFIX_URL = "/com/avad/api"
-        const val FILE_SUFFIX_URL = "$BASE_URL/attachFile"
+        const val FILE_SUFFIX_URL = "$BASE_URL_FIRST/attachFile"
 
         // 일반 회원가입 ID 중복체크
         const val NORMAL_ID_CHECK = "$PREFIX_URL/member/check/{memberId}"
@@ -42,6 +43,8 @@ interface ApiService {
         const val GROUP_MEMBER_LIST = "$PREFIX_URL/group/{groupSeq}/members"
         // 그룹 매칭 대기 회원 수락
         const val GROUP_MATCHING_WAITING_ACCEPT = "$PREFIX_URL/group/member"
+        // 게시글 작성
+        const val ALBUM_POST_UPLOAD = "$PREFIX_URL/board"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -116,10 +119,20 @@ interface ApiService {
         @Path("groupSeq") groupSeq: Int
     ): Call<GroupMemberList>
 
+    // 그룹 매칭 수락
     @POST(GROUP_MATCHING_WAITING_ACCEPT)
     fun groupMatchingAccept(
         @Header("X-AUTH-TOKEN") token: String,
         @Body memberSeq: GroupMatchingAccept
+    ): Call<String>
+
+    // 게시글 작성
+    @Multipart
+    @POST(ALBUM_POST_UPLOAD)
+    fun albumPostUpload(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Part("board") board: RequestBody,
+        @Part imageFile: MutableList<MultipartBody.Part>
     ): Call<String>
 
 }

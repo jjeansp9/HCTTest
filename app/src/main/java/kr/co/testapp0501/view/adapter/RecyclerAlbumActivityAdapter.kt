@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
 import kr.co.testapp0501.databinding.RecyclerAlbumItemBinding
-import kr.co.testapp0501.model.recycler.RecyclerAlbumData
+import kr.co.testapp0501.model.album.AlbumModel
 
-class RecyclerAlbumActivityAdapter constructor(private val context: Context, private val items: MutableList<RecyclerAlbumData>): RecyclerView.Adapter<RecyclerAlbumActivityAdapter.VH>(){
+class RecyclerAlbumActivityAdapter constructor(private val context: Context, private val items: MutableList<AlbumModel>): RecyclerView.Adapter<RecyclerAlbumActivityAdapter.VH>(){
     inner class VH constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
         val binding: RecyclerAlbumItemBinding = RecyclerAlbumItemBinding.bind(itemView)
     }

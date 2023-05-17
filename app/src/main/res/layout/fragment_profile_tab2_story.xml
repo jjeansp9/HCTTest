@@ -18,7 +18,8 @@
             tools:listitem="@layout/recycler_profile_tab2_item"
             android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            app:reverseLayout="true"/>
 
     </androidx.core.widget.NestedScrollView>
 

@@ -28,6 +28,8 @@
     <string name="photo_select">사진 선택</string>
 
     <!--  툴바 완료버튼  -->
-<!--    <string name="toolbar_complete">완료</string>-->
+    <string name="toolbar_complete">완료</string>
+
+    <string name="please_add_img">이미지를 추가해주세요</string>
 
 </resources>
