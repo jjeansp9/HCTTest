@@ -13,7 +13,8 @@ interface ApiService {
 
     companion object{
         const val BASE_URL_FIRST = "http://192.168.2.55:9999"
-        const val BASE_URL_SECOND = "http://192.168.2.55:9999"
+        const val BASE_URL_SECOND = "http://192.168.2.77:9999"
+
         private const val PREFIX_URL = "/com/avad/api"
         const val FILE_SUFFIX_URL = "$BASE_URL_FIRST/attachFile"
 
