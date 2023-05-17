@@ -63,7 +63,7 @@ class MemberViewModel(
         val memberWaitingList = MutableLiveData<MatchingWaitingList>()
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
-        val requestUrl = ApiService.BASE_URL + ApiService.GROUP_MATCHING_WAITING_LIST
+        val requestUrl = ApiService.BASE_URL_FIRST + ApiService.GROUP_MATCHING_WAITING_LIST
 
         Log.i("MemberViewModel groupMatchingList value", "$groupSeq, $jwtToken")
         Log.i("MemberViewModel groupMatchingList Url", requestUrl) // 요청 url
@@ -93,7 +93,7 @@ class MemberViewModel(
         val memberList = MutableLiveData<GroupMemberList>()
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
-        val requestUrl = ApiService.BASE_URL + ApiService.GROUP_MEMBER_LIST
+        val requestUrl = ApiService.BASE_URL_FIRST + ApiService.GROUP_MEMBER_LIST
 
         Log.i("MemberViewModel groupMemberList value", "$jwtToken, $groupSeq")
         Log.i("MemberViewModel groupMemberList Url", requestUrl) // 요청 url
@@ -124,7 +124,7 @@ class MemberViewModel(
         val memberList = MutableLiveData<String>()
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
-        val requestUrl = ApiService.BASE_URL + ApiService.GROUP_MATCHING_WAITING_ACCEPT
+        val requestUrl = ApiService.BASE_URL_FIRST + ApiService.GROUP_MATCHING_WAITING_ACCEPT
 
         Log.i("MemberViewModel groupMatchingAccept value", "$jwtToken, $memberSeq")
         Log.i("MemberViewModel groupMatchingAccept Url", requestUrl) // 요청 url
