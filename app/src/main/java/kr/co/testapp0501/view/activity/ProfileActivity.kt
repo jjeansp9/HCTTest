@@ -1,14 +1,24 @@
 package kr.co.testapp0501.view.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
+import kr.co.testapp0501.common.util.Util
 import kr.co.testapp0501.databinding.ActivityProfileBinding
 import kr.co.testapp0501.model.user.UserModel
 import kr.co.testapp0501.view.adapter.ViewPagerFragmentAdapter
@@ -30,18 +40,42 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
         viewDataBinding.viewPager.adapter = pagerAdapter
 
-        val tabTitle = listOf("정보", "내 이야기", "앨범")
-        TabLayoutMediator(viewDataBinding.tabLayout, viewDataBinding.viewPager) { tab, position ->
-            tab.text = tabTitle[position]
-
-        }.attach()
+        createFragment()
         setToolbar()
-
+        viewDataBinding.imgProfileChange.setOnClickListener{openGallrey()} // TODO 프로필사진 설정 및 변경
         // 프로필화면 이름설정
         setProfileName()
         tabChanged() // 탭 전환 이벤트
         //viewDataBinding.btnProfileUpdate.setOnClickListener{btnUpdate()}
     }
+
+    private fun createFragment(){
+        val tabTitle = listOf("정보", "내 이야기", "앨범")
+        TabLayoutMediator(viewDataBinding.tabLayout, viewDataBinding.viewPager) { tab, position ->
+            tab.text = tabTitle[position]
+
+        }.attach()
+    }
+
+    private fun openGallrey(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityResult.launch(intent)
+    }
+
+    private var uri: Uri? = null
+
+    var startActivityResult = registerForActivityResult<Intent, ActivityResult>(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK && result.data != null) {
+            uri = result.data!!.data!!
+            val requestOptions = RequestOptions().transform(RoundedCorners(64))
+            Glide.with(this).load(uri).apply(requestOptions).into(viewDataBinding.imgProfile)
+            Log.d("ImgURI", uri.toString() + "")
+        }
+    }
+
     override fun initObservers() {
     }
 
