@@ -59,7 +59,7 @@
             android:exported="false"
             />
         <activity
-            android:name=".view.activity.GroupSettingActivity"
+            android:name=".view.activity.SettingActivity"
             android:exported="false"
             />
         <activity

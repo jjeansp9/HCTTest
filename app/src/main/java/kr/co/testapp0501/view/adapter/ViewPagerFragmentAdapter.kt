@@ -7,10 +7,10 @@ import kr.co.testapp0501.view.fragment.ProfileTab1InfoFragment
 import kr.co.testapp0501.view.fragment.ProfileTab2StoryFragment
 import kr.co.testapp0501.view.fragment.ProfileTab3AlbumFragment
 
-class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity, jwtToken: String, memberSeq: Int): FragmentStateAdapter(fragmentActivity) {
 
     private val fragmentList = listOf(
-        ProfileTab1InfoFragment(),
+        ProfileTab1InfoFragment(jwtToken, memberSeq),
         ProfileTab2StoryFragment(),
         ProfileTab3AlbumFragment()
     )

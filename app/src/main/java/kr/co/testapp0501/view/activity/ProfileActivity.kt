@@ -23,7 +23,10 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         viewDataBinding.vmProfile = ProfileViewModel()
         viewDataBinding.lifecycleOwner = this
 
-        val pagerAdapter = ViewPagerFragmentAdapter(this)
+        val jwtToken = intent.getStringExtra("jwtToken")!!
+        val memberSeq = intent.getIntExtra("memberSeq", -1)
+
+        val pagerAdapter = ViewPagerFragmentAdapter(this, jwtToken, memberSeq)
 
         viewDataBinding.viewPager.adapter = pagerAdapter
 

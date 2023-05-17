@@ -84,15 +84,20 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
             "앨범",
             R.drawable.btn_album_upload_selector,
             0,
-            firstMenuOn = true,
+            firstMenuOn = false,
             secondMenuOn = false
         )
     }
 
     override fun onResume() {
         super.onResume()
-        //dummyData() // ui 테스트용
+        loadAlbumList()
     }
+
+    private fun loadAlbumList(){
+        viewDataBinding.vmAlbum?.albumListRequest(jwtToken,"album" , groupSeq, 0)
+    }
+
 
     // 앨범목록 새로고침
     private fun updateAlbumList(){
@@ -101,86 +106,19 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         }
     }
 
-    // ui 테스트용 데이터
-//    @SuppressLint("NotifyDataSetChanged")
-//    private fun dummyData(){
-//
-//        albumPicture.add(0, R.drawable.test_010)
-//
-//        albumPicture2.add(0, R.drawable.img_group_sports)
-//        albumPicture2.add(1, R.drawable.img_group_family)
-//
-//        albumPicture3.add(0, R.drawable.img_group_general)
-//        albumPicture3.add(1, R.drawable.test_010)
-//        albumPicture3.add(2, R.drawable.img_group_family)
-//
-//        albumPicture4.add(0, R.drawable.img_group_general)
-//        albumPicture4.add(1, R.drawable.test_010)
-//        albumPicture4.add(2, R.drawable.img_group_family)
-//        albumPicture4.add(3, R.drawable.img_group_family)
-//
-//        for (i in 0 .. 10){
-//            albumItems.add(
-//                AlbumModel(
-//                "",
-//                "홍길동1",
-//                "2023년 2월 16일 오후 7:02",
-//                albumPicture,
-//                "title",
-//                    testContents,
-//                    0,
-//                    0
-//                )
-//            )
-//            albumItems.add(
-//                AlbumModel(
-//                    "",
-//                    "홍길동2",
-//                    "2023년 2월 16일 오후 7:02",
-//                    albumPicture2,
-//                    "title",
-//                    testContents,
-//                    0,
-//                    364
-//                )
-//            )
-//            albumItems.add(
-//                AlbumModel(
-//                    "",
-//                    "홍길동3",
-//                    "2023년 2월 16일 오후 7:02",
-//                    albumPicture3,
-//                    "title",
-//                    testContents,
-//                    7,
-//                    0
-//                )
-//            )
-//            albumItems.add(
-//                AlbumModel(
-//                    "",
-//                    "홍길동4",
-//                    "2023년 2월 16일 오후 7:02",
-//                    albumPicture4,
-//                    "title",
-//                    testContents,
-//                    4,
-//                    12
-//                )
-//            )
-//        }
-//        viewDataBinding.recyclerAlbum.adapter?.notifyDataSetChanged()
-//        viewDataBinding.swipeRefreshLayout.isRefreshing = false
-//    }
-
 
     // 앨범 툴바에 있는 [+] 버튼 클릭
     private fun clickAlbumUpload(){
-        val intent = Intent(this, AlbumUploadActivity::class.java)
-        intent.putExtra("jwtToken", jwtToken)
-        intent.putExtra("groupSeq", groupSeq)
-        intent.putExtra("memberSeq", memberSeq)
-        startActivity(intent)
+        val albumUploadClick = findViewById<ImageView>(R.id.btn_menu_first)
+        albumUploadClick.setImageResource(R.drawable.btn_album_upload_selector)
+        albumUploadClick.visibility = View.VISIBLE
+        albumUploadClick.setOnClickListener{
+            val intent = Intent(this, AlbumUploadActivity::class.java)
+            intent.putExtra("jwtToken", jwtToken)
+            intent.putExtra("groupSeq", groupSeq)
+            intent.putExtra("memberSeq", memberSeq)
+            startActivity(intent)
+        }
     }
 
     // 뒤로가기 버튼

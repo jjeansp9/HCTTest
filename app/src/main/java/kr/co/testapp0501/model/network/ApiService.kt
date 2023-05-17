@@ -1,6 +1,8 @@
 package kr.co.testapp0501.model.network
 
+import kr.co.testapp0501.model.album.AlbumListResponseModel
 import kr.co.testapp0501.model.group.*
+import kr.co.testapp0501.model.profile.ProfileInfoResponse
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -45,7 +47,13 @@ interface ApiService {
         // 그룹 매칭 대기 회원 수락
         const val GROUP_MATCHING_WAITING_ACCEPT = "$PREFIX_URL/group/member"
         // 게시글 작성
-        const val ALBUM_POST_UPLOAD = "$PREFIX_URL/board"
+        const val ALBUM_BOARD_UPLOAD = "$PREFIX_URL/board"
+        // 게시판 리스트 조회
+        const val ALBUM_BOARD_LIST = "$PREFIX_URL/boards"
+        // 회원 조회 [프로필]
+        const val PROFILE_MEMBER_INFO = "$PREFIX_URL/member/{memberSeq}"
+        // 회원 정보 수정 [프로필]
+        const val PROFILE_MEMBER_INFO_CHANGE = "$PREFIX_URL/member"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -120,7 +128,7 @@ interface ApiService {
         @Path("groupSeq") groupSeq: Int
     ): Call<GroupMemberList>
 
-    // 그룹 매칭 수락
+    // 그룹 매칭 [수락]
     @POST(GROUP_MATCHING_WAITING_ACCEPT)
     fun groupMatchingAccept(
         @Header("X-AUTH-TOKEN") token: String,
@@ -129,13 +137,28 @@ interface ApiService {
 
     // 게시글 작성
     @Multipart
-    @POST(ALBUM_POST_UPLOAD)
-    fun albumPostUpload(
+    @POST(ALBUM_BOARD_UPLOAD)
+    fun albumBoardUpload(
         @Header("X-AUTH-TOKEN") token: String,
         @Part("board") board: RequestBody,
         @Part imageFile: MutableList<MultipartBody.Part>
     ): Call<String>
 
+    // 게시판 리스트 조회
+    @GET(ALBUM_BOARD_LIST)
+    fun albumBoardList(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Query("bbsId") bbsId: String,
+        @Query("groupSeq") groupSeq: Int,
+        @Query("seq") seq: Int,
+    ): Call<String>
+
+    // 회원 조회 [프로필]
+    @GET(PROFILE_MEMBER_INFO)
+    fun profileMemberInfo(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("memberSeq") memberSeq: Int
+    ): Call<ProfileInfoResponse>
 }
 
 

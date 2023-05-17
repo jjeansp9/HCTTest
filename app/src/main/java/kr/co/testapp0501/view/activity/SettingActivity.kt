@@ -6,10 +6,10 @@ import android.view.MenuItem
 import android.widget.TextView
 import kr.co.testapp0501.R
 
-class GroupSettingActivity : AppCompatActivity() {
+class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_group_setting)
+        setContentView(R.layout.activity_setting)
 
         setToolbar()
     }

@@ -245,12 +245,30 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
                 Log.i(TAG, "$title, $content //// path: " + path)
                 Log.i(TAG, pathList.toString())
 
-
                 viewDataBinding.vmAlbumUpload?.clickedComplete(jwtToken, requestBody, pathList)?.observe(this){
-                    Log.i(TAG+"code", it.toString())
+                    Log.i(TAG+" code", it.toString())
+                    when (it) {
+                        200 -> { // Success
+                            finish()
+                            viewDataBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "게시물 작성 완료", Toast.LENGTH_SHORT).show()
+                            return@observe
+                        }
+                        400 -> { // 파라미터 오류
+                            viewDataBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "제목 또는 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+                            return@observe
+                        }
+                        500 -> { // 서버 내부오류
+                            viewDataBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                            return@observe
+                        }
+                    }
+
                 }
 
-                viewDataBinding.progressBar.visibility = View.GONE
+
             }else{
                 Toast.makeText(this, R.string.please_add_img, Toast.LENGTH_SHORT).show()
             }

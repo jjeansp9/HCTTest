@@ -34,6 +34,7 @@ class MainViewModel(
     fun onClickMember() {startNewActivity(MemberActivity::class.java)} // 구성원 클릭
     fun onClickAlbum() {startNewActivity(AlbumActivity::class.java)} // 앨범 클릭
     fun onClickProfile() {startNewActivity(ProfileActivity::class.java)} // 프로필 클릭
+    fun onClickSet() {startNewActivity(SettingActivity::class.java)} // 설정 클릭
 
 
 }

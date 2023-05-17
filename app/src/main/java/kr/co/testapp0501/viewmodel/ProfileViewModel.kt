@@ -1,32 +1,76 @@
 package kr.co.testapp0501.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import kr.co.testapp0501.base.BaseViewModel
+import kr.co.testapp0501.model.network.ApiService
+import kr.co.testapp0501.model.network.RetrofitBuilder
+import kr.co.testapp0501.model.profile.ProfileInfoResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ProfileViewModel: BaseViewModel() {
+class ProfileViewModel: ViewModel() {
 
-    val tvYear = MutableLiveData<String>() // 생년월일
-    val tvSolarMonthAndDay = MutableLiveData<String>() // 양력 월,일
-    val tvLunarMonthAndDay = MutableLiveData<String>() // 음력 월,일
-    val tvDateOfDeath = MutableLiveData<String>() // 사망일
-    val tvAge = MutableLiveData<String>() // 나이
-    val tvGender = MutableLiveData<String>() // 성별
-    val tvZodiacSign = MutableLiveData<String>() // 띠
-    val tvContactNum = MutableLiveData<String>() // 연락처
-    val tvAddress1 = MutableLiveData<String>() // 주소 1
-    val tvAddress2 = MutableLiveData<String>() // 주소 2
+    companion object{
+        const val TAG = "profileVM"
+    }
 
-    init {
-        tvYear.value = "1999년"
-        tvSolarMonthAndDay.value = "1월 18일"
-        tvLunarMonthAndDay.value = "2월 1일"
-        tvDateOfDeath.value = "-"
-        tvAge.value = "25살"
-        tvGender.value = "여자"
-        tvZodiacSign.value = "토끼띠"
-        tvContactNum.value = "010-4054-0064"
-        tvAddress1.value = "경기 수원시 망포동 신원빌라 103동"
-        tvAddress2.value = "1006호"
+    val profileInfo = MutableLiveData<ProfileInfoResponse>()
+
+    // 회원 조회 [프로필]
+    fun requestMemberInfo(jwtToken: String, memberSeq: Int){
+
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val requestUrl = ApiService.BASE_URL_FIRST + ApiService.PROFILE_MEMBER_INFO
+
+        Log.i("MemberViewModel groupMatchingAccept value", "$jwtToken, $memberSeq")
+        Log.i("MemberViewModel groupMatchingAccept Url", requestUrl) // 요청 url
+
+        apiService.profileMemberInfo(jwtToken, memberSeq).enqueue(object: Callback<ProfileInfoResponse>{
+            override fun onResponse(call: Call<ProfileInfoResponse>, response: Response<ProfileInfoResponse>) {
+                Log.i(TAG, response.code().toString())
+                if (response.isSuccessful){
+                    profileInfo.value = response.body()
+                    Log.i(TAG + "data", response.body().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileInfoResponse>, t: Throwable) {
+            }
+
+        })
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
