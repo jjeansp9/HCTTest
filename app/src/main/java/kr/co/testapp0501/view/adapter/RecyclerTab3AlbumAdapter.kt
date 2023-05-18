@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -25,7 +26,16 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         val tvAlbumDate: TextView by lazy { itemView.findViewById(R.id.tv_album_date) }
         val tvNumOfComments: TextView by lazy { itemView.findViewById(R.id.tv_num_of_comments) }
         val imgAlbum: ImageView by lazy { itemView.findViewById(R.id.img_album) }
+        val albumUpdateRoot: ConstraintLayout by lazy { itemView.findViewById(R.id.album_update_root) }
     }
+
+    interface OnItemClickListener {
+        fun albumUpdateClick(v: View, position: Int)
+    }
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+    private lateinit var itemClickListener : OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val layoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -42,6 +52,8 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         holder.tvAlbumTitle.text = items[position].tvAlbumTitle
         holder.tvAlbumDate.text = items[position].tvAlbumDate
         holder.tvNumOfComments.text = items[position].tvNumOfComments.toString()
+
+        holder.albumUpdateRoot.setOnClickListener { itemClickListener.albumUpdateClick(holder.albumUpdateRoot, position) } // 그룹목록 클릭이벤트
 
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
         if (items[position].imgAlbum == "") Glide.with(context).load(R.drawable.img_story).apply(requestOptions).into(holder.imgAlbum) // 앨범글 이미지

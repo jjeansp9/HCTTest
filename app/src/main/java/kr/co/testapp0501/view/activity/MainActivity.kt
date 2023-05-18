@@ -1,5 +1,6 @@
 package kr.co.testapp0501.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -60,10 +61,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setToolbar()
         setTitleLayout()
 
-
-
-
+        albumUpdateClick() // 하단에 앨범 새글에 게시판 글목록 클릭
         // AlbumViewModel의 LiveData 관찰 예시
+    }
+
+    // 하단에 앨범 새글에 게시판 글목록 클릭
+    private fun albumUpdateClick(){
+        adapter.setItemClickListener(object : RecyclerTab3AlbumAdapter.OnItemClickListener{
+            override fun albumUpdateClick(v: View, position: Int) {
+                viewDataBinding.vmMain?.onClickAlbum() // 앨범 화면으로 이동
+            }
+
+        })
     }
 
     override fun onResume() {
@@ -72,23 +81,41 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
     override fun initObservers() {
         albumViewModel.albumBoardList.observe(this) { albumUpdate ->
+            if (albumUpdate.size > 0) {
+                items.clear()
+                if (albumUpdate.size < 5){
+                    for (i in 0 until albumUpdate.size){
+                        val fileAlbum = albumUpdate[i].fileList[0]
+                        val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName
+                        val formattedTime = CommonUtil.convertDateTimeString(albumUpdate[i].insertDate)
+                        items.add(0,
+                            RecyclerTab3AlbumData(
+                                albumUpdate[i].title,
+                                formattedTime,
+                                albumUpdate[i].commentCnt,
+                                ApiService.FILE_SUFFIX_URL+albumUrl,
+                            ))
+                    }
+                }else{
+                    for (i in 0 .. 4){
+                        val fileAlbum = albumUpdate[i].fileList[0]
+                        val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName
+                        val formattedTime = CommonUtil.convertDateTimeString(albumUpdate[i].insertDate)
+                        items.add(0,
+                            RecyclerTab3AlbumData(
+                                albumUpdate[i].title,
+                                formattedTime,
+                                albumUpdate[i].commentCnt,
+                                ApiService.FILE_SUFFIX_URL+albumUrl,
+                            ))
+                    }
+                }
 
-            for (i in 0 .. 5){
-                val fileAlbum = albumUpdate[i].fileList[0]
-                val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName
-                val formattedTime = CommonUtil.convertDateTimeString(albumUpdate[i].insertDate)
-                items.add(
-                    RecyclerTab3AlbumData(
-                        albumUpdate[i].title,
-                        formattedTime,
-                        albumUpdate[i].commentCnt,
-                        ApiService.FILE_SUFFIX_URL+albumUrl,
-                    ))
+                viewDataBinding.recyclerAlbumUpdate.scrollToPosition(items.size -1)
+                adapter.notifyDataSetChanged()
+
+                Log.i(TAG, items.size.toString())
             }
-            viewDataBinding.recyclerAlbumUpdate.scrollToPosition(items.size -1)
-            adapter.notifyDataSetChanged()
-
-            Log.i(TAG, items.size.toString())
 
         }
     }
@@ -115,16 +142,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         tv.setText(R.string.logo_name)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-    }
-
-    // 뒤로가기 버튼
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

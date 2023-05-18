@@ -29,7 +29,7 @@
         android:id="@+id/img_comment"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:background="#8E8E8E"
+        android:src="@drawable/btn_album_comment_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_album_date"
         android:layout_marginStart="6dp"/>

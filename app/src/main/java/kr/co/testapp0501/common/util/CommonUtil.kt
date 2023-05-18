@@ -90,7 +90,7 @@ class CommonUtil {
                 .toFormatter(Locale.KOREA)
             val dateTime = LocalDateTime.parse(dateTimeString, inputFormatter)
 
-            val adjustedDateTime = dateTime.minusHours(3)
+            val adjustedDateTime = dateTime.minusHours(-9)
 
             return adjustedDateTime.format(outputFormatter)
         }

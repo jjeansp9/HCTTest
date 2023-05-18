@@ -24,15 +24,12 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
         val binding: RecyclerGroupItemBinding = RecyclerGroupItemBinding.bind(itemView)
     }
 
-    // (1) 리스너 인터페이스
     interface OnItemClickListener {
         fun groupClick(v: View, position: Int)
     }
-    // (2) 외부에서 클릭 시 이벤트 설정
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
         this.itemClickListener = onItemClickListener
     }
-    // (3) setItemClickListener로 설정한 함수 실행
     private lateinit var itemClickListener : OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
