@@ -60,6 +60,13 @@ class ProfileTab1InfoFragment(private val jwtToken: String, private val memberSe
 
     private fun loadProfileInfo(jwtToken: String, memberSeq: Int){
         viewDataBinding.vmProfile?.requestMemberInfo(jwtToken, memberSeq)
+        viewDataBinding.vmProfile?.profileGender?.observe(requireActivity()){
+            if (it == "M"){
+                viewDataBinding.tvGender.text = "남"
+            }else{
+                viewDataBinding.tvGender.text = "여"
+            }
+        }
     }
 
 }

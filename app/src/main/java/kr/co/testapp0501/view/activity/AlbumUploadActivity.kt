@@ -234,15 +234,15 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
                     pathList.add(path)
                 }
 
-                val file = File(CommonUtil.absolutelyPath(albumPhotos[0].photo.toUri(), this))
-                val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
-                val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
+//                val file = File(CommonUtil.absolutelyPath(albumPhotos[0].photo.toUri(), this))
+//                val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
+//                val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
 
                 val board = AlbumUploadModel(title, content, bbsId, groupSeq, ntcrSeq)
                 val json = Gson().toJson(board)
                 val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
-                Log.i(TAG, "$title, $content //// path: " + path)
+                //Log.i(TAG, "$title, $content //// path: " + path)
                 Log.i(TAG, pathList.toString())
 
                 viewDataBinding.vmAlbumUpload?.clickedComplete(jwtToken, requestBody, pathList)?.observe(this){

@@ -8,6 +8,7 @@ import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.profile.ProfileInfoResponse
 import kr.co.testapp0501.model.profile.ProfileUpdateRequest
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,16 +46,17 @@ class ProfileViewModel: ViewModel() {
         })
     }
 
+    // 프로필 정보 변경
     fun profileChanged(jwtToken: String, memberSeq: Int, name: String, birth: String, gender: String, phoneNum: String): LiveData<Int> {
         val result = MutableLiveData<Int>()
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         val putData = ProfileUpdateRequest(memberSeq, name, phoneNum, birth, gender)
-        Log.i(TAG +"putData", putData.toString())
+        Log.i(TAG +"change putData", putData.toString())
 
         apiService.profileMemberInfoChange(jwtToken, putData).enqueue(object: Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                Log.i(TAG + "code", response.code().toString())
+                Log.i(TAG + "change code", response.code().toString())
                 if (response.isSuccessful){
                     result.value= response.code()
                 }
@@ -63,14 +65,29 @@ class ProfileViewModel: ViewModel() {
             override fun onFailure(call: Call<String>, t: Throwable) {
 
             }
-
         })
-
-
-
         return result
     }
 
+    // 회원 프로필사진 등록
+    fun profileImageChanged(jwtToken: String, registrationType: String, memberSeq: Int, file: MultipartBody.Part): LiveData<Int>{
+        val result = MutableLiveData<Int>()
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
+
+        Log.i("$TAG img putData", registrationType+ memberSeq)
+
+        apiService.fileRegistration(jwtToken, registrationType, memberSeq, file).enqueue(object: Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                Log.i("$TAG img data", response.code().toString())
+                result.value = response.code()
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+            }
+
+        })
+        return result
+    }
 }
 
 

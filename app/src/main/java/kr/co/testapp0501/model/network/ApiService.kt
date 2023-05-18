@@ -40,7 +40,7 @@ interface ApiService {
         //const val GROUP_LIST = "$PREFIX_URL/group/types"
         // 회원 그룹 조회
         const val GROUP_LOAD = "$PREFIX_URL/member/{memberSeq}/groups"
-        const val GROUP_FILE = "/attachFile{fileUrl}"
+
         // 그룹 매칭 대기 회원 조회
         const val GROUP_MATCHING_WAITING_LIST = "$PREFIX_URL/group/{groupSeq}/matching/members"
         // 그룹 회원 조회
@@ -55,6 +55,10 @@ interface ApiService {
         const val PROFILE_MEMBER_INFO = "$PREFIX_URL/member/{memberSeq}"
         // 회원 정보 수정 [프로필]
         const val PROFILE_MEMBER_INFO_CHANGE = "$PREFIX_URL/member"
+        // 첨부파일 view [image]
+        const val FILE_VIEW = "/attachFile{fileUrl}"
+        // 첨부파일 등록
+        const val FILE_REGISTRATION = "$PREFIX_URL/file/{who}/{whoSeq}"
     }
 
     // 일반 회원가입 ID 중복체크
@@ -151,17 +155,32 @@ interface ApiService {
         @Header("X-AUTH-TOKEN") token: String,
         @Query("bbsId") bbsId: String,
         @Query("groupSeq") groupSeq: Int,
-        @Query("seq") seq: Int,
-    ): Call<String>
+        @Query("seq") seq: Int, ): Call<String>
 
     // 회원 조회 [프로필]
     @GET(PROFILE_MEMBER_INFO)
-    fun profileMemberInfo(@Header("X-AUTH-TOKEN") token: String, @Path("memberSeq") memberSeq: Int): Call<ProfileInfoResponse>
+    fun profileMemberInfo(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("memberSeq") memberSeq: Int
+    ): Call<ProfileInfoResponse>
 
     // 회원 정보 수정 [프로필]
     @Headers("Content-Type: application/json")
     @PATCH(PROFILE_MEMBER_INFO_CHANGE)
-    fun profileMemberInfoChange(@Header("X-AUTH-TOKEN") token: String, @Body updateRequest: ProfileUpdateRequest): Call<String>
+    fun profileMemberInfoChange(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Body updateRequest: ProfileUpdateRequest
+    ): Call<String>
+
+    // 첨부파일 등록 [사진]
+    @Multipart
+    @POST(FILE_REGISTRATION)
+    fun fileRegistration(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("who") who: String,
+        @Path("whoSeq") whoSeq: Int,
+        @Part imageFile: MultipartBody.Part
+    ): Call<String>
 }
 
 

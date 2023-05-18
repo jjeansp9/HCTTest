@@ -38,6 +38,7 @@
 
     <!--  회원정보 수정  -->
     <string name="profile_update_success">회원정보 수정 완료</string>
+    <string name="profile_img_update_success">프로필 사진 등록 완료</string>
 
 </resources>
 

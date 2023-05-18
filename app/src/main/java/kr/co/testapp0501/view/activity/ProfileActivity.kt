@@ -8,8 +8,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -18,11 +20,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
+import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.common.util.Util
 import kr.co.testapp0501.databinding.ActivityProfileBinding
 import kr.co.testapp0501.model.user.UserModel
 import kr.co.testapp0501.view.adapter.ViewPagerFragmentAdapter
 import kr.co.testapp0501.viewmodel.ProfileViewModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     companion object{
@@ -32,6 +39,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private lateinit var jwtToken: String
     private var memberSeq : Int = -1
     private var memberLevel : Int = -1
+
+    private var who = "member"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +58,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         createFragment()
         setToolbar()
         viewDataBinding.imgProfileChange.setOnClickListener{openGallrey()} // TODO 프로필사진 설정 및 변경
-        // 프로필화면 이름설정
-        setProfileName()
         tabChanged() // 탭 전환 이벤트
         btnUpdate()
-        //viewDataBinding.btnProfileUpdate.setOnClickListener{btnUpdate()}
     }
 
     override fun onResume() {
@@ -93,6 +99,16 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             val requestOptions = RequestOptions().transform(RoundedCorners(64))
             Glide.with(this).load(uri).apply(requestOptions).into(viewDataBinding.imgProfile)
             Log.d("ImgURI", uri.toString() + "")
+
+            val file = File(CommonUtil.absolutelyPath(uri, this))
+            val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
+            val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
+
+            viewDataBinding.vmProfile?.profileImageChanged(jwtToken, who, memberSeq, path)?.observe(this){
+                if(it == 200){
+                    Toast.makeText(this, R.string.profile_img_update_success, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -108,15 +124,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
     }
 
-    // 프로필화면 이름설정
-    private fun setProfileName(){
-        if (intent.getStringExtra("memberName") == null){
-            viewDataBinding.tvProfileName.text = users.loadNormalData().name
-        }else{
-            viewDataBinding.tvProfileName.text = intent.getStringExtra("memberName")
-        }
-    }
-
     // 툴바 설정 [ 프로필 화면 ]
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -128,16 +135,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
-    // 뒤로가기 버튼
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 
     // 2번,3번 탭에서는 [수정하기] 버튼 숨김
     private fun tabChanged(){

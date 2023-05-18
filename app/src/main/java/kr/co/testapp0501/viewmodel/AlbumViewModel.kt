@@ -17,8 +17,8 @@ class AlbumViewModel: BaseViewModel() {
     // 앨범 게시글 목록 불러오기
     fun albumListRequest(jwtToken: String, bbsId: String, groupSeq: Int, seq: Int){
         val albumBoardList = MutableLiveData<String>()
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceSecond()!!.create(ApiService::class.java)
-        Log.i(TAG+" url", ApiService.BASE_URL_SECOND+ApiService.ALBUM_BOARD_LIST)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
+        Log.i(TAG+" url", ApiService.BASE_URL_FIRST+ApiService.ALBUM_BOARD_LIST)
 
         Log.i(TAG+" requestData", "bbsId: $bbsId, groupSeq: $groupSeq, seq: $seq")
 

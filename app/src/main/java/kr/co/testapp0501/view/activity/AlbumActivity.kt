@@ -96,7 +96,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
     }
 
     private fun loadAlbumList(){
-        viewDataBinding.vmAlbum?.albumListRequest(jwtToken, boardTypeAlbum, groupSeq, 1)
+        viewDataBinding.vmAlbum?.albumListRequest(jwtToken, boardTypeAlbum, groupSeq, 0)
     }
 
     // 앨범목록 새로고침
