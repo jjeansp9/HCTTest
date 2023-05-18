@@ -3,7 +3,6 @@ package kr.co.testapp0501.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.profile.ProfileInfoResponse
@@ -22,7 +21,7 @@ class ProfileViewModel: ViewModel() {
     // 회원 조회 [프로필]
     fun requestMemberInfo(jwtToken: String, memberSeq: Int){
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
         val requestUrl = ApiService.BASE_URL_FIRST + ApiService.PROFILE_MEMBER_INFO
 
         Log.i("MemberViewModel groupMatchingAccept value", "$jwtToken, $memberSeq")

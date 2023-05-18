@@ -1,11 +1,8 @@
 package kr.co.testapp0501.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kr.co.testapp0501.base.BaseViewModel
-import kr.co.testapp0501.model.album.AlbumListResponseModel
-import kr.co.testapp0501.model.group.GroupList
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import retrofit2.Call
@@ -20,8 +17,8 @@ class AlbumViewModel: BaseViewModel() {
     // 앨범 게시글 목록 불러오기
     fun albumListRequest(jwtToken: String, bbsId: String, groupSeq: Int, seq: Int){
         val albumBoardList = MutableLiveData<String>()
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
-        Log.i(TAG+" url", ApiService.BASE_URL_FIRST+ApiService.ALBUM_BOARD_LIST)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceSecond()!!.create(ApiService::class.java)
+        Log.i(TAG+" url", ApiService.BASE_URL_SECOND+ApiService.ALBUM_BOARD_LIST)
 
         Log.i(TAG+" requestData", "bbsId: $bbsId, groupSeq: $groupSeq, seq: $seq")
 
@@ -42,26 +39,5 @@ class AlbumViewModel: BaseViewModel() {
             }
 
         })
-    }
-    // 그룹 목록
-    fun loadGroupList(jwtToken: String, memberSeq: Int) : LiveData<GroupList> {
-        val groupList = MutableLiveData<GroupList>()
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
-
-        Log.i("GroupActivity before response", "before$memberSeq")
-
-        apiService.loadGroupList(jwtToken, memberSeq).enqueue(object : Callback<GroupList> {
-            override fun onResponse(call: Call<GroupList>, response: Response<GroupList>) {
-                groupList.value = response.body()
-                Log.i("GroupActivity after response", response.code().toString())
-                Log.i("GroupActivity Http",response.body().toString())
-                Log.i("GroupActivity Http",response.message() +"," + call.toString())
-                //Log.i("GroupActivity Http",response.body()!!.data[0].filePaths.toString())
-            }
-            override fun onFailure(call: Call<GroupList>, t: Throwable) {
-            }
-        })
-
-        return groupList
     }
 }

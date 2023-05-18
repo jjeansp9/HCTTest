@@ -28,7 +28,7 @@ class UserRepository {
     fun checkId(checkId: CheckId) : LiveData<String>{
         val userLiveData = MutableLiveData<String>()
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         apiService.checkId(checkId).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
@@ -55,7 +55,7 @@ class UserRepository {
         Log.i("addNormalUser", "id: ${normalUser.id} , pw: ${normalUser.pw} , name: ${normalUser.name} , gender: ${normalUser.sex}")
         var users = UserModel(context)
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         apiService.addNormalUser(normalUser).enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
@@ -92,7 +92,7 @@ class UserRepository {
     fun normalLogin(context: Context, login: NormalLogin) : LiveData<Int>{
         val userLiveData = MutableLiveData<Int>()
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         apiService.normalLogin(login).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
@@ -238,7 +238,7 @@ class UserRepository {
 
         var users = UserModel(context)
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         apiService.addSnsUser(user!!).enqueue(object : retrofit2.Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
@@ -271,7 +271,7 @@ class UserRepository {
     fun snsLogin(context: Context, snsType: String, snsId: String) : LiveData<Int>{
         val idLiveData = MutableLiveData<Int>()
         val users = UserModel(context)
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         Log.i("UserRepository snsSignIn() id", snsId)
 

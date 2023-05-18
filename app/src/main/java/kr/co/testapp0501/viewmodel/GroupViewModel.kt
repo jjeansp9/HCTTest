@@ -19,7 +19,7 @@ class GroupViewModel : ViewModel(){
     // 그룹 생성
     fun createGroup(token : String, groupInfo : RequestBody, groupImg : MultipartBody.Part): LiveData<Int>{
         val result = MutableLiveData<Int>()
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
 
         apiService.uploadData(token, groupInfo, groupImg).enqueue(object : Callback<String> {
@@ -44,7 +44,7 @@ class GroupViewModel : ViewModel(){
     // 그룹 목록
     fun loadGroupList(jwtToken: String, memberSeq: Int) : LiveData<GroupList>{
         val groupList = MutableLiveData<GroupList>()
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         Log.i("GroupActivity before response", "before$memberSeq")
 
@@ -66,7 +66,7 @@ class GroupViewModel : ViewModel(){
     // 그룹 코드
     fun groupMatching(jwtToken: String, groupMatching: GroupMatching) : LiveData<Int>{
         var serverResponse = MutableLiveData<Int>()
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
         Log.i("GroupViewModel groupMatching jwtToken", jwtToken)
 

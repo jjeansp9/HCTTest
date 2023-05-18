@@ -10,13 +10,24 @@ class RetrofitBuilder {
 
     companion object{
 
-        fun getRetrofitInstance(): Retrofit? {
-
+        fun getRetrofitInstanceFirst(): Retrofit? {
             val okHttpClient = OkHttpClient.Builder()
                 .build()
 
             val builder = Retrofit.Builder()
             builder.baseUrl(ApiService.BASE_URL_FIRST)
+                .client(okHttpClient)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            return builder.build()
+        }
+
+        fun getRetrofitInstanceSecond(): Retrofit? {
+            val okHttpClient = OkHttpClient.Builder()
+                .build()
+
+            val builder = Retrofit.Builder()
+            builder.baseUrl(ApiService.BASE_URL_SECOND)
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))

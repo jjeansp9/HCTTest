@@ -3,21 +3,16 @@ package kr.co.testapp0501.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.model.group.GroupMatchingAccept
 import kr.co.testapp0501.model.group.GroupMemberList
 import kr.co.testapp0501.model.group.MatchingWaitingList
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
-import kr.co.testapp0501.view.activity.MemberActivity
 import kr.co.testapp0501.view.activity.MemberRequestActivity
-import kr.co.testapp0501.view.activity.ProfileActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +57,7 @@ class MemberViewModel(
 
         val memberWaitingList = MutableLiveData<MatchingWaitingList>()
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
         val requestUrl = ApiService.BASE_URL_FIRST + ApiService.GROUP_MATCHING_WAITING_LIST
 
         Log.i("MemberViewModel groupMatchingList value", "$groupSeq, $jwtToken")
@@ -92,7 +87,7 @@ class MemberViewModel(
 
         val memberList = MutableLiveData<GroupMemberList>()
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
         val requestUrl = ApiService.BASE_URL_FIRST + ApiService.GROUP_MEMBER_LIST
 
         Log.i("MemberViewModel groupMemberList value", "$jwtToken, $groupSeq")
@@ -123,7 +118,7 @@ class MemberViewModel(
 
         val memberList = MutableLiveData<String>()
 
-        val apiService: ApiService = RetrofitBuilder.getRetrofitInstance()!!.create(ApiService::class.java)
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
         val requestUrl = ApiService.BASE_URL_FIRST + ApiService.GROUP_MATCHING_WAITING_ACCEPT
 
         Log.i("MemberViewModel groupMatchingAccept value", "$jwtToken, $memberSeq")

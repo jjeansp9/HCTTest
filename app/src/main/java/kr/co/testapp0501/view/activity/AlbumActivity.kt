@@ -29,6 +29,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
     private var groupSeq : Int = -1
     private var memberSeq : Int = -1
     private var jwtToken : String = ""
+    private var boardTypeAlbum = "album"
 
     private val albumAdapter = RecyclerAlbumActivityAdapter(this, albumItems)
 
@@ -95,9 +96,8 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
     }
 
     private fun loadAlbumList(){
-        viewDataBinding.vmAlbum?.albumListRequest(jwtToken,"album" , groupSeq, 0)
+        viewDataBinding.vmAlbum?.albumListRequest(jwtToken, boardTypeAlbum, groupSeq, 1)
     }
-
 
     // 앨범목록 새로고침
     private fun updateAlbumList(){
