@@ -22,24 +22,22 @@ class ProfileUpdateActivity : BaseActivity<ActivityProfileUpdateBinding>(R.layou
     override fun initObservers() {
     }
 
-    // 툴바 설정 [ 프로필 화면 ]
     private fun setToolbar(){
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val tv = findViewById<TextView>(R.id.tv_toolber_title)
         tv.visibility = View.VISIBLE
-        tv.text = "프로필"
+        tv.text = "정보"
+        val complete = findViewById<TextView>(R.id.album_upload_create) // 게시글 작성 완료버튼
+        complete.visibility = View.VISIBLE
+        complete.setOnClickListener{
+            profileUpdateComplete()
+        }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
-    // 뒤로가기 버튼
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+
+    private fun profileUpdateComplete(){
+
     }
 }
