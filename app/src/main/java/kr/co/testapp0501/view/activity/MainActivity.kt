@@ -1,11 +1,13 @@
 package kr.co.testapp0501.view.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -16,43 +18,79 @@ import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityMainBinding
+import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumData
 import kr.co.testapp0501.view.adapter.RecyclerTab3AlbumAdapter
+import kr.co.testapp0501.viewmodel.AlbumViewModel
 import kr.co.testapp0501.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-
+    companion object{
+        const val TAG = "MainActivity"
+    }
     private var groupName : String = ""
+    private var boardTypeAlbum = "album"
     private val setViewType = 0 // [프로필 3번째 탭], [메인화면 앨범 새글] 구분하기 위한 변수
 
     private val items = mutableListOf<RecyclerTab3AlbumData>()
     private val adapter by lazy { RecyclerTab3AlbumAdapter(this, items, setViewType)  }
+    private lateinit var albumViewModel: AlbumViewModel
+
+    private var groupSeq : Int = -1
+    private var memberSeq : Int = -1
+    private var jwtToken : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val jwtToken = intent.getStringExtra("jwtToken")!!
-        val groupSeq = intent.getIntExtra("groupSeq", -1)
-        val memberSeq = intent.getIntExtra("memberSeq", -1)
+        jwtToken = intent.getStringExtra("jwtToken")!!
+        groupSeq = intent.getIntExtra("groupSeq", -1)
+        memberSeq = intent.getIntExtra("memberSeq", -1)
         val memberLevel = intent.getIntExtra("memberLevel", -1)
         groupName = intent.getStringExtra("groupName")!!
 
         viewDataBinding.vmMain = MainViewModel(this, jwtToken, groupSeq, memberSeq, memberLevel)
+        albumViewModel = ViewModelProvider(this).get(AlbumViewModel::class.java)
         viewDataBinding.lifecycleOwner = this
 
         viewDataBinding.recyclerAlbumUpdate.adapter = adapter
         viewDataBinding.recyclerAlbumUpdate.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
-        for (i in 0 .. 10){
-            items.add(RecyclerTab3AlbumData("까망이 근황이에요 ㅎㅎ", "2023.02.18", 0, ""))
-        }
-
         // 툴바 설정 [ 메인 화면 ]
         setToolbar()
         setTitleLayout()
-        //CommonUtil.setToolbar(this, )
+
+
+
+
+        // AlbumViewModel의 LiveData 관찰 예시
+    }
+
+    override fun onResume() {
+        super.onResume()
+        albumViewModel.albumListRequest(jwtToken, boardTypeAlbum, groupSeq, 0)
     }
     override fun initObservers() {
+        albumViewModel.albumBoardList.observe(this) { albumUpdate ->
+
+            for (i in 0 .. 5){
+                val fileAlbum = albumUpdate[i].fileList[0]
+                val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName
+                val formattedTime = CommonUtil.convertDateTimeString(albumUpdate[i].insertDate)
+                items.add(
+                    RecyclerTab3AlbumData(
+                        albumUpdate[i].title,
+                        formattedTime,
+                        albumUpdate[i].commentCnt,
+                        ApiService.FILE_SUFFIX_URL+albumUrl,
+                    ))
+            }
+            viewDataBinding.recyclerAlbumUpdate.scrollToPosition(items.size -1)
+            adapter.notifyDataSetChanged()
+
+            Log.i(TAG, items.size.toString())
+
+        }
     }
 
     // 타이틀 Layout View 설정

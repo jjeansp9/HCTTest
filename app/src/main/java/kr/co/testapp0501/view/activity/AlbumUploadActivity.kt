@@ -213,6 +213,7 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         }
     }
 
+    // 게시글 작성 후 완료버튼 눌러서 서버로 게시글 데이터 보내기
     private fun albumPostUpload(){
         if (viewDataBinding.progressBar.visibility == View.GONE){
             if (uri !=null){

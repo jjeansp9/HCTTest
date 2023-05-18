@@ -13,6 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import kr.co.testapp0501.R
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.TextStyle
+import java.time.temporal.ChronoField
+import java.time.temporal.TemporalField
+import java.util.*
 
 class CommonUtil {
     companion object{
@@ -61,6 +68,7 @@ class CommonUtil {
             activity.supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
+        // 이미지 파일 절대경로를 반환하는 메소드
         fun absolutelyPath(path: Uri?, context : Context): String {
             val proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
             val c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
@@ -73,10 +81,21 @@ class CommonUtil {
             return result!!
         }
 
+        // 시간 형식을 변환하는 메소드
+        fun convertDateTimeString(dateTimeString: String): String {
+            val inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+            val outputFormatter = DateTimeFormatterBuilder()
+                .appendPattern("yyyy년 M월 d일 ")
+                .appendPattern("a hh:mm")
+                .toFormatter(Locale.KOREA)
+            val dateTime = LocalDateTime.parse(dateTimeString, inputFormatter)
 
+            val adjustedDateTime = dateTime.minusHours(3)
+
+            return adjustedDateTime.format(outputFormatter)
+        }
     }
 }
-
 
 
 

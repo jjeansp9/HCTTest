@@ -32,14 +32,29 @@
                 android:id="@+id/recycler_album"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/appbar_layout"
-                tools:listitem="@layout/recycler_album_item"
                 android:background="@color/background"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
-                app:reverseLayout="true"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/appbar_layout"
+                app:reverseLayout="true"
+                app:stackFromEnd="true"
+                tools:listitem="@layout/recycler_album_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <RelativeLayout
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="#373737"/>
+
+        </RelativeLayout>
 
 
 

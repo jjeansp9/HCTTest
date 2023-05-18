@@ -25,19 +25,29 @@ data class MemberVO(
     val name: String,
     val phoneNumber: String,
     val birth: String,
-    val sex: String
+    val sex: String,
+    val fileId: String,
+    val fileVOList: List<FileVOList>
     // Add other member properties here
+)
+
+data class FileVOList(
+    val seq: Int,
+    val fileId: String,
+    val orgName: String,
+    val saveName: String,
+    val path: String
 )
 
 data class FileItem(
     val seq: Int,
     val fileId: String,
-    val org_name: String,
-    val save_name: String,
-    val content_type: String,
+    val orgName: String,
+    val saveName: String,
+    val contentType: String,
     val extension: String,
     val path: String,
     val size: Int,
-    val insert_date: String
+    val insertDate: String
     // Add other file properties here
 )

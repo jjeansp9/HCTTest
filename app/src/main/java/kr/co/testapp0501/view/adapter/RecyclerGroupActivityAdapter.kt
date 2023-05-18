@@ -47,6 +47,8 @@ class RecyclerGroupActivityAdapter constructor(private val context: Context, pri
 
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
 
+        Log.i("adapterUrl", items[position].imgGroup)
+
         if (items[position].imgGroup == "") Glide.with(context).load(R.drawable.img_group_general).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
         else Glide.with(context).load(items[position].imgGroup).apply(requestOptions).into(holder.binding.imgGroup) // 그룹목록 이미지
 

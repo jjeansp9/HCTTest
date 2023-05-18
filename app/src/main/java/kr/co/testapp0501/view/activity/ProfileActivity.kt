@@ -107,6 +107,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             viewDataBinding.vmProfile?.profileImageChanged(jwtToken, who, memberSeq, path)?.observe(this){
                 if(it == 200){
                     Toast.makeText(this, R.string.profile_img_update_success, Toast.LENGTH_SHORT).show()
+                    loadProfileInfo(jwtToken, memberSeq)
                 }
             }
         }

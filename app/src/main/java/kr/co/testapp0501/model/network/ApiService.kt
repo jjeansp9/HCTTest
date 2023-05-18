@@ -8,9 +8,7 @@ import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
-import retrofit2.http.PartMap as PartMap
 
 interface ApiService {
 
@@ -18,7 +16,7 @@ interface ApiService {
         const val BASE_URL_FIRST = "http://192.168.2.55:9999"
         const val BASE_URL_SECOND = "http://192.168.2.77:9999"
 
-        private const val PREFIX_URL = "/com/avad/api"
+        const val PREFIX_URL = "/com/avad/api"
         const val FILE_SUFFIX_URL = "$BASE_URL_FIRST/attachFile"
 
         // 일반 회원가입 ID 중복체크
@@ -155,7 +153,7 @@ interface ApiService {
         @Header("X-AUTH-TOKEN") token: String,
         @Query("bbsId") bbsId: String,
         @Query("groupSeq") groupSeq: Int,
-        @Query("seq") seq: Int, ): Call<String>
+        @Query("seq") seq: Int, ): Call<AlbumListResponseModel>
 
     // 회원 조회 [프로필]
     @GET(PROFILE_MEMBER_INFO)

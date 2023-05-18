@@ -376,7 +376,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/layout_menu_list"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="12dp"
@@ -409,14 +409,16 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_album_update"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/img_line"
                         app:layout_constraintBottom_toBottomOf="parent"
                         tools:listitem="@layout/recycler_main_album_update_item"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="vertical"
                         android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"/>
+                        android:layout_marginEnd="8dp"
+                        app:reverseLayout="true"
+                        app:stackFromEnd="true"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

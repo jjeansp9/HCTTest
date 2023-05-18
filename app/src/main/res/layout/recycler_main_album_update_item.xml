@@ -1,59 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingConstraints"
-    android:padding="12dp"
-    android:background="@color/white">
+<layout>
 
-    <TextView
-        android:id="@+id/tv_album_title"
-        android:layout_width="wrap_content"
+<!--    <data>-->
+<!--        <import type="android.view.View" />-->
+<!--        <variable name="item"-->
+<!--            type="kr.co.testapp0501.model.album.DataItem"/>-->
+<!--    </data>-->
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="타이틀"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:ignore="MissingConstraints"
+        android:padding="12dp"
+        android:background="@color/white">
 
-    <TextView
-        android:id="@+id/tv_album_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2023.02.18"
-        android:textSize="13sp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/tv_album_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="타이틀"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
 
-    <ImageView
-        android:id="@+id/img_comment"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:background="#8E8E8E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_album_date"
-        android:layout_marginStart="6dp"/>
+        <TextView
+            android:id="@+id/tv_album_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2023.02.18"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_num_of_comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/img_comment"
-        android:layout_marginStart="6dp"
-        android:textColor="@color/black"
-        />
+        <ImageView
+            android:id="@+id/img_comment"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="#8E8E8E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_album_date"
+            android:layout_marginStart="6dp"/>
 
-    <ImageView
-        android:id="@+id/img_album"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/img_group_general"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/bg_edit"
-        android:scaleType="centerCrop"
-        android:padding="1dp"/>
+        <TextView
+            android:id="@+id/tv_num_of_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_comment"
+            android:layout_marginStart="6dp"
+            android:textColor="@color/black"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/img_album"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/img_group_general"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_edit"
+            android:scaleType="centerCrop"
+            android:padding="1dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

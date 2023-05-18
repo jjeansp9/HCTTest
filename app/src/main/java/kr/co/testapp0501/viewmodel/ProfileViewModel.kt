@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kr.co.testapp0501.model.album.FileVOList
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
 import kr.co.testapp0501.model.profile.ProfileInfoResponse

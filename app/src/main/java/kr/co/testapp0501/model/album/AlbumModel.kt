@@ -4,7 +4,7 @@ data class AlbumModel(
     val albumProfileImg: String,
     val albumName: String,
     val albumUploadDate: String,
-    val albumUploadPicture: List<String>,
+    val albumUploadPicture: String,
     val albumTitle: String,
     val albumContents: String,
     val albumLike: Int,

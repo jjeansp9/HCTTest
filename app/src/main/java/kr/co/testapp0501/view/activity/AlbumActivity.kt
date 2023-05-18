@@ -1,6 +1,5 @@
 package kr.co.testapp0501.view.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -8,19 +7,27 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityAlbumBinding
+import kr.co.testapp0501.model.album.AlbumListResponseModel
 import kr.co.testapp0501.model.album.AlbumModel
+import kr.co.testapp0501.model.album.DataItem
+import kr.co.testapp0501.model.album.FileItem
+import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.view.adapter.RecyclerAlbumActivityAdapter
 import kr.co.testapp0501.viewmodel.AlbumViewModel
-import kr.co.testapp0501.viewmodel.ProfileViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.TextStyle
+import java.time.temporal.ChronoField
+import java.util.*
 
 class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album) {
 
-    private val albumItems = mutableListOf<AlbumModel>()
+    private var albumItems = mutableListOf<AlbumModel>()
 //    private val albumPicture = mutableListOf<Int>()
 //    private val albumPicture2 = mutableListOf<Int>()
 //    private val albumPicture3 = mutableListOf<Int>()
@@ -33,9 +40,6 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
 
     private val albumAdapter = RecyclerAlbumActivityAdapter(this, albumItems)
 
-    // 테스트용 더미데이터
-    private val testContents = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding.vmAlbum = AlbumViewModel()
@@ -45,6 +49,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         jwtToken = intent.getStringExtra("jwtToken")!!
         groupSeq = intent.getIntExtra("groupSeq", groupSeq)
         memberSeq = intent.getIntExtra("memberSeq", memberSeq)
+        initViews()
 
         setToolbar()
 
@@ -52,31 +57,10 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
 
         updateAlbumList() // 앨범 글목록 아래로 당겨서 새로고침
 
-        albumItemClick()
         clickAlbumUpload()
     }
 
-    private fun albumItemClick(){
-        albumAdapter.setItemClickListener(object: RecyclerAlbumActivityAdapter.OnItemClickListener{
-            // 프로필 이미지
-            override fun profileImgClick(v: View, position: Int) {
 
-            }
-            // 앨범글 이미지
-            override fun pictureClick(v: View, position: Int) {
-            }
-            // 앨범 글마다 오른쪽 상단 앨범 설정
-            override fun albumSetClick(v: View, position: Int) {
-            }
-            // 좋아요
-            override fun likeClick(v: View, position: Int) {
-            }
-            // 댓글
-            override fun commentClick(v: View, position: Int) {
-                startActivity(Intent(this@AlbumActivity, AlbumCommentActivity::class.java))
-            }
-        })
-    }
 
     private fun setToolbar(){
         CommonUtil.setToolbar(
@@ -92,17 +76,14 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
 
     override fun onResume() {
         super.onResume()
-        loadAlbumList()
-    }
 
-    private fun loadAlbumList(){
         viewDataBinding.vmAlbum?.albumListRequest(jwtToken, boardTypeAlbum, groupSeq, 0)
     }
 
     // 앨범목록 새로고침
     private fun updateAlbumList(){
         viewDataBinding.swipeRefreshLayout.setOnRefreshListener {
-            //dummyData()
+            initObservers()
         }
     }
 
@@ -132,6 +113,72 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         return super.onOptionsItemSelected(item)
     }
 
+    private fun initViews(){
+        albumAdapter.setItemClickListener(object: RecyclerAlbumActivityAdapter.OnItemClickListener{
+            // 프로필사진 클릭
+            override fun profileImgClick(v: View, position: Int) {
+
+            }
+            // 업로드 이미지 클릭
+            override fun pictureClick(v: View, position: Int) {
+
+            }
+            // 앨범 설정 클릭
+            override fun albumSetClick(v: View, position: Int) {
+
+            }
+            // 좋아요 클릭
+            override fun likeClick(v: View, position: Int) {
+
+            }
+            // 댓글 클릭
+            override fun commentClick(v: View, position: Int) {
+                startActivity(Intent(this@AlbumActivity, AlbumCommentActivity::class.java))
+            }
+
+        })
+
+    }
+
     override fun initObservers() {
+        if (viewDataBinding.progressBar.visibility == View.GONE){
+
+            viewDataBinding.swipeRefreshLayout.isRefreshing = false
+            viewDataBinding.progressBar.visibility = View.VISIBLE
+
+            viewDataBinding.vmAlbum?.albumBoardList?.observe(this){
+                if (it.size > 0){
+                    albumItems.clear()
+
+                    for (i in it.indices){
+                        val fileObj= it[i].memberVO.fileVOList[0]
+                        val imageUrl = fileObj.path + "/" + fileObj.saveName
+
+                        val fileAlbum = it[i].fileList[0]
+                        val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName
+
+                        val formattedTime = CommonUtil.convertDateTimeString(it[i].insertDate)
+
+                        albumItems.add(0,
+                            AlbumModel(
+                                ApiService.FILE_SUFFIX_URL+imageUrl,
+                                it[i].memberVO.name,
+                                formattedTime,
+                                ApiService.FILE_SUFFIX_URL+albumUrl,
+                                it[i].title,
+                                it[i].content,
+                                it[i].like,
+                                it[i].commentCnt
+                            ))
+                    }
+                    viewDataBinding.recyclerAlbum.scrollToPosition(albumItems.size -1)
+                    albumAdapter.notifyDataSetChanged()
+                    viewDataBinding.progressBar.visibility = View.GONE
+                    Log.i("qqqqqq", it[0].fileId)
+                }else{
+                    viewDataBinding.progressBar.visibility = View.GONE
+                }
+            }
+        }
     }
 }
