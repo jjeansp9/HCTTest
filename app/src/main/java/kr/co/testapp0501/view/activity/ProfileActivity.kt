@@ -70,6 +70,17 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     // 회원정보 불러오기
     private fun loadProfileInfo(jwtToken: String, memberSeq: Int){
         viewDataBinding.vmProfile?.requestMemberInfo(jwtToken, memberSeq)
+
+        viewDataBinding.vmProfile!!.profileInfo.value?.data?.fileVOList?.getOrNull(0)?.saveName?.let { saveName ->
+            Util.profileImage(
+                viewDataBinding.imgProfile,
+                viewDataBinding.vmProfile!!.profileInfo.value?.data!!.fileVOList[0].saveName,
+                R.drawable.img_profile
+            )
+
+        }
+        //Log.i("aaaaa", viewDataBinding.vmProfile!!.profileInfo.value?.data!!.fileVOList[0].saveName)
+
         if (memberLevel != 1){
             viewDataBinding.tvAdmin.visibility = View.GONE
         }
@@ -114,6 +125,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     override fun initObservers() {
+
     }
 
     private fun btnUpdate(){

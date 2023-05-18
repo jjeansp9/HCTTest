@@ -59,13 +59,13 @@ object Util {
             Glide.with(view)
                 .load(ApiService.FILE_SUFFIX_URL + profileImgUrl + imageUrl)
                 .apply(requestOptions)
-                .placeholder(defaultImage ?: R.drawable.bt_group_plusbox)
+                .placeholder(defaultImage ?: R.drawable.img_profile)
                 .into(view)
         } ?: run {
             defaultImage?.let {
                 view.setImageResource(it)
             } ?: run {
-                view.setImageResource(R.drawable.bt_group_plusbox)
+                view.setImageResource(R.drawable.img_profile)
             }
         }
         Log.i("Util", imageUrl.toString())

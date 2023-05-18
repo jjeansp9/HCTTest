@@ -54,7 +54,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_marginTop="16dp"
                             android:padding="1dp"
-                            profileImageUrl="@{vmProfile.profileInfo.data.fileVOList.get(0).saveName}"
+                            profileDefaultImage="@drawable/img_profile"
                             android:background="@drawable/bg_profile_circle"/>
 
                         <ImageView

@@ -85,6 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 items.clear()
                 if (albumUpdate.size < 5){
                     for (i in 0 until albumUpdate.size){
+
                         val fileAlbum = albumUpdate[i].fileList[0]
                         val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName
                         val formattedTime = CommonUtil.convertDateTimeString(albumUpdate[i].insertDate)

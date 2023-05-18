@@ -11,10 +11,7 @@ import kr.co.testapp0501.base.BaseActivity
 import kr.co.testapp0501.R
 import kr.co.testapp0501.common.util.CommonUtil
 import kr.co.testapp0501.databinding.ActivityAlbumBinding
-import kr.co.testapp0501.model.album.AlbumListResponseModel
-import kr.co.testapp0501.model.album.AlbumModel
-import kr.co.testapp0501.model.album.DataItem
-import kr.co.testapp0501.model.album.FileItem
+import kr.co.testapp0501.model.album.*
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.view.adapter.RecyclerAlbumActivityAdapter
 import kr.co.testapp0501.viewmodel.AlbumViewModel
@@ -151,8 +148,16 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
                     albumItems.clear()
 
                     for (i in it.indices){
-                        val fileObj= it[i].memberVO.fileVOList[0]
-                        val imageUrl = fileObj.path + "/" + fileObj.saveName
+
+                        val profileImgObj: FileVOList
+                        var imageUrl = ""
+
+                        if (it[i].memberVO.fileVOList.isNotEmpty()){
+                            profileImgObj= it[i].memberVO.fileVOList[0]
+                            imageUrl = profileImgObj.path + "/" + profileImgObj.saveName
+                        }else{
+                            imageUrl = ""
+                        }
 
                         val fileAlbum = it[i].fileList[0]
                         val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName

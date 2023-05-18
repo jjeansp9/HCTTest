@@ -20,6 +20,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/img_profile"
+            defaultImage="@drawable/img_profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/layout_album_upload_picture"
             app:layout_constraintTop_toTopOf="parent"

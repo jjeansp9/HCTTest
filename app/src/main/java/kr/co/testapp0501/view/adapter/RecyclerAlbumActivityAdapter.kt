@@ -51,8 +51,12 @@ class RecyclerAlbumActivityAdapter constructor(private val context: Context, pri
 //        holder.binding.layoutComment.setOnClickListener { itemClickListener.commentClick(holder.binding.layoutComment, position) } // 댓글
 
         Log.i("adapterUrl", items[position].albumProfileImg)
+        if (items[position].albumProfileImg == ApiService.FILE_SUFFIX_URL){
+            Glide.with(context).load(R.drawable.img_profile).into(holder.binding.imgAlbumProfile)
+        }else{
+            Glide.with(context).load(items[position].albumProfileImg).into(holder.binding.imgAlbumProfile)
+        }
 
-        Glide.with(context).load(items[position].albumProfileImg).into(holder.binding.imgAlbumProfile)
 
         // 앨범 관련
         holder.binding.tvAlbumName.text = items[position].albumName // 글쓴이
