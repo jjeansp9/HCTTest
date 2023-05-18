@@ -25,16 +25,22 @@ import kr.co.testapp0501.view.adapter.ViewPagerFragmentAdapter
 import kr.co.testapp0501.viewmodel.ProfileViewModel
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
-
+    companion object{
+        const val TAG = "profileActivity"
+    }
     private var users = UserModel(this)
+    private lateinit var jwtToken: String
+    private var memberSeq : Int = -1
+    private var memberLevel : Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding.vmProfile = ProfileViewModel()
         viewDataBinding.lifecycleOwner = this
 
-        val jwtToken = intent.getStringExtra("jwtToken")!!
-        val memberSeq = intent.getIntExtra("memberSeq", -1)
+        jwtToken = intent.getStringExtra("jwtToken")!!
+        memberSeq = intent.getIntExtra("memberSeq", memberSeq)
+        memberLevel = intent.getIntExtra("memberLevel", memberLevel)
 
         val pagerAdapter = ViewPagerFragmentAdapter(this, jwtToken, memberSeq)
 
@@ -46,7 +52,21 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         // 프로필화면 이름설정
         setProfileName()
         tabChanged() // 탭 전환 이벤트
+        btnUpdate()
         //viewDataBinding.btnProfileUpdate.setOnClickListener{btnUpdate()}
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadProfileInfo(jwtToken, memberSeq)
+    }
+
+    // 회원정보 불러오기
+    private fun loadProfileInfo(jwtToken: String, memberSeq: Int){
+        viewDataBinding.vmProfile?.requestMemberInfo(jwtToken, memberSeq)
+        if (memberLevel != 1){
+            viewDataBinding.tvAdmin.visibility = View.GONE
+        }
     }
 
     private fun createFragment(){
@@ -80,7 +100,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun btnUpdate(){
-        startActivity(Intent(this, ProfileUpdateActivity::class.java))
+        viewDataBinding.btnFloating.setOnClickListener{
+            val intent = Intent(this, ProfileUpdateActivity::class.java)
+            intent.putExtra("jwtToken", jwtToken)
+            intent.putExtra("memberSeq", memberSeq)
+            startActivity(intent)
+        }
     }
 
     // 프로필화면 이름설정

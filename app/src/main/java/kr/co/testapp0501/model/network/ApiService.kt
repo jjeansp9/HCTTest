@@ -3,6 +3,7 @@ package kr.co.testapp0501.model.network
 import kr.co.testapp0501.model.album.AlbumListResponseModel
 import kr.co.testapp0501.model.group.*
 import kr.co.testapp0501.model.profile.ProfileInfoResponse
+import kr.co.testapp0501.model.profile.ProfileUpdateRequest
 import kr.co.testapp0501.model.user.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -155,10 +156,12 @@ interface ApiService {
 
     // 회원 조회 [프로필]
     @GET(PROFILE_MEMBER_INFO)
-    fun profileMemberInfo(
-        @Header("X-AUTH-TOKEN") token: String,
-        @Path("memberSeq") memberSeq: Int
-    ): Call<ProfileInfoResponse>
+    fun profileMemberInfo(@Header("X-AUTH-TOKEN") token: String, @Path("memberSeq") memberSeq: Int): Call<ProfileInfoResponse>
+
+    // 회원 정보 수정 [프로필]
+    @Headers("Content-Type: application/json")
+    @PATCH(PROFILE_MEMBER_INFO_CHANGE)
+    fun profileMemberInfoChange(@Header("X-AUTH-TOKEN") token: String, @Body updateRequest: ProfileUpdateRequest): Call<String>
 }
 
 

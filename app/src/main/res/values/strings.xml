@@ -33,7 +33,35 @@
     <string name="please_add_img">이미지를 추가해주세요</string>
 
     <!--  게시글 타입  -->
-    <string name="board_type_album">album</string>
-    <string name="board_type_reference">reference</string>
+<!--    <string name="board_type_album">album</string>-->
+<!--    <string name="board_type_reference">reference</string>-->
+
+    <!--  회원정보 수정  -->
+    <string name="profile_update_success">회원정보 수정 완료</string>
 
 </resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
