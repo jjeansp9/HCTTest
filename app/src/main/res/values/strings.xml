@@ -40,6 +40,8 @@
     <string name="profile_update_success">회원정보 수정 완료</string>
     <string name="profile_img_update_success">프로필 사진 등록 완료</string>
 
+    <!--  게시글 작성 중복된 사진  -->
+    <string name="profile_img_duplicate">이미 추가한 사진입니다</string>
 </resources>
 
 

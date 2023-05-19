@@ -129,8 +129,16 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         if (result.resultCode == RESULT_OK && result.data != null) {
             uri = result.data!!.data!!
             val img : ImageView = findViewById(R.id.img_album_upload)
-            Util.albumLoadImage(img, uri.toString(), R.drawable.bt_group_plusbox)
-            viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())
+
+            viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())?.observe(this){
+                if (it == 200){ // success img
+                    Util.albumLoadImage(img, uri.toString(), R.drawable.bt_group_plusbox)
+
+                }else if (it == 409){ // duplicate img
+                    Util.albumLoadImage(img, "", R.drawable.bt_group_plusbox)
+                    Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show() // 이미 추가한 사진입니다
+                }
+            }
             Log.d("ImgURI", uri.toString() + "")
         }
     }
