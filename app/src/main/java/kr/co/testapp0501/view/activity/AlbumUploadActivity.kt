@@ -78,11 +78,10 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         adapter = AlbumUploadAdapter(
             onAlbumFooterClick = {
                 customDialog()
-                Toast.makeText(this, "edit clicked", Toast.LENGTH_SHORT).show()
             },
             onAlbumPhotoClick = {
 
-                Toast.makeText(this, "edit clicked2", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "photo clicked", Toast.LENGTH_SHORT).show()
             }
         )
 
@@ -152,9 +151,8 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
                     viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())?.observe(this) { responseCode ->
                         Log.i(TAG+" code", responseCode.toString()+ uri.toString())
                         if (responseCode == 200) {
-                            Util.albumLoadImage(img, uri.toString(), R.drawable.bt_group_plusbox)
+
                         } else if (responseCode == 409) {
-                            Util.albumLoadImage(img, "", R.drawable.bt_group_plusbox)
                             Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -165,9 +163,8 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
                 if (uri != null) {
                     viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())?.observe(this) { responseCode ->
                         if (responseCode == 200) {
-                            Util.albumLoadImage(img, uri.toString(), R.drawable.bt_group_plusbox)
+
                         } else if (responseCode == 409) {
-                            Util.albumLoadImage(img, "", R.drawable.bt_group_plusbox)
                             Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show()
                         }
                     }
