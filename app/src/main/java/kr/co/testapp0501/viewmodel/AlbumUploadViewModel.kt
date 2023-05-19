@@ -42,6 +42,29 @@ class AlbumUploadViewModel : ViewModel() {
         return duplicatePhoto
     }
 
+    fun addPhotoListToAlbum(uri: MutableList<Uri>): LiveData<Int> {
+        val duplicatePhoto: MutableLiveData<Int> = MutableLiveData()
+
+        val photoList = albumUploadPhotos.value?.toMutableList() ?: mutableListOf()
+
+        // 중복된 uri 값이 있는지 확인하여 추가하지 않음
+        var hasDuplicate = true
+        for (i in 0 until uri.size){
+            hasDuplicate = photoList.any { it.photo == uri[i].toString() }
+        }
+        if (!hasDuplicate) {
+            for (i in 0 until uri.size){
+                photoList.add(0, AlbumUploadPhotoModel(uri[i].toString()))
+            }
+            albumUploadPhotos.value = photoList
+            duplicatePhoto.value = 200 // 중복되지 않음
+        } else {
+            duplicatePhoto.value = 409 // 중복된 사진
+        }
+
+        return duplicatePhoto
+    }
+
 
     fun clickedComplete (
         token: String,

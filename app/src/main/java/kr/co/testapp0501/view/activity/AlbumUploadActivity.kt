@@ -147,15 +147,17 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
                     selectedImages.add(imageUri)
                 }
 
-                for (uri in selectedImages) {
-                    viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())?.observe(this) { responseCode ->
-                        Log.i(TAG+" code", responseCode.toString()+ uri.toString())
-                        if (responseCode == 200) {
+                viewDataBinding.vmAlbumUpload?.addPhotoListToAlbum(selectedImages)?.observe(this) { responseCode ->
+                    Log.i(TAG+" code", responseCode.toString()+ uri.toString())
+                    if (responseCode == 200) {
 
-                        } else if (responseCode == 409) {
-                            Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show()
-                        }
+                    } else if (responseCode == 409) {
+                        Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show()
                     }
+                }
+
+                for (uri in selectedImages) {
+
                 }
             } else if (clipData == null) {
                 // 단일 이미지가 선택된 경우
