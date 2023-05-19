@@ -21,6 +21,7 @@ class ProfileViewModel: ViewModel() {
     }
 
     val profileInfo = MutableLiveData<ProfileInfoResponse>()
+    val defaultProfileImg = MutableLiveData<String>()
     val profileGender = MutableLiveData<String>()
 
     // 회원 조회 [프로필]
@@ -36,6 +37,7 @@ class ProfileViewModel: ViewModel() {
                 Log.i(TAG, response.code().toString())
                 if (response.isSuccessful){
                     profileInfo.value = response.body()
+                    defaultProfileImg.value = ""
                     profileGender.value = response.body()?.data?.sex
                     Log.i(TAG + "data", response.body().toString())
                 }

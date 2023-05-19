@@ -26,7 +26,6 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         val tvAlbumDate: TextView by lazy { itemView.findViewById(R.id.tv_album_date) }
         val tvNumOfComments: TextView by lazy { itemView.findViewById(R.id.tv_num_of_comments) }
         val imgAlbum: ImageView by lazy { itemView.findViewById(R.id.img_album) }
-        val albumUpdateRoot: ConstraintLayout by lazy { itemView.findViewById(R.id.album_update_root) }
     }
 
     interface OnItemClickListener {
@@ -52,8 +51,6 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         holder.tvAlbumTitle.text = items[position].tvAlbumTitle
         holder.tvAlbumDate.text = items[position].tvAlbumDate
         holder.tvNumOfComments.text = items[position].tvNumOfComments.toString()
-
-        holder.albumUpdateRoot.setOnClickListener { itemClickListener.albumUpdateClick(holder.albumUpdateRoot, position) } // 그룹목록 클릭이벤트
 
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
         if (items[position].imgAlbum == "") Glide.with(context).load(R.drawable.img_story).apply(requestOptions).into(holder.imgAlbum) // 앨범글 이미지

@@ -57,7 +57,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
         createFragment()
         setToolbar()
-        viewDataBinding.imgProfileChange.setOnClickListener{openGallrey()} // TODO 프로필사진 설정 및 변경
+        viewDataBinding.imgProfileChange.setOnClickListener{openGallrey()}
         tabChanged() // 탭 전환 이벤트
         btnUpdate()
     }
@@ -70,16 +70,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     // 회원정보 불러오기
     private fun loadProfileInfo(jwtToken: String, memberSeq: Int){
         viewDataBinding.vmProfile?.requestMemberInfo(jwtToken, memberSeq)
-
-        viewDataBinding.vmProfile!!.profileInfo.value?.data?.fileVOList?.getOrNull(0)?.saveName?.let { saveName ->
-            Util.profileImage(
-                viewDataBinding.imgProfile,
-                viewDataBinding.vmProfile!!.profileInfo.value?.data!!.fileVOList[0].saveName,
-                R.drawable.img_profile
-            )
-
-        }
-        //Log.i("aaaaa", viewDataBinding.vmProfile!!.profileInfo.value?.data!!.fileVOList[0].saveName)
 
         if (memberLevel != 1){
             viewDataBinding.tvAdmin.visibility = View.GONE

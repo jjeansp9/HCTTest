@@ -53,7 +53,7 @@ object Util {
     @JvmStatic
     @BindingAdapter(value = ["profileImageUrl", "profileDefaultImage"], requireAll = false)
     fun profileImage(view: ImageView, imageUrl: String?, defaultImage: Int?){
-        Log.i("UitlUrl", ApiService.FILE_SUFFIX_URL + profileImgUrl + imageUrl)
+
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
         imageUrl?.let {
             Glide.with(view)
@@ -68,7 +68,7 @@ object Util {
                 view.setImageResource(R.drawable.img_profile)
             }
         }
-        Log.i("Util", imageUrl.toString())
+
     }
 
 }
