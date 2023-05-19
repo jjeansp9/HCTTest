@@ -38,14 +38,16 @@ object Util {
                 .apply(requestOptions)
                 .placeholder(defaultImage ?: R.drawable.bt_group_plusbox)
                 .into(view)
+            Log.i("Util1", imageUrl.toString())
         } ?: run {
             defaultImage?.let {
                 view.setImageResource(it)
+                Log.i("Util2", imageUrl.toString())
             } ?: run {
                 view.setImageResource(R.drawable.bt_group_plusbox)
+                Log.i("Util3", imageUrl.toString())
             }
         }
-        Log.i("Util", imageUrl.toString())
     }
 
     private val profileImgUrl = "/member/profile/"
@@ -53,7 +55,6 @@ object Util {
     @JvmStatic
     @BindingAdapter(value = ["profileImageUrl", "profileDefaultImage"], requireAll = false)
     fun profileImage(view: ImageView, imageUrl: String?, defaultImage: Int?){
-
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
         imageUrl?.let {
             Glide.with(view)

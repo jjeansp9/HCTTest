@@ -1,5 +1,6 @@
 package kr.co.testapp0501.viewmodel
 
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -23,20 +24,24 @@ class AlbumUploadViewModel : ViewModel() {
     fun addPhotoToAlbum(uri: String): LiveData<Int>{
         val duplicatePhoto: MutableLiveData<Int> = MutableLiveData()
 
+        Log.i(TAG+ " Uri", uri)
+
         val photoList = albumUploadPhotos.value?.toMutableList() ?: mutableListOf()
 
         // 중복된 uri 값이 있는지 확인하여 추가하지 않음
         val hasDuplicate = photoList.any { it.photo == uri }
         if (!hasDuplicate) {
             photoList.add(0, AlbumUploadPhotoModel(uri))
-            albumUploadPhotos.value = photoList.toMutableList()
-            Log.i(TAG, albumUploadPhotos.postValue(photoList).toString())
+            //albumUploadPhotos.value = photoList.toMutableList()
+            albumUploadPhotos.postValue(photoList)
+            Log.i(TAG+ " Uri1", uri)
             duplicatePhoto.value = 200 // 중복되지 않음
         }else{
             duplicatePhoto.value = 409 // 중복된 사진
         }
         return duplicatePhoto
     }
+
 
     fun clickedComplete (
         token: String,

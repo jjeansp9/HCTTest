@@ -2,10 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <import type="android.view.View" />
+        <import
+            type="kr.co.testapp0501.common.util.Util"
+            alias="util" />
+        <variable
+            name="item"
+            type="kr.co.testapp0501.model.album.AlbumUploadPhotoModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/album_footer_root"
+        android:id="@+id/album_upload_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
@@ -25,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
-                src="@drawable/bt_group_plusbox"/>
+                albumImageUrl="@{item.photo}"/>
 
 <!--            <TextView-->
 <!--                android:id="@+id/tv_album_upload_photo_count"-->

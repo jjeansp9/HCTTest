@@ -47,21 +47,28 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         viewDataBinding.vmAlbumUpload = AlbumUploadViewModel()
         viewDataBinding.lifecycleOwner = this
 
-
-
         setToolbar()
-        initViews()
+
         //requestCameraPermission() // 카메라 권한
         checkPermission() // 외부저장소 권한요청
+        initViews()
 
         //getImgData() // 촬영한 사진의 데이터 가져오기
         // TODO 사진촬영한 데이터 저장 및 가져오기
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewDataBinding.vmAlbumUpload?.addPhotoToAlbum("")
+    }
+
+
     private lateinit var albumPhotos : MutableList<AlbumUploadPhotoModel>
+
     override fun initObservers() {
         viewDataBinding.vmAlbumUpload?.albumUploadPhotos?.observe(this) { it ->
             albumPhotos = it.toMutableList() ?: mutableListOf()
-            adapter.submitList(it)
+            adapter.submitList(albumPhotos)
 
             Log.i(TAG, it.toString() + albumPhotos.size + ": " + albumPhotos[0].photo)
         }
@@ -71,15 +78,15 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         adapter = AlbumUploadAdapter(
             onAlbumFooterClick = {
                 customDialog()
+                Toast.makeText(this, "edit clicked", Toast.LENGTH_SHORT).show()
             },
             onAlbumPhotoClick = {
 
+                Toast.makeText(this, "edit clicked2", Toast.LENGTH_SHORT).show()
             }
         )
 
         viewDataBinding.recyclerAlbumUpload.adapter = adapter
-        viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString()+"")
-
     }
 
     private fun customDialog(){
@@ -111,13 +118,15 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         btnPhotoSelect.setOnClickListener{
             // 사진 선택 관련 코드 수행
             dialog.dismiss()
-            openGallrey()
+            openGallery()
         }
     }
 
-    private fun openGallrey(){
+    private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        //intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
         startActivityResult.launch(intent)
     }
 
@@ -127,19 +136,48 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK && result.data != null) {
-            uri = result.data!!.data!!
-            val img : ImageView = findViewById(R.id.img_album_upload)
+            val data = result.data!!
+            val clipData = data.clipData
+            val img: ImageView = findViewById(R.id.img_album_upload)
 
-            viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())?.observe(this){
-                if (it == 200){ // success img
-                    Util.albumLoadImage(img, uri.toString(), R.drawable.bt_group_plusbox)
-
-                }else if (it == 409){ // duplicate img
-                    Util.albumLoadImage(img, "", R.drawable.bt_group_plusbox)
-                    Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show() // 이미 추가한 사진입니다
+            if (clipData != null && clipData.itemCount > 0 && clipData.itemCount <= 5) {
+                // 여러 개의 이미지가 선택된 경우
+                val selectedImages = mutableListOf<Uri>()
+                for (i in 0 until clipData.itemCount) {
+                    val imageUri = clipData.getItemAt(i).uri
+                    selectedImages.add(imageUri)
                 }
+
+                for (uri in selectedImages) {
+                    viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())?.observe(this) { responseCode ->
+                        Log.i(TAG+" code", responseCode.toString()+ uri.toString())
+                        if (responseCode == 200) {
+                            Util.albumLoadImage(img, uri.toString(), R.drawable.bt_group_plusbox)
+                        } else if (responseCode == 409) {
+                            Util.albumLoadImage(img, "", R.drawable.bt_group_plusbox)
+                            Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            } else if (clipData == null) {
+                // 단일 이미지가 선택된 경우
+                val uri = data.data
+                if (uri != null) {
+                    viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(uri.toString())?.observe(this) { responseCode ->
+                        if (responseCode == 200) {
+                            Util.albumLoadImage(img, uri.toString(), R.drawable.bt_group_plusbox)
+                        } else if (responseCode == 409) {
+                            Util.albumLoadImage(img, "", R.drawable.bt_group_plusbox)
+                            Toast.makeText(this, R.string.profile_img_duplicate, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            } else {
+                // 선택된 이미지의 개수가 5개를 초과하는 경우
+                Toast.makeText(this, "최대 5개의 사진을 선택해주세요.", Toast.LENGTH_SHORT).show()
             }
-            Log.d("ImgURI", uri.toString() + "")
+
+            Log.d("ImgURI", uri.toString())
         }
     }
 
@@ -224,7 +262,7 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
     // 게시글 작성 후 완료버튼 눌러서 서버로 게시글 데이터 보내기
     private fun albumPostUpload(){
         if (viewDataBinding.progressBar.visibility == View.GONE){
-            if (uri !=null){
+            if (albumPhotos.size > 0){
                 viewDataBinding.progressBar.visibility = View.VISIBLE
 
                 val title = viewDataBinding.etAlbumUploadTitle.text.toString()
