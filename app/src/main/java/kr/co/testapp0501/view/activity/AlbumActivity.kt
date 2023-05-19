@@ -15,12 +15,6 @@ import kr.co.testapp0501.model.album.*
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.view.adapter.RecyclerAlbumActivityAdapter
 import kr.co.testapp0501.viewmodel.AlbumViewModel
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatterBuilder
-import java.time.format.TextStyle
-import java.time.temporal.ChronoField
-import java.util.*
 
 class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album) {
 
@@ -33,7 +27,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
     private var groupSeq : Int = -1
     private var memberSeq : Int = -1
     private var jwtToken : String = ""
-    private var boardTypeAlbum = "album"
+    private var boardType = "album"
 
     private val albumAdapter = RecyclerAlbumActivityAdapter(this, albumItems)
 
@@ -57,8 +51,6 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         clickAlbumUpload()
     }
 
-
-
     private fun setToolbar(){
         CommonUtil.setToolbar(
             this,
@@ -74,7 +66,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
     override fun onResume() {
         super.onResume()
 
-        viewDataBinding.vmAlbum?.albumListRequest(jwtToken, boardTypeAlbum, groupSeq, 0)
+        viewDataBinding.vmAlbum?.boardListRequest(jwtToken, boardType, groupSeq, 0)
     }
 
     // 앨범목록 새로고침
@@ -95,19 +87,9 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
             intent.putExtra("jwtToken", jwtToken)
             intent.putExtra("groupSeq", groupSeq)
             intent.putExtra("memberSeq", memberSeq)
+            intent.putExtra("boardType", boardType)
             startActivity(intent)
         }
-    }
-
-    // 뒤로가기 버튼
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun initViews(){

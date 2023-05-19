@@ -60,6 +60,13 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         viewDataBinding.imgProfileChange.setOnClickListener{openGallrey()}
         tabChanged() // 탭 전환 이벤트
         btnUpdate()
+        clickProfileImg()
+    }
+
+    private fun clickProfileImg(){
+        viewDataBinding.imgProfile.setOnClickListener{
+
+        }
     }
 
     override fun onResume() {

@@ -1,11 +1,8 @@
 package kr.co.testapp0501.view.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -77,7 +74,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onResume() {
         super.onResume()
-        albumViewModel.albumListRequest(jwtToken, boardTypeAlbum, groupSeq, 0)
+        albumViewModel.boardListRequest(jwtToken, boardTypeAlbum, groupSeq, 0)
     }
     override fun initObservers() {
         albumViewModel.albumBoardList.observe(this) { albumUpdate ->

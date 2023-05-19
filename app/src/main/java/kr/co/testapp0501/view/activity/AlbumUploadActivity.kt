@@ -42,6 +42,8 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
     companion object{ private const val TAG = "albumUpload" }
     private lateinit var adapter: AlbumUploadAdapter
 
+    private var boardType = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding.vmAlbumUpload = AlbumUploadViewModel()
@@ -242,10 +244,11 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
     }
 
     private fun setToolbar(){
+        boardType = intent.getStringExtra("boardType")!!
         CommonUtil.setToolbar(
             this,
             javaClass,
-            "게시물 작성",
+            " 게시물 작성",
             0,
             0,
             firstMenuOn = false,
@@ -266,7 +269,7 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
 
                 val title = viewDataBinding.etAlbumUploadTitle.text.toString()
                 val content = viewDataBinding.etAlbumUploadContents.text.toString()
-                val bbsId = "album"
+                val bbsId = intent.getStringExtra("boardType")!!
                 val groupSeq = intent.getIntExtra("groupSeq", -1)
                 val ntcrSeq = intent.getIntExtra("memberSeq", -1)
                 val jwtToken = intent.getStringExtra("jwtToken")!!

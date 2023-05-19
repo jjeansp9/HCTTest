@@ -5,7 +5,7 @@
     <data>
         <import type="kr.co.testapp0501.viewmodel.AlbumViewModel"/>
         <variable
-            name="vmAlbum"
+            name="vmBoard"
             type="kr.co.testapp0501.viewmodel.AlbumViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,13 +15,44 @@
 
         <include layout="@layout/custom_toolbar"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_reference"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:ignore="MissingConstraints"
             app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_reference"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                app:reverseLayout="true"
+                app:stackFromEnd="true"
+                tools:listitem="@layout/recycler_profile_tab3_item"/>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="#373737"/>
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
