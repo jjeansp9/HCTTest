@@ -42,12 +42,18 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
     companion object{ private const val TAG = "albumUpload" }
     private lateinit var adapter: AlbumUploadAdapter
 
+
+    private var jwtToken : String = ""
+    private var boardSeq : Int = -1
     private var boardType = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding.vmAlbumUpload = AlbumUploadViewModel()
         viewDataBinding.lifecycleOwner = this
+
+        jwtToken = intent.getStringExtra("jwtToken")!!
+        boardSeq = intent.getIntExtra("boardSeq", boardSeq)
 
         setToolbar()
 
@@ -57,6 +63,15 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
 
         //getImgData() // 촬영한 사진의 데이터 가져오기
         // TODO 사진촬영한 데이터 저장 및 가져오기
+        if (boardSeq != -1){
+            getBoardDetailInfo()
+        }
+
+    }
+
+    // 수정할 게시글 데이터 가져오기
+    private fun getBoardDetailInfo(){
+        viewDataBinding.vmAlbumUpload?.getBoardDetailInfo(jwtToken, boardSeq)
     }
 
     override fun onResume() {
@@ -139,7 +154,6 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
         if (result.resultCode == RESULT_OK && result.data != null) {
             val data = result.data!!
             val clipData = data.clipData
-            val img: ImageView = findViewById(R.id.img_album_upload)
 
             if (clipData != null && clipData.itemCount > 0 && clipData.itemCount <= 5) {
                 // 여러 개의 이미지가 선택된 경우

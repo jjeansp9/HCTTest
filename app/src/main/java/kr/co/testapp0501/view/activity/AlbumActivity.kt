@@ -29,6 +29,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
     private var jwtToken : String = ""
     private var boardType = "album"
 
+
     private val albumAdapter = RecyclerAlbumActivityAdapter(this, albumItems)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +77,6 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
         }
     }
 
-
     // 앨범 툴바에 있는 [+] 버튼 클릭
     private fun clickAlbumUpload(){
         val albumUploadClick = findViewById<ImageView>(R.id.btn_menu_first)
@@ -104,7 +104,11 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
             }
             // 앨범 설정 클릭
             override fun albumSetClick(v: View, position: Int) {
-
+                val intent = Intent(this@AlbumActivity, AlbumUploadActivity::class.java)
+                intent.putExtra("jwtToken", jwtToken)
+                intent.putExtra("boardSeq", albumItems[position].boardSeq)
+                intent.putExtra("boardType", boardType)
+                startActivity(intent)
             }
             // 좋아요 클릭
             override fun likeClick(v: View, position: Int) {
@@ -148,6 +152,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
 
                         albumItems.add(0,
                             AlbumModel(
+                                it[i].seq,
                                 ApiService.FILE_SUFFIX_URL+imageUrl,
                                 it[i].memberVO.name,
                                 formattedTime,

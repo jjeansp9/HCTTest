@@ -1,6 +1,7 @@
 package kr.co.testapp0501.model.album
 
 data class AlbumModel(
+    val boardSeq: Int,
     val albumProfileImg: String,
     val albumName: String,
     val albumUploadDate: String,

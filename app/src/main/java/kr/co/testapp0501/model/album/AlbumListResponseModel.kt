@@ -5,6 +5,11 @@ data class AlbumListResponseModel(
     val data: List<DataItem>
 )
 
+data class AlbumResponseModel(
+    val msg: String,
+    val data: DataItem
+)
+
 data class DataItem(
     val seq: Int,
     val title: String,

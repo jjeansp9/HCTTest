@@ -2,10 +2,10 @@ package kr.co.testapp0501.viewmodel
 
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kr.co.testapp0501.model.album.AlbumResponseModel
 import kr.co.testapp0501.model.album.AlbumUploadPhotoModel
 import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.model.network.RetrofitBuilder
@@ -21,6 +21,7 @@ class AlbumUploadViewModel : ViewModel() {
     }
     val albumUploadPhotos: MutableLiveData<MutableList<AlbumUploadPhotoModel>> = MutableLiveData()
 
+    // 사진 한장씩 가져오기
     fun addPhotoToAlbum(uri: String): LiveData<Int>{
         val duplicatePhoto: MutableLiveData<Int> = MutableLiveData()
 
@@ -42,6 +43,7 @@ class AlbumUploadViewModel : ViewModel() {
         return duplicatePhoto
     }
 
+    // 사진 리스트로 가져오기
     fun addPhotoListToAlbum(uri: MutableList<Uri>): LiveData<Int> {
         val duplicatePhoto: MutableLiveData<Int> = MutableLiveData()
 
@@ -65,7 +67,7 @@ class AlbumUploadViewModel : ViewModel() {
         return duplicatePhoto
     }
 
-
+    // 게시글 등록
     fun clickedComplete (
         token: String,
         board: RequestBody,
@@ -74,7 +76,7 @@ class AlbumUploadViewModel : ViewModel() {
         val resultCode = MutableLiveData<Int>()
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
-        apiService.albumBoardUpload(token, board, albumImg).enqueue(object : Callback<String>{
+        apiService.boardUpload(token, board, albumImg).enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 resultCode.value = response.code()
                 if (response.isSuccessful){
@@ -88,4 +90,52 @@ class AlbumUploadViewModel : ViewModel() {
         })
         return resultCode
     }
+
+    fun getBoardDetailInfo(jwtToken: String, boardSeq: Int){
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
+
+        apiService.boardDetailInfo(jwtToken, boardSeq).enqueue(object: Callback<AlbumResponseModel>{
+            override fun onResponse(call: Call<AlbumResponseModel>, response: Response<AlbumResponseModel>) {
+                Log.i(TAG+ " detailInfo code", response.code().toString())
+                if (response.isSuccessful){
+
+                }
+            }
+
+            override fun onFailure(call: Call<AlbumResponseModel>, t: Throwable) {
+            }
+
+        })
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

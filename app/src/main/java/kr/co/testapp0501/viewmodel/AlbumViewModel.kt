@@ -21,11 +21,11 @@ class AlbumViewModel: BaseViewModel() {
     fun boardListRequest(jwtToken: String, bbsId: String, groupSeq: Int, seq: Int){
 
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
-        Log.i(TAG+" url", ApiService.BASE_URL_FIRST+ApiService.ALBUM_BOARD_LIST)
+        Log.i(TAG+" url", ApiService.BASE_URL_FIRST+ApiService.BOARD_LIST)
 
         Log.i(TAG+" requestData", "bbsId: $bbsId, groupSeq: $groupSeq, seq: $seq")
 
-        apiService.albumBoardList(jwtToken, bbsId, groupSeq, seq).enqueue(object: Callback<AlbumListResponseModel>{
+        apiService.boardList(jwtToken, bbsId, groupSeq, seq).enqueue(object: Callback<AlbumListResponseModel>{
             override fun onResponse(
                 call: Call<AlbumListResponseModel>,
                 response: Response<AlbumListResponseModel>
