@@ -48,6 +48,8 @@ interface ApiService {
         const val GROUP_MATCHING_WAITING_ACCEPT = "$PREFIX_URL/group/member"
         // 게시글 작성
         const val BOARD_UPLOAD = "$PREFIX_URL/board"
+        // 게시글 삭제
+        const val BOARD_DELETE = "$PREFIX_URL/board/{seq}"
         // 게시판 리스트 조회
         const val BOARD_LIST = "$PREFIX_URL/boards"
         // 게시판 상세 조회
@@ -150,6 +152,23 @@ interface ApiService {
         @Part imageFile: MutableList<MultipartBody.Part>
     ): Call<String>
 
+    // 게시글 수정
+    @Multipart
+    @PATCH(BOARD_UPLOAD)
+    fun boardUpdate(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Part("board") board: RequestBody,
+        @Part imageFile: MutableList<MultipartBody.Part>
+    ): Call<String>
+
+    // 게시글 삭제
+    @Headers("Content-Type: application/json")
+    @DELETE(BOARD_DELETE)
+    fun boardDelete(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("seq") seq: Int
+    ): Call<String>
+
     // 게시판 리스트 조회
     @GET(BOARD_LIST)
     fun boardList(
@@ -164,6 +183,8 @@ interface ApiService {
         @Header("X-AUTH-TOKEN") token: String,
         @Path("seq") seq: Int
     ): Call<AlbumResponseModel>
+
+
 
     // 회원 조회 [프로필]
     @GET(PROFILE_MEMBER_INFO)

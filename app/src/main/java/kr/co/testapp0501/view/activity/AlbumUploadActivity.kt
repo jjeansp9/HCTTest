@@ -28,7 +28,9 @@ import kr.co.testapp0501.common.util.Util
 import kr.co.testapp0501.databinding.ActivityAlbumUploadBinding
 import kr.co.testapp0501.model.album.AlbumUploadModel
 import kr.co.testapp0501.model.album.AlbumUploadPhotoModel
+import kr.co.testapp0501.model.board.BoardUpdate
 import kr.co.testapp0501.model.group.GroupCreate
+import kr.co.testapp0501.model.network.ApiService
 import kr.co.testapp0501.view.adapter.AlbumUploadAdapter
 import kr.co.testapp0501.viewmodel.AlbumUploadViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -46,6 +48,7 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
     private var jwtToken : String = ""
     private var boardSeq : Int = -1
     private var boardType = ""
+    private var fileId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,27 +66,45 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
 
         //getImgData() // 촬영한 사진의 데이터 가져오기
         // TODO 사진촬영한 데이터 저장 및 가져오기
-        if (boardSeq != -1){
+
+        viewDataBinding.vmAlbumUpload?.addPhotoToAlbum("")
+        if (boardSeq != -1){ // 게시글 수정인 경우
             getBoardDetailInfo()
         }
-
     }
 
+    val uriList = mutableListOf<Uri>()
     // 수정할 게시글 데이터 가져오기
     private fun getBoardDetailInfo(){
         viewDataBinding.vmAlbumUpload?.getBoardDetailInfo(jwtToken, boardSeq)
-    }
+        viewDataBinding.vmAlbumUpload?.getBoardDetailInfo?.observe(this){
+            if (it.data.fileList.size > 1){
+                for (i in 0 until it.data.fileList.size){
+                    Log.i("mmmmmm1", ApiService.FILE_SUFFIX_URL+"/board/album/"+it.data.fileList[0].saveName)
 
-    override fun onResume() {
-        super.onResume()
-        viewDataBinding.vmAlbumUpload?.addPhotoToAlbum("")
+                    val boardUrl = ApiService.FILE_SUFFIX_URL+ "/board/album/" + it.data.fileList[i].saveName
+
+                    uriList.add(boardUrl.toUri())
+                    viewDataBinding.vmAlbumUpload?.addPhotoListToAlbum(uriList)
+
+                }
+            }else{
+                Log.i("mmmmmm2", ApiService.FILE_SUFFIX_URL+"/board/album/"+it.data.fileList[0].saveName)
+                viewDataBinding.vmAlbumUpload?.addPhotoToAlbum(ApiService.FILE_SUFFIX_URL+"/board/album/"+it.data.fileList[0].saveName)
+                val img = findViewById<ImageView>(R.id.img_album_upload)
+                Util.albumLoadImage(img, it.data.fileList[0].saveName, R.drawable.bt_group_plusbox)
+            }
+            fileId = it.data.fileId
+        }
     }
 
 
     private lateinit var albumPhotos : MutableList<AlbumUploadPhotoModel>
+    private lateinit var updatePhotos : MutableList<AlbumUploadPhotoModel>
 
     override fun initObservers() {
         viewDataBinding.vmAlbumUpload?.albumUploadPhotos?.observe(this) { it ->
+
             albumPhotos = it.toMutableList() ?: mutableListOf()
             adapter.submitList(albumPhotos)
 
@@ -97,7 +118,8 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
                 customDialog()
             },
             onAlbumPhotoClick = {
-
+                albumPhotos.removeAt(it)
+                adapter.notifyDataSetChanged()
                 Toast.makeText(this, "photo clicked", Toast.LENGTH_SHORT).show()
             }
         )
@@ -277,6 +299,12 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
 
     // 게시글 작성 후 완료버튼 눌러서 서버로 게시글 데이터 보내기
     private fun albumPostUpload(){
+
+        boardCreateOrUpdate(boardSeq)
+    }
+
+    // 게시글 등록
+    private fun boardCreateOrUpdate(boardSeq: Int){
         if (viewDataBinding.progressBar.visibility == View.GONE){
             if (albumPhotos.size > 0){
                 viewDataBinding.progressBar.visibility = View.VISIBLE
@@ -288,56 +316,82 @@ class AlbumUploadActivity : BaseActivity<ActivityAlbumUploadBinding>(R.layout.ac
                 val ntcrSeq = intent.getIntExtra("memberSeq", -1)
                 val jwtToken = intent.getStringExtra("jwtToken")!!
 
-                val pathList= ArrayList<MultipartBody.Part>()
-                for (i in 0 until albumPhotos.size-1){
-                    val file = File(CommonUtil.absolutelyPath(albumPhotos[i].photo.toUri(), this))
-                    val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
+                if (boardSeq == -1){ // 게시글 등록인 경우
+                    val board = AlbumUploadModel(title, content, bbsId, groupSeq, ntcrSeq)
+                    val json = Gson().toJson(board)
+                    val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
-                    pathList.add(path)
-                }
+                    val pathList= ArrayList<MultipartBody.Part>()
+                    for (i in 0 until albumPhotos.size-1){
 
-//                val file = File(CommonUtil.absolutelyPath(albumPhotos[0].photo.toUri(), this))
-//                val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
-//                val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
+                        val file = File(CommonUtil.absolutelyPath(albumPhotos[i].photo.toUri(), this))
+                        val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
+                        val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
 
-                val board = AlbumUploadModel(title, content, bbsId, groupSeq, ntcrSeq)
-                val json = Gson().toJson(board)
-                val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
-
-                //Log.i(TAG, "$title, $content //// path: " + path)
-                Log.i(TAG, pathList.toString())
-
-                viewDataBinding.vmAlbumUpload?.clickedComplete(jwtToken, requestBody, pathList)?.observe(this){
-                    Log.i(TAG+" code", it.toString())
-                    when (it) {
-                        200 -> { // Success
-                            finish()
-                            viewDataBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, "게시물 작성 완료", Toast.LENGTH_SHORT).show()
-                            return@observe
-                        }
-                        400 -> { // 파라미터 오류
-                            viewDataBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, "제목 또는 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
-                            return@observe
-                        }
-                        500 -> { // 서버 내부오류
-                            viewDataBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
-                            return@observe
-                        }
+                        pathList.add(path)
                     }
 
+                    //Log.i(TAG, "$title, $content //// path: " + path)
+                    Log.i(TAG, pathList.toString())
+
+                    viewDataBinding.vmAlbumUpload?.clickedComplete(jwtToken, requestBody, pathList)?.observe(this){
+                        Log.i(TAG+" code", it.toString())
+                        when (it) {
+                            200 -> { // Success
+                                finish()
+                                viewDataBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "게시물 작성 완료", Toast.LENGTH_SHORT).show()
+                                return@observe
+                            }
+                            400 -> { // 파라미터 오류
+                                viewDataBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "제목 또는 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+                                return@observe
+                            }
+                            500 -> { // 서버 내부오류
+                                viewDataBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                                return@observe
+                            }
+                        }
+                    }
+                }else{ // 게시글 수정인 경우
+                    val board = BoardUpdate(boardSeq, title, content, bbsId, fileId)
+                    val json = Gson().toJson(board)
+                    val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
+
+                    val pathList= ArrayList<MultipartBody.Part>()
+                    for (i in 0 until albumPhotos.size-1){
+
+                        if (albumPhotos[i].photo.contains(ApiService.BASE_URL_FIRST)){
+                            Log.i(">>>>>>>>>1", albumPhotos[i].photo + " " + i)
+                            albumPhotos.removeAt(i)
+                            return
+                        }else{
+                            Log.i(">>>>>>>>>2", albumPhotos[i].photo + " " + i)
+                            val file = File(CommonUtil.absolutelyPath(albumPhotos[i].photo.toUri(), this))
+                            val requestBodys = file.asRequestBody("image/*".toMediaTypeOrNull())
+                            val path = MultipartBody.Part.createFormData("files", file.name, requestBodys)
+
+                            pathList.add(path)
+                        }
+                        Log.i(">>>>>>>>>3", albumPhotos[i].photo + " " + i)
+                    }
+
+                    Log.i(">>>>>>>>>4", albumPhotos[0].photo)
+
+                    viewDataBinding.vmAlbumUpload?.boardUpdate(jwtToken, requestBody, pathList)?.observe(this){
+                        Log.i(TAG+" code", it.toString())
+                        finish()
+                        viewDataBinding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, "게시물 수정 완료", Toast.LENGTH_SHORT).show()
+                    }
                 }
-
-
             }else{
                 Toast.makeText(this, R.string.please_add_img, Toast.LENGTH_SHORT).show()
             }
 
         }
-
     }
 
 }

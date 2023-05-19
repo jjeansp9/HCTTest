@@ -10,19 +10,26 @@ import kr.co.testapp0501.databinding.LayoutAlbumUploadItemBinding
 import kr.co.testapp0501.model.album.AlbumUploadPhotoModel
 
 class AlbumUploadAdapter(
-    private val onAlbumPhotoClick : (AlbumUploadPhotoModel) -> Unit,
+    private val onAlbumPhotoClick : (position: Int) -> Unit,
     private val onAlbumFooterClick : () -> Unit
 ) : ListAdapter<AlbumUploadPhotoModel, RecyclerView.ViewHolder>(
     DIFF_CALLBACK
 ) {
     inner class AlbumPhotoViewHolder(private val binding: LayoutAlbumUploadItemBinding) :
         RecyclerView.ViewHolder(binding.albumUploadRoot) {
-        fun bind(
-            photoItem: AlbumUploadPhotoModel,
-            onAlbumPhotoClick: (AlbumUploadPhotoModel) -> Unit
-        ) {
+        private var currentPosition: Int = RecyclerView.NO_POSITION
+
+        init {
+            binding.albumUploadRoot.setOnClickListener {
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    onAlbumPhotoClick(currentPosition)
+                }
+            }
+        }
+
+        fun bind(photoItem: AlbumUploadPhotoModel, position: Int) {
+            currentPosition = position
             binding.item = photoItem
-            binding.albumUploadRoot.setOnClickListener { onAlbumPhotoClick(photoItem) }
             binding.executePendingBindings()
         }
     }
@@ -37,7 +44,7 @@ class AlbumUploadAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is AlbumPhotoViewHolder -> holder.bind(getItem(position) as AlbumUploadPhotoModel, onAlbumPhotoClick)
+            is AlbumPhotoViewHolder -> holder.bind(getItem(position) as AlbumUploadPhotoModel, position)
             is AlbumFooterViewHolder -> holder.bind(onAlbumFooterClick)
         }
     }

@@ -1,6 +1,7 @@
 package kr.co.testapp0501.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kr.co.testapp0501.base.BaseViewModel
 import kr.co.testapp0501.model.album.AlbumListResponseModel
@@ -42,4 +43,52 @@ class AlbumViewModel: BaseViewModel() {
 
         })
     }
+
+    // 게시판 삭제
+    fun boardDelete(jwtToken: String, seq: Int): LiveData<Int>{
+        val resultCode = MutableLiveData<Int>()
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
+
+        apiService.boardDelete(jwtToken, seq).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                Log.i(TAG+"delete Code", response.code().toString())
+                if (response.isSuccessful){
+                    resultCode.value = response.code()
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+
+            }
+
+        })
+
+        return resultCode
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,7 +17,7 @@ import kr.co.testapp0501.model.album.AlbumListResponseModel
 import kr.co.testapp0501.model.album.AlbumModel
 import kr.co.testapp0501.model.network.ApiService
 
-class RecyclerAlbumActivityAdapter constructor(private val context: Context, private val items: MutableList<AlbumModel>): RecyclerView.Adapter<RecyclerAlbumActivityAdapter.VH>(){
+class RecyclerAlbumActivityAdapter constructor(private val context: Context, private val items: MutableList<AlbumModel>, private val memberLevel: Int, private val memberSeq: Int): RecyclerView.Adapter<RecyclerAlbumActivityAdapter.VH>(){
     inner class VH constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
         val binding: RecyclerAlbumItemBinding = RecyclerAlbumItemBinding.bind(itemView)
     }
@@ -56,6 +57,11 @@ class RecyclerAlbumActivityAdapter constructor(private val context: Context, pri
         }else{
             Glide.with(context).load(items[position].albumProfileImg).into(holder.binding.imgAlbumProfile)
         }
+
+        if (memberLevel == 1) holder.binding.albumSet.visibility = View.VISIBLE
+        else if (items[position].albumMemberSeq == memberSeq) holder.binding.albumSet.visibility = View.VISIBLE
+
+        Log.i("dddddd", items[position].albumMemberSeq.toString() + memberSeq.toString())
 
 
         // 앨범 관련

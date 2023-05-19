@@ -50,6 +50,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_bg_center.xml" value="0.267" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_bg_group_code_input.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_bg_top.xml" value="0.267" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_bg_top_second.xml" value="0.192" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_box_group_code_input.xml" value="0.1795" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_btn_group_code.xml" value="0.193" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/drawable/dialog_et_group_code_input.xml" value="0.1795" />
@@ -65,6 +66,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_album.xml" value="0.29128248113998323" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_album_comment.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_album_upload.xml" value="0.33" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_board_detail.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group.xml" value="0.25" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_access.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/activity_group_create.xml" value="0.3130630630630631" />
@@ -85,6 +87,7 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/custom_progress_bar.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/custom_toolbar.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/dialog_album_upload_picture.xml" value="0.33" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/dialog_board_delete_update.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/dialog_group_add.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/dialog_group_code_input.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_blank.xml" value="0.3578125" />
@@ -93,7 +96,9 @@
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/fragment_profile_tab3_album.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/layout_album_comment_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/layout_album_upload_footer.xml" value="0.3130630630630631" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/layout_album_upload_item.xml" value="0.3130630630630631" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/layout_album_upload_photo.xml" value="0.3130630630630631" />
+        <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/layout_board_detail_item.xml" value="0.31216216216216214" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_album_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_group_item.xml" value="0.33" />
         <entry key="..\:/JspAndroid/AppProject/TestApp0501/app/src/main/res/layout/recycler_main_album_update_item.xml" value="0.3130630630630631" />

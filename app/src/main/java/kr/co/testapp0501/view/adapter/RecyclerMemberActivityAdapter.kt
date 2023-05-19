@@ -66,6 +66,8 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
                 holder.binding.btnMemberAccpet.visibility = View.VISIBLE // 수락 버튼
                 holder.binding.btnMemberCancel.visibility = View.VISIBLE // 거절 버튼
 
+                holder.binding.tvAdmin.visibility = View.GONE // 관리자 칭호
+
                 holder.binding.btnMemberAccpet.setOnClickListener{itemClickListener.acceptClick(holder.binding.btnMemberAccpet, position)} // 수락
                 holder.binding.btnMemberCancel.setOnClickListener{itemClickListener.cancelClick(holder.binding.btnMemberCancel, position)} // 거절
             }
@@ -79,6 +81,9 @@ class RecyclerMemberActivityAdapter constructor(private val context: Context, pr
 //                holder.binding.imgMember.visibility = View.VISIBLE // 멤버 프로필사진
 //                holder.binding.itemRoot.setOnClickListener{itemClickListener.itemClick(holder.binding.itemRoot, position)} // 멤버 리스트를 클릭했을 때
 //            }
+            else -> {
+                holder.binding.tvAdmin.visibility = View.GONE // 관리자 칭호
+            }
         }
     }
 

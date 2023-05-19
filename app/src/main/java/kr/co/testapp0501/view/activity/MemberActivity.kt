@@ -111,7 +111,8 @@ class MemberActivity : BaseActivity<ActivityMemberBinding>(R.layout.activity_mem
             override fun itemClick(v: View, position: Int) {
                 Toast.makeText(this@MemberActivity, "${memberItems[position].tvName}님의 프로필 화면으로 이동", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@MemberActivity, ProfileActivity::class.java)
-                intent.putExtra("memberName", memberItems[position].tvName)
+                intent.putExtra("memberSeq", memberItems[position].memberSeq)
+                intent.putExtra("jwtToken", jwtToken)
                 startActivity(intent)
             }
 

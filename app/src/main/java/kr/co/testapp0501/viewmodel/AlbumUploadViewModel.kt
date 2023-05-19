@@ -20,6 +20,7 @@ class AlbumUploadViewModel : ViewModel() {
         private const val TAG = "albumUploadVM"
     }
     val albumUploadPhotos: MutableLiveData<MutableList<AlbumUploadPhotoModel>> = MutableLiveData()
+    val getBoardDetailInfo: MutableLiveData<AlbumResponseModel> = MutableLiveData()
 
     // 사진 한장씩 가져오기
     fun addPhotoToAlbum(uri: String): LiveData<Int>{
@@ -91,6 +92,29 @@ class AlbumUploadViewModel : ViewModel() {
         return resultCode
     }
 
+    // 게시글 수정
+    fun boardUpdate(jwtToken: String, board: RequestBody, img: MutableList<MultipartBody.Part>): LiveData<Int>{
+        val resultCode = MutableLiveData<Int>()
+        val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
+
+        apiService.boardUpdate(jwtToken, board, img).enqueue(object: Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                Log.i(TAG+" updateCode", response.code().toString())
+                resultCode.value = response.code()
+                if (response.isSuccessful){
+
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+
+            }
+
+        })
+        return resultCode
+    }
+
+    // 게시글 상세정보
     fun getBoardDetailInfo(jwtToken: String, boardSeq: Int){
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
@@ -98,7 +122,7 @@ class AlbumUploadViewModel : ViewModel() {
             override fun onResponse(call: Call<AlbumResponseModel>, response: Response<AlbumResponseModel>) {
                 Log.i(TAG+ " detailInfo code", response.code().toString())
                 if (response.isSuccessful){
-
+                    getBoardDetailInfo.value = response.body()
                 }
             }
 

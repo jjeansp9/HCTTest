@@ -63,7 +63,8 @@
             app:layout_constraintBottom_toTopOf="@id/layout_album_upload_picture"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/layout_album_upload_picture"

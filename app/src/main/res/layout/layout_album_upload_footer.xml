@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bt_group_plusbox"/>
+                android:src="@drawable/bt_group_plusbox" />
 
 <!--            <TextView-->
 <!--                android:id="@+id/tv_album_upload_photo_count"-->
