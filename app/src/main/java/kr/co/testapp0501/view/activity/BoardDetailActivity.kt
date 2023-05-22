@@ -36,7 +36,6 @@ class BoardDetailActivity : BaseActivity<ActivityBoardDetailBinding>(R.layout.ac
         viewDataBinding.lifecycleOwner = this
         viewDataBinding.recyclerBoardDetail.adapter = adapter
 
-
         setToolbar()
 
         getBoardDetail()

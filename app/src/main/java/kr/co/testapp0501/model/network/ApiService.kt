@@ -2,6 +2,8 @@ package kr.co.testapp0501.model.network
 
 import kr.co.testapp0501.model.album.AlbumListResponseModel
 import kr.co.testapp0501.model.album.AlbumResponseModel
+import kr.co.testapp0501.model.comment.CommentPatch
+import kr.co.testapp0501.model.comment.CommentSend
 import kr.co.testapp0501.model.group.*
 import kr.co.testapp0501.model.profile.ProfileInfoResponse
 import kr.co.testapp0501.model.profile.ProfileUpdateRequest
@@ -54,6 +56,12 @@ interface ApiService {
         const val BOARD_LIST = "$PREFIX_URL/boards"
         // 게시판 상세 조회
         const val BOARD_DETAIL_INFO = "$PREFIX_URL/board/{seq}"
+        // 댓글 작성
+        const val COMMENT_SEND = "$PREFIX_URL/comment"
+        // 댓글 수정, 삭제
+        const val COMMENT_PATCH_OR_DELETE = "$PREFIX_URL/comment/{commentSeq}"
+        // 댓글 리스트 조회
+        const val COMMENT_LIST = "$PREFIX_URL/comments"
         // 회원 조회 [프로필]
         const val PROFILE_MEMBER_INFO = "$PREFIX_URL/member/{memberSeq}"
         // 회원 정보 수정 [프로필]
@@ -184,7 +192,35 @@ interface ApiService {
         @Path("seq") seq: Int
     ): Call<AlbumResponseModel>
 
+    // 댓글 작성
+    @POST(COMMENT_SEND)
+    fun commentSend(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Body commentSend: CommentSend
+    ): Call<String>
 
+    // 댓글 삭제
+    @DELETE(COMMENT_PATCH_OR_DELETE)
+    fun commentDelete(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("commentSeq") commentSeq: Int
+    ): Call<String>
+
+    // 댓글 수정
+    @PATCH(COMMENT_PATCH_OR_DELETE)
+    fun commentPatch(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("commentSeq") commentSeq: Int,
+        @Body commentPatch: CommentPatch
+    )
+
+    // 댓글 리스트 조회
+    @GET(COMMENT_LIST)
+    fun commentList(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Query("boardSeq") boardSeq: Int,
+        @Query("seq") commentSeq: Int
+    ): Call<String>
 
     // 회원 조회 [프로필]
     @GET(PROFILE_MEMBER_INFO)

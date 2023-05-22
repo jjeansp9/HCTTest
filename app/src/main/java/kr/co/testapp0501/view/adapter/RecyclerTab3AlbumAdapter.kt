@@ -18,7 +18,7 @@ import kr.co.testapp0501.model.recycler.RecyclerTab3AlbumData
 
 class RecyclerTab3AlbumAdapter constructor(private val context: Context, private val items: MutableList<RecyclerTab3AlbumData>, getViewType: Int): RecyclerView.Adapter<RecyclerTab3AlbumAdapter.VH>(){
 
-    private val type = getViewType
+    val type = getViewType
 
     inner class VH constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
 
@@ -26,10 +26,12 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         val tvAlbumDate: TextView by lazy { itemView.findViewById(R.id.tv_album_date) }
         val tvNumOfComments: TextView by lazy { itemView.findViewById(R.id.tv_num_of_comments) }
         val imgAlbum: ImageView by lazy { itemView.findViewById(R.id.img_album) }
+        val albumUpdateRoot: ConstraintLayout by lazy { itemView.findViewById(R.id.album_update_root) }
+        val boardRoot: ConstraintLayout by lazy { itemView.findViewById(R.id.board_root) }
     }
 
     interface OnItemClickListener {
-        fun albumUpdateClick(v: View, position: Int)
+        fun rootClick(v: View, position: Int)
     }
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
         this.itemClickListener = onItemClickListener
@@ -51,6 +53,9 @@ class RecyclerTab3AlbumAdapter constructor(private val context: Context, private
         holder.tvAlbumTitle.text = items[position].tvAlbumTitle
         holder.tvAlbumDate.text = items[position].tvAlbumDate
         holder.tvNumOfComments.text = items[position].tvNumOfComments.toString()
+
+        if (type == 0) holder.albumUpdateRoot.setOnClickListener{itemClickListener.rootClick(holder.albumUpdateRoot, position)} // 메인 하단 앨범 새글
+        else if (type == 1) holder.boardRoot.setOnClickListener{itemClickListener.rootClick(holder.boardRoot, position)} // 프로필의 앨범, 자료실
 
         val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(20))
         if (items[position].imgAlbum == "") Glide.with(context).load(R.drawable.img_story).apply(requestOptions).into(holder.imgAlbum) // 앨범글 이미지
