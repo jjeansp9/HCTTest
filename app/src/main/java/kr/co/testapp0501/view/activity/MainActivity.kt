@@ -65,7 +65,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     // 하단에 앨범 새글에 게시판 글목록 클릭
     private fun albumUpdateClick(){
         adapter.setItemClickListener(object : RecyclerTab3AlbumAdapter.OnItemClickListener{
-            override fun albumUpdateClick(v: View, position: Int) {
+            override fun rootClick(v: View, position: Int) {
                 viewDataBinding.vmMain?.onClickAlbum() // 앨범 화면으로 이동
             }
 

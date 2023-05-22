@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
@@ -125,7 +124,7 @@ class AlbumActivity : BaseActivity<ActivityAlbumBinding>(R.layout.activity_album
             }
             // 댓글 클릭
             override fun commentClick(v: View, position: Int) {
-                startActivity(Intent(this@AlbumActivity, AlbumCommentActivity::class.java))
+                startActivity(Intent(this@AlbumActivity, BoardCommentActivity::class.java))
             }
 
         })

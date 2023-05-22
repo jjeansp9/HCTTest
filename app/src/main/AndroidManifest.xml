@@ -36,7 +36,7 @@
             android:exported="false"
             />
         <activity
-            android:name=".view.activity.AlbumCommentActivity"
+            android:name=".view.activity.BoardCommentActivity"
             android:exported="false"
             />
         <activity

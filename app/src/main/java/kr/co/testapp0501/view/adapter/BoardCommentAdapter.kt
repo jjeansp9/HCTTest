@@ -9,17 +9,25 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.testapp0501.databinding.LayoutAlbumCommentItemBinding
 import kr.co.testapp0501.model.album.AlbumCommentItemModel
 
-class AlbumCommentAdapter(
-    private val onAlbumCommentItemClick: (String) -> Unit
+class BoardCommentAdapter(
+    private val onAlbumCommentItemClick: () -> Unit
     ) : ListAdapter<AlbumCommentItemModel, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     inner class AlbumCommentViewHolder(private val binding: LayoutAlbumCommentItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(albumCommentItem: AlbumCommentItemModel, onAlbumCommentItemClick: (String) -> Unit){
+        fun bind(albumCommentItem: AlbumCommentItemModel, onAlbumCommentItemClick: () -> Unit){
             binding.item = albumCommentItem
             //binding.root.setOnClickListener{onAlbumCommentItemClick(albumCommentItem)}
+            var clickReply = false
             binding.btnCommentReply.setOnClickListener{
-                onAlbumCommentItemClick("")
-                binding.layoutAlbumCommentReply.visibility = View.VISIBLE
+                onAlbumCommentItemClick()
+                if (!clickReply) {
+                    binding.layoutAlbumCommentReply.visibility = View.VISIBLE
+                    clickReply = true
+                }else{
+                    binding.layoutAlbumCommentReply.visibility = View.GONE
+                    clickReply = false
+                }
+
             }
             binding.executePendingBindings()
         }
