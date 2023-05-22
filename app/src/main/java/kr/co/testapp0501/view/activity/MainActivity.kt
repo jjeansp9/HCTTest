@@ -96,6 +96,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                 }else{
                     for (i in 0 .. 4){
+                        Log.i("this event2", "this event2")
                         val fileAlbum = albumUpdate[i].fileList[0]
                         val albumUrl = fileAlbum.path + "/" + fileAlbum.saveName
                         val formattedTime = CommonUtil.convertDateTimeString(albumUpdate[i].insertDate)

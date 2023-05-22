@@ -77,6 +77,8 @@ class AlbumUploadViewModel : ViewModel() {
         val resultCode = MutableLiveData<Int>()
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
 
+        Log.i(TAG + "boardImg", albumImg.toString())
+
         apiService.boardUpload(token, board, albumImg).enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 resultCode.value = response.code()

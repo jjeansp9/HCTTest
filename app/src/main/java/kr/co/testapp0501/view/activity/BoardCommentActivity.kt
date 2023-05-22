@@ -1,6 +1,7 @@
 package kr.co.testapp0501.view.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import kr.co.testapp0501.R
 import kr.co.testapp0501.base.BaseActivity
@@ -39,6 +40,7 @@ class BoardCommentActivity : BaseActivity<ActivityAlbumCommentBinding>(R.layout.
         btnCommentSend()
     }
 
+    // 댓글 등록 버튼
     private fun btnCommentSend(){
         viewDataBinding.btnCommentSend.setOnClickListener {
             val bbsId = boardType
@@ -49,7 +51,9 @@ class BoardCommentActivity : BaseActivity<ActivityAlbumCommentBinding>(R.layout.
 
             val commentSend = CommentSend(bbsId, boardSeq, content, ntcrSeq, groupSeq)
 
-            viewDataBinding.vmBoardComment.commentSend(jwtToken, commentSend)
+            viewDataBinding.vmBoardComment?.commentSend(jwtToken, commentSend)?.observe(this){
+                Log.i(TAG +" Code", it.toString())
+            }
         }
     }
 
