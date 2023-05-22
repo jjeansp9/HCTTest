@@ -20,7 +20,6 @@ class AlbumViewModel: BaseViewModel() {
 
     // 게시글 목록 불러오기
     fun boardListRequest(jwtToken: String, bbsId: String, groupSeq: Int, seq: Int){
-
         val apiService: ApiService = RetrofitBuilder.getRetrofitInstanceFirst()!!.create(ApiService::class.java)
         Log.i(TAG+" url", ApiService.BASE_URL_FIRST+ApiService.BOARD_LIST)
 

@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="vmAlbumComment"
-            type="kr.co.testapp0501.viewmodel.AlbumCommentViewModel" />
+            name="vmBoardComment"
+            type="kr.co.testapp0501.viewmodel.BoardCommentViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,6 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
+                android:id="@+id/et_comment_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
