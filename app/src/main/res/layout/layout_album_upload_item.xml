@@ -27,11 +27,11 @@
 
             <ImageView
                 android:id="@+id/img_album_upload"
+                albumImageUrl="@{item.photo}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="2dp"
-                android:scaleType="centerCrop"
-                albumImageUrl="@{item.photo}"/>
+                android:scaleType="centerCrop" />
 
 <!--            <TextView-->
 <!--                android:id="@+id/tv_album_upload_photo_count"-->
